@@ -1,0 +1,15 @@
+{
+  "name": "flexible-classroom-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.agoralab.co/aduc/open-flexible-classroom-desktop.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
