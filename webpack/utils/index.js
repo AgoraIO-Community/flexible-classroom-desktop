@@ -6,7 +6,7 @@ const PUBLIC_PATH = path.resolve(__dirname, '../../', 'public');
 const ROOT_PATH = path.resolve(__dirname, '../../');
 const DEFAULT_PORT = 3000;
 
-const libs = ['agora-classroom-sdk', 'agora-proctor-sdk'];
+const libs = ['agora-rte-sdk', 'agora-edu-core', 'agora-classroom-sdk'];
 
 let ALIAS = {};
 
