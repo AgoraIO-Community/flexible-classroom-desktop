@@ -1,4 +1,3 @@
-import { GlobalStorage } from '@/infra/utils';
 import ReactDOM from 'react-dom';
 import { RouteContainer } from './router';
 import { StoreProvider } from './stores';
@@ -20,7 +19,6 @@ declare global {
 }
 
 export const App: React.FC = () => {
-  GlobalStorage.useLocalStorage();
   token.init();
   return (
     <StoreProvider>
