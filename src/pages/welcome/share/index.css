@@ -1,6 +1,6 @@
 .share-container {
   @apply w-full bg-cover;
-  background-image: url(@/app/assets/home-share-bg.png);
+  background-image: url(@app/assets/home-share-bg.png);
   background-color: white;
 }
 

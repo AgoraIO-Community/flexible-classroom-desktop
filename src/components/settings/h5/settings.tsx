@@ -1,4 +1,4 @@
-import { useLogout } from '@/app/hooks';
+import { useLogout } from '@app/hooks';
 import { FC, useState } from 'react';
 import { useI18n } from '~ui-kit';
 import { SettingsMenuEnum } from '.';

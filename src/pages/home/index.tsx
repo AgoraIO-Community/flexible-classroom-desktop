@@ -1,8 +1,9 @@
-import { GlobalStoreContext } from '@/app/stores';
-import { GlobalLaunchOption } from '@/app/stores/global';
-import { AgoraEduSDK, LanguageEnum } from '@/infra/api';
-import { ToastType } from '@/infra/stores/common/share-ui';
-import { getBrowserLanguage, storage } from '@/infra/utils';
+import { homeApi, roomApi } from '@app/api';
+import { GlobalStoreContext } from '@app/stores';
+import { GlobalLaunchOption, ToastType } from '@app/stores/global';
+import { courseware } from '@app/utils/courseware';
+import { AgoraEduSDK, LanguageEnum } from 'agora-classroom-sdk';
+import { getBrowserLanguage } from '@app/utils';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
@@ -13,7 +14,6 @@ import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
 import { Button, Layout, SvgIconEnum, SvgImg, Toast, transI18n, useI18n } from '~ui-kit';
-import { HomeApi } from '../../api/home';
 import { addResource } from '../../components/i18n';
 import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
@@ -68,7 +68,7 @@ export const useBuilderConfig = () => {
     const projectId = window.__launchProjectId;
 
     if (companyId && projectId) {
-      HomeApi.shared.getBuilderResource(companyId, projectId).then(({ scenes, themes }) => {
+      homeApi.getBuilderResource(companyId, projectId).then(({ scenes, themes }) => {
         builderResource.current = {
           scenes: scenes ?? {},
           themes: themes ? { default: themes } : {},
@@ -130,7 +130,7 @@ export const HomePage = () => {
     }
   }, [configReady]);
 
-  const [courseWareList] = useState<any[]>(storage.getCourseWareSaveList());
+  const [courseWareList] = useState(courseware.getList());
 
   const handleSubmit = async ({
     roleType,
@@ -162,7 +162,11 @@ export const HomePage = () => {
 
       const domain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
-      const { token, appId } = await HomeApi.shared.loginNoAuth(userUuid, roomUuid, userRole);
+      const { token, appId } = await roomApi.getCredentialNoAuth({
+        userUuid,
+        roomUuid,
+        role: userRole,
+      });
 
       const companyId = window.__launchCompanyId;
       const projectId = window.__launchProjectId;
@@ -170,11 +174,9 @@ export const HomePage = () => {
       const shareUrl =
         AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron
           ? ''
-          : `${location.origin}${
-              location.pathname
-            }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${
-              EduRoleTypeEnum.student
-            }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
+          : `${location.origin}${location.pathname
+          }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${EduRoleTypeEnum.student
+          }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
 
       console.log('## get rtm Token from demo server', token);
 

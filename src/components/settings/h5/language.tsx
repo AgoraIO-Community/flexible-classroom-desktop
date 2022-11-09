@@ -1,4 +1,4 @@
-import { GlobalStoreContext } from '@/app/stores';
+import { GlobalStoreContext } from '@app/stores';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
 import { useI18n } from '~ui-kit';

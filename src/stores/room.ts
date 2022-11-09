@@ -1,7 +1,5 @@
-import { ToastType } from '@/infra/stores/common/share-ui';
-import { EduRoleTypeEnum } from 'agora-edu-core';
 import { action, autorun, observable } from 'mobx';
-import { aMessage, transI18n } from '~ui-kit';
+import { transI18n } from '~ui-kit';
 import {
   roomApi,
   RoomCreateRequest,
@@ -9,10 +7,10 @@ import {
   RoomJoinNoAuthRequest,
   RoomJoinRequest,
 } from '../api/room';
-import { ErrorCode, getErrorMessage } from '../utils/error';
+import { ErrorCode, messageError } from '../utils/error';
 import { getLSStore, LS_LAST_JOINED_ROOM_ID, setLSStore } from '../utils/local-storage';
+import { ToastType } from './global';
 
-type RoomToastType = ToastType;
 export class RoomStore {
   constructor() {
     autorun(() => {
@@ -34,14 +32,14 @@ export class RoomStore {
   public rooms = observable.map<string, RoomInfo>();
 
   @observable
-  roomToastList: RoomToastType[] = [];
+  roomToastList: ToastType[] = [];
   @action.bound
-  addRoomToast(toast: RoomToastType) {
+  addRoomToast(toast: ToastType) {
     this.roomToastList.push(toast);
   }
 
   @action.bound
-  removeRoomToast(id: RoomToastType['id']) {
+  removeRoomToast(id: string) {
     this.roomToastList = this.roomToastList.filter((it) => it.id != id);
   }
 
@@ -75,11 +73,12 @@ export class RoomStore {
     const {
       data: { data },
     } = await roomApi.create(params);
-    const toast: RoomToastType = {
+    const toast: ToastType = {
       id: data.roomId,
       type: 'success',
       desc: transI18n('fcr_create_tips_create_success'),
     };
+    this.refreshRoomList();
     this.addRoomToast(toast);
     setTimeout(() => {
       this.removeRoomToast(data.roomId);
@@ -150,9 +149,9 @@ export class RoomStore {
     return roomApi.join(params).catch((error) => {
       console.warn('join room api failed. error:%o', error);
       if (error?.response?.data?.code === ErrorCode.COURSE_HAS_ENDED) {
-        aMessage.error(getErrorMessage(error?.response?.data?.code));
+        messageError(ErrorCode.COURSE_HAS_ENDED);
       } else {
-        aMessage.error(transI18n('fcr_join_room_tips_empty_id'));
+        messageError(ErrorCode.ROOM_NOT_FOUND);
       }
       return error;
     });
@@ -163,9 +162,9 @@ export class RoomStore {
     return roomApi.joinNoAuth(params).catch((error) => {
       console.warn('join room no auth api failed. error:%o', error);
       if (error?.response?.data?.code === ErrorCode.COURSE_HAS_ENDED) {
-        aMessage.error(getErrorMessage(error?.response?.data?.code));
+        messageError(ErrorCode.COURSE_HAS_ENDED);
       } else {
-        aMessage.error(transI18n('fcr_join_room_tips_empty_id'));
+        messageError(ErrorCode.ROOM_NOT_FOUND);
       }
       return error;
     });

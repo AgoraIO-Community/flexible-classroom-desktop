@@ -1,4 +1,4 @@
-import { CourseWareList } from '@/infra/api/type';
+import { CourseWareList } from 'agora-classroom-sdk';
 
 export default [
   {

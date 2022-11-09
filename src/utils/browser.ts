@@ -1,3 +1,4 @@
+import { LanguageEnum } from 'agora-classroom-sdk';
 import { Platform } from 'agora-edu-core';
 
 export function checkBrowserDevice(): Platform {
@@ -19,3 +20,11 @@ export function checkBrowserDevice(): Platform {
 export function isH5Browser() {
   return Platform.H5 === checkBrowserDevice();
 }
+
+export const getBrowserLanguage = (): LanguageEnum => {
+  const usrlang = navigator.language;
+  if (usrlang.startsWith('zh')) {
+    return 'zh';
+  }
+  return 'en';
+};

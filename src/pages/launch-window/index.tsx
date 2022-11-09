@@ -1,6 +1,5 @@
-import { GlobalStoreContext } from '@/app/stores';
-import { AgoraEduSDK, LanguageEnum, WindowID } from '@/infra/api';
-import { FcrMultiThemeMode } from '@/infra/types/config';
+import { GlobalStoreContext } from '@app/stores';
+import { AgoraEduSDK, LanguageEnum, WindowID, FcrMultiThemeMode } from 'agora-classroom-sdk';
 import { EduRoomTypeEnum } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';

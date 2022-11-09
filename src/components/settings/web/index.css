@@ -39,19 +39,19 @@
 }
 
 .settings-container .left .tab-item .icon.about {
-  background-image: url(@/app/assets/about.svg);
+  background-image: url(@app/assets/about.svg);
 }
 
 .settings-container .left .tab-item.active .icon.about {
-  background-image: url(@/app/assets/about-active.svg);
+  background-image: url(@app/assets/about-active.svg);
 }
 
 .settings-container .left .tab-item .icon.setting {
-  background-image: url(@/app/assets/setting.svg);
+  background-image: url(@app/assets/setting.svg);
 }
 
 .settings-container .left .tab-item.active .icon.setting {
-  background-image: url(@/app/assets/setting-active.svg);
+  background-image: url(@app/assets/setting-active.svg);
 }
 
 .settings-container .left .tab-item.active::before {

@@ -1,6 +1,6 @@
-import arrowRightIcon from '@/app/assets/arrow-right.svg';
-import checkOffIcon from '@/app/assets/check-off.svg';
-import checkOnIcon from '@/app/assets/check-on.svg';
+import arrowRightIcon from '@app/assets/arrow-right.svg';
+import checkOffIcon from '@app/assets/check-off.svg';
+import checkOnIcon from '@app/assets/check-on.svg';
 import { FC } from 'react';
 import './index.css';
 export interface MenuItemProps {

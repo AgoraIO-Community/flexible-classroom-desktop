@@ -3,7 +3,7 @@
   height: 30px;
   margin-right: 3px;
   background-repeat: round;
-  background-image: url(@/app/assets/about.svg);
+  background-image: url(@app/assets/about.svg);
   filter: brightness(150%);
 }
 

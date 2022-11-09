@@ -1,5 +1,5 @@
-import { GlobalStoreContext } from '@/app/stores';
-import { FcrMultiThemeMode } from '@/infra/types/config';
+import { GlobalStoreContext } from '@app/stores';
+import { FcrMultiThemeMode } from 'agora-classroom-sdk';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
 import { RadioGroup, transI18n } from '~ui-kit';

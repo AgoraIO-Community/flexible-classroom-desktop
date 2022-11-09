@@ -1,4 +1,4 @@
-import { useHistoryBack } from '@/app/hooks/useHistoryBack';
+import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { FC, PropsWithChildren } from 'react';
 import './index.css';
 type NavHeaderProps = {

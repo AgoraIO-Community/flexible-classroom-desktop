@@ -7,7 +7,7 @@
 .h5-join-room .header-bg {
   @apply bg-cover w-full flex items-center;
   height: 35vh;
-  background-image: url(@/app/assets/h5-bg.png);
+  background-image: url(@app/assets/h5-bg.png);
 }
 
 .h5-join-room .header-bg .logo {
@@ -20,11 +20,11 @@
 }
 
 .h5-join-room .header-bg .logo.en {
-  background-image: url(@/app/assets/h5-logo-en.png);
+  background-image: url(@app/assets/h5-logo-en.png);
 }
 
 .h5-join-room .header-bg .logo.zh {
-  background-image: url(@/app/assets/h5-logo-zh.png);
+  background-image: url(@app/assets/h5-logo-zh.png);
 }
 
 .h5-join-room .content {

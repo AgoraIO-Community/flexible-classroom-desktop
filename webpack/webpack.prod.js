@@ -7,13 +7,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
-const { ROOT_PATH } = require('./utils');
-const { prod } = require('./utils/loaders');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const packageJson = require('../package.json');
+
+const { ROOT_PATH } = require('./utils/index');
+const { prod } = require('./utils/loaders');
 const template = path.resolve(ROOT_PATH, './public/index.html');
-const entry = path.resolve(ROOT_PATH, './src/app/index.tsx');
-const baseConfig = require('./webpack.base');
+const entry = path.resolve(ROOT_PATH, '.src/index.tsx');
+const baseConfig = require('agora-classroom-sdk/webpack/webpack.base');
 
 const config = {
   mode: 'production',
@@ -27,6 +27,12 @@ const config = {
   module: {
     rules: [...prod],
   },
+  resolve: {
+    alias: {
+      '@': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
+      '@app': path.resolve(ROOT_PATH, 'src'),
+    },
+  },
   optimization: {
     minimize: true,
     nodeEnv: 'production',
@@ -36,6 +42,8 @@ const config = {
         parallel: false,
         extractComments: false,
         terserOptions: {
+          keep_classnames: true,
+          keep_fnames: true,
           compress: {
             warnings: false, // 删除无用代码时是否给出警告
             drop_debugger: true, // 删除所有的debugger

@@ -7,7 +7,7 @@
 .h5-invite:before {
   @apply block absolute w-full h-full top-0 left-0 bg-no-repeat;
   content: '';
-  background-image: url(@/app/assets/h5-invite-bg.png);
+  background-image: url(@app/assets/h5-invite-bg.png);
   background-size: 100%;
   background-position: top center;
 }
@@ -54,7 +54,7 @@
   @apply block absolute w-full h-full top-0 left-0 bg-no-repeat;
   content: '';
   opacity: 0.1;
-  background-image: url(@/app/assets/h5-invite-room-bg.png);
+  background-image: url(@app/assets/h5-invite-room-bg.png);
   background-size: 100%;
   background-position: top center;
 }

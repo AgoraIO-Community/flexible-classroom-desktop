@@ -12,7 +12,7 @@
 .h5-page-layout .header .back {
   height: 100%;
   width: 54px;
-  background-image: url(@/app/assets/arrow-left.svg);
+  background-image: url(@app/assets/arrow-left.svg);
   background-position: center center;
   background-repeat: no-repeat;
 }

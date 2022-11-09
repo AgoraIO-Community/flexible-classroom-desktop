@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom';
+import './index.css';
 import { RouteContainer } from './router';
 import { StoreProvider } from './stores';
-import { token } from './utils/token';
-import './index.css';
+import { token } from './utils';
 declare global {
   interface Window {
     __launchRegion: string;
@@ -13,13 +13,12 @@ declare global {
     __launchRoomType: string;
     __launchCompanyId: string;
     __launchProjectId: string;
-    __accessToken: string;
-    __refreshToken: string;
   }
 }
 
+token.update(window.location.search);
+
 export const App: React.FC = () => {
-  token.init();
   return (
     <StoreProvider>
       <RouteContainer />

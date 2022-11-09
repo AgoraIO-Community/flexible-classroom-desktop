@@ -1,19 +1,22 @@
 import { EduRegion } from 'agora-edu-core';
-import { FLEX_CLASSROOM_SDK_VERSION, REACT_APP_SHARE_LINK_PREFIX } from './env';
-import { parseHashUrlQuery } from './url';
+import { EduRoleTypeEnum } from 'agora-edu-core';
+import { REACT_APP_SHARE_LINK_PREFIX } from './env';
 
 export type ShareContent = {
   roomId: string;
   owner: string;
-  region: EduRegion;
+  region?: EduRegion;
+  role: EduRoleTypeEnum;
 };
+
+declare const CLASSROOM_SDK_VERSION: string;
 
 /**
  * Share links function
  */
 export class ShareLink {
   constructor() {
-    const version = FLEX_CLASSROOM_SDK_VERSION.replace(/\d+$/, 'x');
+    const version = CLASSROOM_SDK_VERSION.replace(/\d+$/, 'x');
     this._url = `${REACT_APP_SHARE_LINK_PREFIX}/release_${version}/index.html`;
   }
 
@@ -27,7 +30,7 @@ export class ShareLink {
 
   private decode(str: string): ShareContent | null {
     try {
-      const jsonStr: any = window.atob(str);
+      const jsonStr = window.atob(str);
       const data = JSON.parse(jsonStr);
       if (data.owner && data.owner !== '') {
         data.owner = decodeURI(data.owner);
@@ -46,14 +49,19 @@ export class ShareLink {
     return `sc=${this.encode(params)}`;
   }
 
-  generateUrl(params: ShareContent, url = '') {
-    return `${url ? url : this._url}#/invite?${this.query(params)}`;
+  generateUrl(params: ShareContent, url = this._url) {
+    return `${url}#/invite?${this.query(params)}`;
   }
 
-  parseHashURLQuery(hash: string): ShareContent | null {
-    const query = parseHashUrlQuery(hash);
-    if (query.sc) {
-      return this.decode(query.sc);
+  parseSearch(search: string): ShareContent | null {
+    const arr = search.split('?');
+    if (arr.length < 2 || !arr[1]) {
+      return null;
+    }
+    const params = new URLSearchParams(arr[1]);
+    const sc = params.get('sc');
+    if (sc) {
+      return this.decode(sc);
     }
     return null;
   }

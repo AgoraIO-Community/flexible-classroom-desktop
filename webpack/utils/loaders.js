@@ -23,7 +23,7 @@ module.exports.dev = [
         options: {
           postcssOptions: {
             ident: 'postcss',
-            config: path.resolve(ROOT_PATH, './postcss.config.js'),
+            config: path.resolve(ROOT_PATH, '../agora-classroom-sdk/postcss.config.js'),
           },
         },
       },
@@ -56,7 +56,7 @@ module.exports.prod = [
         options: {
           postcssOptions: {
             ident: 'postcss',
-            config: path.resolve(ROOT_PATH, './postcss.config.js'),
+            config: path.resolve(ROOT_PATH, '../agora-classroom-sdk/postcss.config.js'),
           },
         },
       },

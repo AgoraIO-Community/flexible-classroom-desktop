@@ -1,6 +1,6 @@
-import { useLogout } from '@/app/hooks';
-import { GlobalStoreContext } from '@/app/stores';
-import { FcrMultiThemeMode } from '@/infra/types/config';
+import { useLogout } from '@app/hooks';
+import { GlobalStoreContext } from '@app/stores';
+import { FcrMultiThemeMode } from 'agora-classroom-sdk';
 import { observer } from 'mobx-react';
 import { useContext, useState } from 'react';
 import { Button, CheckBox, Modal, RadioGroup, transI18n } from '~ui-kit';

@@ -1,4 +1,4 @@
-import { RoomStoreContext } from '@/app/stores';
+import { RoomStoreContext } from '@app/stores';
 import { observer } from 'mobx-react';
 import { useContext, useMemo } from 'react';
 import './index.css';

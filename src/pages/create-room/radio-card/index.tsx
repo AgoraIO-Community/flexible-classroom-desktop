@@ -1,4 +1,4 @@
-import { RadioIcon } from '@/app/components/radio-icon';
+import { RadioIcon } from '@app/components/radio-icon';
 import { FC } from 'react';
 import './index.css';
 

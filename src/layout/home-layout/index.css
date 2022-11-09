@@ -1,6 +1,6 @@
 .home {
   @apply bg-cover flex  w-screen h-screen;
-  background-image: url('../../assets/home-background.jpg');
+  background-image: url('@app/assets/home-background.jpg');
   min-width: 1300px;
   overflow-x: auto;
 }
@@ -14,7 +14,7 @@
   padding: 25px 47px;
   font-family: 'Montserrat Roboto';
   font-style: normal;
-  background-image: url('../../assets/home-left-bg-icon.png');
+  background-image: url('@app/assets/home-left-bg-icon.png');
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: 100% auto;
@@ -44,11 +44,11 @@
 }
 
 .home-left .logo.en {
-  background-image: url('@/app/assets/logo-en.png');
+  background-image: url('@app/assets/logo-en.png');
 }
 
 .home-left .logo.zh {
-  background-image: url('@/app/assets/logo-zh.png');
+  background-image: url('@app/assets/logo-zh.png');
 }
 
 .home-left .text {
@@ -62,6 +62,19 @@
   color: #ffffff;
 }
 
+.home-left .text-img {
+  margin-left: 6vw;
+}
+
+.home-left .text-img.zh {
+  margin-top: 21vh;
+  height: 17.3vh;
+}
+
+.home-left .text-img.en {
+  margin-top: 19vh;
+  height: 25.4vh;
+}
 /* --- right --- */
 .home-right {
   font-family: 'Montserrat Roboto';

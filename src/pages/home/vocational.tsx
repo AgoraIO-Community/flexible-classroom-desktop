@@ -1,10 +1,13 @@
-import { GlobalStoreContext } from '@/app/stores';
-import { GlobalLaunchOption } from '@/app/stores/global';
-import { LanguageEnum } from '@/infra/api';
-import { ToastType } from '@/infra/stores/common/share-ui';
-import { FcrMultiThemeMode } from '@/infra/types/config';
-import { GlobalStorage, storage } from '@/infra/utils';
-import { applyTheme, loadGeneratedFiles, themes } from '@/infra/utils/config-loader';
+import { roomApi } from '@app/api';
+import { GlobalStoreContext } from '@app/stores';
+import { GlobalLaunchOption, ToastType } from '@app/stores/global';
+import {
+  REACT_APP_AGORA_APP_CERTIFICATE,
+  REACT_APP_AGORA_APP_ID,
+  REACT_APP_AGORA_APP_SDK_DOMAIN,
+} from '@app/utils';
+import { courseware } from '@app/utils/courseware';
+import { LanguageEnum, FcrMultiThemeMode, applyTheme, loadGeneratedFiles, themes } from 'agora-classroom-sdk';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import {
   EduClassroomConfig,
@@ -23,16 +26,13 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
 import { Toast, transI18n } from '~ui-kit';
 import { Home } from '~ui-kit/scaffold';
-import { HomeApi } from '../../api/home';
 import { HomeSettingContainer } from './home-setting';
 import { MessageDialog } from './message-dialog';
 
-const REACT_APP_AGORA_APP_TOKEN_DOMAIN = process.env.REACT_APP_AGORA_APP_TOKEN_DOMAIN;
-const REACT_APP_PUBLISH_DATE = process.env.REACT_APP_PUBLISH_DATE || '';
-const REACT_APP_AGORA_APP_SDK_DOMAIN = process.env.REACT_APP_AGORA_APP_SDK_DOMAIN;
+declare const BUILD_TIME: string;
+declare const BUILD_COMMIT_ID: string;
+declare const CLASSROOM_SDK_VERSION: string;
 
-const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
-const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
 const SCENARIOS_ROOM_SUBTYPE_MAP: { [key: string]: number } = {
   'vocational-class': 1,
@@ -40,6 +40,7 @@ const SCENARIOS_ROOM_SUBTYPE_MAP: { [key: string]: number } = {
   '1v1': 0,
   'mid-class': 0,
 };
+
 const SCENARIOS_ROOM_SERVICETYPE_MAP: { [key: string]: EduRoomServiceTypeEnum } = {
   'premium-service': EduRoomServiceTypeEnum.LivePremium,
   'standard-service': EduRoomServiceTypeEnum.LiveStandard,
@@ -90,8 +91,8 @@ export const VocationalHomePage = observer(() => {
   const [encryptionMode, setEncryptionMode] = useState<string>('');
   const [encryptionKey, setEncryptionKey] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const onChangeRegion = (r: string) => {};
-  const onChangeLanguage = (language: string) => {};
+  const onChangeRegion = (r: string) => { };
+  const onChangeLanguage = (language: string) => { };
   const role = useMemo(() => {
     const roles = {
       teacher: EduRoleTypeEnum.teacher,
@@ -171,7 +172,7 @@ export const VocationalHomePage = observer(() => {
 
   const history = useHistory();
 
-  const [courseWareList] = useState<any[]>(storage.getCourseWareSaveList());
+  const [courseWareList] = useState(courseware.getList());
 
   const buildTime = dayjs(+BUILD_TIME || 0).format('YYYY-MM-DD HH:mm:ss');
 
@@ -182,7 +183,12 @@ export const VocationalHomePage = observer(() => {
       setLoading(true);
       const domain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
-      const { token, appId } = await HomeApi.shared.loginNoAuth(userUuid, roomUuid, role);
+      const { token, appId } = await await roomApi.getCredentialNoAuth({
+        userUuid,
+        roomUuid,
+        role,
+      });
+
       console.log('## get rtm Token from demo server', token);
       const roomServiceType = SCENARIOS_ROOM_SERVICETYPE_MAP[curService];
       const webRTCCodec = webRTCCodecH264.includes(roomServiceType) ? 'h264' : 'vp8';
@@ -240,7 +246,6 @@ export const VocationalHomePage = observer(() => {
           },
         };
       }
-      GlobalStorage.save('platform', 'web');
       globalStore.setLaunchConfig(config);
       history.push('/launch');
     } catch (e) {

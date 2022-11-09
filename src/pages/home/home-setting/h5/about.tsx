@@ -1,4 +1,4 @@
-import { privacyPolicyURL, useAgreementURL } from '@/infra/utils/url';
+import { privacyPolicyURL, useAgreementURL } from '@app/utils/url';
 import { EduClassroomConfig } from 'agora-edu-core';
 import { FC } from 'react';
 import { useI18n } from '~ui-kit';
@@ -6,6 +6,8 @@ import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
 import { MenuItemProps } from './components/menu-item';
 import { PageLayout } from './components/page-layout';
+
+declare const CLASSROOM_SDK_VERSION: string;
 
 interface AboutMenuProps {
   addMenuPopup: (menu: SettingsMenuEnum) => void;
@@ -30,12 +32,12 @@ export const AboutMenu: FC<AboutMenuProps> = ({ addMenuPopup, removeMenuPopup })
     },
     {
       text: transI18n('fcr_settings_label_about_us_fcr_ver'),
-      onClick: () => {},
+      onClick: () => { },
       rightContent: <span>{`ver ${CLASSROOM_SDK_VERSION}`}</span>,
     },
     {
       text: transI18n('fcr_settings_label_about_us_sdk_ver'),
-      onClick: () => {},
+      onClick: () => { },
       rightContent: <span>{`ver ${EduClassroomConfig.getRtcVersion()}`}</span>,
     },
   ];

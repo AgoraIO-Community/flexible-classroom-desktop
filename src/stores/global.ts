@@ -1,12 +1,16 @@
-import { LanguageEnum, LaunchOption } from '@/infra/api';
-import { ToastType } from '@/infra/stores/common/share-ui';
-import { FcrMultiThemeMode } from '@/infra/types/config';
-import { getBrowserLanguage } from '@/infra/utils';
+import { LanguageEnum, LaunchOption, FcrMultiThemeMode } from 'agora-classroom-sdk';
+import { getBrowserLanguage } from '@app/utils';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
 import { changeLanguage } from '~ui-kit';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
+
+export interface ToastType {
+  id: string;
+  desc: string;
+  type?: 'success' | 'error' | 'warning';
+}
 
 export type GlobalLaunchOption = Omit<LaunchOption, 'listener'> & {
   appId: string;
@@ -48,7 +52,7 @@ export const clearHomeOption = () => {
 
 export class GlobalStore {
   @observable
-  launchOption: Partial<GlobalLaunchOption> = getLSStore<GlobalLaunchOption>(LS_LAUNCH) || {};
+  launchOption: GlobalLaunchOption = getLSStore<GlobalLaunchOption>(LS_LAUNCH)! || {};
 
   @observable
   region: EduRegion = getRegion();
