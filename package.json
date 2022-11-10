@@ -45,7 +45,8 @@
     ],
     "asar": true,
     "asarUnpack": [
-      "node_modules/agora-rdc-core/**/*"
+      "node_modules/agora-rdc-core/**/*",
+      "node_modules/agora-classroom-sdk/assets/pretest-audio.mp3"
     ],
     "afterPack": "./after-pack.js",
     "extraMetadata": {
