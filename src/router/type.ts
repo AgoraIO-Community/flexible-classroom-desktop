@@ -3,6 +3,7 @@ export enum PageRouter {
   Welcome = 'welcome',
   CreateRoom = 'create_room',
   JoinRoom = 'join_room',
+  Detail = 'detail',
   Invite = 'invite_room',
   Launch = 'launch',
   H5Index = 'index_h5',

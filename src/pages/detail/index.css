@@ -1,0 +1,107 @@
+.playback-carousel .slick-list {
+  padding-top: 5px;
+}
+.playback-carousel .prev-arrow,
+.playback-carousel .next-arrow {
+  @apply h-full mt-0 items-center  top-0;
+  display: flex !important;
+  width: 77px;
+  z-index: 1;
+}
+.playback-carousel .prev-arrow,
+.playback-carousel .prev-arrow:hover,
+.playback-carousel .prev-arrow:focus {
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 0%, #ffffff 42.07%, #fff 100%);
+  left: -25px;
+}
+.playback-carousel .next-arrow,
+.playback-carousel .next-arrow:hover,
+.playback-carousel .next-arrow:focus {
+  justify-content: flex-end;
+  background: linear-gradient(270deg, #ffffff 0%, #ffffff 57.93%, rgba(255, 255, 255, 0) 100%);
+
+  right: 0px;
+}
+.detail-tabs .ant-tabs-content-holder {
+  @apply px-20;
+
+  background: #f0f0f780;
+}
+.detail-tabs .ant-tabs-nav {
+  @apply px-20;
+
+  margin-bottom: 0;
+}
+.nav-page-layout > .detail-content {
+  padding: 0;
+}
+.detail-table {
+  padding-top: 25px;
+}
+.detail-table .ant-table-thead > tr > th,
+.detail-table .ant-table {
+  background: transparent;
+}
+.detail-table .ant-table-thead > tr > th {
+  padding: 0;
+  line-height: 150%;
+  font-size: 12px;
+  color: #757575;
+}
+.detail-table table {
+  border-spacing: 0 8px;
+}
+.detail-table .ant-table-placeholder .ant-table-cell {
+  border-radius: 8px;
+}
+.detail-table .ant-table-cell {
+  border: 0;
+  background: #fff;
+  text-align: center;
+}
+.detail-table .ant-table-row .ant-table-cell {
+  border: 0;
+  background: #fff;
+}
+.detail-table .ant-table-row .ant-table-cell:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.detail-table .ant-table-row .ant-table-cell:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.detail-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  @apply font-black;
+  color: #000;
+}
+.detail-tabs .ant-tabs-tab-btn:focus,
+.detail-tabs .ant-tabs-tab-remove:focus,
+.detail-tabs .ant-tabs-tab-btn:active,
+.detail-tabs .ant-tabs-tab-remove:active,
+.detail-tabs .ant-tabs-tab:hover {
+  color: #000;
+}
+.detail-tabs > .ant-tabs-nav .ant-tabs-ink-bar {
+  height: 27px;
+}
+.detail-tabs .ant-tabs-ink-bar {
+  background: url(./assets/tab-curve.png) no-repeat top right / contain;
+}
+.detail-tabs > .ant-tabs-nav .ant-tabs-ink-bar {
+  bottom: -10px;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
+  overflow: visible;
+}
+.detail-table .ant-empty {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+}
+.detail-table .ant-empty .ant-empty-image {
+  width: 178px;
+  height: 131px;
+}

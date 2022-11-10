@@ -14,10 +14,12 @@ import { Logout } from '../pages/logout';
 import { Welcome } from '../pages/welcome';
 import { HomeRouteContainer } from './home';
 import { PageRouter } from './type';
+import { RouteComponentProps } from 'react-router';
+import { Detail } from '../pages/detail';
 
 export type AppRouteComponent = {
   path: string;
-  component: React.FC;
+  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
   exact?: boolean;
 };
 
@@ -42,6 +44,11 @@ export const routesMap: Record<string, AppRouteComponent> = {
   [PageRouter.JoinRoom]: {
     path: '/join-room',
     component: () => <JoinRoom />,
+    exact: true,
+  },
+  [PageRouter.Detail]: {
+    path: '/detail/:roomId',
+    component: (props: RouteComponentProps) => <Detail {...props} />,
     exact: true,
   },
   [PageRouter.Invite]: {
@@ -107,5 +114,5 @@ export const routesMap: Record<string, AppRouteComponent> = {
     path: '/logout',
     component: () => <Logout />,
     exact: true,
-  }
+  },
 };

@@ -9,6 +9,7 @@ const homeRoutes: PageRouter[] = [
   PageRouter.Welcome,
   PageRouter.JoinRoom,
   PageRouter.Invite,
+  PageRouter.Detail,
 ];
 
 export const HomeRouteContainer = () => {
