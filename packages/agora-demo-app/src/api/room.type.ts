@@ -85,3 +85,41 @@ export type RoomCredentialNoAuthResponse = {
   userUuid: string;
   role: number;
 };
+export interface AttendanceTracking {
+  joinTime: number;
+  sumTime: number;
+  userName: string;
+}
+export interface EngagementTracking {
+  pollingCount: number;
+  popupQuizCorrectCount: number;
+  popupQuizInCorrectCount: number;
+  raiseHandCount: number;
+  userName: string;
+}
+export enum RecordState {
+  Start = 1,
+  End,
+}
+export interface RecordDetail {
+  recordState: RecordState;
+  recordUrls: string[];
+  sumTime: number;
+}
+export interface RoomMessage {
+  roomType: EduRoomTypeEnum;
+  roomUuid: string;
+}
+export interface AcademicMessage {
+  [AcademicMessageKeyEnum.AttendanceTracking]: AttendanceTracking[];
+  [AcademicMessageKeyEnum.EngagementTracking]: EngagementTracking[];
+}
+export interface RoomHistory {
+  academicMessageDTO: AcademicMessage;
+  recordDetailDTOs: RecordDetail[];
+  roomMessageDTO: RoomMessage;
+}
+export enum AcademicMessageKeyEnum {
+  AttendanceTracking = 'attendanceTrackingDTOs',
+  EngagementTracking = 'engagementTrackingDTOs',
+}

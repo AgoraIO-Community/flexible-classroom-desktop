@@ -7,6 +7,7 @@ type NavPageLayout = {
   onBack?: () => void;
   footer?: React.ReactNode;
   className?: string;
+  contentClassName?: string;
 };
 export const NavPageLayout: FC<PropsWithChildren<NavPageLayout>> = ({
   title,
@@ -14,13 +15,14 @@ export const NavPageLayout: FC<PropsWithChildren<NavPageLayout>> = ({
   footer,
   children,
   className = '',
+  contentClassName = '',
 }) => {
   return (
     <div className={`nav-page-layout ${className}`}>
       <header>
         <NavHeader onBack={onBack}>{title}</NavHeader>
       </header>
-      <div className={'content'}>{children}</div>
+      <div className={`content ${contentClassName}`}>{children}</div>
       {footer ? <footer>{footer}</footer> : null}
     </div>
   );

@@ -30,7 +30,7 @@ const roomStateMap = {
   [RoomState.NO_STARTED]: 'fcr_home_status_upcoming',
 };
 
-const roomTypeMap = {
+export const roomTypeMap = {
   [EduRoomTypeEnum.Room1v1Class]: 'fcr_home_label_1on1',
   [EduRoomTypeEnum.RoomSmallClass]: 'fcr_home_label_small_classroom',
   [EduRoomTypeEnum.RoomBigClass]: 'fcr_home_label_lecture_hall',
@@ -108,20 +108,19 @@ export const RoomListItem: FC<RoomListItemProps> = ({
         </div>
       </div>
       <div className="operation">
-        {
-          roomState !== RoomState.ENDED ? (
-            <div className="btn enter">
-              <span className="text" onClick={joinHandle}>
-                {transI18n('fcr_home_button_enter')}
-              </span>
-              <span className="share" onClick={shareHandle} />
-            </div>
-          ) : null
-          // <div className="btn replay" onClick={detailHandle}>
-          //   <SvgImg type={SvgIconEnum.REPLAY} size={20} colors={{ iconPrimary: '#fff' }} />
-          //   <span className="text">{transI18n('fcr_home_button_replay')}</span>
-          // </div>
-        }
+        {roomState !== RoomState.ENDED ? (
+          <div className="btn enter">
+            <span className="text" onClick={joinHandle}>
+              {transI18n('fcr_home_button_enter')}
+            </span>
+            <span className="share" onClick={shareHandle} />
+          </div>
+        ) : (
+          <div className="btn replay" onClick={detailHandle}>
+            <SvgImg type={SvgIconEnum.REPLAY} size={20} colors={{ iconPrimary: '#fff' }} />
+            <span className="text">{transI18n('fcr_home_button_replay')}</span>
+          </div>
+        )}
       </div>
     </div>
   );

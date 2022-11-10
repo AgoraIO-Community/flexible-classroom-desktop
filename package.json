@@ -100,21 +100,75 @@
     "ci:build:electron:mac": "yarn release:electron:mac",
     "prepare": "husky install"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agoraio-community/CloudClass-Desktop.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/agoraio-community/CloudClass-Desktop/issues"
-  },
-  "homepage": "https://github.com/agoraio-community/CloudClass-Desktop#readme",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged"
+  "build": {
+    "extraResources": [
+      {
+        "from": "src/ui-kit/capabilities/containers/pretest/assets/pretest-audio.mp3",
+        "to": "assets/pretest-audio.mp3"
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/agora-rdc-core/**/*",
+      "node_modules/agora-classroom-sdk/assets/pretest-audio.mp3"
+    ],
+    "afterPack": "./after-pack.js",
+    "extraMetadata": {
+      "main": "build/index.js"
+    },
+    "productName": "AgoraFlexibleClassroom",
+    "appId": "io.agora.education",
+    "files": [
+      "build/**/*"
+    ],
+    "artifactName": "${productName}-${version}.${ext}",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "icons/favicon.png",
+      "entitlements": "entitlements.mac.plist",
+      "category": "io.agora.Education",
+      "hardenedRuntime": true,
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "AgoraEdu Classroom acquire your microphone permission",
+        "NSCameraUsageDescription": "AgoraEdu Classroom acquire your camera permission"
+      }
+    },
+    "win": {
+      "icon": "icons/favicon.png",
+      "target": [
+        "nsis"
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "icons/favicon.ico",
+      "shortcutName": "AgoraFlexibleClassroom",
+      "artifactName": "AgoraFlexibleClassroom-${version}.${ext}"
+    },
+    "linux": {
+      "icon": "icons/favicon.png",
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
     }
   },
   "lint-staged": {

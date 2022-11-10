@@ -39,11 +39,11 @@ export const Welcome = observer(() => {
 
   const toJoinRoomPage = () => {
     history.push('/join-room');
-  }
+  };
 
   const toCreateRoomPage = () => {
     history.push('/create-room');
-  }
+  };
 
   const [shareRoomInfo, setShareRoomInfo] = useState<ShareInfo>({
     owner: '',
@@ -95,7 +95,9 @@ export const Welcome = observer(() => {
     [nickName, userStore.userInfo, quickJoinRoom],
   );
 
-  const onDetail = useCallback((data: RoomInfo) => { }, []);
+  const onDetail = useCallback((data: RoomInfo) => {
+    history.push(`/detail/${data.roomId}`);
+  }, []);
 
   const roomRefresh = useCallback(() => {
     setLoading(true);
