@@ -42,6 +42,7 @@
       "~utilities/*": ["../agora-classroom-sdk/src/ui-kit/utilities/*"],
       "~components": ["../agora-classroom-sdk/src/ui-kit/components"],
       "~components/*": ["../agora-classroom-sdk/src/ui-kit/components/*"],
+      "agora-classroom-sdk": ["../agora-classroom-sdk/src/infra/api"],
     }
   },
   "include": [
