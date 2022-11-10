@@ -1,0 +1,9 @@
+[submodule "packages/agora-rte-sdk"]
+	path = packages/agora-rte-sdk
+	url = ssh://git@git.agoralab.co/aduc/agora-scene-sdk.git
+[submodule "packages/agora-edu-core"]
+	path = packages/agora-edu-core
+	url = ssh://git@git.agoralab.co/aduc/agora-edu-core-desktop.git
+[submodule "packages/agora-demo-app"]
+	path = packages/agora-demo-app
+	url = ssh://git@git.agoralab.co/aduc/open-flexible-classroom-desktop.git

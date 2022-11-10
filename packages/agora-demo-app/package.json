@@ -1,0 +1,119 @@
+{
+  "name": "agora-demo-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./app/\"",
+    "electron:client": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./app/",
+    "electron:copy:electron:mac": "cpx './app/**/*.js' ./build",
+    "electron:copy:electron:win": "cpx \"./app/**/*.js\" ./build",
+    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=4096 webpack serve --config ./webpack/webpack.dev.js",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 webpack --config ./webpack/webpack.prod.js",
+    "pack:mac": "yarn electron:copy:electron:mac && electron-builder --mac",
+    "pack:win": "yarn electron:copy:electron:win && electron-builder --win"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.agoralab.co/aduc/open-flexible-classroom-desktop.git"
+  },
+  "author": "agora.io",
+  "license": "ISC",
+  "dmg": {
+    "compression": "store",
+    "npmRebuild": false,
+    "title": "agora_edu",
+    "contents": [
+      {
+        "x": 130,
+        "y": 220
+      },
+      {
+        "x": 410,
+        "y": 220,
+        "type": "link",
+        "path": "/Applications"
+      }
+    ]
+  },
+  "build": {
+    "extraResources": [
+      {
+        "from": "src/ui-kit/capabilities/containers/pretest/assets/pretest-audio.mp3",
+        "to": "assets/pretest-audio.mp3"
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/agora-rdc-core/**/*",
+      "node_modules/agora-classroom-sdk/assets/pretest-audio.mp3"
+    ],
+    "afterPack": "./after-pack.js",
+    "extraMetadata": {
+      "main": "build/index.js"
+    },
+    "productName": "AgoraFlexibleClassroom",
+    "appId": "io.agora.education",
+    "files": [
+      "build/**/*"
+    ],
+    "artifactName": "${productName}-${version}.${ext}",
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "icons/favicon.png",
+      "entitlements": "entitlements.mac.plist",
+      "category": "io.agora.Education",
+      "hardenedRuntime": true,
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "AgoraEdu Classroom acquire your microphone permission",
+        "NSCameraUsageDescription": "AgoraEdu Classroom acquire your camera permission"
+      }
+    },
+    "win": {
+      "icon": "icons/favicon.png",
+      "target": [
+        "nsis"
+      ],
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "icons/favicon.ico",
+      "shortcutName": "AgoraFlexibleClassroom",
+      "artifactName": "AgoraFlexibleClassroom-${version}.${ext}"
+    },
+    "linux": {
+      "icon": "icons/favicon.png",
+      "target": [
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category": "Development"
+    },
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    }
+  },
+  "devDependencies": {
+    "electron-builder": "23.0.2",
+    "electron-util": "0.16.0"
+  },
+  "dependencies": {
+    "electron": "12.0.0",
+    "wait-on": "3.3.0",
+    "react-infinite-scroll-component": "6.1.0",
+    "react-i18next": "11.16.7",
+    "agora-access-token": "2.0.4",
+    "agora-classroom-sdk": "2.8.0"
+  }
+}
