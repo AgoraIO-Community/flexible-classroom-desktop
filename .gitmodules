@@ -10,3 +10,6 @@
 [submodule "packages/agora-plugin-gallery"]
 	path = packages/agora-plugin-gallery
 	url = ssh://git@git.agoralab.co/aduc/open-apaas-widgets-web.git
+[submodule "packages/agora-proctor-sdk"]
+	path = packages/agora-proctor-sdk
+	url = ssh://git@git.agoralab.co/aduc/proctor-desktop.git
