@@ -1,6 +1,6 @@
 import { assetURLs, getAssetURL } from '@app/hooks/url';
 import { GlobalStoreContext } from '@app/stores';
-// import { AgoraEduSDK } from 'agora-classroom-sdk';
+import { AgoraEduSDK } from 'agora-classroom-sdk';
 import { AgoraEduClassroomEvent } from 'agora-edu-core';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
@@ -26,18 +26,18 @@ export const LaunchPage = observer(() => {
     }
 
     if (appRef.current) {
-      // AgoraEduSDK.setParameters(
-      //   JSON.stringify({
-      //     host: homeStore.launchOption.sdkDomain,
-      //     uiConfigs: homeStore.launchOption.scenes,
-      //     themes: homeStore.launchOption.themes,
-      //   }),
-      // );
+      AgoraEduSDK.setParameters(
+        JSON.stringify({
+          host: homeStore.launchOption.sdkDomain,
+          uiConfigs: homeStore.launchOption.scenes,
+          themes: homeStore.launchOption.themes,
+        }),
+      );
 
-      // AgoraEduSDK.config({
-      //   appId: launchOption.appId,
-      //   region: launchOption.region ?? 'CN',
-      // });
+      AgoraEduSDK.config({
+        appId: launchOption.appId,
+        region: launchOption.region ?? 'CN',
+      });
 
       // const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
       const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
@@ -56,24 +56,23 @@ export const LaunchPage = observer(() => {
         getAssetURL(assetURLs.virtualBackground9),
       ];
 
-      const unmount = ()=>{};
-    //    = AgoraEduSDK.launch(appRef.current, {
-    //     ...launchOption,
-    //     // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
-    //     recordUrl,
-    //     courseWareList,
-    //     uiMode: homeStore.theme,
-    //     virtualBackgroundImages,
-    //     virtualBackgroundVideos,
-    //     listener: (evt: AgoraEduClassroomEvent, type) => {
-    //       console.log('launch#listener ', evt);
-    //       if (evt === AgoraEduClassroomEvent.Destroyed) {
-    //         history.push(`/?reason=${type}`);
-    //       }
-    //     },
-    //   });
+      const unmount = AgoraEduSDK.launch(appRef.current, {
+        ...launchOption,
+        // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
+        recordUrl,
+        courseWareList,
+        uiMode: homeStore.theme,
+        virtualBackgroundImages,
+        virtualBackgroundVideos,
+        listener: (evt: AgoraEduClassroomEvent, type) => {
+          console.log('launch#listener ', evt);
+          if (evt === AgoraEduClassroomEvent.Destroyed) {
+            history.push(`/?reason=${type}`);
+          }
+        },
+      });
 
-    //   return unmount;
+      return unmount;
     }
   }, []);
 
