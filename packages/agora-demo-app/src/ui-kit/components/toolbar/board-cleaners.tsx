@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Popover } from '~app-components/popover';
-import { Tooltip } from '~app-components/tooltip';
+import { Popover } from '@app/ui-kit/components/popover';
+import { Tooltip } from '@app/ui-kit/components/tooltip';
 import { ToolItem } from './tool';
-import { SvgImg, SvgIcon, SvgIconEnum } from '~app-components/svg-img';
+import { SvgImg, SvgIcon, SvgIconEnum } from '@app/ui-kit/components/svg-img';
 import { InteractionStateColors } from '@app/ui-kit/utilities/state-color';
 
 export interface CleanerItem {

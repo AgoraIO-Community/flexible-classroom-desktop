@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react';
-import { CheckBox } from '~app-components/checkbox';
-import { Input } from '~app-components/input';
+import { CheckBox } from '@app/ui-kit/components/checkbox';
+import { Input } from '@app/ui-kit/components/input';
 import { Select } from '../select';
 import { transI18n } from '../i18n';
 import { CarouselProps } from '@app/ui-kit';

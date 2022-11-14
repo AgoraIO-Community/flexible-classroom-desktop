@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classnames from 'classnames';
 import { CloudDriveResourceUploadStatus } from 'agora-edu-core';
 import { BaseProps } from '@app/ui-kit/components/util/type';
-import { Progress } from '~app-components/progress';
+import { Progress } from '@app/ui-kit/components/progress';
 import { transI18n } from '../i18n';
 import './index.css';
 import loadingGif from './assets/loading.gif';

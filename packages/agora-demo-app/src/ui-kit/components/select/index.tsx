@@ -4,7 +4,7 @@ import { BaseProps } from '@app/ui-kit/components/util/type';
 import ReactSelect from 'react-select';
 import { CSSTransition } from 'react-transition-group';
 import './index.css';
-import { transI18n } from '~app-components/i18n';
+import { transI18n } from '@app/ui-kit/components/i18n';
 
 export type SelectOption = {
   label: string;

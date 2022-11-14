@@ -1,6 +1,6 @@
 import React, { FC, ReactEventHandler } from 'react';
-import { Tooltip } from '~app-components/tooltip';
-import { SvgIcon } from '~app-components/svg-img';
+import { Tooltip } from '@app/ui-kit/components/tooltip';
+import { SvgIcon } from '@app/ui-kit/components/svg-img';
 import classnames from 'classnames';
 import { BaseProps } from '../util/type';
 import { SvgIconEnum } from '../svg-img/type';

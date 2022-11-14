@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { observer } from 'mobx-react';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List, ListRowProps } from 'react-virtualized';
-import { Button } from '~app-components/button';
+import { Button } from '@app/ui-kit/components/button';
 import { transI18n } from '@app/ui-kit/components/i18n';
 import { Placeholder } from '../../../components/placeholder';
 import { BaseProps } from '../../util/type';

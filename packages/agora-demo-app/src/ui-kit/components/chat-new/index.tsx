@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { FC, useEffect, useState } from 'react';
-import { SvgIconEnum, SvgImg } from '~app-components/svg-img';
+import { SvgIconEnum, SvgImg } from '@app/ui-kit/components/svg-img';
 import { Affix, AffixProps } from '../affix';
 import { transI18n } from '../i18n';
 import { ATabPane, ATabs } from '../tabs';

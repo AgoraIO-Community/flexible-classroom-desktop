@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '~app-components/button';
-import { transI18n } from '~app-components/i18n';
-import { Input } from '~app-components/input';
-import { Select } from '~app-components/select';
-import { Col, Row, Table } from '~app-components/table';
+import { Button } from '@app/ui-kit/components/button';
+import { transI18n } from '@app/ui-kit/components/i18n';
+import { Input } from '@app/ui-kit/components/input';
+import { Select } from '@app/ui-kit/components/select';
+import { Col, Row, Table } from '@app/ui-kit/components/table';
 import './style.css';
 
 const VALIDATE_REGULAR = /^[a-zA-Z0-9]{6,50}$/;

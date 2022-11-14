@@ -1,11 +1,11 @@
 import classnames from 'classnames';
 import React from 'react';
-import { Button } from '~app-components/button';
-import { Card } from '~app-components/card';
-import { Input } from '~app-components/input';
-import { Header, Layout } from '~app-components/layout';
-import { Select } from '~app-components/select';
-import { Col, Row, Table } from '~app-components/table';
+import { Button } from '@app/ui-kit/components/button';
+import { Card } from '@app/ui-kit/components/card';
+import { Input } from '@app/ui-kit/components/input';
+import { Header, Layout } from '@app/ui-kit/components/layout';
+import { Select } from '@app/ui-kit/components/select';
+import { Col, Row, Table } from '@app/ui-kit/components/table';
 import { useI18n } from '@app/ui-kit/components';
 import { HomeModule } from '~app-utilities/types';
 import './index.css';
