@@ -7,7 +7,7 @@ import { Header, Layout } from '@app/ui-kit/components/layout';
 import { Select } from '@app/ui-kit/components/select';
 import { Col, Row, Table } from '@app/ui-kit/components/table';
 import { useI18n } from '@app/ui-kit/components';
-import { HomeModule } from '~app-utilities/types';
+import { HomeModule } from '@app/ui-kit/utilities/types';
 import './index.css';
 
 export interface HomeAttributes {

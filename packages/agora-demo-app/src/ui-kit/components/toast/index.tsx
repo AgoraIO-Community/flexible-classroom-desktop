@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { BaseProps } from '@app/ui-kit/components/util/type';
 import Notification from 'rc-notification';
 import './index.css';
-import { useTimeout } from '~app-utilities/hooks';
+import { useTimeout } from '@app/ui-kit/utilities/hooks';
 import { SvgImg } from '../svg-img';
 import { SvgIconEnum } from '../svg-img/type';
 

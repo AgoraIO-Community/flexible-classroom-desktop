@@ -1,4 +1,4 @@
-import { InteractionStateColors } from '~app-utilities/state-color';
+import { InteractionStateColors } from '@app/ui-kit/utilities/state-color';
 import { SvgIconEnum } from '../svg-img';
 import './index.css';
 
