@@ -56,7 +56,7 @@ const config = {
   },
   plugins: [
     new dotenv({
-      path: './.env',
+      path: path.resolve(ROOT_PATH, '../../.env'),
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',

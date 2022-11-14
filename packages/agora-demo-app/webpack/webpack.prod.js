@@ -7,7 +7,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { ROOT_PATH } = require('./utils/index');
 const { prod } = require('./utils/loaders');
@@ -70,7 +70,7 @@ const config = {
   },
   plugins: [
     new dotenv({
-      path: './.env',
+      path: path.resolve(ROOT_PATH, '../../.env'),
     }),
     new MiniCssExtractPlugin({
       filename: 'static/[name].[contenthash].css',
