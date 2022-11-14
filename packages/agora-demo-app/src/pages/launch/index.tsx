@@ -1,7 +1,9 @@
 import { assetURLs, getAssetURL } from '@app/hooks/url';
 import { GlobalStoreContext } from '@app/stores';
 import { AgoraEduSDK } from 'agora-classroom-sdk';
-import { AgoraEduClassroomEvent } from 'agora-edu-core';
+import { AgoraProctorSDK } from 'agora-proctor-sdk';
+
+import { AgoraEduClassroomEvent, EduRoomTypeEnum } from 'agora-edu-core';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
@@ -23,51 +25,79 @@ export const LaunchPage = observer(() => {
     }
 
     if (appRef.current) {
-      AgoraEduSDK.setParameters(
-        JSON.stringify({
-          host: homeStore.launchOption.sdkDomain,
-          uiConfigs: homeStore.launchOption.scenes,
-          themes: homeStore.launchOption.themes,
-        }),
-      );
+      const roomType = homeStore.launchOption.roomType;
+      let unmount = () => {};
+      if (roomType === EduRoomTypeEnum.RoomProctor) {
+        AgoraProctorSDK.setParameters(
+          JSON.stringify({
+            host: homeStore.launchOption.sdkDomain,
+            uiConfigs: homeStore.launchOption.scenes,
+            themes: homeStore.launchOption.themes,
+          }),
+        );
 
-      AgoraEduSDK.config({
-        appId: launchOption.appId,
-        region: launchOption.region ?? 'CN',
-      });
+        AgoraProctorSDK.config({
+          appId: launchOption.appId,
+          region: launchOption.region ?? 'CN',
+        });
 
-      // const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
-      const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+        unmount = AgoraProctorSDK.launch(appRef.current, {
+          ...launchOption,
 
-      const virtualBackgroundImages = [
-        getAssetURL(assetURLs.virtualBackground1),
-        getAssetURL(assetURLs.virtualBackground2),
-        getAssetURL(assetURLs.virtualBackground3),
-        getAssetURL(assetURLs.virtualBackground4),
-        getAssetURL(assetURLs.virtualBackground5),
-        getAssetURL(assetURLs.virtualBackground6),
-        getAssetURL(assetURLs.virtualBackground7),
-      ];
-      const virtualBackgroundVideos = [
-        getAssetURL(assetURLs.virtualBackground8),
-        getAssetURL(assetURLs.virtualBackground9),
-      ];
+          listener: (evt: AgoraEduClassroomEvent, type) => {
+            console.log('launch#listener ', evt);
+            if (evt === AgoraEduClassroomEvent.Destroyed) {
+              history.push(`/?reason=${type}`);
+            }
+          },
+        });
+      } else {
+        AgoraEduSDK.setParameters(
+          JSON.stringify({
+            host: homeStore.launchOption.sdkDomain,
+            uiConfigs: homeStore.launchOption.scenes,
+            themes: homeStore.launchOption.themes,
+          }),
+        );
 
-      const unmount = AgoraEduSDK.launch(appRef.current, {
-        ...launchOption,
-        // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
-        recordUrl,
-        courseWareList,
-        uiMode: homeStore.theme,
-        virtualBackgroundImages,
-        virtualBackgroundVideos,
-        listener: (evt: AgoraEduClassroomEvent, type) => {
-          console.log('launch#listener ', evt);
-          if (evt === AgoraEduClassroomEvent.Destroyed) {
-            history.push(`/?reason=${type}`);
-          }
-        },
-      });
+        AgoraEduSDK.config({
+          appId: launchOption.appId,
+          region: launchOption.region ?? 'CN',
+        });
+
+        // const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+        const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+
+        const virtualBackgroundImages = [
+          getAssetURL(assetURLs.virtualBackground1),
+          getAssetURL(assetURLs.virtualBackground2),
+          getAssetURL(assetURLs.virtualBackground3),
+          getAssetURL(assetURLs.virtualBackground4),
+          getAssetURL(assetURLs.virtualBackground5),
+          getAssetURL(assetURLs.virtualBackground6),
+          getAssetURL(assetURLs.virtualBackground7),
+        ];
+        const virtualBackgroundVideos = [
+          getAssetURL(assetURLs.virtualBackground8),
+          getAssetURL(assetURLs.virtualBackground9),
+        ];
+
+        unmount = AgoraEduSDK.launch(appRef.current, {
+          ...launchOption,
+          // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
+          recordUrl,
+          courseWareList,
+          uiMode: homeStore.theme,
+          virtualBackgroundImages,
+          virtualBackgroundVideos,
+          listener: (evt: AgoraEduClassroomEvent, type) => {
+            console.log('launch#listener ', evt);
+            if (evt === AgoraEduClassroomEvent.Destroyed) {
+              history.push(`/?reason=${type}`);
+            }
+          },
+        });
+      }
 
       return unmount;
     }

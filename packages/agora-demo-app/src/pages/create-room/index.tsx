@@ -25,7 +25,7 @@ import {
   SvgImg,
   useAForm,
   useI18n,
-} from '~ui-kit';
+} from '~app-ui-kit';
 import './index.css';
 import { RadioCard } from './radio-card';
 
@@ -81,6 +81,12 @@ const roomTypeOptions = [
     label: 'fcr_h5create_label_1on1',
     description: 'fcr_create_label_1on1_description',
     value: EduRoomTypeEnum.Room1v1Class,
+    className: 'card-green',
+  },
+  {
+    label: 'online proctoring',
+    description: 'online proctoring',
+    value: EduRoomTypeEnum.RoomProctor,
     className: 'card-green',
   },
 ];
@@ -147,8 +153,11 @@ export const CreateRoom = observer(() => {
   }, []);
 
   useEffect(() => {
-    form.setFieldValue('name', transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }));
-  }, [userStore.nickName])
+    form.setFieldValue(
+      'name',
+      transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }),
+    );
+  }, [userStore.nickName]);
 
   const [endTime, setEndTime] = useState(() => {
     return computeEndTime(initialValues.date).format(TimeFormat);
@@ -215,10 +224,10 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-          videoURL: link,
-          reserveVideoURL: link,
-          finishType: 0,
-        }
+            videoURL: link,
+            reserveVideoURL: link,
+            finishType: 0,
+          }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;

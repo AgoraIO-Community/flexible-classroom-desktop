@@ -2,7 +2,11 @@ import { roomApi } from '@app/api';
 import { GlobalStoreContext } from '@app/stores';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { courseware } from '@app/utils/courseware';
-import { REACT_APP_AGORA_APP_SDK_DOMAIN, REACT_APP_AGORA_APP_TOKEN_DOMAIN, REACT_APP_PUBLISH_DATE } from '@app/utils/env';
+import {
+  REACT_APP_AGORA_APP_SDK_DOMAIN,
+  REACT_APP_AGORA_APP_TOKEN_DOMAIN,
+  REACT_APP_PUBLISH_DATE,
+} from '@app/utils/env';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import {
   EduClassroomConfig,
@@ -18,7 +22,7 @@ import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
-import { H5Login } from '~ui-kit/scaffold';
+import { H5Login } from '~app-ui-kit/scaffold';
 import { HomeSettingContainerH5 } from './home-setting/h5';
 import { MessageDialog } from './message-dialog';
 import { useTheme } from './vocational';
@@ -193,7 +197,7 @@ export const VocationalHomeH5Page = observer(() => {
           const roomServiceType = SCENARIOS_ROOM_SERVICETYPE_MAP[curService];
           const webRTCCodec =
             roomServiceType === EduRoomServiceTypeEnum.CDN ||
-              roomServiceType === EduRoomServiceTypeEnum.Fusion
+            roomServiceType === EduRoomServiceTypeEnum.Fusion
               ? 'h264'
               : 'vp8';
           const latencyLevel =

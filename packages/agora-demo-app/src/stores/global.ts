@@ -3,7 +3,7 @@ import { getBrowserLanguage } from '@app/utils';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
-import { changeLanguage } from '~ui-kit';
+import { changeLanguage } from '~app-ui-kit';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
 
 export interface ToastType {

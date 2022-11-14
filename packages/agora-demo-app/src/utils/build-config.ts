@@ -1,4 +1,4 @@
-import { transI18n } from '~components/i18n/index';
+import { transI18n } from '~app-components/i18n/index';
 import { AgoraEduSDK } from 'agora-classroom-sdk';
 import { EduRoomTypeEnum } from 'agora-edu-core';
 import { homeApi } from '../api';

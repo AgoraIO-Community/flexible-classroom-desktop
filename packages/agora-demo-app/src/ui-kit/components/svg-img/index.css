@@ -1,0 +1,31 @@
+.svg-story-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 25px;
+  margin-bottom: 25px;
+}
+.my-svg-eraser {
+  background: pink;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.my-svg-eraser > .eraser {
+  fill: yellow;
+}
+.my-svg-eraser:hover {
+  background: #000;
+}
+.my-svg-eraser:hover > .eraser {
+  fill: white;
+}
+
+.can-hover {
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.can-hover:hover {
+  @apply bg-icon-selected-color;
+}

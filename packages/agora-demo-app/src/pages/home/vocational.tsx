@@ -7,7 +7,13 @@ import {
   REACT_APP_AGORA_APP_SDK_DOMAIN,
 } from '@app/utils';
 import { courseware } from '@app/utils/courseware';
-import { LanguageEnum, FcrMultiThemeMode, applyTheme, loadGeneratedFiles, themes } from 'agora-classroom-sdk';
+import {
+  LanguageEnum,
+  FcrMultiThemeMode,
+  applyTheme,
+  loadGeneratedFiles,
+  themes,
+} from 'agora-classroom-sdk';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import {
   EduClassroomConfig,
@@ -24,15 +30,14 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { Toast, transI18n } from '~ui-kit';
-import { Home } from '~ui-kit/scaffold';
+import { Toast, transI18n } from '~app-ui-kit';
+import { Home } from '~app-ui-kit/scaffold';
 import { HomeSettingContainer } from './home-setting';
 import { MessageDialog } from './message-dialog';
 
 declare const BUILD_TIME: string;
 declare const BUILD_COMMIT_ID: string;
 declare const CLASSROOM_SDK_VERSION: string;
-
 
 const SCENARIOS_ROOM_SUBTYPE_MAP: { [key: string]: number } = {
   'vocational-class': 1,
@@ -91,8 +96,8 @@ export const VocationalHomePage = observer(() => {
   const [encryptionMode, setEncryptionMode] = useState<string>('');
   const [encryptionKey, setEncryptionKey] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const onChangeRegion = (r: string) => { };
-  const onChangeLanguage = (language: string) => { };
+  const onChangeRegion = (r: string) => {};
+  const onChangeLanguage = (language: string) => {};
   const role = useMemo(() => {
     const roles = {
       teacher: EduRoleTypeEnum.teacher,

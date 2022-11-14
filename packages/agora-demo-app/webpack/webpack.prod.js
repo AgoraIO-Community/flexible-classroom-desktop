@@ -29,8 +29,15 @@ const config = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
+      '@classroom': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src/'),
+      '@proctor': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src/'),
       '@app': path.resolve(ROOT_PATH, 'src'),
+      '~app-ui-kit': path.resolve(ROOT_PATH, 'src/ui-kit'),
+      '~app-components': path.resolve(ROOT_PATH, 'src/ui-kit/components'),
+      '~app-styles': path.resolve(ROOT_PATH, 'src/ui-kit/styles'),
+      '~app-utilities': path.resolve(ROOT_PATH, 'src/ui-kit/utilities'),
+      '~app-capabilities': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities'),
+      '~app-containers': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities/containers'),
     },
   },
   optimization: {

@@ -1,0 +1,79 @@
+.fcr-loading {
+  @apply flex bg-component flex-col justify-center items-center;
+}
+
+.fcr-loading-upload-list {
+  max-height: 188px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+.fcr-loading-upload-list::-webkit-scrollbar {
+  display: none;
+}
+.fcr-loading .fcr-loading-text {
+  @apply text-level1;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.fcr-loading .fcr-loading-progress {
+  @apply flex justify-center items-center;
+}
+
+.fcr-loading .fcr-loading-progress-number {
+  @apply text-brand;
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 12px;
+}
+
+.fcr-loading .fcr-loading-btn-line {
+  margin-top: 27px;
+}
+
+.fcr-loading .fcr-loading-upload-item {
+  @apply flex justify-start items-center;
+}
+
+.fcr-loading .fcr-loading-upload-item:not(:nth-child(1)) {
+  margin-top: 24px;
+}
+
+.fcr-loading .fcr-loading-file-name {
+  margin-left: 4px;
+  font-size: 13px;
+  @apply flex-1 text-level1;
+  width: 120px;
+  white-space: nowrap;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fcr-loading .fcr-loading-file-size {
+  @apply text-level2;
+  font-size: 13px;
+  color: #586376;
+  margin-right: 33px;
+  margin-left: 32px;
+}
+
+.fcr-loading .fcr-upload-success-text {
+  @apply text-safe;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 7px;
+}
+.fcr-loading .fcr-upload-error-text {
+  @apply text-error;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 7px;
+}
+.fcr-loading .fcr-upload-pending-text {
+  @apply text-brand;
+  font-size: 13px;
+  margin-left: 6px;
+}

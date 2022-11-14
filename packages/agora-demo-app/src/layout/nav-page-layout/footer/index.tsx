@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { AButton } from '~ui-kit';
+import { AButton } from '~app-ui-kit';
 import './index.css';
 type NavFooterProps = {
   okText?: string;

@@ -31,7 +31,7 @@ import {
   SvgImg,
   useAForm,
   useI18n,
-} from '~ui-kit';
+} from '~app-ui-kit';
 import './index.css';
 
 type InviteFormValue = {

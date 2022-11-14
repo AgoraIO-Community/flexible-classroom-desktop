@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { transI18n } from '~ui-kit';
+import { transI18n } from '~app-ui-kit';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
 import './index.css';

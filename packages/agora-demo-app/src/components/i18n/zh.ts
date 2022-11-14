@@ -61,6 +61,7 @@ export default {
   fcr_home_label_roomlist: '房间列表',
   fcr_home_label_small_classroom: '小班课',
   fcr_home_label_lecture_hall: '大班课',
+  fcr_home_label_proctoring: '在线监考',
   fcr_home_label_1on1: '1对1 ',
   fcr_home_button_create: '创建课堂',
   fcr_home_button_join: '加入房间',

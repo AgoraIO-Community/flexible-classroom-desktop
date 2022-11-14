@@ -20,7 +20,7 @@ import {
   SvgIconEnum,
   SvgImg,
   useI18n,
-} from '~ui-kit';
+} from '~app-ui-kit';
 import './index.css';
 import { Menu } from './menu';
 import { RoomToast } from './room-toast';

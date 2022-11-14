@@ -2,7 +2,7 @@ import { RoomInfo, RoomState } from '@app/api/room';
 import { EduRoomTypeEnum } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { FC, useCallback, useMemo } from 'react';
-import { SvgIconEnum, SvgImg, useI18n } from '~ui-kit';
+import { SvgIconEnum, SvgImg, useI18n } from '~app-ui-kit';
 import './item.css';
 import roomStateLive from '@app/assets/fcr-room-state-live.svg';
 import { formatRoomID } from '@app/hooks';
@@ -34,6 +34,7 @@ export const roomTypeMap = {
   [EduRoomTypeEnum.Room1v1Class]: 'fcr_home_label_1on1',
   [EduRoomTypeEnum.RoomSmallClass]: 'fcr_home_label_small_classroom',
   [EduRoomTypeEnum.RoomBigClass]: 'fcr_home_label_lecture_hall',
+  [EduRoomTypeEnum.RoomProctor]: 'fcr_home_label_proctoring',
 };
 
 export const RoomListItem: FC<RoomListItemProps> = ({
