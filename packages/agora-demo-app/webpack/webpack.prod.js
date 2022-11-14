@@ -36,8 +36,13 @@ const config = {
       '~app-components': path.resolve(ROOT_PATH, 'src/ui-kit/components'),
       '~app-styles': path.resolve(ROOT_PATH, 'src/ui-kit/styles'),
       '~app-utilities': path.resolve(ROOT_PATH, 'src/ui-kit/utilities'),
-      '~app-capabilities': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities'),
-      '~app-containers': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities/containers'),
+      '~widget-ui-kit': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit'),
+      '~widget-components': path.resolve(
+        ROOT_PATH,
+        '../agora-plugin-gallery/src/ui-kit/components',
+      ),
+      '~widget-utilities': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/utilities'),
+      ...ALIAS,
     },
   },
   optimization: {

@@ -1,8 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
-const baseConfig = require('agora-classroom-sdk/webpack/webpack.base');
+const baseConfig = require('./webpack.base');
+const baseClassroomConfig = require('agora-classroom-sdk/webpack/webpack.base');
+const baseProctorConfig = require('agora-proctor-sdk/webpack/webpack.base');
 const path = require('path');
-const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
+const { DEFAULT_PORT, ROOT_PATH, ALIAS } = require('./utils/index');
 const { dev } = require('./utils/loaders');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
@@ -35,24 +37,15 @@ const config = {
       '~app-components': path.resolve(ROOT_PATH, 'src/ui-kit/components'),
       '~app-styles': path.resolve(ROOT_PATH, 'src/ui-kit/styles'),
       '~app-utilities': path.resolve(ROOT_PATH, 'src/ui-kit/utilities'),
-      '~app-capabilities': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities'),
-      '~app-containers': path.resolve(ROOT_PATH, 'src/ui-kit/capabilities/containers'),
-
       '~widget-ui-kit': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit'),
       '~widget-components': path.resolve(
         ROOT_PATH,
         '../agora-plugin-gallery/src/ui-kit/components',
       ),
-      '~widget-styles': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/styles'),
       '~widget-utilities': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/utilities'),
-      '~widget-capabilities': path.resolve(
-        ROOT_PATH,
-        '../agora-plugin-gallery/src/ui-kit/capabilities',
-      ),
-      '~widget-containers': path.resolve(
-        ROOT_PATH,
-        '../agora-plugin-gallery/src/ui-kit/capabilities/containers',
-      ),
+      ...baseClassroomConfig.resolve.alias,
+      ...baseProctorConfig.resolve.alias,
+      ...ALIAS,
     },
   },
   optimization: {

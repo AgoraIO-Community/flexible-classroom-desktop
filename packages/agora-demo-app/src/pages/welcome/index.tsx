@@ -26,6 +26,9 @@ import { Menu } from './menu';
 import { RoomToast } from './room-toast';
 import { Share, ShareInfo } from './share';
 
+import { addResource } from '../../components/i18n';
+addResource();
+
 export const Welcome = observer(() => {
   const history = useHistory();
   const transI18n = useI18n();
