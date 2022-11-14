@@ -27,7 +27,6 @@ export * from './select';
 export * from './skeleton';
 export * from './sound-player';
 export * from './spin';
-export * from './styles';
 export * from './svg-img';
 export * from './svga-player';
 export * from './table';
