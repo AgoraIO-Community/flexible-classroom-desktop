@@ -32,7 +32,6 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/*"],
-      "@/*": ["../agora-classroom-sdk/src/*"],
       "~ui-kit": ["../agora-classroom-sdk/src/ui-kit"],
       "~ui-kit/*": ["../agora-classroom-sdk/src/ui-kit/*"],
       "~scaffold": ["../agora-classroom-sdk/src/ui-kit/scaffold"],

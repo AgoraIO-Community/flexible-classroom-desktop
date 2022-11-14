@@ -28,7 +28,6 @@ const config = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
       '@app': path.resolve(ROOT_PATH, 'src'),
     },
   },
@@ -40,7 +39,7 @@ const config = {
   },
   plugins: [
     new dotenv({
-      path: './.env',
+      path: path.resolve(ROOT_PATH, '../../.env'),
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
