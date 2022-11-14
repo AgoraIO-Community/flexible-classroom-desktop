@@ -1,6 +1,6 @@
 import { useLogout } from '@app/hooks';
 import { FC, useState } from 'react';
-import { useI18n } from '~app-ui-kit';
+import { useI18n } from '@app/ui-kit';
 import { SettingsMenuEnum } from '.';
 import { ConfirmDialogH5 } from './components/confirm-dialog';
 import { Menu } from './components/menu';

@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
 import { CloudDriveResourceUploadStatus } from 'agora-edu-core';
-import { BaseProps } from '~app-ui-kit/components/util/type';
+import { BaseProps } from '@app/ui-kit/components/util/type';
 import { Progress } from '~app-components/progress';
 import { transI18n } from '../i18n';
 import './index.css';
 import loadingGif from './assets/loading.gif';
 import circleLoadingGif from './assets/circle-loading.gif';
-import { SvgImg, SvgIconEnum } from '~app-ui-kit';
+import { SvgImg, SvgIconEnum } from '@app/ui-kit';
 
 export interface UploadItem {
   resourceUuid: string;

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { Column, Profile } from '~app-components/roster';
 import { Col, Row, Table } from '~app-components/table';
-import { Operation, SupportedFunction } from '~app-ui-kit';
+import { Operation, SupportedFunction } from '@app/ui-kit';
 import { useColumns } from './hooks';
 import loadingSrc from './assets/loading.gif';
 import { transI18n } from '../i18n';

@@ -5,7 +5,7 @@ import { useLogout } from '@app/hooks';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo, useState } from 'react';
-import { AAvatar, AModal, useI18n } from '~app-ui-kit';
+import { AAvatar, AModal, useI18n } from '@app/ui-kit';
 import './index.css';
 export const Menu: FC = observer(() => {
   const transI18n = useI18n();

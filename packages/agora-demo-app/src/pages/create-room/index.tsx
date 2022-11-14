@@ -25,7 +25,7 @@ import {
   SvgImg,
   useAForm,
   useI18n,
-} from '~app-ui-kit';
+} from '@app/ui-kit';
 import './index.css';
 import { RadioCard } from './radio-card';
 

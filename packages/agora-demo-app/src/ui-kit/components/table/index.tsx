@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import React, { useState, ReactElement } from 'react';
-import { BaseProps } from '~app-ui-kit/components/util/type';
+import { BaseProps } from '@app/ui-kit/components/util/type';
 import './index.css';
 import { Table as AntTable, TableProps as AntTableProps, ConfigProvider, Empty } from 'antd';
 

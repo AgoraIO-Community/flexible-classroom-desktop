@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { AFormInstance, useI18n } from '~app-ui-kit';
+import { AFormInstance, useI18n } from '@app/ui-kit';
 
 /**
  * Format the room ID for a specific format.

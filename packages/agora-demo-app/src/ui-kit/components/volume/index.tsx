@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
-import { BaseProps } from '~app-ui-kit/components/util/type';
+import { BaseProps } from '@app/ui-kit/components/util/type';
 import './index.css';
 
 export interface VolumeProps extends BaseProps {

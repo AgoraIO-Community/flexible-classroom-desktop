@@ -7,7 +7,7 @@ import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { AButton, aMessage, useI18n } from '~app-ui-kit';
+import { AButton, aMessage, useI18n } from '@app/ui-kit';
 import './index.css';
 
 export type ShareInfo = {

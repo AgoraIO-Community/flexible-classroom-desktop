@@ -10,7 +10,7 @@ import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useState } from 'react';
-import { AForm, AFormItem, AInput, useAForm, useI18n } from '~app-ui-kit';
+import { AForm, AFormItem, AInput, useAForm, useI18n } from '@app/ui-kit';
 import './index.css';
 type JoinFormValue = {
   roomId: string;

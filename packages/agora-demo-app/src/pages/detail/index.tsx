@@ -1,5 +1,5 @@
 import { NavPageLayout } from '@app/layout/nav-page-layout';
-import { ACarousel, ATable, ATabsProps, ATabs, SvgIconEnum, SvgImg, useI18n } from '~app-ui-kit';
+import { ACarousel, ATable, ATabsProps, ATabs, SvgIconEnum, SvgImg, useI18n } from '@app/ui-kit';
 import { useState, FC, CSSProperties, useEffect, useMemo } from 'react';
 import './index.css';
 import EmptyImg from '@app/assets/welcome-empty-list.png';

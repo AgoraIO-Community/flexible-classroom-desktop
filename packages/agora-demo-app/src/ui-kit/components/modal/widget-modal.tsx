@@ -1,6 +1,6 @@
 import { FC, useCallback, useRef, useContext } from 'react';
 import classnames from 'classnames';
-import { SvgImg, SvgIconEnum } from '~app-ui-kit';
+import { SvgImg, SvgIconEnum } from '@app/ui-kit';
 import { AutoSizer } from 'react-virtualized';
 import './widget-modal.css';
 import { themeContext } from '../theme';

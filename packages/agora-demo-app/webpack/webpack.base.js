@@ -3,10 +3,8 @@ const webpack = require('webpack');
 const webpackbar = require('webpackbar');
 const eduCoreVersion = require('agora-edu-core/package.json').version;
 const rteVersion = require('agora-rte-sdk/package.json').version;
-const baseClassroomConfig = require('agora-classroom-sdk/webpack/webpack.base');
-const baseProctorConfig = require('agora-proctor-sdk/webpack/webpack.base');
 const { base } = require('./utils/loaders');
-const { ALIAS } = require('./utils/index');
+const { ROOT_PATH, ALIAS } = require('./utils/index');
 
 const classroomSdkVersion = require('agora-classroom-sdk/package.json').version;
 const proctorSdkVersion = require('agora-proctor-sdk/package.json').version;
@@ -24,8 +22,15 @@ module.exports = {
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      ...baseClassroomConfig.resolve.alias,
-      ...baseProctorConfig.resolve.alias,
+      '@classroom': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src/'),
+      '@proctor': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src/'),
+      '@app': path.resolve(ROOT_PATH, 'src'),
+      '~widget-ui-kit': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit'),
+      '~widget-components': path.resolve(
+        ROOT_PATH,
+        '../agora-plugin-gallery/src/ui-kit/components',
+      ),
+      '~widget-utilities': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/utilities'),
       ...ALIAS,
     },
   },

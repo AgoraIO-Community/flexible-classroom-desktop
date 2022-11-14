@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useI18n } from '~app-ui-kit';
+import { useI18n } from '@app/ui-kit';
 
 export const useNickNameForm = () => {
   const transI18n = useI18n();

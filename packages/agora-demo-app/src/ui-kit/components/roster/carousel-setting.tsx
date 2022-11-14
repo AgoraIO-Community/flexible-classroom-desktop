@@ -3,7 +3,7 @@ import { CheckBox } from '~app-components/checkbox';
 import { Input } from '~app-components/input';
 import { Select } from '../select';
 import { transI18n } from '../i18n';
-import { CarouselProps } from '~app-ui-kit';
+import { CarouselProps } from '@app/ui-kit';
 
 type CarouselSettingProps = CarouselProps;
 

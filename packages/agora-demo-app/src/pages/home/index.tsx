@@ -13,7 +13,7 @@ import { FC, Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Layout, SvgIconEnum, SvgImg, Toast, transI18n, useI18n } from '~app-ui-kit';
+import { Button, Layout, SvgIconEnum, SvgImg, Toast, transI18n, useI18n } from '@app/ui-kit';
 import { addResource } from '../../components/i18n';
 import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';

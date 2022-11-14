@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { SvgIconEnum, SvgImg, transI18n, useI18n } from '~app-ui-kit';
+import { SvgIconEnum, SvgImg, transI18n, useI18n } from '@app/ui-kit';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
 import './index.css';

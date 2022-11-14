@@ -1,7 +1,7 @@
 import { useLogout } from '@app/hooks';
 import { observer } from 'mobx-react';
 import { FC, useState } from 'react';
-import { CheckBox, useI18n } from '~app-ui-kit';
+import { CheckBox, useI18n } from '@app/ui-kit';
 import { SettingsMenuEnum } from '.';
 import { ConfirmDialogH5 } from './components/confirm-dialog';
 import { PageLayout } from './components/page-layout';

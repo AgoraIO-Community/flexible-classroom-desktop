@@ -1,4 +1,4 @@
-import { aMessage, transI18n } from '~app-ui-kit';
+import { aMessage, transI18n } from '@app/ui-kit';
 
 export enum ErrorCode {
   COURSE_HAS_ENDED = 1101012,

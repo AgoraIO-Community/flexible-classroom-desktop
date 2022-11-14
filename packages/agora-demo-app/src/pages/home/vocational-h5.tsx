@@ -22,7 +22,7 @@ import { observer } from 'mobx-react';
 import React, { useContext, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
-import { H5Login } from '~app-ui-kit/scaffold';
+import { H5Login } from '@app/ui-kit/scaffold';
 import { HomeSettingContainerH5 } from './home-setting/h5';
 import { MessageDialog } from './message-dialog';
 import { useTheme } from './vocational';

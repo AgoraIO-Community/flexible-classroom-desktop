@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { themeContext } from '~app-ui-kit';
-import { BaseProps } from '~app-ui-kit/components/util/type';
+import { themeContext } from '@app/ui-kit';
+import { BaseProps } from '@app/ui-kit/components/util/type';
 import { OverlayWrap } from '../overlay-wrap';
 import { SvgIconEnum, SvgImg } from '../svg-img';
 import './index.css';

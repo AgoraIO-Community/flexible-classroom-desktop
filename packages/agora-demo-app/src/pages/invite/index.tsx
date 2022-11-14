@@ -6,7 +6,7 @@ import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { ModalMethod } from '~app-ui-kit';
+import { ModalMethod } from '@app/ui-kit';
 
 export const InviteRoom = observer(() => {
   const { setLoading } = useContext(GlobalStoreContext);

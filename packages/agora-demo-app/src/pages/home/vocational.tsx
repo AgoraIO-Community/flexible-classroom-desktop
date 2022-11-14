@@ -30,8 +30,8 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { Toast, transI18n } from '~app-ui-kit';
-import { Home } from '~app-ui-kit/scaffold';
+import { Toast, transI18n } from '@app/ui-kit';
+import { Home } from '@app/ui-kit/scaffold';
 import { HomeSettingContainer } from './home-setting';
 import { MessageDialog } from './message-dialog';
 
