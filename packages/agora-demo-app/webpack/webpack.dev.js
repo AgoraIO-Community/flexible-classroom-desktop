@@ -1,10 +1,8 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
-const baseClassroomConfig = require('agora-classroom-sdk/webpack/webpack.base');
-const baseProctorConfig = require('agora-proctor-sdk/webpack/webpack.base');
 const path = require('path');
-const { DEFAULT_PORT, ROOT_PATH, ALIAS } = require('./utils/index');
+const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
 const { dev } = require('./utils/loaders');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
@@ -43,9 +41,6 @@ const config = {
         '../agora-plugin-gallery/src/ui-kit/components',
       ),
       '~widget-utilities': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/utilities'),
-      ...baseClassroomConfig.resolve.alias,
-      ...baseProctorConfig.resolve.alias,
-      ...ALIAS,
     },
   },
   optimization: {
