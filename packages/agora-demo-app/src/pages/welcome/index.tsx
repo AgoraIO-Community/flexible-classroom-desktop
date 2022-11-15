@@ -36,7 +36,6 @@ export const Welcome = observer(() => {
   const { quickJoinRoom } = useJoinRoom();
 
   useEffect(() => {
-
     const i18nResources = {
       en: {
         translation: {
