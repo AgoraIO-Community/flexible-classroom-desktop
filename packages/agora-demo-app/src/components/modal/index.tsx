@@ -1,11 +1,10 @@
+import { themeContext } from 'agora-common-libs';
 import classnames from 'classnames';
 import React, { FC, useContext, useEffect, useState } from 'react';
-import { themeContext } from '@classroom/ui-kit';
-import { BaseProps } from '@classroom/ui-kit/components/util/type';
 import { OverlayWrap } from '../overlay-wrap';
 import { SvgIconEnum, SvgImg } from '../svg-img';
 import './index.css';
-export interface ModalProps extends BaseProps {
+export interface ModalProps {
   /** 标题 */
   title?: string | React.ReactNode;
   /** 遮罩效果 */
@@ -14,7 +13,6 @@ export interface ModalProps extends BaseProps {
   closable?: boolean;
   /** 底部内容 */
   footer?: React.ReactNode[];
-  style?: any;
   /** 点击确定回调 */
   onOk?: (e: React.MouseEvent<HTMLElement>) => void | Promise<void>;
   /** 点击模态框右上角叉、取消按钮、Props.maskClosable 值为 true 时的遮罩层或键盘按下 Esc 时的回调 */
@@ -32,6 +30,8 @@ export interface ModalProps extends BaseProps {
   btnId?: string;
   topLevel?: boolean;
   animate?: boolean;
+  className?: string;
+  style?: React.CSSProperties
 }
 
 type ModalType = FC<ModalProps>;

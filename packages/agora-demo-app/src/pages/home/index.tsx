@@ -13,7 +13,6 @@ import { FC, Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { addResource } from '../../components/i18n';
 import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
@@ -23,7 +22,6 @@ import { Layout } from '@app/components/layout';
 import { Toast } from '@app/components/toast';
 import { Button } from '@app/components/button';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-addResource();
 
 const REACT_APP_AGORA_APP_SDK_DOMAIN = process.env.REACT_APP_AGORA_APP_SDK_DOMAIN;
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;

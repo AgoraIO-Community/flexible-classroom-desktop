@@ -32,7 +32,6 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/*"],
-      "@classroom/*": ["../agora-classroom-sdk/src/*"],
       "@proctor/*": ["../agora-proctor-sdk/src/*"],
       "~app-ui-kit": ["src/ui-kit"],
       "~app-ui-kit/*": ["src/ui-kit/*"],

@@ -1,13 +1,13 @@
 import classnames from 'classnames';
 import React, { useState, ReactElement } from 'react';
-import { BaseProps } from '@classroom/ui-kit/components/util/type';
 import './index.css';
 import ConfigProvider from 'antd/lib/config-provider';
 import Empty from 'antd/lib/empty';
 import AntTable, { TableProps as AntTableProps } from 'antd/lib/table';
 
-export interface TableBaseProps extends BaseProps {
+export interface TableBaseProps {
   className?: string;
+  style?: React.CSSProperties;
   children?: any;
   align?: 'center' | 'start' | 'end' | 'between' | 'around' | 'evenly';
   onClick?: (evt: any) => Promise<void> | void;

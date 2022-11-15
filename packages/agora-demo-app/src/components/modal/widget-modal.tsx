@@ -1,9 +1,9 @@
 import { FC, useCallback, useRef, useContext } from 'react';
 import classnames from 'classnames';
-import { SvgImg, SvgIconEnum } from '@classroom/ui-kit';
 import { AutoSizer } from 'react-virtualized';
 import './widget-modal.css';
-import { themeContext } from '../theme';
+import { themeContext } from 'agora-common-libs';
+import { SvgIconEnum, SvgImg } from '../svg-img';
 
 type WidgetModalProps = {
   title: string;

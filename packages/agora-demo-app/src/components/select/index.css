@@ -1,0 +1,196 @@
+.react-select-container {
+  position: relative;
+}
+.options-container {
+  @apply border border-solid border-divider bg-component;
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  box-shadow: 0px 2px 4px 0px rgb(0 0 0 / 15%);
+  border-radius: 6px;
+  transform-origin: top;
+  right: 0;
+}
+.direction-up {
+  bottom: 42px;
+  transform-origin: bottom;
+}
+.direction-down {
+  top: 42px;
+}
+.options-container.enter {
+  animation: selectOptionOpen 220ms;
+}
+.options-container.exit {
+  animation: selectOptionClose 220ms;
+}
+
+@keyframes selectOptionOpen {
+  from {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes selectOptionClose {
+  from {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  to {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+.options-container .option-item {
+  @apply text-level2;
+  background: transparent;
+  height: 34px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 14px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  line-height: 34px;
+  text-indent: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.options-container .option-item.is-select {
+  @apply bg-component text-brand;
+}
+.options-container .option-item:hover {
+  @apply bg-icon-selected-color text-level1;
+}
+.options-container .option-item.text-center {
+  text-align: center;
+  text-indent: 0;
+}
+.react-select-container .select-prefix {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 16px;
+  margin: auto;
+  z-index: 1;
+}
+
+.react-select__placeholder {
+  color: #7b88a0 !important;
+  font-size: 14px !important;
+  margin-left: 1px !important;
+}
+.react-select-container .react-select__single-value {
+  @apply text-level1;
+}
+.react-select__placeholder,
+.react-select__single-value {
+  @apply text-level1;
+  max-width: calc(100% - 71px);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.react-select__single-value,
+.react-select__option {
+  font-size: 14px !important;
+  top: 52% !important;
+}
+.react-select__option--is-focused {
+  background: transparent !important;
+}
+.react-select-container .react-select__option {
+  @apply bg-component text-level1 border-divider;
+}
+.react-select__option:hover {
+  color: #191919 !important;
+  background-color: #f9f9fc !important;
+}
+.react-select__option--is-selected {
+  color: #357bf6 !important;
+  background: #fff !important;
+}
+.react-select__option--is-selected:hover {
+  color: #357bf6 !important;
+}
+
+.react-select-container .react-select__control {
+  @apply border border-solid border-divider;
+  background: transparent;
+  box-sizing: border-box;
+  transition: all 0.3s !important;
+}
+
+.react-select__control:hover {
+  @apply bg-component;
+
+  border: 1px solid #357bf6 !important;
+}
+
+.react-select__menu {
+  z-index: 10 !important;
+  overflow: hidden;
+  display: none !important;
+}
+
+.react-select-prefix .react-select__value-container {
+  padding-left: 71px !important;
+}
+
+.react-select__indicator-separator {
+  display: none;
+}
+
+.react-select__indicators svg {
+  transform: rotate(0deg);
+  transition: 150ms;
+  -webkit-transition: 150ms;
+  background: url('./assets/arrow-icon.svg') center;
+}
+.react-select__indicators svg path {
+  display: none;
+}
+
+.react-select__control--menu-is-open .react-select__indicators svg {
+  transform: rotate(180deg);
+}
+
+.react-select__option {
+  text-align: center;
+}
+
+.react-select__control--is-focused:hover {
+  border: 1px solid transparent !important;
+}
+
+.react-select__indicator {
+  margin-left: -5px;
+}
+
+.react-select-sm .react-select__control {
+  min-height: 21px;
+}
+.react-select-sm .react-select__indicator {
+  padding: 0 8px;
+}
+
+.react-select-sm .react-select__value-container {
+  padding: 0 8px;
+}
+
+.react-select-sm .direction-up {
+  bottom: 26px;
+  transform-origin: bottom;
+}
+.react-select-sm .direction-down {
+  top: 26px;
+}

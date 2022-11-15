@@ -1,6 +1,5 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import classNames from 'classnames';
-import { BaseProps } from '@classroom/ui-kit/components/util/type';
 
 type RadioElement = {
   label: string;
@@ -8,9 +7,11 @@ type RadioElement = {
   onChange?: () => void;
   name?: string;
   checked?: boolean;
+  className?: string;
+  style?: React.CSSProperties
 };
 
-type RadioProps = RadioElement & BaseProps;
+type RadioProps = RadioElement;
 
 type RadioGroupProps = {
   gap?: number;

@@ -1,9 +1,10 @@
+import { Button } from '@app/components/button';
+import { Col, Row, Table } from '@app/components/table';
+import { Input } from '@app/components/input';
+import { Select } from '@app/components/select';
+import { useI18n } from 'agora-common-libs';
 import React from 'react';
-import { Button } from '@classroom/ui-kit/components/button';
-import { transI18n } from '@classroom/ui-kit/components/i18n';
-import { Input } from '@classroom/ui-kit/components/input';
-import { Select } from '@classroom/ui-kit/components/select';
-import { Col, Row, Table } from '@classroom/ui-kit/components/table';
+
 import './style.css';
 
 const VALIDATE_REGULAR = /^[a-zA-Z0-9]{6,50}$/;
@@ -24,6 +25,7 @@ export const H5Login: React.FC<any> = ({
   isVocational,
   showServiceOptions = false,
 }) => {
+  const transI18n = useI18n();
   const scenarioOptions = [
     { label: transI18n('home.roomType_interactiveBigClass'), value: 'big-class' },
   ];
@@ -64,7 +66,6 @@ export const H5Login: React.FC<any> = ({
                   {transI18n('home.roomName')}
                 </span>
               }
-              id="roomName"
               type="text"
               className="block w-full"
               value={roomName}
@@ -85,7 +86,6 @@ export const H5Login: React.FC<any> = ({
                   {transI18n('home.nickName')}
                 </span>
               }
-              id="userName"
               type="text"
               className="block w-full"
               value={userName}
@@ -106,7 +106,6 @@ export const H5Login: React.FC<any> = ({
                   {transI18n('home.roomType')}
                 </span>
               }
-              id="scenario"
               value={scenario}
               options={scenarioOptions}
               isMenuTextCenter={true}
@@ -129,7 +128,6 @@ export const H5Login: React.FC<any> = ({
                     {transI18n('home.serviceType')}
                   </span>
                 }
-                id="service"
                 value={service}
                 options={serviceOptions}
                 isMenuTextCenter={true}
@@ -143,7 +141,6 @@ export const H5Login: React.FC<any> = ({
         ) : null}
 
         <Button
-          id="btn_join"
           className="mt-4 h5-btn-submit"
           type="primary"
           size="lg"
