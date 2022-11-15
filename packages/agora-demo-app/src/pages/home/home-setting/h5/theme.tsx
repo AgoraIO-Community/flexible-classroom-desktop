@@ -1,6 +1,5 @@
 import { GlobalStoreContext } from '@app/stores';
-import { FcrMultiThemeMode } from 'agora-classroom-sdk';
-import { useI18n } from 'agora-common-libs';
+import { FcrMultiThemeMode, useI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { FC, useContext } from 'react';
 import { SettingsMenuEnum } from '.';

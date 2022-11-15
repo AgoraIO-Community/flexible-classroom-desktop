@@ -17,7 +17,7 @@ import { Detail } from '../pages/detail';
 
 export type AppRouteComponent = {
   path: string;
-  component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any> | undefined;
+  component?: any;
   exact?: boolean;
 };
 

@@ -5,7 +5,6 @@ import { GlobalLaunchOption } from '@app/stores/global';
 import { courseware } from '@app/utils/courseware';
 import { REACT_APP_AGORA_APP_SDK_DOMAIN, REACT_APP_AGORA_APP_TOKEN_DOMAIN } from '@app/utils/env';
 import { LanguageEnum } from 'agora-classroom-sdk';
-import { FcrMultiThemeMode } from 'agora-classroom-sdk';
 import { applyTheme, loadGeneratedFiles, themes } from 'agora-classroom-sdk';
 import {
   EduClassroomConfig,
@@ -21,6 +20,7 @@ import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
 import { H5Login } from './scaffold';
 import { MessageDialog } from './message-dialog';
+import { FcrMultiThemeMode } from 'agora-common-libs';
 
 declare const CLASSROOM_SDK_VERSION: string;
 
