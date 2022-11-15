@@ -13,12 +13,16 @@ import { FC, Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Layout, SvgIconEnum, SvgImg, Toast, transI18n, useI18n } from '@app/ui-kit';
 import { addResource } from '../../components/i18n';
 import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
 import './style.css';
+import { transI18n, useI18n } from 'agora-common-libs';
+import { Layout } from '@app/components/layout';
+import { Toast } from '@app/components/toast';
+import { Button } from '@app/components/button';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 addResource();
 
 const REACT_APP_AGORA_APP_SDK_DOMAIN = process.env.REACT_APP_AGORA_APP_SDK_DOMAIN;
@@ -174,11 +178,9 @@ export const HomePage = () => {
       const shareUrl =
         AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron
           ? ''
-          : `${location.origin}${
-              location.pathname
-            }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${
-              EduRoleTypeEnum.student
-            }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
+          : `${location.origin}${location.pathname
+          }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${EduRoleTypeEnum.student
+          }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
 
       console.log('## get rtm Token from demo server', token);
 

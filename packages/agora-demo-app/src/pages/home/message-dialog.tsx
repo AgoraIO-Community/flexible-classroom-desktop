@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FC } from 'react';
-import { Button, Modal, transI18n } from '@app/ui-kit';
 import { useHistory } from 'react-router';
 import { useCallback } from 'react';
+import { transI18n } from 'agora-common-libs';
+import { Modal } from '@app/components/modal';
+import { Button } from '@app/components/button';
 
 export const MessageDialog: FC = () => {
   const history = useHistory();

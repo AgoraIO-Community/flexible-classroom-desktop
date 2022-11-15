@@ -1,5 +1,5 @@
+import { transI18n } from 'agora-common-libs';
 import { action, autorun, observable } from 'mobx';
-import { transI18n } from '@app/ui-kit';
 import {
   roomApi,
   RoomCreateRequest,

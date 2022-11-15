@@ -2,8 +2,9 @@ import { GlobalStoreContext } from '@app/stores';
 import { FcrMultiThemeMode } from 'agora-classroom-sdk';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
-import { RadioGroup, transI18n } from '@app/ui-kit';
+import { useI18n } from 'agora-common-libs';
 import './index.css';
+import { RadioGroup } from '@app/components/radio';
 
 const languageOptions = [
   { label: '中文', value: 'zh' },
@@ -20,6 +21,8 @@ const regionOptions = [
 export const GeneralSetting = observer(() => {
   const { language, setLanguage, region, setRegion, theme, setTheme } =
     useContext(GlobalStoreContext);
+  const transI18n = useI18n();
+  
   const themeOptions = [
     { value: FcrMultiThemeMode.light, label: transI18n('fcr_settings_theme_light') },
     { value: FcrMultiThemeMode.dark, label: transI18n('fcr_settings_theme_dark') },

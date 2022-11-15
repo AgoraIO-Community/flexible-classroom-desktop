@@ -1,9 +1,13 @@
+import { Button } from '@app/components/button';
+import { CheckBox } from '@app/components/checkbox';
+import { Modal } from '@app/components/modal';
+import { RadioGroup } from '@app/components/radio';
 import { useLogout } from '@app/hooks';
 import { GlobalStoreContext } from '@app/stores';
 import { FcrMultiThemeMode } from 'agora-classroom-sdk';
+import { transI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { useContext, useState } from 'react';
-import { Button, CheckBox, Modal, RadioGroup, transI18n } from '@app/ui-kit';
 import './index.css';
 
 const languageOptions = [

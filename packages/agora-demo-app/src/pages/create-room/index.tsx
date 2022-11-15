@@ -1,33 +1,26 @@
 import watermarkIcon from '@app/assets/fcr_watermark.svg';
 import premiumIcon from '@app/assets/service-type/fcr_premium.svg';
 import standardIcon from '@app/assets/service-type/fcr_standard.svg';
+import { ADatePicker, ADatePickerProps, locale } from '@app/components/date-picker';
+import { AForm, AFormItem, useAForm } from '@app/components/form';
+import { AInput } from '@app/components/input';
 import { RadioIcon } from '@app/components/radio-icon';
 import { RoomTypeCard } from '@app/components/room-type-card';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { ATimePicker } from '@app/components/time-picker';
 import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, EduRoomServiceTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import {
-  ADatePicker,
-  ADatePickerProps,
-  AForm,
-  AFormItem,
-  AInput,
-  ATimePicker,
-  locale,
-  SvgIconEnum,
-  SvgImg,
-  useAForm,
-  useI18n,
-} from '@app/ui-kit';
-import './index.css';
 import { RadioCard } from './radio-card';
+import './index.css';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -224,10 +217,10 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-            videoURL: link,
-            reserveVideoURL: link,
-            finishType: 0,
-          }
+          videoURL: link,
+          reserveVideoURL: link,
+          finishType: 0,
+        }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;

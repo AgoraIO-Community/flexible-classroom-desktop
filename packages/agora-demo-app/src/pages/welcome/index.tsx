@@ -11,22 +11,18 @@ import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useHistory } from 'react-router-dom';
-import {
-  ADivider,
-  AList,
-  AListItem,
-  AModal,
-  ASkeleton,
-  SvgIconEnum,
-  SvgImg,
-  useI18n,
-} from '@app/ui-kit';
 import './index.css';
 import { Menu } from './menu';
 import { RoomToast } from './room-toast';
 import { Share, ShareInfo } from './share';
 
 import { addResource } from '../../components/i18n';
+import { ASkeleton } from '@app/components/skeleton';
+import { ADivider } from '@app/components/divider';
+import { AList, AListItem } from '@app/components/list';
+import { AModal } from '@app/components/modal';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { useI18n } from 'agora-common-libs';
 addResource();
 
 export const Welcome = observer(() => {

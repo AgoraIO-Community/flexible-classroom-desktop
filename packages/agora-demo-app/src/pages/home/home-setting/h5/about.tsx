@@ -1,7 +1,7 @@
 import { privacyPolicyURL, useAgreementURL } from '@app/utils/url';
+import { useI18n } from 'agora-common-libs';
 import { EduClassroomConfig } from 'agora-edu-core';
 import { FC } from 'react';
-import { useI18n } from '@app/ui-kit';
 import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
 import { MenuItemProps } from './components/menu-item';

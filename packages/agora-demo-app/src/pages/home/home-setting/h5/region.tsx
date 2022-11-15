@@ -1,8 +1,8 @@
 import { GlobalStoreContext } from '@app/stores';
+import { useI18n } from 'agora-common-libs';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
-import { useI18n } from '@app/ui-kit';
 import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
 import { CheckIcon, MenuItemProps } from './components/menu-item';

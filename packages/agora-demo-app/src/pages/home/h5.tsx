@@ -19,7 +19,7 @@ import { observer } from 'mobx-react';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { useHistory } from 'react-router';
-import { H5Login } from '@app/ui-kit/scaffold';
+import { H5Login } from './scaffold';
 import { MessageDialog } from './message-dialog';
 
 declare const CLASSROOM_SDK_VERSION: string;

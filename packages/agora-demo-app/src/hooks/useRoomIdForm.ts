@@ -1,5 +1,6 @@
+import { AFormInstance } from '@app/components/form';
+import { useI18n } from 'agora-common-libs';
 import { useCallback, useMemo } from 'react';
-import { AFormInstance, useI18n } from '@app/ui-kit';
 
 /**
  * Format the room ID for a specific format.

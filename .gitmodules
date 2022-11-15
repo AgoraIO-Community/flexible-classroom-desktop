@@ -13,3 +13,6 @@
 [submodule "packages/agora-proctor-sdk"]
 	path = packages/agora-proctor-sdk
 	url = ssh://git@git.agoralab.co/aduc/proctor-desktop.git
+[submodule "packages/agora-common-libs"]
+	path = packages/agora-common-libs
+	url = ssh://git@git.agoralab.co/aduc/apaas-common-libs-web.git

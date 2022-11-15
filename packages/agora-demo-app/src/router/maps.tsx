@@ -4,8 +4,6 @@ import { H5Invite } from '../pages/h5-invite';
 import { H5JoinRoom } from '../pages/h5-join-room';
 import { HomePage } from '../pages/home';
 import { HomeH5Page } from '../pages/home/h5';
-import { VocationalHomePage } from '../pages/home/vocational';
-import { VocationalHomeH5Page } from '../pages/home/vocational-h5';
 import { InviteRoom } from '../pages/invite';
 import { JoinRoom } from '../pages/join-room';
 import { LaunchPage } from '../pages/launch';
@@ -93,16 +91,6 @@ export const routesMap: Record<string, AppRouteComponent> = {
   [PageRouter.ShareLinkPage]: {
     path: '/share',
     component: () => <HomePage />,
-    exact: true,
-  },
-  [PageRouter.VocationalHome]: {
-    path: '/vocational',
-    component: () => <VocationalHomePage />,
-    exact: true,
-  },
-  [PageRouter.VocationalHomeH5Home]: {
-    path: '/vocational/h5login',
-    component: () => <VocationalHomeH5Page />,
     exact: true,
   },
   [PageRouter.Window]: {

@@ -1,5 +1,6 @@
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { useI18n } from 'agora-common-libs';
 import { FC, useState } from 'react';
-import { SvgIconEnum, SvgImg, transI18n, useI18n } from '@app/ui-kit';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
 import './index.css';
@@ -11,7 +12,7 @@ enum HomeSettingTabType {
 
 export const HomeSetting = () => {
   const [tab, setTab] = useState(HomeSettingTabType.GeneralSetting);
-
+  const transI18n = useI18n();
   return (
     <div className="home-setting-content flex">
       <div className="left">

@@ -1,6 +1,11 @@
 import { RoomJoinResponse } from '@app/api/room';
+import { AButton } from '@app/components/button';
 import { CommonHelmet } from '@app/components/common-helmet';
+import { AForm, AFormItem, useAForm } from '@app/components/form';
+import { AInput } from '@app/components/input';
+import { ModalMethod } from '@app/components/modal';
 import { useSettingsH5 } from '@app/components/settings';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { formatRoomID } from '@app/hooks';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
 import { useLangSwitchValue } from '@app/hooks/useLangSwitchValue';
@@ -16,22 +21,12 @@ import {
   Status,
 } from '@app/utils';
 import { shareLink } from '@app/utils/share';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import {
-  AButton,
-  AForm,
-  AFormItem,
-  AInput,
-  ModalMethod,
-  SvgIconEnum,
-  SvgImg,
-  useAForm,
-  useI18n,
-} from '@app/ui-kit';
 import './index.css';
 
 type InviteFormValue = {

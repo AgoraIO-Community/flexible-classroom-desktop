@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { CheckBox, useI18n } from '@app/ui-kit';
+import { useI18n } from 'agora-common-libs';
 import './index.css';
+import { CheckBox } from '@app/components/checkbox';
 export const CloseAccount = () => {
   const [checked, setChecked] = useState(false);
   const transI18n = useI18n();

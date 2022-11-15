@@ -1,5 +1,5 @@
+import { useI18n } from 'agora-common-libs';
 import { FC } from 'react';
-import { useI18n } from '@app/ui-kit';
 import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
 import { MenuItemProps } from './components/menu-item';

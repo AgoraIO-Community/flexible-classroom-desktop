@@ -1,13 +1,15 @@
+import { AButton } from '@app/components/button';
+import { aMessage } from '@app/components/message';
 import { formatRoomID } from '@app/hooks';
 import { useLangSwitchValue } from '@app/hooks/useLangSwitchValue';
 import { GlobalStoreContext } from '@app/stores';
 import { shareLink } from '@app/utils/share';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { AButton, aMessage, useI18n } from '@app/ui-kit';
 import './index.css';
 
 export type ShareInfo = {
