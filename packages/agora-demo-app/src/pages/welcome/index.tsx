@@ -20,9 +20,7 @@ import { ADivider } from '@app/components/divider';
 import { AList, AListItem } from '@app/components/list';
 import { AModal } from '@app/components/modal';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { initI18n, useI18n } from 'agora-common-libs';
-import en from '@app/translate/en';
-import zh from '@app/translate/zh';
+import { useI18n } from 'agora-common-libs';
 
 export const Welcome = observer(() => {
   const history = useHistory();
@@ -35,22 +33,6 @@ export const Welcome = observer(() => {
   const { setLoading } = useContext(GlobalStoreContext);
   const { quickJoinRoom } = useJoinRoom();
 
-  useEffect(() => {
-    const i18nResources = {
-      en: {
-        translation: {
-          ...en,
-        },
-      },
-      zh: {
-        translation: {
-          ...zh,
-        },
-      },
-    };
-
-    initI18n(i18nResources);
-  }, [])
 
   const toJoinRoomPage = () => {
     history.push('/join-room');
