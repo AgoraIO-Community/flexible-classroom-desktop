@@ -1,16 +1,30 @@
-import { assetURLs, getAssetURL } from '@app/hooks/url';
 import { GlobalStoreContext } from '@app/stores';
 import { AgoraEduSDK } from 'agora-classroom-sdk';
 import { AgoraProctorSDK } from 'agora-proctor-sdk';
-
 import { AgoraEduClassroomEvent, EduRoomTypeEnum } from 'agora-edu-core';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
+import { getAssetURL } from '@app/utils';
 
 declare const CLASSROOM_SDK_VERSION: string;
+
+
+export const assetURLs = {
+  // virtual background assets
+  virtualBackground1: 'effect/default1.jpg',
+  virtualBackground2: 'effect/default2.jpg',
+  virtualBackground3: 'effect/default3.jpg',
+  virtualBackground4: 'effect/default4.jpg',
+  virtualBackground5: 'effect/default5.jpg',
+  virtualBackground6: 'effect/default6.jpg',
+  virtualBackground7: 'effect/default7.jpg',
+  virtualBackground8: 'effect/default8.mp4',
+  virtualBackground9: 'effect/default9.mp4',
+};
+
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -26,7 +40,7 @@ export const LaunchPage = observer(() => {
 
     if (appRef.current) {
       const roomType = homeStore.launchOption.roomType;
-      let unmount = () => {};
+      let unmount = () => { };
       if (roomType === EduRoomTypeEnum.RoomProctor) {
         AgoraProctorSDK.setParameters(
           JSON.stringify({

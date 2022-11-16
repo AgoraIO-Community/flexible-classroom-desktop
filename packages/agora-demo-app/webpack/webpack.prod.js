@@ -1,4 +1,5 @@
 const webpackMerge = require('webpack-merge');
+const baseConfig = require('./webpack.base');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -12,8 +13,7 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { ROOT_PATH } = require('./utils/index');
 const { prod } = require('./utils/loaders');
 const template = path.resolve(ROOT_PATH, './public/index.html');
-const entry = path.resolve(ROOT_PATH, '.src/index.tsx');
-const baseConfig = require('agora-classroom-sdk/webpack/webpack.base');
+const entry = path.resolve(ROOT_PATH, './src/index.tsx');
 
 const config = {
   mode: 'production',
@@ -76,6 +76,26 @@ const config = {
     }),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('production'),
+    }),
+    // copy wasm files of Web RTC SDK extension from node_modules
+    new CopyPlugin({
+      patterns: [
+        // ai denoiser
+        {
+          from: path.resolve(ROOT_PATH, '../../node_modules/agora-extension-ai-denoiser/external'),
+          to: path.resolve(ROOT_PATH, './build/extensions/ai-denoiser'),
+          noErrorOnMissing: true,
+        },
+        //virtual background
+        {
+          from: path.resolve(
+            ROOT_PATH,
+            '../../node_modules/agora-extension-virtual-background/wasms',
+          ),
+          to: path.resolve(ROOT_PATH, './build/extensions/agora-extension-virtual-background'),
+          noErrorOnMissing: true,
+        },
+      ],
     }),
     // new BundleAnalyzerPlugin(),
   ],

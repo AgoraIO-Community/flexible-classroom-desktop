@@ -1,5 +1,6 @@
-
 import { getLanguage } from '@app/stores/global';
+import { EduRteEngineConfig, EduRteRuntimePlatform } from 'agora-edu-core';
+import { isProduction } from './env';
 /**
  * 解析hash地址中的query参数。避免query参数中用#作为值。
  * @param locationHash string
@@ -46,8 +47,6 @@ export const Default_Hosting_URL =
 
 export const SSO_LOGOUT_URL = 'https://sso2.agora.io/api/v0/logout';
 
-
-
 export const privacyPolicyURL = () => {
   if (getLanguage() === 'en') {
     return 'https://www.agora.io/en/privacy-policy/';
@@ -60,4 +59,16 @@ export const useAgreementURL = () => {
     return 'https://www.agora.io/cn/terms-of-service/';
   }
   return 'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/demo/education/privacy.html';
+};
+
+export const getAssetURL = (relativeURL: string) => {
+  if (EduRteEngineConfig.platform === EduRteRuntimePlatform.Electron) {
+    if (!window.require) return;
+    const path = window.require('path');
+    return isProduction
+      ? `${window.process.resourcesPath}/assets/${relativeURL}`
+      : // for local development
+        path.resolve(`./public/assets/${relativeURL}`);
+  }
+  return `./assets/${relativeURL}`;
 };
