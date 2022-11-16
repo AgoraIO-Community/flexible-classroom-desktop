@@ -19,6 +19,7 @@ export default {
   home_form_error_role_type_empty: 'Role type is required',
   home_form_error_room_type_empty: 'Room type is required',
   home_form_error_room_name_limit: 'Between {min} and {max} characters',
+  home_form_error_user_name_limit: 'Between {min} and {max} characters',
   fcr_home_label_room_list_no_more: 'It is all, nothing more 🤐',
   fcr_logout_tips: 'The user account has expired, please login again later',
   fcr_join_room_tips_ui_config_not_ready: 'UI config be not ready',
