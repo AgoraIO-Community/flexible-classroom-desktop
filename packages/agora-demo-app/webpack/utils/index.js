@@ -12,24 +12,19 @@ const libs = {
   'agora-proctor-sdk': '../agora-proctor-sdk/src/infra/api',
 };
 
-let ALIAS = {};
+let ALIAS = Object.keys(libs).reduce((prev, cur) => {
+  const libName = cur;
 
-// only load from source in development env
-if (process.env.NODE_ENV === 'development') {
-  ALIAS = Object.keys(libs).reduce((prev, cur) => {
-    const libName = cur;
+  const libPath = path.resolve(ROOT_PATH, libs[libName]);
 
-    const libPath = path.resolve(ROOT_PATH, libs[libName]);
+  const libExists = fs.existsSync(libPath);
 
-    const libExists = fs.existsSync(libPath);
+  if (libExists) {
+    prev[libName] = libPath;
+  }
 
-    if (libExists) {
-      prev[libName] = libPath;
-    }
-
-    return prev;
-  }, {});
-}
+  return prev;
+}, {});
 
 module.exports = {
   PUBLIC_PATH,

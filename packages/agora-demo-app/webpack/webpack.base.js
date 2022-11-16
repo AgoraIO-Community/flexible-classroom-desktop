@@ -25,12 +25,6 @@ module.exports = {
       '@classroom': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src/'),
       '@proctor': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src/'),
       '@app': path.resolve(ROOT_PATH, 'src'),
-      '~widget-ui-kit': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit'),
-      '~widget-components': path.resolve(
-        ROOT_PATH,
-        '../agora-plugin-gallery/src/ui-kit/components',
-      ),
-      '~widget-utilities': path.resolve(ROOT_PATH, '../agora-plugin-gallery/src/ui-kit/utilities'),
       ...ALIAS,
     },
   },

@@ -22,6 +22,26 @@ const config = {
   devServer: {
     compress: true,
     port: DEFAULT_PORT,
+    static: [
+      {
+        directory: path.resolve(ROOT_PATH, 'public'),
+        publicPath: '/',
+      },
+      {
+        directory: path.resolve(
+          ROOT_PATH,
+          '../../node_modules/agora-extension-ai-denoiser/external',
+        ),
+        publicPath: '/extensions/ai-denoiser',
+      },
+      {
+        directory: path.resolve(
+          ROOT_PATH,
+          '../../node_modules/agora-extension-virtual-background/wasms',
+        ),
+        publicPath: '/extensions/agora-extension-virtual-background',
+      },
+    ],
   },
   module: {
     rules: [...dev],

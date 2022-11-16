@@ -6,7 +6,6 @@ import { token } from './utils';
 import { addResourceBundle } from 'agora-common-libs';
 import en from './translate/en';
 import zh from './translate/zh';
-import i18n from 'i18next';
 
 declare global {
   interface Window {
