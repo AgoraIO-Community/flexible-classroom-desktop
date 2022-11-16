@@ -19,7 +19,7 @@ export default {
   home_form_error_role_type_empty: '角色类型不能为空',
   home_form_error_room_type_empty: '房间类型不能为空',
   home_form_error_room_name_limit: '房间名为{min}-{max}位字符',
-
+  home_form_error_user_name_limit: '用户名为{min}-{max}位字符',
   fcr_home_label_room_list_no_more: '已经到底了 🤐',
   fcr_logout_tips: '用户账号过期,稍后请重新登录',
   fcr_menu_sign_out: '登出',
