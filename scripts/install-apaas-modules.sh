@@ -3,9 +3,6 @@
 #git submodule add ssh://git@git.agoralab.co/aduc/apaas-common-libs-web.git packages/agora-common-libs
 git submodule update --init --recursive
 
-npm config set registry https://registry.npm.taobao.org/
-yarn config set registry https://registry.npm.taobao.org/
-
 yarn install
 
 bin_path=node_modules/.bin
