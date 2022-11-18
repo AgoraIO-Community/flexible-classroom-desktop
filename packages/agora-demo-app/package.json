@@ -3,7 +3,7 @@
   "version": "2.8.0",
   "description": "Agora aPaaS Demo",
   "scripts": {
-    "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./app/\"",
+    "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./electron/\"",
     "electron:client": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./app/",
     "electron:copy:electron:mac": "cpx './electron/**/*.js' ./build",
     "electron:copy:electron:win": "cpx \"./electron/**/*.js\" ./build",
