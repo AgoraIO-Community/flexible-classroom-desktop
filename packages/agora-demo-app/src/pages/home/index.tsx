@@ -57,6 +57,7 @@ export const useBuilderConfig = () => {
     { text: t('home.roomType_1v1'), value: `${EduRoomTypeEnum.Room1v1Class}` },
     { text: t('home.roomType_interactiveSmallClass'), value: `${EduRoomTypeEnum.RoomSmallClass}` },
     { text: t('home.roomType_interactiveBigClass'), value: `${EduRoomTypeEnum.RoomBigClass}` },
+    { text: t('home.roomType_roomProctor'), value: `${EduRoomTypeEnum.RoomProctor}` },
   ];
 
   const [roomTypes, setRoomTypes] = useState<EduRoomTypeEnum[]>([]);
@@ -155,7 +156,12 @@ export const HomePage = () => {
 
     const roomType = parseInt(rt);
 
-    const userUuid = `${md5(userName)}${userRole}`;
+    const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+    const isStudent = userRole === EduRoleTypeEnum.student;
+    const userUuid =
+      isProctoring && isStudent
+        ? `${md5(userName)}${userRole}-main`
+        : `${md5(userName)}${userRole}`;
 
     const roomUuid = `${md5(roomName)}${roomType}`;
 
@@ -176,9 +182,11 @@ export const HomePage = () => {
       const shareUrl =
         AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron
           ? ''
-          : `${location.origin}${location.pathname
-          }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${EduRoleTypeEnum.student
-          }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
+          : `${location.origin}${
+              location.pathname
+            }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${
+              EduRoleTypeEnum.student
+            }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
 
       console.log('## get rtm Token from demo server', token);
 

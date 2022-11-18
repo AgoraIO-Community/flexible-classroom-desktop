@@ -46,6 +46,7 @@ export type RoomCreateResponse = {
 export type RoomJoinRequest = {
   roomId: string;
   role: EduRoleTypeEnum;
+  userUuid?: string;
 };
 
 export type RoomJoinNoAuthRequest = RoomJoinRequest & {

@@ -651,6 +651,7 @@ export const en = {
     roomType_interactiveSmallClass: 'Interactive Small Classroom',
     roomType_interactiveBigClass: 'Lecture Hall',
     roomType_vocationalClass: 'Vocational Lecture Hall',
+    roomType_roomProctor: 'Online Proctoring',
     role: 'Role',
     role_placeholder: 'Please select your role',
     encryptionMode: 'Mode',

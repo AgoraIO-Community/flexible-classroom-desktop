@@ -642,6 +642,7 @@ export const zh = {
     roomType_interactiveSmallClass: '互动小班课',
     roomType_interactiveBigClass: '大班课',
     roomType_vocationalClass: '职教大班课',
+    roomType_roomProctor: '在线监考',
     role: '角色',
     role_placeholder: '请选择你的角色',
     encryptionMode: '模式',

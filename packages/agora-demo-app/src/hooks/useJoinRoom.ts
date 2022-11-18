@@ -17,6 +17,7 @@ import {
 import { shareLink } from '../utils/share';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
+import { roomApi } from '@app/api';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -213,7 +214,14 @@ export const useJoinRoom = () => {
       }
 
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
-      return roomStore.joinRoom({ roomId, role }).then((response) => {
+      const {
+        data: { data: roomInfo },
+      } = await roomApi.getRoomInfoByID(roomId);
+
+      const isProctoring = roomInfo.roomType === EduRoomTypeEnum.RoomProctor;
+      const isStudent = role === EduRoleTypeEnum.student;
+      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
+      return roomStore.joinRoom({ roomId, role, userUuid }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
         const { serviceType, ...rProps } = roomDetail.roomProperties;
 
@@ -228,7 +236,7 @@ export const useJoinRoom = () => {
             token,
             role,
             platform,
-            userId,
+            userId: userUuid,
             userName: nickName,
             roomId: roomDetail.roomId,
             roomName: roomDetail.roomName,
