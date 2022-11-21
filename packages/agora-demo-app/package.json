@@ -14,10 +14,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@git.agoralab.co/aduc/open-flexible-classroom-desktop.git"
+    "url": "ssh://git@github.com:AgoraIO-Community/flexible-classroom-desktop.git"
   },
   "author": "agora.io",
-  "license": "ISC",
   "dmg": {
     "compression": "store",
     "npmRebuild": false,

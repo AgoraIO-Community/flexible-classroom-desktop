@@ -92,9 +92,21 @@
     "prepare": "husky install"
   },
   "keywords": [],
-  "author": "Agora aPaaS Team",
+  "author": "agora.io",
   "license": "ISC",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "agora_electron": {
+    "electron_version": "12.0.0",
+    "prebuilt": true
+  },
+  "peerDependencies": {
+    "agora-electron-sdk": "*"
+  },
+  "peerDependenciesMeta": {
+    "agora-electron-sdk": {
+      "optional": true
+    }
   }
 }
