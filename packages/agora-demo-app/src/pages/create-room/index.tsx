@@ -217,25 +217,33 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-          videoURL: link,
-          reserveVideoURL: link,
-          finishType: 0,
-        }
+            videoURL: link,
+            reserveVideoURL: link,
+            finishType: 0,
+          }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;
-
+      const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+      const roomProperties = isProctoring
+        ? {
+            watermark,
+            hostingScene,
+            serviceType: sType,
+            examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+          }
+        : {
+            watermark,
+            hostingScene,
+            serviceType: sType,
+          };
       roomStore
         .createRoom({
           roomName: name,
           startTime: dateTime.valueOf(),
           endTime: computeEndTime(dateTime).valueOf(),
           roomType,
-          roomProperties: {
-            watermark,
-            hostingScene,
-            serviceType: sType,
-          },
+          roomProperties,
         })
         .then((data) => {
           if (useCurrentTime) {
