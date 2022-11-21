@@ -75,7 +75,7 @@
     "recast": "0.21.1"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap -- --no-lockfile",
+    "bootstrap": "lerna bootstrap",
     "release:electron:mac": "run-s build:demo pack:electron:mac",
     "release:electron:win": "run-s build:demo pack:electron:win",
     "dev": "lerna exec --scope=agora-demo-app yarn dev",
