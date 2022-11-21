@@ -21,6 +21,7 @@ import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RadioCard } from './radio-card';
 import './index.css';
+import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -76,13 +77,17 @@ const roomTypeOptions = [
     value: EduRoomTypeEnum.Room1v1Class,
     className: 'card-green',
   },
-  {
+];
+
+if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
+  roomTypeOptions.push({
     label: 'online proctoring',
     description: 'online proctoring',
     value: EduRoomTypeEnum.RoomProctor,
     className: 'card-green',
-  },
-];
+  })
+}
+
 
 const serviceTypeOptions = [
   {
@@ -217,26 +222,26 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-            videoURL: link,
-            reserveVideoURL: link,
-            finishType: 0,
-          }
+          videoURL: link,
+          reserveVideoURL: link,
+          finishType: 0,
+        }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
       const roomProperties = isProctoring
         ? {
-            watermark,
-            hostingScene,
-            serviceType: sType,
-            examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
-          }
+          watermark,
+          hostingScene,
+          serviceType: sType,
+          examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+        }
         : {
-            watermark,
-            hostingScene,
-            serviceType: sType,
-          };
+          watermark,
+          hostingScene,
+          serviceType: sType,
+        };
       roomStore
         .createRoom({
           roomName: name,
