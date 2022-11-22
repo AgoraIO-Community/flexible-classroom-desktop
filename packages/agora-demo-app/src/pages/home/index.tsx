@@ -57,7 +57,7 @@ export const useBuilderConfig = () => {
     { text: t('home.roomType_1v1'), value: `${EduRoomTypeEnum.Room1v1Class}` },
     { text: t('home.roomType_interactiveSmallClass'), value: `${EduRoomTypeEnum.RoomSmallClass}` },
     { text: t('home.roomType_interactiveBigClass'), value: `${EduRoomTypeEnum.RoomBigClass}` },
-    { text: t('home.roomType_roomProctor'), value: `${EduRoomTypeEnum.RoomProctor}` },
+    { text: t('fcr_home_label_proctoring'), value: `${EduRoomTypeEnum.RoomProctor}` },
   ];
 
   const [roomTypes, setRoomTypes] = useState<EduRoomTypeEnum[]>([]);
@@ -157,6 +157,7 @@ export const HomePage = () => {
     const roomType = parseInt(rt);
 
     const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+    const webRTCCodec = isProctoring ? 'h264' : 'vp8';
     const isStudent = userRole === EduRoleTypeEnum.student;
     const userUuid =
       isProctoring && isStudent
@@ -209,6 +210,11 @@ export const HomePage = () => {
         scenes: builderResource.current.scenes,
         themes: builderResource.current.themes,
         shareUrl,
+        mediaOptions: {
+          web: {
+            codec: webRTCCodec,
+          },
+        },
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;

@@ -46,7 +46,10 @@
   justify-content: center;
   margin: 40px 0 60px;
 }
-
+.welcome-container .content.room-list-empty .room-list-empty-img img {
+  width: 256px;
+  height: 188px;
+}
 .welcome-container .room-list::after {
   content: '';
   display: block;

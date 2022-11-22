@@ -159,7 +159,10 @@ export const useJoinRoom = () => {
       const latencyLevel = getLatencyLevel(roomType, roomServiceType);
 
       const needPretest = needPreset(roomType, roomServiceType, role);
-      const webRTCCodec = webRTCCodecH264.includes(roomServiceType) ? 'h264' : 'vp8';
+      const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+
+      const webRTCCodec =
+        isProctoring || webRTCCodecH264.includes(roomServiceType) ? 'h264' : 'vp8';
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
         sdkDomain: `${REACT_APP_AGORA_APP_SDK_DOMAIN}`,
