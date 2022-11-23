@@ -89,7 +89,11 @@
     "ci:build:web": "yarn build:demo",
     "ci:build:electron:win": "yarn release:electron:win",
     "ci:build:electron:mac": "yarn release:electron:mac",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "pre-publish:rte-sdk": "lerna exec --scope=agora-rte-sdk npm run pre-publish",
+    "pre-publish:edu-core": "lerna exec --scope=agora-edu-core npm run pre-publish",
+    "pre-publish:common-libs": "lerna exec --scope=agora-common-libs npm run pre-publish",
+    "pre-publish": "run-s pre-publish:common-libs pre-publish:rte-sdk pre-publish:edu-core pack:classroom:sdk pack:proctor:sdk"
   },
   "keywords": [],
   "author": "agora.io",
