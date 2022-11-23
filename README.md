@@ -2,6 +2,10 @@
 
 ## Flexible Classroom Electron App
 
+## Fetch submodules
+```bash
+git submodule update --init --recursive
+```
 ## Install
 
 ```bash

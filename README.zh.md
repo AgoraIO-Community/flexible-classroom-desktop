@@ -2,7 +2,12 @@
 
 ## 灵动课堂 Electron App
 
-## Install
+## 拉取子模块
+```bash
+git submodule update --init --recursive
+```
+
+## 安装依赖
 
 ```bash
 # 安装lerna项目的npm依赖包
@@ -12,7 +17,7 @@ npm install
 lerna bootstrap
 ```
 
-## Config
+## 配置
 
 ```bash
 # 通过配置文件模板创建配置文件

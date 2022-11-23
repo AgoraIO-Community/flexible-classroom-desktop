@@ -6,13 +6,13 @@
 	url = ssh://git@git.agoralab.co/aduc/agora-edu-core-desktop.git
 [submodule "packages/agora-classroom-sdk"]
 	path = packages/agora-classroom-sdk
-	url = ./cloudclass-desktop.git
+	url = ../cloudclass-desktop.git
 [submodule "packages/agora-plugin-gallery"]
 	path = packages/agora-plugin-gallery
-	url = ./open-apaas-widgets-web.git
+	url = ../apaas-widgets-web.git
 [submodule "packages/agora-proctor-sdk"]
 	path = packages/agora-proctor-sdk
-	url = ./proctor-desktop.git
+	url = ../proctor-desktop.git
 [submodule "packages/agora-common-libs"]
 	path = packages/agora-common-libs
 	url = ssh://git@git.agoralab.co/aduc/apaas-common-libs-web.git
