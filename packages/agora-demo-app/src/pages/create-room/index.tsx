@@ -1,6 +1,6 @@
-import watermarkIcon from '@app/assets/fcr_watermark.svg';
-import premiumIcon from '@app/assets/service-type/fcr_premium.svg';
-import standardIcon from '@app/assets/service-type/fcr_standard.svg';
+import watermarkIcon from '@app/assets/fcr_watermark.png';
+import premiumIcon from '@app/assets/service-type/fcr_premium.png';
+import standardIcon from '@app/assets/service-type/fcr_standard.png';
 import { ADatePicker, ADatePickerProps, locale } from '@app/components/date-picker';
 import { AForm, AFormItem, useAForm } from '@app/components/form';
 import { AInput } from '@app/components/input';
@@ -81,13 +81,12 @@ const roomTypeOptions = [
 
 if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
   roomTypeOptions.push({
-    label: 'online proctoring',
-    description: 'online proctoring',
+    label: 'fcr_home_label_proctoring',
+    description: 'fcr_home_label_proctoring',
     value: EduRoomTypeEnum.RoomProctor,
     className: 'card-green',
-  })
+  });
 }
-
 
 const serviceTypeOptions = [
   {
@@ -96,12 +95,12 @@ const serviceTypeOptions = [
     value: EduRoomServiceTypeEnum.LivePremium,
     icon: <img src={premiumIcon} />,
   },
-  {
-    label: 'fcr_create_label_service_type_Standard',
-    description: 'fcr_create_label_latency_Standard',
-    value: EduRoomServiceTypeEnum.LiveStandard,
-    icon: <img src={standardIcon} />,
-  },
+  // {
+  //   label: 'fcr_create_label_service_type_Standard',
+  //   description: 'fcr_create_label_latency_Standard',
+  //   value: EduRoomServiceTypeEnum.LiveStandard,
+  //   icon: <img src={standardIcon} />,
+  // },
   // {
   //   label: 'fcr_create_label_service_type_CDN',
   //   description: 'fcr_create_label_latency_CDN',
@@ -222,26 +221,26 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-          videoURL: link,
-          reserveVideoURL: link,
-          finishType: 0,
-        }
+            videoURL: link,
+            reserveVideoURL: link,
+            finishType: 0,
+          }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
       const roomProperties = isProctoring
         ? {
-          watermark,
-          hostingScene,
-          serviceType: sType,
-          examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
-        }
+            watermark,
+            hostingScene,
+            serviceType: sType,
+            examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+          }
         : {
-          watermark,
-          hostingScene,
-          serviceType: sType,
-        };
+            watermark,
+            hostingScene,
+            serviceType: sType,
+          };
       roomStore
         .createRoom({
           roomName: name,

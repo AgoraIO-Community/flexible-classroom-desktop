@@ -1,6 +1,6 @@
 > _其他语言版本：[简体中文](README.zh.md)_
 
-## CloudClass Desktop
+## Flexible Classroom Electron App
 
 ## Install
 
@@ -12,8 +12,8 @@ yarn bootstrap
 ## Config
 
 ```bash
-# copy config template to agora-classroom-sdk project
-cp .env.example packages/agora-classroom-sdk/.env
+# rename config template
+cp .env.example .env
 
 # fill the config with your agora.io development environment
 ```

@@ -1,6 +1,6 @@
 > _Read this in another language: [English](README.md)_
 
-## 云课堂 Electron App
+## 灵动课堂 Electron App
 
 ## Install
 
@@ -12,11 +12,11 @@ npm install
 lerna bootstrap
 ```
 
-## config
+## Config
 
 ```bash
-# 拷贝配置文件到demo目录
-cp .env.example packages/agora-classroom-sdk/.env
+# 通过配置文件模板创建配置文件
+cp .env.example .env
 
 # 按照模板配置你的项目
 ```

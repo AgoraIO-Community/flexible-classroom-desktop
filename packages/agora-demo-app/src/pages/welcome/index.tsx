@@ -1,6 +1,6 @@
 import { RoomInfo } from '@app/api/room';
-import CreateClassIcon from '@app/assets/fcr_create_class.svg';
-import JoinClassIcon from '@app/assets/fcr_join_class.svg';
+import CreateClassIcon from '@app/assets/fcr_create_class.png';
+import JoinClassIcon from '@app/assets/fcr_join_class.png';
 import roomListEmptyImg from '@app/assets/welcome-empty-list.png';
 import { useJoinRoom } from '@app/hooks';
 import { RoomListItem } from '@app/pages/welcome/room-list';
@@ -32,7 +32,6 @@ export const Welcome = observer(() => {
   const [shareModal, setShareModal] = useState(false);
   const { setLoading } = useContext(GlobalStoreContext);
   const { quickJoinRoom } = useJoinRoom();
-
 
   const toJoinRoomPage = () => {
     history.push('/join-room');
@@ -97,10 +96,7 @@ export const Welcome = observer(() => {
   }, []);
 
   const roomRefresh = useCallback(() => {
-    setLoading(true);
-    return refreshRoomList().finally(() => {
-      setLoading(false);
-    });
+    return refreshRoomList();
   }, []);
 
   useEffect(() => {
@@ -170,7 +166,7 @@ export const Welcome = observer(() => {
           </InfiniteScroll>
         </div>
       </div>
-      <div className="room-list-mask" />
+      {history.location.pathname !== '/' && <div className="room-list-mask" />}
       <AModal
         className="share-modal-container"
         open={shareModal}
