@@ -4,7 +4,9 @@
 
 ## Fetch submodules
 ```bash
-git submodule update --init --recursive
+git submodule update --init --recursive packages/agora-classroom-sdk 
+git submodule update --init --recursive packages/agora-proctor-sdk 
+git submodule update --init --recursive packages/agora-plugin-gallery
 ```
 ## Install
 
