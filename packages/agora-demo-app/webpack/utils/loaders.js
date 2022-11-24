@@ -111,7 +111,7 @@ module.exports.base = [
               'babel-plugin-macros',
               {
                 twin: {
-                  config: path.resolve(ROOT_PATH, '../agora-classroom-sdk/tailwind.config.js'),
+                  config: path.resolve(ROOT_PATH, 'tailwind.config.js'),
                 },
               },
             ],
@@ -148,7 +148,7 @@ module.exports.dev = [
         options: {
           postcssOptions: {
             ident: 'postcss',
-            config: path.resolve(ROOT_PATH, '../agora-classroom-sdk/postcss.config.js'),
+            config: path.resolve(ROOT_PATH, 'postcss.config.js'),
           },
         },
       },
@@ -181,7 +181,7 @@ module.exports.prod = [
         options: {
           postcssOptions: {
             ident: 'postcss',
-            config: path.resolve(ROOT_PATH, '../agora-classroom-sdk/postcss.config.js'),
+            config: path.resolve(ROOT_PATH, 'postcss.config.js'),
           },
         },
       },
