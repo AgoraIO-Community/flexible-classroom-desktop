@@ -89,6 +89,7 @@
     "ci:build:web": "yarn build:demo",
     "ci:build:electron:win": "yarn release:electron:win",
     "ci:build:electron:mac": "yarn release:electron:mac",
+    "ci:prepare": "node ./scripts/replace-util",
     "prepare": "husky install",
     "pre-publish:rte-sdk": "lerna exec --scope=agora-rte-sdk npm run pre-publish",
     "pre-publish:edu-core": "lerna exec --scope=agora-edu-core npm run pre-publish",
