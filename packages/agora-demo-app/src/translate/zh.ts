@@ -62,7 +62,7 @@ export default {
   fcr_home_button_create: '创建课堂',
   fcr_home_button_join: '加入房间',
   fcr_home_button_enter: '进入房间',
-  fcr_home_button_replay: '回放',
+  fcr_home_button_replay: '课程明细',
   fcr_home_status_upcoming: '待开始',
   fcr_home_status_live: '进行中',
   fcr_home_status_over: '已结束',

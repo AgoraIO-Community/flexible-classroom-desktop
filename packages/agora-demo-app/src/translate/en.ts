@@ -65,7 +65,7 @@ export default {
   fcr_home_button_create: 'Create',
   fcr_home_button_join: 'Join',
   fcr_home_button_enter: 'Enter',
-  fcr_home_button_replay: 'Replay',
+  fcr_home_button_replay: 'Detail',
   fcr_home_status_upcoming: 'upcoming',
   fcr_home_status_live: 'Live',
   fcr_home_status_over: 'Over',
