@@ -3028,7 +3028,7 @@
 
 "@netless/app-slide@0.2.22":
   version "0.2.22"
-  resolved "https://registry.npmjs.org/@netless/app-slide/-/app-slide-0.2.22.tgz#82fac7fa013fb83026b9eecf9c69c06b791adb2c"
+  resolved "https://registry.npmmirror.com/@netless/app-slide/-/app-slide-0.2.22.tgz#82fac7fa013fb83026b9eecf9c69c06b791adb2c"
   integrity sha512-ggvc0u571zC/Vf9J0jBlpiUZhtk/VaAPhToSFknb48QGdxhGpc3Q7PSsetMH2odOx3OsHpLpsQeOWe38sIwy5A==
 
 "@netless/app-talkative@0.1.0":
@@ -3117,7 +3117,7 @@
 
 "@netless/window-manager@0.4.49":
   version "0.4.49"
-  resolved "https://registry.npmjs.org/@netless/window-manager/-/window-manager-0.4.49.tgz#06fb24b1d9b43a8f4a4ea9300831f5ac1275a078"
+  resolved "https://registry.npmmirror.com/@netless/window-manager/-/window-manager-0.4.49.tgz#06fb24b1d9b43a8f4a4ea9300831f5ac1275a078"
   integrity sha512-319UF/iWMQ5oaws56gv4N92udbNjY4diGJVXt27AWuebQ5TgTy7yfwhcEwkjjoqOrMBxu1A7xK57Kj5CMsLP5w==
   dependencies:
     "@juggle/resize-observer" "^3.3.1"
