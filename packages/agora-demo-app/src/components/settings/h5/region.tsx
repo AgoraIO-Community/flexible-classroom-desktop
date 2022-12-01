@@ -29,9 +29,7 @@ export const RegionMenu: FC<RegionMenuProps> = observer(({ removeMenuPopup }) =>
 
     const result: MenuItemProps[] = [
       regionMenuItem(AgoraRegion.NA),
-      regionMenuItem(AgoraRegion.AP),
       regionMenuItem(AgoraRegion.CN),
-      regionMenuItem(AgoraRegion.EU),
     ];
     return result;
   }, [region]);

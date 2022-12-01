@@ -29,7 +29,7 @@ export const regionByLang = {
   en: EduRegion.NA,
 };
 
-const regionList = [AgoraRegion.AP, AgoraRegion.CN, AgoraRegion.EU, AgoraRegion.NA];
+const regionList = [AgoraRegion.CN, AgoraRegion.NA];
 
 export const getRegion = (): EduRegion => {
   return getLSStore(LS_REGION) || regionByLang[getBrowserLanguage()] || EduRegion.NA;

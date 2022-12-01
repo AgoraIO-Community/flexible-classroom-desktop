@@ -21,6 +21,7 @@ import { useHistory } from 'react-router';
 import { H5Login } from './scaffold';
 import { MessageDialog } from './message-dialog';
 import { FcrMultiThemeMode } from 'agora-common-libs';
+import { AgoraRegion } from 'agora-rte-sdk';
 
 declare const CLASSROOM_SDK_VERSION: string;
 
@@ -155,18 +156,14 @@ export const HomeH5Page = observer(() => {
           const domain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
           if (!tokenDomain && tokenDomainCollection) {
             switch (region) {
-              case 'CN':
+              case AgoraRegion.CN:
                 tokenDomain = tokenDomainCollection['prod_cn'];
                 break;
-              case 'AP':
-                tokenDomain = tokenDomainCollection['prod_ap'];
-                break;
-              case 'NA':
+              case AgoraRegion.NA:
                 tokenDomain = tokenDomainCollection['prod_na'];
                 break;
-              case 'EU':
-                tokenDomain = tokenDomainCollection['prod_eu'];
-                break;
+              default:
+                tokenDomain = tokenDomainCollection['prod_na'];
             }
           }
 

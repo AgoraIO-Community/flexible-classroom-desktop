@@ -26,15 +26,12 @@ export const getApiDomain = (region: EduRegion = EduRegion.CN) => {
       case AgoraRegion.CN:
         domain = domainMap['prod_cn'];
         break;
-      case AgoraRegion.AP:
-        domain = domainMap['prod_ap'];
-        break;
+
       case AgoraRegion.NA:
         domain = domainMap['prod_na'];
         break;
-      case AgoraRegion.EU:
-        domain = domainMap['prod_eu'];
-        break;
+      default:
+        domain = domainMap['prod_na'];
     }
   }
   return domain;
@@ -64,15 +61,12 @@ export const getSceneBuilderDomain = (region: EduRegion = EduRegion.CN) => {
       case AgoraRegion.CN:
         domain = domainMap['prod_cn'];
         break;
-      case AgoraRegion.AP:
-        domain = domainMap['prod_ap'];
-        break;
+
       case AgoraRegion.NA:
         domain = domainMap['prod_na'];
         break;
-      case AgoraRegion.EU:
-        domain = domainMap['prod_eu'];
-        break;
+      default:
+        domain = domainMap['prod_na'];
     }
   }
   return domain;

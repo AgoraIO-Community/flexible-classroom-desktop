@@ -12,16 +12,14 @@ const languageOptions = [
 
 const regionOptions = [
   { label: 'NA', value: 'NA' },
-  { label: 'AP', value: 'AP' },
   { label: 'CN', value: 'CN' },
-  { label: 'EU', value: 'EU' },
 ];
 
 export const GeneralSetting = observer(() => {
   const { language, setLanguage, region, setRegion, theme, setTheme } =
     useContext(GlobalStoreContext);
   const transI18n = useI18n();
-  
+
   const themeOptions = [
     { value: FcrMultiThemeMode.light, label: transI18n('fcr_settings_theme_light') },
     { value: FcrMultiThemeMode.dark, label: transI18n('fcr_settings_theme_dark') },
