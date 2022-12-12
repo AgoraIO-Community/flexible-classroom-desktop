@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
-const baseConfig = require('agora-classroom-sdk/webpack/webpack.base');
+const baseConfig = require('./webpack.base');
 const path = require('path');
 const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
 const { dev } = require('./utils/loaders');
@@ -22,14 +22,29 @@ const config = {
   devServer: {
     compress: true,
     port: DEFAULT_PORT,
+    static: [
+      {
+        directory: path.resolve(ROOT_PATH, 'public'),
+        publicPath: '/',
+      },
+      {
+        directory: path.resolve(
+          ROOT_PATH,
+          '../../node_modules/agora-extension-ai-denoiser/external',
+        ),
+        publicPath: '/extensions/ai-denoiser',
+      },
+      {
+        directory: path.resolve(
+          ROOT_PATH,
+          '../../node_modules/agora-extension-virtual-background/wasms',
+        ),
+        publicPath: '/extensions/agora-extension-virtual-background',
+      },
+    ],
   },
   module: {
     rules: [...dev],
-  },
-  resolve: {
-    alias: {
-      '@app': path.resolve(ROOT_PATH, 'src'),
-    },
   },
   optimization: {
     nodeEnv: 'development',

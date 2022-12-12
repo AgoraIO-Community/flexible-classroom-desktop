@@ -1,6 +1,7 @@
+import { CheckBox } from '@app/components/checkbox';
 import { useLogout } from '@app/hooks';
+import { useI18n } from 'agora-common-libs';
 import { FC, useState } from 'react';
-import { CheckBox, useI18n } from '~ui-kit';
 import { SettingsMenuEnum } from '.';
 import { ConfirmDialogH5 } from './components/confirm-dialog';
 import { PageLayout } from './components/page-layout';

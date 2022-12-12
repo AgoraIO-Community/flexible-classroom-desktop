@@ -42,7 +42,7 @@
   @apply flex items-center;
   font-style: italic;
   font-weight: 800;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 150%;
 }
 
@@ -61,6 +61,13 @@
 
 .room-item-card .info .header .id {
   @apply flex items-start;
+
+  font-style: italic;
+  font-weight: 800;
+  font-size: 10px;
+  line-height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .room-item-card .info .header .id::before {
@@ -98,6 +105,7 @@
 
 .room-item-card .footer .type {
   @apply inline-flex items-center;
+  font-style: normal;
 }
 
 .room-item-card .footer .state .live-icon {

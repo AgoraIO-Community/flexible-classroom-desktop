@@ -1,9 +1,9 @@
-import { LanguageEnum, LaunchOption, FcrMultiThemeMode } from 'agora-classroom-sdk';
+import { LanguageEnum, LaunchOption } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
+import { changeLanguage, FcrMultiThemeMode } from 'agora-common-libs';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
-import { changeLanguage } from '~ui-kit';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
 
 export interface ToastType {
@@ -29,7 +29,7 @@ export const regionByLang = {
   en: EduRegion.NA,
 };
 
-const regionList = [AgoraRegion.AP, AgoraRegion.CN, AgoraRegion.EU, AgoraRegion.NA];
+const regionList = [AgoraRegion.CN, AgoraRegion.NA];
 
 export const getRegion = (): EduRegion => {
   return getLSStore(LS_REGION) || regionByLang[getBrowserLanguage()] || EduRegion.NA;

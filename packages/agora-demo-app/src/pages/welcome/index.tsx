@@ -1,6 +1,6 @@
 import { RoomInfo } from '@app/api/room';
-import CreateClassIcon from '@app/assets/fcr_create_class.svg';
-import JoinClassIcon from '@app/assets/fcr_join_class.svg';
+import CreateClassIcon from '@app/assets/fcr_create_class.png';
+import JoinClassIcon from '@app/assets/fcr_join_class.png';
 import roomListEmptyImg from '@app/assets/welcome-empty-list.png';
 import { useJoinRoom } from '@app/hooks';
 import { RoomListItem } from '@app/pages/welcome/room-list';
@@ -11,20 +11,16 @@ import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useHistory } from 'react-router-dom';
-import {
-  ADivider,
-  AList,
-  AListItem,
-  AModal,
-  ASkeleton,
-  SvgIconEnum,
-  SvgImg,
-  useI18n,
-} from '~ui-kit';
 import './index.css';
 import { Menu } from './menu';
 import { RoomToast } from './room-toast';
 import { Share, ShareInfo } from './share';
+import { ASkeleton } from '@app/components/skeleton';
+import { ADivider } from '@app/components/divider';
+import { AList, AListItem } from '@app/components/list';
+import { AModal } from '@app/components/modal';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { useI18n } from 'agora-common-libs';
 
 export const Welcome = observer(() => {
   const history = useHistory();
@@ -100,10 +96,7 @@ export const Welcome = observer(() => {
   }, []);
 
   const roomRefresh = useCallback(() => {
-    setLoading(true);
-    return refreshRoomList().finally(() => {
-      setLoading(false);
-    });
+    return refreshRoomList();
   }, []);
 
   useEffect(() => {
@@ -173,7 +166,7 @@ export const Welcome = observer(() => {
           </InfiniteScroll>
         </div>
       </div>
-      <div className="room-list-mask" />
+      {history.location.pathname !== '/' && <div className="room-list-mask" />}
       <AModal
         className="share-modal-container"
         open={shareModal}

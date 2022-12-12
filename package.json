@@ -29,7 +29,7 @@
     "@commitlint/config-conventional": "13.1.0",
     "@open-wc/webpack-import-meta-loader": "0.4.7",
     "@types/react": "17.0.44",
-    "@types/ua-parser-js": "^0.7.36",
+    "@types/ua-parser-js": "0.7.36",
     "@typescript-eslint/eslint-plugin": "4.33.0",
     "@typescript-eslint/parser": "4.33.0",
     "babel-loader": "8.2.2",
@@ -66,7 +66,6 @@
     "typedoc": "0.22.10",
     "url-loader": "4.1.1",
     "worker-loader": "3.0.8",
-    "vconsole": "^3.10.1",
     "webpack": "5.54.0",
     "webpack-bundle-analyzer": "4.5.0",
     "webpack-cli": "4.10.0",
@@ -75,103 +74,44 @@
     "webpackbar": "5.0.0-3",
     "recast": "0.21.1"
   },
-  "agora_electron": {
-    "electron_version": "12.0.0",
-    "prebuilt": true
-  },
-  "description": "[English](README.zh.md)*",
-  "version": "2.0.0",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "release:classroom:sdk": "run-s pack:classroom:sdk",
     "release:electron:mac": "run-s build:demo pack:electron:mac",
     "release:electron:win": "run-s build:demo pack:electron:win",
     "dev": "lerna exec --scope=agora-demo-app yarn dev",
     "dev:electron": "lerna exec --scope=agora-demo-app yarn electron",
-    "dev:ui-kit": "lerna exec --scope=agora-scenario-ui-kit yarn storybook",
-    "dev:plugin": "lerna exec --scope=agora-plugin-gallery npm run dev",
+    "dev:ui-kit:classroom": "lerna exec --scope=agora-classroom-sdk yarn storybook",
     "pack:classroom:sdk": "lerna exec --scope=agora-classroom-sdk npm run pack:npm",
+    "pack:proctor:sdk": "lerna exec --scope=agora-proctor-sdk npm run pack:npm",
     "pack:electron:mac": "lerna exec --scope=agora-demo-app npm run pack:mac",
     "pack:electron:win": "lerna exec --scope=agora-demo-app npm run pack:win",
     "build:demo": "lerna exec --scope=agora-demo-app npm run build",
-    "build:plugin": "lerna exec --scope=agora-plugin-gallery npm run build",
     "ci:build:web": "yarn build:demo",
     "ci:build:electron:win": "yarn release:electron:win",
     "ci:build:electron:mac": "yarn release:electron:mac",
-    "prepare": "husky install"
+    "ci:prepare": "node ./scripts/replace-util",
+    "prepare": "husky install",
+    "pre-publish:rte-sdk": "lerna exec --scope=agora-rte-sdk npm run pre-publish",
+    "pre-publish:edu-core": "lerna exec --scope=agora-edu-core npm run pre-publish",
+    "pre-publish:common-libs": "lerna exec --scope=agora-common-libs npm run pre-publish",
+    "pre-publish": "run-s pre-publish:common-libs pre-publish:rte-sdk pre-publish:edu-core pack:classroom:sdk pack:proctor:sdk"
   },
   "keywords": [],
-  "author": "",
+  "author": "agora.io",
   "license": "ISC",
-  "build": {
-    "extraResources": [
-      {
-        "from": "src/ui-kit/capabilities/containers/pretest/assets/pretest-audio.mp3",
-        "to": "assets/pretest-audio.mp3"
-      }
-    ],
-    "asar": true,
-    "asarUnpack": [
-      "node_modules/agora-rdc-core/**/*",
-      "node_modules/agora-classroom-sdk/assets/pretest-audio.mp3"
-    ],
-    "afterPack": "./after-pack.js",
-    "extraMetadata": {
-      "main": "build/index.js"
-    },
-    "productName": "AgoraFlexibleClassroom",
-    "appId": "io.agora.education",
-    "files": [
-      "build/**/*"
-    ],
-    "artifactName": "${productName}-${version}.${ext}",
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "icon": "icons/favicon.png",
-      "entitlements": "entitlements.mac.plist",
-      "category": "io.agora.Education",
-      "hardenedRuntime": true,
-      "extendInfo": {
-        "NSMicrophoneUsageDescription": "AgoraEdu Classroom acquire your microphone permission",
-        "NSCameraUsageDescription": "AgoraEdu Classroom acquire your camera permission"
-      }
-    },
-    "win": {
-      "icon": "icons/favicon.png",
-      "target": [
-        "nsis"
-      ],
-      "requestedExecutionLevel": "requireAdministrator"
-    },
-    "nsis": {
-      "oneClick": false,
-      "perMachine": true,
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "allowToChangeInstallationDirectory": true,
-      "installerIcon": "icons/favicon.ico",
-      "shortcutName": "AgoraFlexibleClassroom",
-      "artifactName": "AgoraFlexibleClassroom-${version}.${ext}"
-    },
-    "linux": {
-      "icon": "icons/favicon.png",
-      "target": [
-        "deb",
-        "rpm",
-        "snap",
-        "AppImage"
-      ],
-      "category": "Development"
-    },
-    "directories": {
-      "buildResources": "assets",
-      "output": "release"
-    }
-  },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "agora_electron": {
+    "electron_version": "12.0.0",
+    "prebuilt": true
+  },
+  "peerDependencies": {
+    "agora-electron-sdk": "*"
+  },
+  "peerDependenciesMeta": {
+    "agora-electron-sdk": {
+      "optional": true
+    }
   }
 }

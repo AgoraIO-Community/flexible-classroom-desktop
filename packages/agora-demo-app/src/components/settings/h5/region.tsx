@@ -2,7 +2,7 @@ import { GlobalStoreContext } from '@app/stores';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
-import { useI18n } from '~ui-kit';
+import { useI18n } from 'agora-common-libs';
 import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
 import { CheckIcon, MenuItemProps } from './components/menu-item';
@@ -29,9 +29,7 @@ export const RegionMenu: FC<RegionMenuProps> = observer(({ removeMenuPopup }) =>
 
     const result: MenuItemProps[] = [
       regionMenuItem(AgoraRegion.NA),
-      regionMenuItem(AgoraRegion.AP),
       regionMenuItem(AgoraRegion.CN),
-      regionMenuItem(AgoraRegion.EU),
     ];
     return result;
   }, [region]);

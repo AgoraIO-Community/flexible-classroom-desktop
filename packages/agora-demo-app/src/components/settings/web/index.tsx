@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { transI18n } from '~ui-kit';
+import { useI18n } from 'agora-common-libs';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
 import './index.css';
@@ -11,6 +11,7 @@ enum SettingTabType {
 
 export const Settings = () => {
   const [tab, setTab] = useState(SettingTabType.GeneralSetting);
+  const transI18n = useI18n();
 
   return (
     <div className="settings-container flex">

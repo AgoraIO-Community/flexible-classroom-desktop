@@ -1,35 +1,18 @@
-type LSStore<TStore> = [number, TStore];
-const currentVersion = 1;
-export function getLSStore<TStore>(
-  storeLSName: string,
-  lsVersion: number = currentVersion,
-): null | TStore {
+export function getLSStore<TStore>(storeLSName: string): null | TStore {
   try {
     const str = localStorage.getItem(storeLSName);
     if (!str) {
       return null;
     }
 
-    const [version, store]: LSStore<TStore> = JSON.parse(str);
-
-    if (version !== lsVersion) {
-      // clear storage if not match
-      setLSStore(storeLSName, null, lsVersion);
-      return null;
-    }
-
-    return store;
+    return JSON.parse(str);
   } catch (e) {
     return null;
   }
 }
 
-export function setLSStore<TStore>(
-  storeLSName: string,
-  store: TStore,
-  lsVersion: number = currentVersion,
-): void {
-  localStorage.setItem(storeLSName, JSON.stringify([lsVersion, store]));
+export function setLSStore<TStore>(storeLSName: string, store: TStore): void {
+  localStorage.setItem(storeLSName, JSON.stringify(store));
 }
 
 export function clearLSStore(storeLSName: string) {

@@ -13,13 +13,15 @@ import { FC, Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Layout, SvgIconEnum, SvgImg, Toast, transI18n, useI18n } from '~ui-kit';
-import { addResource } from '../../components/i18n';
 import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
 import './style.css';
-addResource();
+import { transI18n, useI18n } from 'agora-common-libs';
+import { Layout } from '@app/components/layout';
+import { Toast } from '@app/components/toast';
+import { Button } from '@app/components/button';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 
 const REACT_APP_AGORA_APP_SDK_DOMAIN = process.env.REACT_APP_AGORA_APP_SDK_DOMAIN;
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
@@ -55,6 +57,7 @@ export const useBuilderConfig = () => {
     { text: t('home.roomType_1v1'), value: `${EduRoomTypeEnum.Room1v1Class}` },
     { text: t('home.roomType_interactiveSmallClass'), value: `${EduRoomTypeEnum.RoomSmallClass}` },
     { text: t('home.roomType_interactiveBigClass'), value: `${EduRoomTypeEnum.RoomBigClass}` },
+    { text: t('fcr_home_label_proctoring'), value: `${EduRoomTypeEnum.RoomProctor}` },
   ];
 
   const [roomTypes, setRoomTypes] = useState<EduRoomTypeEnum[]>([]);
@@ -153,7 +156,13 @@ export const HomePage = () => {
 
     const roomType = parseInt(rt);
 
-    const userUuid = `${md5(userName)}${userRole}`;
+    const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+    const webRTCCodec = isProctoring ? 'h264' : 'vp8';
+    const isStudent = userRole === EduRoleTypeEnum.student;
+    const userUuid =
+      isProctoring && isStudent
+        ? `${md5(userName)}${userRole}-main`
+        : `${md5(userName)}${userRole}`;
 
     const roomUuid = `${md5(roomName)}${roomType}`;
 
@@ -174,9 +183,11 @@ export const HomePage = () => {
       const shareUrl =
         AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron
           ? ''
-          : `${location.origin}${location.pathname
-          }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${EduRoleTypeEnum.student
-          }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
+          : `${location.origin}${
+              location.pathname
+            }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${
+              EduRoleTypeEnum.student
+            }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
 
       console.log('## get rtm Token from demo server', token);
 
@@ -199,6 +210,11 @@ export const HomePage = () => {
         scenes: builderResource.current.scenes,
         themes: builderResource.current.themes,
         shareUrl,
+        mediaOptions: {
+          web: {
+            codec: webRTCCodec,
+          },
+        },
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;

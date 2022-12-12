@@ -1,5 +1,4 @@
 import { NavPageLayout } from '@app/layout/nav-page-layout';
-import { ACarousel, ATable, ATabsProps, ATabs, SvgIconEnum, SvgImg, useI18n } from '~ui-kit';
 import { useState, FC, CSSProperties, useEffect, useMemo } from 'react';
 import './index.css';
 import EmptyImg from '@app/assets/welcome-empty-list.png';
@@ -16,6 +15,11 @@ import {
 import { RouteComponentProps } from 'react-router';
 import dayjs from 'dayjs';
 import { roomTypeMap } from '../welcome/room-list/item';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { useI18n } from 'agora-common-libs';
+import { ATabs, ATabsProps } from '@app/components/tabs';
+import { ACarousel } from '@app/components/carousel';
+import { ATable } from '@app/components/table';
 
 const RenderableArrow = (props: {
   className?: string;
@@ -58,6 +62,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
     }
   }, []);
   const renderTabBar: ATabsProps['renderTabBar'] = (tabBarProps, DefaultTabBar) => (
+    // @ts-ignore
     <DefaultTabBar {...tabBarProps}>
       {(node) => {
         return (

@@ -1,3 +1,5 @@
+import { AForm, AFormItem, useAForm } from '@app/components/form';
+import { AInput } from '@app/components/input';
 import { RadioIcon } from '@app/components/radio-icon';
 import { useHistoryBack } from '@app/hooks';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
@@ -6,11 +8,11 @@ import { formatRoomID, useRoomIdForm } from '@app/hooks/useRoomIdForm';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { ErrorCode, messageError } from '@app/utils';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useState } from 'react';
-import { AForm, AFormItem, AInput, useAForm, useI18n } from '~ui-kit';
 import './index.css';
 type JoinFormValue = {
   roomId: string;

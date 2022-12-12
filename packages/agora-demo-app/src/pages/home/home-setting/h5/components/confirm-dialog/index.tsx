@@ -1,6 +1,6 @@
+import { useI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { FC } from 'react';
-import { useI18n } from '~ui-kit';
 import './index.css';
 interface ConfirmDialogH5Props {
   title?: React.ReactNode;

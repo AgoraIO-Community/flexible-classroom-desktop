@@ -1,33 +1,27 @@
-import watermarkIcon from '@app/assets/fcr_watermark.svg';
-import premiumIcon from '@app/assets/service-type/fcr_premium.svg';
-import standardIcon from '@app/assets/service-type/fcr_standard.svg';
+import watermarkIcon from '@app/assets/fcr_watermark.png';
+import premiumIcon from '@app/assets/service-type/fcr_premium.png';
+import standardIcon from '@app/assets/service-type/fcr_standard.png';
+import { ADatePicker, ADatePickerProps, locale } from '@app/components/date-picker';
+import { AForm, AFormItem, useAForm } from '@app/components/form';
+import { AInput } from '@app/components/input';
 import { RadioIcon } from '@app/components/radio-icon';
 import { RoomTypeCard } from '@app/components/room-type-card';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { ATimePicker } from '@app/components/time-picker';
 import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, EduRoomServiceTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import {
-  ADatePicker,
-  ADatePickerProps,
-  AForm,
-  AFormItem,
-  AInput,
-  ATimePicker,
-  locale,
-  SvgIconEnum,
-  SvgImg,
-  useAForm,
-  useI18n,
-} from '~ui-kit';
-import './index.css';
 import { RadioCard } from './radio-card';
+import './index.css';
+import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -85,6 +79,15 @@ const roomTypeOptions = [
   },
 ];
 
+if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
+  roomTypeOptions.push({
+    label: 'fcr_home_label_proctoring',
+    description: 'fcr_home_label_proctoring',
+    value: EduRoomTypeEnum.RoomProctor,
+    className: 'card-green',
+  });
+}
+
 const serviceTypeOptions = [
   {
     label: 'fcr_create_label_service_type_RTC',
@@ -92,12 +95,12 @@ const serviceTypeOptions = [
     value: EduRoomServiceTypeEnum.LivePremium,
     icon: <img src={premiumIcon} />,
   },
-  {
-    label: 'fcr_create_label_service_type_Standard',
-    description: 'fcr_create_label_latency_Standard',
-    value: EduRoomServiceTypeEnum.LiveStandard,
-    icon: <img src={standardIcon} />,
-  },
+  // {
+  //   label: 'fcr_create_label_service_type_Standard',
+  //   description: 'fcr_create_label_latency_Standard',
+  //   value: EduRoomServiceTypeEnum.LiveStandard,
+  //   icon: <img src={standardIcon} />,
+  // },
   // {
   //   label: 'fcr_create_label_service_type_CDN',
   //   description: 'fcr_create_label_latency_CDN',
@@ -147,8 +150,11 @@ export const CreateRoom = observer(() => {
   }, []);
 
   useEffect(() => {
-    form.setFieldValue('name', transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }));
-  }, [userStore.nickName])
+    form.setFieldValue(
+      'name',
+      transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }),
+    );
+  }, [userStore.nickName]);
 
   const [endTime, setEndTime] = useState(() => {
     return computeEndTime(initialValues.date).format(TimeFormat);
@@ -215,25 +221,33 @@ export const CreateRoom = observer(() => {
 
       const hostingScene = isHostingScene
         ? {
-          videoURL: link,
-          reserveVideoURL: link,
-          finishType: 0,
-        }
+            videoURL: link,
+            reserveVideoURL: link,
+            finishType: 0,
+          }
         : undefined;
 
       const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;
-
+      const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+      const roomProperties = isProctoring
+        ? {
+            watermark,
+            hostingScene,
+            serviceType: sType,
+            examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+          }
+        : {
+            watermark,
+            hostingScene,
+            serviceType: sType,
+          };
       roomStore
         .createRoom({
           roomName: name,
           startTime: dateTime.valueOf(),
           endTime: computeEndTime(dateTime).valueOf(),
           roomType,
-          roomProperties: {
-            watermark,
-            hostingScene,
-            serviceType: sType,
-          },
+          roomProperties,
         })
         .then((data) => {
           if (useCurrentTime) {

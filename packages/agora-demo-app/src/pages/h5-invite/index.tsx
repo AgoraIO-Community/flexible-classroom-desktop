@@ -1,11 +1,17 @@
 import { RoomJoinResponse } from '@app/api/room';
+import { AButton } from '@app/components/button';
 import { CommonHelmet } from '@app/components/common-helmet';
+import { AForm, AFormItem, useAForm } from '@app/components/form';
+import { AInput } from '@app/components/input';
+import { ModalMethod } from '@app/components/modal';
 import { useSettingsH5 } from '@app/components/settings';
+import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { formatRoomID } from '@app/hooks';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
 import { useLangSwitchValue } from '@app/hooks/useLangSwitchValue';
 import { useNickNameForm } from '@app/hooks/useNickNameForm';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
+import ClipboardJS from 'clipboard';
 import { GlobalStoreContext, RoomStoreContext } from '@app/stores';
 import {
   checkRoomInfoBeforeJoin,
@@ -16,26 +22,48 @@ import {
   Status,
 } from '@app/utils';
 import { shareLink } from '@app/utils/share';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
-import { useContext, useEffect, useState } from 'react';
+import { createElement, FC, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import {
-  AButton,
-  AForm,
-  AFormItem,
-  AInput,
-  ModalMethod,
-  SvgIconEnum,
-  SvgImg,
-  useAForm,
-  useI18n,
-} from '~ui-kit';
 import './index.css';
+import { aMessage } from '@app/components/message';
 
 type InviteFormValue = {
   nickName: string;
+};
+
+export const ClickCopy: FC<{ element?: string; className?: string; content: string }> = ({
+  element = 'span',
+  className,
+  children,
+  content,
+  ...props
+}) => {
+  const copyRef = useRef<HTMLSpanElement>(null);
+  const transI18n = useI18n();
+
+  useEffect(() => {
+    if (copyRef.current) {
+      const clipboard = new ClipboardJS(copyRef.current);
+
+      clipboard.on('success', function () {
+        aMessage.success(transI18n('fcr_share_link_tips_room_id'));
+      });
+
+      return () => {
+        clipboard.destroy();
+      };
+    }
+  }, []);
+
+  return createElement(
+    element,
+    { ...props, className, ref: copyRef, 'data-clipboard-text': content },
+    children,
+  );
 };
 
 export const H5Invite = observer(() => {
@@ -146,12 +174,20 @@ export const H5Invite = observer(() => {
   const footerTip = useLangSwitchValue({
     en: (
       <div className="tip">
-        You can <span className="link"> copy Invitation </span> and send to attendees.
+        You can{' '}
+        <ClickCopy className="link" content={shareRoomInfo?.roomDetail.roomId || ''}>
+          copy Invitation
+        </ClickCopy>{' '}
+        and send to attendees.
       </div>
     ),
     zh: (
       <div className="tip">
-        你可以<span className="link"> 复制课堂邀请 </span>并发送给参加者。
+        你可以{' '}
+        <ClickCopy className="link" content={shareRoomInfo?.roomDetail.roomId || ''}>
+          复制课堂邀请
+        </ClickCopy>{' '}
+        并发送给参加者。
       </div>
     ),
   });
@@ -167,7 +203,7 @@ export const H5Invite = observer(() => {
         </div>
         <div className="content">
           <div className="room-info">
-            <header>{transI18n('fcr_home_label_logo')}m</header>
+            <header>{transI18n('fcr_home_label_logo')}</header>
             <div className="inviter">
               <div className="name">{shareRoomInfo?.owner}</div>
               <div>{transI18n('fcr_share_link_label_invitation')}</div>
@@ -175,7 +211,9 @@ export const H5Invite = observer(() => {
             <div className="room-name">{roomDetail?.roomName}</div>
             <div className="room-id">
               <span>{roomDetail && formatRoomID(roomDetail?.roomId)}</span>
-              <SvgImg type={SvgIconEnum.COPY} size={22} />
+              <ClickCopy content={shareRoomInfo?.roomDetail.roomId || ''}>
+                <SvgImg type={SvgIconEnum.COPY} size={22} />
+              </ClickCopy>
             </div>
             <div className="room-time">
               <div className="start-time">

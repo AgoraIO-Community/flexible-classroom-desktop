@@ -12,7 +12,7 @@ import {
 export class UserStore {
   constructor() {
     autorun(() => {
-      setLSStore(LS_NICK_NAME, this.nickName, Number(this.userInfo?.companyId) || 1);
+      setLSStore(LS_NICK_NAME, this.nickName);
     });
     autorun(() => {
       // ?为什么要缓存用户信息和cid？
@@ -34,10 +34,7 @@ export class UserStore {
   public userInfo: UserInfo | null = getLSStore<UserInfo>(LS_USER_INFO)! || {};
 
   @observable
-  public nickName =
-    getLSStore<string>(LS_NICK_NAME, Number(this.userInfo?.companyId)) ||
-    this.userInfo?.companyName ||
-    '';
+  public nickName = getLSStore<string>(LS_NICK_NAME) || this.userInfo?.companyName || '';
 
   @action.bound
   private setUserInfo(data: UserInfo | null) {

@@ -1,11 +1,13 @@
 import settingIcon from '@app/assets/fcr-setting.svg';
 import signOutIcon from '@app/assets/fcr-sign-out.svg';
+import { AAvatar } from '@app/components/avatar';
+import { AModal } from '@app/components/modal';
 import { Settings } from '@app/components/settings';
 import { useLogout } from '@app/hooks';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
+import { useI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo, useState } from 'react';
-import { AAvatar, AModal, useI18n } from '~ui-kit';
 import './index.css';
 export const Menu: FC = observer(() => {
   const transI18n = useI18n();

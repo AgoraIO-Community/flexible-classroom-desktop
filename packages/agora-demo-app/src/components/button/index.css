@@ -1,0 +1,108 @@
+.fcr-btn {
+  @apply cursor-pointer text-base rounded-full relative overflow-hidden;
+}
+
+.fcr-btn-primary {
+  @apply text-white bg-brand;
+  @apply active:bg-brand;
+}
+
+.fcr-btn-danger {
+  @apply text-error bg-white  border;
+}
+
+.fcr-btn-danger:hover {
+  @apply text-error;
+}
+
+.fcr-btn-danger:active {
+  @apply text-error;
+}
+
+.fcr-btn-secondary {
+  @apply bg-white border-divider border text-brand;
+}
+
+.fcr-btn-secondary:hover {
+  @apply bg-white border-divider border text-brand;
+}
+
+.fcr-btn-secondary:active {
+  @apply text-brand bg-white border-divider border;
+}
+
+.fcr-btn-ghost {
+  @apply text-brand bg-white border-divider border;
+}
+
+.fcr-btn-ghost:hover {
+  @apply text-brand bg-white border-divider border;
+}
+
+.fcr-btn-ghost:active {
+  @apply text-brand bg-white border-divider border;
+}
+
+.fcr-btn-xs {
+  min-width: 80px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.fcr-btn-sm {
+  min-width: 80px;
+  height: 30px;
+  font-size: 14px;
+}
+
+.fcr-btn-lg {
+  min-width: 280px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.fcr-btn:focus {
+  @apply outline-none;
+}
+
+.fcr-btn[disabled] {
+  @apply disabled:opacity-50 pointer-events-none;
+}
+
+.fcr-btn.fcr-btn-xs[disabled],
+.fcr-btn.fcr-btn-sm[disabled] {
+  background-color: #ffffff;
+  border: 1px solid #c2c2c8;
+  color: #c2c2c8;
+}
+
+.fcr-btn-ripple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+@keyframes fcr-btn-ripple {
+  from {
+    transform: scale(0);
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(250);
+  }
+}
+
+.fcr-btn .fcr-btn-ripple-circle {
+  position: absolute;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fcr-btn-ripple 0.75s 1;
+  top: 50%;
+  left: 50%;
+}

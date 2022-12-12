@@ -1,3 +1,4 @@
+import { ModalMethod } from '@app/components/modal';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { ErrorCode, i18nError, messageError } from '@app/utils';
@@ -6,7 +7,6 @@ import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { ModalMethod } from '~ui-kit';
 
 export const InviteRoom = observer(() => {
   const { setLoading } = useContext(GlobalStoreContext);

@@ -11,19 +11,13 @@ import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
 import { getI18n } from 'react-i18next';
-import {
-  AButton,
-  AForm,
-  AFormItem,
-  AFormProps,
-  AInput,
-  SvgIconEnum,
-  SvgImg,
-  useAForm,
-  useI18n,
-} from '~ui-kit';
 import './index.css';
 import { messageError } from '@app/utils';
+import { useI18n } from 'agora-common-libs';
+import { useAForm, AFormProps, AForm, AFormItem } from '@app/components/form';
+import { SvgImg, SvgIconEnum, } from '@app/components/svg-img';
+import { AInput } from '@app/components/input';
+import { AButton } from '@app/components/button';
 
 type JoinFormValue = {
   roomId: string;

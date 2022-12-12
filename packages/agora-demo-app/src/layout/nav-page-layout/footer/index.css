@@ -4,8 +4,8 @@
   padding-bottom: 30px;
 }
 
-.nav-footer .cancel,
-.nav-footer .ok {
+.nav-footer .ant-btn.cancel,
+.nav-footer .ant-btn.ok {
   @apply pointer-events-auto;
   height: 49px;
   border-radius: 32px;

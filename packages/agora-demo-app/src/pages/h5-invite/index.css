@@ -57,6 +57,7 @@
   background-image: url(@app/assets/h5-invite-room-bg.png);
   background-size: 100%;
   background-position: top center;
+  pointer-events: none;
 }
 
 .h5-invite .room-info header {
@@ -142,8 +143,8 @@
 .h5-invite .room-info .duration {
   font-family: 'Montserrat Roboto';
   font-weight: 400;
-  font-size: 10px;
-  line-height: 24px;
+  font-size: 12px;
+  line-height: 1.1;
   text-align: center;
 
   /* fcr_dark_text2 */
@@ -202,6 +203,7 @@
   /* Day/Fill/Text */
   color: #ffffff;
   margin-bottom: 12px;
+  box-shadow: none;
 }
 
 .h5-invite .footer .tip {
