@@ -54,6 +54,7 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
       getUserInfo().finally(() => {
         setLoading(false);
       });
+      history.replace('/');
     }, []);
 
     const needAuth = !isLogin && !token.accessToken && shouldAuth;
