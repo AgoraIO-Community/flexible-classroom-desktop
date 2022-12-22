@@ -5963,10 +5963,10 @@ agora-rdc-electron@1.1.0:
   dependencies:
     agora-rdc-core "^1.0.1"
 
-agora-rtc-sdk-ng@4.12.0:
-  version "4.12.0"
-  resolved "https://registry.npmmirror.com/agora-rtc-sdk-ng/-/agora-rtc-sdk-ng-4.12.0.tgz#98dd31771c875709c5bb63770edf2f5bf82378c2"
-  integrity sha512-lKL6PTw6PPzIX52Eq7Awq+oQdZR5y2DnA9RIpD+Gv+Srr5JsrCbh7eA+9KrOnncEPGOlraz/Phx3GZuGyFAMPA==
+agora-rtc-sdk-ng@4.12.2:
+  version "4.12.2"
+  resolved "https://registry.npmmirror.com/agora-rtc-sdk-ng/-/agora-rtc-sdk-ng-4.12.2.tgz#fadd436bf03ac1cfb4db75a854c5391d7b33448f"
+  integrity sha512-PcXuqHVrsc1W1A4YM6SSzBwazhbNCKc4peAckQHOQ+KODvR+DlZt0kN8toDcupa0B6gBwtM6guYoPvF9cpEg+w==
   dependencies:
     agora-rte-extension "^1.0.22"
 
