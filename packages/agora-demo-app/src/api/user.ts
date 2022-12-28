@@ -1,7 +1,7 @@
 import { getRegion } from '@app/stores/global';
 import { request, Response } from '@app/utils/request';
 import axios from 'axios';
-import { getApiDomain } from '../utils/domain';
+import { getAppDomain } from '../utils/domain';
 
 type RefreshTokenResponse = {
   accessToken: string;
@@ -32,12 +32,12 @@ type GetAuthorizedURLResponse = string;
 export class UserApi {
   static shared = new UserApi();
 
-  private get domain() {
-    return getApiDomain(getRegion());
+  private get appDomain() {
+    return getAppDomain(getRegion());
   }
 
   public async getAuthorizedURL(params: GetAuthorizedURLRequest) {
-    const url = `${this.domain}/sso/v2/users/oauth/redirectUrl`;
+    const url = `${this.appDomain}/sso/v2/users/oauth/redirectUrl`;
     const { data } = await axios.post<Response<GetAuthorizedURLResponse>>(url, params);
     return data.data;
   }
@@ -52,7 +52,7 @@ export class UserApi {
    * @returns
    */
   public async getUserInfo() {
-    const url = `${this.domain}/sso/v2/users/info`;
+    const url = `${this.appDomain}/sso/v2/users/info`;
     return await request.get<Response<UserInfo>>(url);
   }
 
@@ -66,7 +66,7 @@ export class UserApi {
    * @returns
    */
   public async refreshToken(refreshToken: string) {
-    const url = `${this.domain}/sso/v2/users/refresh/refreshToken/${refreshToken}`;
+    const url = `${this.appDomain}/sso/v2/users/refresh/refreshToken/${refreshToken}`;
     return request.post<Response<RefreshTokenResponse>>(url);
   }
 
@@ -80,7 +80,7 @@ export class UserApi {
    * @returns
    */
   public async logoutAccount() {
-    const url = `${this.domain}/sso/v2/users/logout`;
+    const url = `${this.appDomain}/sso/v2/users/logout`;
     return request.delete<Response<null>>(url);
   }
 }

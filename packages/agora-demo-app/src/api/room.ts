@@ -1,7 +1,7 @@
 import { request, Response } from '@app/utils/request';
 import axios from 'axios';
 import { getRegion } from '../stores/global';
-import { getApiDomain } from '../utils';
+import { getApiDomain, getAppDomain } from '../utils';
 import { getLSStore, LS_COMPANY_ID } from '../utils/local-storage';
 import {
   RoomListRequest,
@@ -16,14 +16,18 @@ import {
   RoomCredentialNoAuthResponse,
   RoomCredentialRequest,
   RoomCredentialResponse,
-} from './room.type';
+} from './type';
 
-export * from './room.type';
+export * from './type';
 
 const noAuthCompanyID = 0;
 
 export class RoomAPI {
-  private get domain() {
+  private get appDomain() {
+    return getAppDomain(getRegion());
+  }
+
+  private get apiDomain() {
     return getApiDomain(getRegion());
   }
 
@@ -47,7 +51,7 @@ export class RoomAPI {
       count: 15,
       ...params,
     };
-    const url = `${this.domain}/edu/companys/${this.companyId}/v1/rooms?count=${data.count}${
+    const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms?count=${data.count}${
       data.nextId ? `&nextId=${data.nextId}` : ''
     }`;
     return request.get<Response<RoomListResponse>>(url);
@@ -65,7 +69,7 @@ export class RoomAPI {
    * @returns
    */
   public async create(params: RoomCreateRequest) {
-    const url = `${this.domain}/edu/companys/${this.companyId}/v1/rooms`;
+    const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms`;
     return request.post<Response<RoomCreateResponse>>(url, params);
   }
 
@@ -81,7 +85,7 @@ export class RoomAPI {
    * @returns
    */
   public async getRoomInfoByID(roomID: string) {
-    const url = `${this.domain}/edu/companys/${this.companyId}/v1/rooms/${roomID}`;
+    const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms/${roomID}`;
     return request.get<Response<RoomInfo>>(url);
   }
 
@@ -97,7 +101,7 @@ export class RoomAPI {
    * @returns
    */
   public async join(params: RoomJoinRequest) {
-    const url = `${this.domain}/edu/companys/${this.companyId}/v1/rooms`;
+    const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms`;
     return request.put<Response<RoomJoinResponse>>(url, params);
   }
 
@@ -113,7 +117,7 @@ export class RoomAPI {
    * @returns
    */
   public async joinNoAuth(params: RoomJoinNoAuthRequest) {
-    const url = `${this.domain}/edu/companys/${noAuthCompanyID}/v1/rooms`;
+    const url = `${this.appDomain}/edu/companys/${noAuthCompanyID}/v1/rooms`;
     return request.put<Response<RoomJoinResponse>>(url, params);
   }
 
@@ -129,7 +133,7 @@ export class RoomAPI {
    * @returns
    */
   public async history(roomID: string) {
-    const url = `${this.domain}/edu/v2/rooms/${roomID}/history`;
+    const url = `${this.appDomain}/edu/v2/rooms/${roomID}/history`;
     return request.get<Response<any>>(url);
   }
 
@@ -147,7 +151,7 @@ export class RoomAPI {
   public async getCredential(params: RoomCredentialRequest): Promise<RoomCredentialResponse> {
     const { userUuid, roomUuid, role } = params;
     const { data } = await request.get(
-      `${this.domain}/edu/v4/rooms/${roomUuid}/roles/${role}/users/${userUuid}/token`,
+      `${this.apiDomain}/edu/v4/rooms/${roomUuid}/roles/${role}/users/${userUuid}/token`,
     );
     return data.data;
   }
@@ -166,7 +170,7 @@ export class RoomAPI {
   public async getCredentialNoAuth(params: RoomCredentialNoAuthRequest) {
     const { userUuid, roomUuid, role } = params;
     const { data } = await axios.get<Response<RoomCredentialNoAuthResponse>>(
-      `${this.domain}/edu/v3/rooms/${roomUuid}/roles/${role}/users/${userUuid}/token`,
+      `${this.apiDomain}/edu/v3/rooms/${roomUuid}/roles/${role}/users/${userUuid}/token`,
     );
     return data.data;
   }

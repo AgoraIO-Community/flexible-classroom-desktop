@@ -11,6 +11,7 @@ import md5 from 'js-md5';
 import { observer } from 'mobx-react';
 import { FC, Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
+import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { v4 as uuidv4 } from 'uuid';
 import { HomeSettingContainer } from './home-setting';
@@ -23,7 +24,6 @@ import { Toast } from '@app/components/toast';
 import { Button } from '@app/components/button';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 
-const REACT_APP_AGORA_APP_SDK_DOMAIN = process.env.REACT_APP_AGORA_APP_SDK_DOMAIN;
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
@@ -169,7 +169,7 @@ export const HomePage = () => {
     try {
       setLoading(true);
 
-      const domain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
+      const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
       const { token, appId } = await roomApi.getCredentialNoAuth({
         userUuid,
@@ -193,7 +193,7 @@ export const HomePage = () => {
 
       const config: GlobalLaunchOption = {
         appId,
-        sdkDomain: domain,
+        sdkDomain,
         pretest: true,
         courseWareList: courseWareList.slice(0, 1),
         language: language as LanguageEnum,

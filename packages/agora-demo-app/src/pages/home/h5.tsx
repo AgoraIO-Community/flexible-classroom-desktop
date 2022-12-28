@@ -3,7 +3,7 @@ import { HomeSettingContainerH5 } from '@app/pages/home/home-setting/h5';
 import { GlobalStoreContext } from '@app/stores';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { courseware } from '@app/utils/courseware';
-import { REACT_APP_AGORA_APP_SDK_DOMAIN, REACT_APP_AGORA_APP_TOKEN_DOMAIN } from '@app/utils/env';
+import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { applyTheme, loadGeneratedFiles, themes } from 'agora-classroom-sdk';
 import {
@@ -21,7 +21,6 @@ import { useHistory } from 'react-router';
 import { H5Login } from './scaffold';
 import { MessageDialog } from './message-dialog';
 import { FcrMultiThemeMode } from 'agora-common-libs';
-import { AgoraRegion } from 'agora-rte-sdk';
 
 declare const CLASSROOM_SDK_VERSION: string;
 
@@ -116,15 +115,6 @@ export const HomeH5Page = observer(() => {
 
   const [courseWareList] = useState(courseware.getList());
 
-  let tokenDomain = '';
-  let tokenDomainCollection: any = {};
-
-  try {
-    tokenDomainCollection = JSON.parse(`${REACT_APP_AGORA_APP_TOKEN_DOMAIN}`);
-  } catch (e) {
-    tokenDomain = `${REACT_APP_AGORA_APP_TOKEN_DOMAIN}`;
-  }
-
   return (
     <React.Fragment>
       <Helmet>
@@ -153,25 +143,13 @@ export const HomeH5Page = observer(() => {
         language={language}
         onChangeLanguage={onChangeLanguage}
         onClick={async () => {
-          const domain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
-          if (!tokenDomain && tokenDomainCollection) {
-            switch (region) {
-              case AgoraRegion.CN:
-                tokenDomain = tokenDomainCollection['prod_cn'];
-                break;
-              case AgoraRegion.NA:
-                tokenDomain = tokenDomainCollection['prod_na'];
-                break;
-              default:
-                tokenDomain = tokenDomainCollection['prod_na'];
-            }
-          }
+          const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
           const { token, appId } = await roomApi.getCredentialNoAuth({ userUuid, roomUuid, role });
 
           const config: GlobalLaunchOption = {
             appId,
-            sdkDomain: domain,
+            sdkDomain,
             pretest: false,
             courseWareList: courseWareList.slice(0, 1),
             language: language as LanguageEnum,

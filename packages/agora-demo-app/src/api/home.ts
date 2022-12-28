@@ -1,19 +1,19 @@
 import { getRegion } from '@app/stores/global';
 import { request } from '@app/utils/request';
 import { EduRegion } from 'agora-edu-core';
-import { getApiDomain, getSceneBuilderDomain } from '../utils';
+import { getApiDomain, getAppDomain } from '../utils';
 
 export class HomeApi {
-  private get domain() {
+  private get apiDomain() {
     return getApiDomain(getRegion());
   }
 
-  private builderDomain(region: EduRegion) {
-    return getSceneBuilderDomain(region);
+  private appDomain(region: EduRegion) {
+    return getAppDomain(region);
   }
 
   async getRecordations(roomUuid: string): Promise<any> {
-    const { data } = await request.get(`${this.domain}/edu/v2/rooms/${roomUuid}/records`);
+    const { data } = await request.get(`${this.apiDomain}/edu/v2/rooms/${roomUuid}/records`);
     return data.data;
   }
 
@@ -23,9 +23,7 @@ export class HomeApi {
     region: EduRegion = EduRegion.CN,
   ): Promise<any> {
     const { data } = await request.get(
-      `${this.builderDomain(
-        region,
-      )}/builder/companys/${companyId}/v1/projects/${projectId}/preview`,
+      `${this.appDomain(region)}/builder/companys/${companyId}/v1/projects/${projectId}/preview`,
     );
 
     return data;
