@@ -161,11 +161,13 @@ export const useJoinRoom = () => {
       const needPretest = needPreset(roomType, roomServiceType, role);
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
 
+      const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
+
       const webRTCCodec =
         isProctoring || webRTCCodecH264.includes(roomServiceType) ? 'h264' : 'vp8';
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
-        sdkDomain: `${REACT_APP_AGORA_APP_SDK_DOMAIN}`,
+        sdkDomain,
         pretest: needPretest,
         courseWareList: courseWareList.slice(0, 1),
         userUuid: userId,
@@ -173,7 +175,6 @@ export const useJoinRoom = () => {
         roomUuid: roomId,
         roomType: roomType,
         roomName: `${roomName}`,
-        roomServiceType,
         userName: userName,
         roleType: role,
         region: region,

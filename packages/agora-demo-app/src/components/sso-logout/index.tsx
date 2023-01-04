@@ -1,15 +1,14 @@
-import { FC } from "react"
+import { FC } from 'react';
 
 type Props = {
-    onLoad?: () => void;
-}
+  onLoad?: () => void;
+  logoutUrl: string;
+};
 
-export const SSOLogout: FC<Props> = ({ onLoad }) => {
-    const url = `https://sso2.agora.io/api/v0/logout?redirect_uri=${window.location.origin}`;
-
-    return (
-        <div className="fixed z-50 inset-0">
-            <iframe className="w-full h-full" src={url} onLoad={onLoad} />
-        </div>
-    );
-}
+export const SSOLogout: FC<Props> = ({ onLoad, logoutUrl }) => {
+  return (
+    <div className="fixed z-50 inset-0">
+      <iframe className="w-full h-full" src={logoutUrl} onLoad={onLoad} />
+    </div>
+  );
+};
