@@ -68,7 +68,7 @@ export default {
   fcr_home_button_replay: 'Detail',
   fcr_home_status_upcoming: 'upcoming',
   fcr_home_status_live: 'Live',
-  fcr_home_status_over: 'Over',
+  fcr_home_status_over: 'Closed',
   fcr_home_form_time: '2022-08-12,12:00-16:00',
   fcr_create_label_create_classroom: 'Create Classroom',
   fcr_create_label_room_name: 'Room Name ',
