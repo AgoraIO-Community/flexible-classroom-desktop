@@ -27,6 +27,7 @@ export default {
   fcr_join_room_tips_user_name_empty: "User'name can't be empty",
   fcr_h5_invite_room_share_link_error: 'Invalid share link',
   fcr_menu_sign_out: 'Sign Out',
+  fcr_menu_sign_in: 'Sign In / Sign Up',
   fcr_h5_invite_hello: 'HELLO!',
   fcr_create_tips_time_validate: 'Choose time must be greater than the current time',
   fcr_create_tips_room_name: 'Please Input Room Name',
