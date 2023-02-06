@@ -60,7 +60,7 @@ const appDomain = initAppDomain();
 
 export const getAppDomain = (region: EduRegion = EduRegion.CN) => {
   let domain = appDomain.domain;
-  const { domainMap } = apiDomain;
+  const { domainMap } = appDomain;
   if (!domain && domainMap) {
     switch (region) {
       case AgoraRegion.CN:
