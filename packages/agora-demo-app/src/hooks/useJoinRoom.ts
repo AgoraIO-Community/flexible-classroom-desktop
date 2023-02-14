@@ -190,6 +190,14 @@ export const useJoinRoom = () => {
           web: {
             codec: webRTCCodec,
           },
+          screenShareEncoderConfiguration: isProctoring
+            ? {
+                width: 1280,
+                height: 720,
+                frameRate: 15,
+                bitrate: 1130,
+              }
+            : undefined,
         },
       };
 

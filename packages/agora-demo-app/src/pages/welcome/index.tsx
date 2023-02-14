@@ -21,6 +21,7 @@ import { AList, AListItem } from '@app/components/list';
 import { AModal } from '@app/components/modal';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { useI18n } from 'agora-common-libs';
+import { AButton } from '@app/components/button';
 
 export const Welcome = observer(() => {
   const history = useHistory();
@@ -100,14 +101,22 @@ export const Welcome = observer(() => {
   }, []);
 
   useEffect(() => {
-    if (isLogin && total === 0) {
+    if (isLogin) {
       roomRefresh();
     }
-  }, [isLogin, total]);
+  }, [isLogin]);
 
   return (
     <div className="welcome-container">
-      <div className="header">{isLogin ? <Menu></Menu> : null}</div>
+      <div className="header">
+        {isLogin ? (
+          <Menu></Menu>
+        ) : (
+          <AButton className="sign-in-button" onClick={toCreateRoomPage} type="primary">
+            {transI18n('fcr_menu_sign_in')}
+          </AButton>
+        )}
+      </div>
       <div className={`content ${rooms.size ? '' : 'room-list-empty'}`} id="scrollableDiv">
         <div className="welcome-title">{transI18n('fcr_home_label_welcome_message')}</div>
         <div className="room-list-empty-img">

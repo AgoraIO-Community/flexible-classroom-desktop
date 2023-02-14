@@ -23,6 +23,7 @@ export default {
   fcr_home_label_room_list_no_more: '已经到底了 🤐',
   fcr_logout_tips: '用户账号过期,稍后请重新登录',
   fcr_menu_sign_out: '登出',
+  fcr_menu_sign_in: '登录',
   fcr_join_room_tips_ui_config_not_ready: 'UI 配置没准备好',
   fcr_join_room_tips_user_id_empty: '用户ID不能为空',
   fcr_join_room_tips_user_name_empty: '用户名不能为空',
