@@ -2,7 +2,6 @@ import { roomApi } from '@app/api';
 import { HomeSettingContainerH5 } from '@app/pages/home/home-setting/h5';
 import { GlobalStoreContext } from '@app/stores';
 import { GlobalLaunchOption } from '@app/stores/global';
-import { courseware } from '@app/utils/courseware';
 import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { applyTheme, loadGeneratedFiles, themes } from 'agora-classroom-sdk';
@@ -113,8 +112,6 @@ export const HomeH5Page = observer(() => {
 
   const history = useHistory();
 
-  const [courseWareList] = useState(courseware.getList());
-
   return (
     <React.Fragment>
       <Helmet>
@@ -151,7 +148,7 @@ export const HomeH5Page = observer(() => {
             appId,
             sdkDomain,
             pretest: false,
-            courseWareList: courseWareList.slice(0, 1),
+            courseWareList: [],
             language: language as LanguageEnum,
             userUuid: `${userUuid}`,
             rtmToken: token,

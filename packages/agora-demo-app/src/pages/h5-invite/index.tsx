@@ -121,7 +121,7 @@ export const H5Invite = observer(() => {
         return false;
       }
       const { roomDetail, token, appId } = shareRoomInfo;
-      const { serviceType, ...rProps } = roomDetail.roomProperties;
+      const { latencyLevel, ...rProps } = roomDetail.roomProperties;
 
       {
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
@@ -149,11 +149,11 @@ export const H5Invite = observer(() => {
           roomId: roomDetail.roomId,
           roomName: roomDetail.roomName,
           roomType: roomDetail.roomType,
-          roomServiceType: serviceType,
           role: EduRoleTypeEnum.student,
           region,
           language,
           platform: Platform.H5,
+          latencyLevel
         },
         { roomProperties: rProps },
       )

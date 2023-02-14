@@ -158,3 +158,21 @@
 .share-close-icon {
   margin: 11px 11px 0 5px;
 }
+.welcome-container .sign-in-button {
+  background: #0056fd;
+  border-radius: 46px;
+  border: none;
+  height: 42px;
+  padding: 9px 24px;
+}
+.welcome-container .sign-in-button span {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+.welcome-container .sign-in-button.ant-btn-primary:active,
+.welcome-container .sign-in-button.ant-btn-primary:focus,
+.welcome-container .sign-in-button.ant-btn-primary:focus {
+  background: #0056fd;
+  color: #ffffff;
+}

@@ -59,23 +59,24 @@ const createMainWindow = function () {
   _mainWindow.loadURL(startUrl);
 
   const filter = {
-    urls: ['file:///*/index.html*']
-  }
+    urls: ['file:///*/index.html*'],
+  };
 
   const requestCallback = (details, callback) => {
     if (details.url.includes('accessToken') && details.url.includes('refreshToken')) {
-      const originParams = new URLSearchParams(
-        details.url.split('?')[1]
-      );
-      const newParams = new URLSearchParams({ at: originParams.get("accessToken"), rt: originParams.get("refreshToken") })
-      const htmlPath = details.url.split('?')[0]
-      const url = `${htmlPath}?${newParams.toString()}`
-      _mainWindow.loadURL(url)
-      callback({ cancel: true })
+      const originParams = new URLSearchParams(details.url.split('?')[1]);
+      const newParams = new URLSearchParams({
+        at: originParams.get('accessToken'),
+        rt: originParams.get('refreshToken'),
+      });
+      const htmlPath = details.url.split('?')[0];
+      const url = `${htmlPath}?${newParams.toString()}`;
+      _mainWindow.loadURL(url);
+      callback({ cancel: true });
     } else {
-      callback({ cancel: false })
+      callback({ cancel: false });
     }
-  }
+  };
 
   _mainWindow.webContents.session.webRequest.onBeforeRequest(filter, requestCallback);
 
@@ -105,21 +106,21 @@ const createMainWindow = function () {
     // { role: 'appMenu' }
     ...(isMac
       ? [
-        {
-          label: app.name,
-          submenu: [
-            // { role: 'about' },
-            { type: 'separator' },
-            { role: 'services' },
-            { type: 'separator' },
-            { role: 'hide' },
-            { role: 'hideothers' },
-            { role: 'unhide' },
-            { type: 'separator' },
-            { role: 'quit' },
-          ],
-        },
-      ]
+          {
+            label: app.name,
+            submenu: [
+              // { role: 'about' },
+              { type: 'separator' },
+              { role: 'services' },
+              { type: 'separator' },
+              { role: 'hide' },
+              { role: 'hideothers' },
+              { role: 'unhide' },
+              { type: 'separator' },
+              { role: 'quit' },
+            ],
+          },
+        ]
       : []),
     // { role: 'fileMenu' }
     {
@@ -138,15 +139,15 @@ const createMainWindow = function () {
         { role: 'paste' },
         ...(isMac
           ? [
-            { role: 'pasteAndMatchStyle' },
-            { role: 'delete' },
-            { role: 'selectAll' },
-            { type: 'separator' },
-            {
-              label: 'Speech',
-              submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }],
-            },
-          ]
+              { role: 'pasteAndMatchStyle' },
+              { role: 'delete' },
+              { role: 'selectAll' },
+              { type: 'separator' },
+              {
+                label: 'Speech',
+                submenu: [{ role: 'startspeaking' }, { role: 'stopspeaking' }],
+              },
+            ]
           : [{ role: 'delete' }, { type: 'separator' }, { role: 'selectAll' }]),
       ],
     },
@@ -218,7 +219,6 @@ const createMainWindow = function () {
       app.quit();
       return;
     }
-    currentWindow.close();
   });
 };
 

@@ -14,14 +14,14 @@ import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
-import { EduRoleTypeEnum, EduRoomServiceTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
+import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RadioCard } from './radio-card';
 import './index.css';
-import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
+import { AgoraRteEngineConfig, AgoraRteRuntimePlatform, AgoraLatencyLevel } from 'agora-rte-sdk';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -92,15 +92,15 @@ const serviceTypeOptions = [
   {
     label: 'fcr_create_label_service_type_RTC',
     description: 'fcr_create_label_latency_RTC',
-    value: EduRoomServiceTypeEnum.LivePremium,
+    value: AgoraLatencyLevel.UltraLow,
     icon: <img src={premiumIcon} />,
   },
-  // {
-  //   label: 'fcr_create_label_service_type_Standard',
-  //   description: 'fcr_create_label_latency_Standard',
-  //   value: EduRoomServiceTypeEnum.LiveStandard,
-  //   icon: <img src={standardIcon} />,
-  // },
+  {
+    label: 'fcr_create_label_service_type_Standard',
+    description: 'fcr_create_label_latency_Standard',
+    value: AgoraLatencyLevel.Low,
+    icon: <img src={standardIcon} />,
+  },
   // {
   //   label: 'fcr_create_label_service_type_CDN',
   //   description: 'fcr_create_label_latency_CDN',
@@ -130,8 +130,7 @@ export const CreateRoom = observer(() => {
     tip: '',
   });
 
-  const showLivePlaybackOption =
-    roomType === EduRoomTypeEnum.RoomBigClass && serviceType === EduRoomServiceTypeEnum.Fusion;
+  const showLivePlaybackOption = false;
 
   const customFormat: ADatePickerProps['format'] = useCallback(
     (value) => `${value.format('YYYY-MM-DD')}  |  ${transI18n(weekday[value.day()])}`,
@@ -211,35 +210,19 @@ export const CreateRoom = observer(() => {
     }
     form.validateFields().then((data) => {
       setLoading(true);
-      const { date, time, name, link } = data;
+      const { date, time, name } = data;
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
 
-      const isHostingScene =
-        livePlayback &&
-        roomType === EduRoomTypeEnum.RoomBigClass &&
-        serviceType === EduRoomServiceTypeEnum.Fusion;
-
-      const hostingScene = isHostingScene
-        ? {
-            videoURL: link,
-            reserveVideoURL: link,
-            finishType: 0,
-          }
-        : undefined;
-
-      const sType = isHostingScene ? EduRoomServiceTypeEnum.HostingScene : serviceType;
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
       const roomProperties = isProctoring
         ? {
             watermark,
-            hostingScene,
-            serviceType: sType,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+            latencyLevel: serviceType
           }
         : {
             watermark,
-            hostingScene,
-            serviceType: sType,
+            latencyLevel: serviceType
           };
       roomStore
         .createRoom({

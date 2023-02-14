@@ -3,10 +3,17 @@ const { mainWindow, startUrl } = require('../main');
 const IPCDelegate = require('./base');
 
 const { URLSearchParams } = require('url');
+const { Mutex } = require('./mutex');
 
 const windowMap = {};
+const windowMutex = new Mutex();
 
-function createBrowserWindow(queryStr, options) {
+function getWindow(id) {
+  return windowMap[id];
+}
+
+function createBrowserWindow(windowID, queryStr, options) {
+  console.log('start create window', windowID);
   const display =
     electron.screen.getAllDisplays()[options.openAtScreenIndex] ||
     electron.screen.getPrimaryDisplay();
@@ -16,7 +23,11 @@ function createBrowserWindow(queryStr, options) {
   const x = display.bounds.x + offsetX;
   const y = display.bounds.y + offsetY;
 
-  electron.app.allowRendererProcessReuse = true;
+  const allowRendererProcessReuse = options.allowRendererProcessReuse ?? true;
+
+  if (allowRendererProcessReuse) {
+    electron.app.allowRendererProcessReuse = true;
+  }
 
   const window = new electron.BrowserWindow({
     x: options.x ?? x,
@@ -45,15 +56,59 @@ function createBrowserWindow(queryStr, options) {
       backgroundThrottling: false,
     },
   });
-  window.loadURL(`${startUrl}?${queryStr}`).finally(() => {
-    electron.app.allowRendererProcessReuse = false;
+
+  if (options.preventClose) {
+    window.on('close', (e) => {
+      e.preventDefault();
+      console.log(`notify alive windows that the user clicked [${windowID}] close`);
+
+      // notify alive windows that the user clicked window close
+      Object.entries({ main: mainWindow.current, ...windowMap }).forEach(([, window]) => {
+        if (window && !window.isDestroyed()) {
+          window.webContents.send('browser-window-message', {
+            type: 'BrowserWindowClose',
+            payload: windowID,
+          });
+        }
+      });
+    });
+  }
+
+  window.on('closed', () => {
+    delete windowMap[windowID];
+    console.log(`notify alive windows that [${windowID}] has just closed`);
+    // notify alive windows that there's a window has just closed
+    Object.entries({ main: mainWindow.current, ...windowMap }).forEach(([, window]) => {
+      if (window && !window.isDestroyed()) {
+        window.webContents.send('browser-window-message', {
+          type: 'BrowserWindowClosed',
+          payload: windowID,
+        });
+      }
+    });
   });
 
-  return window;
+  windowMap[windowID] = window;
+
+  return new Promise((r) => {
+    window.loadURL(`${startUrl}?${queryStr}`).finally(() => {
+      // restore setting
+      if (allowRendererProcessReuse) {
+        electron.app.allowRendererProcessReuse = false;
+      }
+      console.log('window created', windowID);
+      r();
+    });
+  });
 }
 
-function getWindow(id) {
-  return windowMap[id];
+function transmit(channel) {
+  electron.ipcMain.on(channel, (event, toWindowID, payload) => {
+    const toWindow = getWindow(toWindowID);
+    if (toWindow) {
+      toWindow.webContents.send(channel, payload);
+    }
+  });
 }
 
 function addListeners() {
@@ -67,11 +122,7 @@ function addListeners() {
       if (args) {
         params.append('args', args);
       }
-      windowMap[windowID] = createBrowserWindow(params.toString(), options);
-
-      windowMap[windowID].on('closed', () => {
-        delete windowMap[windowID];
-      });
+      windowMutex.dispatch(() => createBrowserWindow(windowID, params.toString(), options));
     } else {
       console.log(`window with ID [${windowID}] exists`);
     }
@@ -99,7 +150,7 @@ function addListeners() {
     const window = getWindow(windowID);
 
     if (window) {
-      window.close();
+      window.destroy();
     } else {
       console.log(`window with ID [${windowID}] not exist`);
     }
@@ -124,7 +175,7 @@ function addListeners() {
       );
       toWindow.webContents.send(channel, args);
     } else {
-      console.log(`IPC call failed, cannot find window with id [${to}]`);
+      console.log(`cannot find window with id [${to}], skip`);
     }
   });
 
@@ -170,9 +221,61 @@ function addListeners() {
     }
   });
 
+  delegate.on('move-window-align-to-window', (event, windowID, windowIDAlignTo, options) => {
+    // left, right, top, bottom
+    const direction = options.direction ?? 'right';
+    // start, center, end
+    const align = options.align ?? 'center';
+    const gap = options.gap ?? 10;
+
+    const window = getWindow(windowID);
+    let windowAlignTo = getWindow(windowIDAlignTo);
+
+    if (windowIDAlignTo === 'main') {
+      windowAlignTo = mainWindow.current;
+    }
+
+    if (window && windowAlignTo) {
+      const windowBounds = window.getBounds();
+      const windowAlignToBounds = windowAlignTo.getBounds();
+
+      if (direction === 'top' || direction === 'bottom') {
+        let destY =
+          direction === 'top'
+            ? windowAlignToBounds.y - windowBounds.height - gap
+            : windowAlignToBounds.y + windowAlignToBounds.height + gap;
+        let destX = 0;
+        if (align === 'start') {
+          destX = windowAlignToBounds.x;
+        } else if (align === 'end') {
+          destX = windowAlignToBounds.x + (windowAlignToBounds.width - windowBounds.width);
+        } /** otherwise center */ else {
+          destX = windowAlignToBounds.x + (windowAlignToBounds.width - windowBounds.width) / 2;
+        }
+        window.setBounds({ x: destX, y: destY });
+      } else if (direction === 'left' || direction === 'right') {
+        let destX =
+          direction === 'left'
+            ? windowAlignToBounds.x - windowBounds.width - gap
+            : windowAlignToBounds.x + windowAlignToBounds.width + gap;
+        let destY = 0;
+        if (align === 'start') {
+          destY = windowAlignToBounds.y;
+        } else if (align === 'end') {
+          destY = windowAlignToBounds.y + (windowAlignToBounds.height - windowBounds.height);
+        } /** otherwise center */ else {
+          destY = windowAlignToBounds.y + (windowAlignToBounds.height - windowBounds.height) / 2;
+        }
+        window.setBounds({ x: destX, y: destY });
+      }
+    }
+  });
+
+  transmit('rtc-raw-data-transmit');
+
   mainWindow.current.on('closed', () => {
     Object.keys(windowMap).forEach((k) => {
-      windowMap[k].close();
+      windowMap[k].destroy();
     });
   });
 }
