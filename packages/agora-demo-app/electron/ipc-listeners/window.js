@@ -5,6 +5,7 @@ const IPCDelegate = require('./base');
 const { URLSearchParams } = require('url');
 const { Mutex } = require('./mutex');
 
+const windowShowMap = {};
 const windowMap = {};
 const windowMutex = new Mutex();
 
@@ -40,7 +41,7 @@ function createBrowserWindow(windowID, queryStr, options) {
     frame: options.frame ?? true,
     resizable: options.resizable ?? true,
     fullscreen: options.fullscreen ?? false, // Whether the window should show in fullscreen. When explicitly set to false the fullscreen button will be hidden or disabled on macOS. Default is false.
-    show: options.show ?? true,
+    show: windowShowMap[windowID] ? true : options.show ?? true,
     hasShadow: options.hasShadow ?? true,
     focusable: options.focusable ?? true,
     // useContentSize: options.useContentSize ?? false,
@@ -130,6 +131,7 @@ function addListeners() {
 
   delegate.on('show-browser-window', (event, windowID) => {
     const window = getWindow(windowID);
+    windowShowMap[windowID] = true;
     if (window) {
       window.show();
     } else {
@@ -139,6 +141,7 @@ function addListeners() {
 
   delegate.on('hide-browser-window', (event, windowID) => {
     const window = getWindow(windowID);
+    windowShowMap[windowID] = false;
     if (window) {
       window.hide();
     } else {
