@@ -44,6 +44,10 @@ function createBrowserWindow(windowID, queryStr, options) {
     show: windowStateMap[windowID] ? true : options.show ?? true,
     hasShadow: options.hasShadow ?? true,
     focusable: options.focusable ?? true,
+    minWidth: options.minWidth,
+    minHeight: options.minHeight,
+    maxWidth: options.maxWidth,
+    maxHeight: options.maxHeight,
     // useContentSize: options.useContentSize ?? false,
     // center: options.center ?? true,
     webPreferences: {
@@ -117,19 +121,22 @@ function transmit(channel) {
 function addListeners() {
   const delegate = new IPCDelegate();
 
-  delegate.on('open-browser-window', (event, windowID, args, options, language) => {
-    const window = getWindow(windowID);
+  delegate.on(
+    'open-browser-window',
+    (event, windowID, args, options, language, uiMode, roomType) => {
+      const window = getWindow(windowID);
 
-    if (!window) {
-      const params = new URLSearchParams({ id: windowID, language });
-      if (args) {
-        params.append('args', args);
+      if (!window) {
+        const params = new URLSearchParams({ id: windowID, language, uiMode, roomType });
+        if (args) {
+          params.append('args', args);
+        }
+        windowMutex.dispatch(() => createBrowserWindow(windowID, params.toString(), options));
+      } else {
+        console.log(`window with ID [${windowID}] exists`);
       }
-      windowMutex.dispatch(() => createBrowserWindow(windowID, params.toString(), options));
-    } else {
-      console.log(`window with ID [${windowID}] exists`);
-    }
-  });
+    },
+  );
 
   delegate.on('show-browser-window', (event, windowID) => {
     const window = getWindow(windowID);

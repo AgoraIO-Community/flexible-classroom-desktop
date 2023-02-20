@@ -8,6 +8,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { getAssetURL } from '@app/utils';
+import { FcrMultiThemeMode } from 'agora-common-libs';
 
 declare const CLASSROOM_SDK_VERSION: string;
 
@@ -99,7 +100,8 @@ export const LaunchPage = observer(() => {
           // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
           recordUrl,
           courseWareList,
-          uiMode: homeStore.theme,
+          // uiMode: homeStore.theme,
+          uiMode: FcrMultiThemeMode.dark,
           virtualBackgroundImages,
           virtualBackgroundVideos,
           listener: (evt: AgoraEduClassroomEvent, type) => {
