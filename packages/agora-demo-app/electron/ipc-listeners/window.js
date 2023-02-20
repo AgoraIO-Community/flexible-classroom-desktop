@@ -235,9 +235,9 @@ function addListeners() {
 
   delegate.on('move-window-align-to-window', (event, windowID, windowIDAlignTo, options) => {
     // left, right, top, bottom
-    const direction = options.direction ?? 'right';
+    const vertical = options.vertical ?? 'center';
     // start, center, end
-    const align = options.align ?? 'center';
+    const horizontal = options.horizontal ?? 'center';
     const gap = options.gap ?? 10;
 
     const window = getWindow(windowID);
@@ -251,29 +251,29 @@ function addListeners() {
       const windowBounds = window.getBounds();
       const windowAlignToBounds = windowAlignTo.getBounds();
 
-      if (direction === 'top' || direction === 'bottom') {
+      if (vertical === 'top' || vertical === 'bottom') {
         let destY =
-          direction === 'top'
+        vertical === 'top'
             ? windowAlignToBounds.y - windowBounds.height - gap
             : windowAlignToBounds.y + windowAlignToBounds.height + gap;
         let destX = 0;
-        if (align === 'start') {
+        if (horizontal === 'start') {
           destX = windowAlignToBounds.x;
-        } else if (align === 'end') {
+        } else if (horizontal === 'end') {
           destX = windowAlignToBounds.x + (windowAlignToBounds.width - windowBounds.width);
         } /** otherwise center */ else {
           destX = windowAlignToBounds.x + (windowAlignToBounds.width - windowBounds.width) / 2;
         }
         window.setBounds({ x: destX, y: destY });
-      } else if (direction === 'left' || direction === 'right') {
+      } else if (vertical === 'left' || vertical === 'right') {
         let destX =
-          direction === 'left'
+        vertical === 'left'
             ? windowAlignToBounds.x - windowBounds.width - gap
             : windowAlignToBounds.x + windowAlignToBounds.width + gap;
         let destY = 0;
-        if (align === 'start') {
+        if (horizontal === 'start') {
           destY = windowAlignToBounds.y;
-        } else if (align === 'end') {
+        } else if (horizontal === 'end') {
           destY = windowAlignToBounds.y + (windowAlignToBounds.height - windowBounds.height);
         } /** otherwise center */ else {
           destY = windowAlignToBounds.y + (windowAlignToBounds.height - windowBounds.height) / 2;
