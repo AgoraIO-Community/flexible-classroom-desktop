@@ -1,5 +1,5 @@
 import { transI18n } from 'agora-common-libs';
-import { action, autorun, observable } from 'mobx';
+import { action, autorun, observable, runInAction } from 'mobx';
 import {
   roomApi,
   RoomCreateRequest,
@@ -13,6 +13,10 @@ import { ToastType } from './global';
 
 export class RoomStore {
   constructor() {
+    runInAction(() => {
+      this.lastJoinedRoomId = getLSStore<string>(LS_LAST_JOINED_ROOM_ID) || '';
+    });
+
     autorun(() => {
       setLSStore(LS_LAST_JOINED_ROOM_ID, this.lastJoinedRoomId);
     });
@@ -27,7 +31,7 @@ export class RoomStore {
   public nextId: string | undefined = undefined;
 
   @observable
-  public lastJoinedRoomId: string = getLSStore<string>(LS_LAST_JOINED_ROOM_ID) || '';
+  public lastJoinedRoomId = '';
 
   public rooms = observable.map<string, RoomInfo>();
 
