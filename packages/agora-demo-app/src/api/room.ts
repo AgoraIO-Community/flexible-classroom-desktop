@@ -117,10 +117,9 @@ export class RoomAPI {
    * @returns
    */
   public async joinNoAuth(params: RoomJoinNoAuthRequest) {
-    const url = `${this.appDomain}/edu/companys/${noAuthCompanyID}/v1/rooms`;
+    const url = `${this.appDomain}/edu/companys/v1/rooms`;
     return request.put<Response<RoomJoinResponse>>(url, params);
   }
-
   /**
    * 教室历史查询
    * @param roomID

@@ -15,6 +15,7 @@ class IPCDelegate {
       } catch (e) {
         resp.code = 1;
         resp.message = e.message;
+        console.error(e);
       }
       if (replyEventName) {
         console.log(`reply to channel ${replyEventName}, with response ${JSON.stringify(resp)}`);

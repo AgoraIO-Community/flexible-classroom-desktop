@@ -1,7 +1,6 @@
 import { homeApi, roomApi } from '@app/api';
 import { GlobalStoreContext } from '@app/stores';
 import { GlobalLaunchOption, ToastType } from '@app/stores/global';
-import { courseware } from '@app/utils/courseware';
 import { AgoraEduSDK, LanguageEnum } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
@@ -133,8 +132,6 @@ export const HomePage = () => {
     }
   }, [configReady]);
 
-  const [courseWareList] = useState(courseware.getList());
-
   const handleSubmit = async ({
     roleType,
     roomType: rt,
@@ -195,7 +192,7 @@ export const HomePage = () => {
         appId,
         sdkDomain,
         pretest: true,
-        courseWareList: courseWareList.slice(0, 1),
+        courseWareList: [],
         language: language as LanguageEnum,
         userUuid: `${userUuid}`,
         rtmToken: token,

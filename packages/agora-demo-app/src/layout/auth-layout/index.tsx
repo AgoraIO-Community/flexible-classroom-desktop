@@ -16,16 +16,13 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
     const { setLoading } = useContext(GlobalStoreContext);
     const location = useLocation();
     const history = useHistory();
-    const shouldAuth = includes.includes(location.pathname);
-
     useEffect(() => {
-      if (isLogin) {
-        return;
-      }
       // h5和pc切换在鉴权请求前的原因是 切换前后的两个地址可能鉴权需求不同，比如 /invite 页面需要鉴权， /h5/invite 页面不需要鉴权。
+
       if (platformRedirectPaths.includes(location.pathname)) {
         const isH5 = isH5Browser();
         // redirect to h5
+
         if (isH5 && !location.pathname.match('/h5')) {
           const url = window.location.hash.replace('#/', '/h5/');
           history.push(url);
@@ -38,6 +35,15 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
           return;
         }
       }
+    });
+
+    const shouldAuth = includes.includes(location.pathname);
+
+    useEffect(() => {
+      if (isLogin) {
+        return;
+      }
+
       // token not exists
       if (!token.accessToken) {
         return;

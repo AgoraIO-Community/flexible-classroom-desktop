@@ -41,6 +41,7 @@
         const roomType = params.get('roomType');
         const companyId = params.get('companyId');
         const projectId = params.get('projectId');
+        const uiMode = params.get('uiMode');
         window.__launchRegion = region;
         window.__launchLanguage = language;
         window.__launchRoomName = roomName;
@@ -49,6 +50,7 @@
         window.__launchRoomType = roomType;
         window.__launchCompanyId = companyId;
         window.__launchProjectId = projectId;
+        window.__launchUIMode = uiMode;
         if (windowID) {
           this.location.hash = 'window';
         }

@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cloud Recording</title>
-    <script src="./edu_sdk.bundle.js"></script>
   </head>
 
   <body>
@@ -16,6 +15,8 @@
       }
     </style>
     <div id="root"></div>
+    <script src="./edu_sdk.bundle.js"></script>
+
     <script type="text/javascript">
       function useParams(location) {
         const searchString = location.href.split('?').pop();
@@ -57,7 +58,7 @@
         resolution,
         autoResolution: false,
         autoFPS: false,
-        maxResolutionLevel: 1
+        maxResolutionLevel: 1,
       };
 
       AgoraEduSDK.setParameters(

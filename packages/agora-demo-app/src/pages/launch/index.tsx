@@ -11,7 +11,6 @@ import { getAssetURL } from '@app/utils';
 
 declare const CLASSROOM_SDK_VERSION: string;
 
-
 export const assetURLs = {
   // virtual background assets
   virtualBackground1: 'effect/default1.jpg',
@@ -24,7 +23,6 @@ export const assetURLs = {
   virtualBackground8: 'effect/default8.mp4',
   virtualBackground9: 'effect/default9.mp4',
 };
-
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -40,7 +38,7 @@ export const LaunchPage = observer(() => {
 
     if (appRef.current) {
       const roomType = homeStore.launchOption.roomType;
-      let unmount = () => { };
+      let unmount = () => {};
       if (roomType === EduRoomTypeEnum.RoomProctor) {
         AgoraProctorSDK.setParameters(
           JSON.stringify({
@@ -57,7 +55,7 @@ export const LaunchPage = observer(() => {
 
         unmount = AgoraProctorSDK.launch(appRef.current, {
           ...launchOption,
-
+          widgets: {},
           listener: (evt: AgoraEduClassroomEvent, type) => {
             console.log('launch#listener ', evt);
             if (evt === AgoraEduClassroomEvent.Destroyed) {

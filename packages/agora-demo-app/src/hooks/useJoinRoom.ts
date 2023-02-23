@@ -1,5 +1,5 @@
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
-import { EduRoleTypeEnum, EduRoomServiceTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
+import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import { AgoraLatencyLevel, AgoraRegion } from 'agora-rte-sdk';
 import { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router';
@@ -8,7 +8,6 @@ import { GlobalLaunchOption } from '../stores/global';
 import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
 import { builderConfig } from '../utils/build-config';
-import { courseware } from '../utils/courseware';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
   REACT_APP_AGORA_APP_ID,
@@ -22,7 +21,6 @@ import { roomApi } from '@app/api';
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
   roomType: EduRoomTypeEnum;
-  roomServiceType: EduRoomServiceTypeEnum;
   roomName: string;
   userName: string;
   roomId: string;
@@ -33,6 +31,7 @@ type JoinRoomParams = {
   language: LanguageEnum;
   region: AgoraRegion;
   platform?: Platform;
+  latencyLevel: AgoraLatencyLevel;
 };
 type QuickJoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -46,34 +45,11 @@ type JoinRoomOptions = Pick<GlobalLaunchOption, 'shareUrl' | 'uiMode'> & {
   roomProperties?: Record<string, any>;
 };
 
-export const webRTCCodecH264 = [
-  EduRoomServiceTypeEnum.CDN,
-  EduRoomServiceTypeEnum.Fusion,
-  EduRoomServiceTypeEnum.MixStreamCDN,
-  EduRoomServiceTypeEnum.HostingScene,
-];
-
-// 1. 伪直播场景不需要pretest
-// 2. 合流转推场景下的学生角色不需要pretest
-export const needPreset = (
-  roomType: EduRoomTypeEnum,
-  roomServiceType: EduRoomServiceTypeEnum,
-  roleType: EduRoleTypeEnum,
-) => {
-  if (roomType !== EduRoomTypeEnum.RoomBigClass) {
-    return true;
-  }
-
-  if (roomServiceType === EduRoomServiceTypeEnum.HostingScene) {
+export const needPreset = (roleType: EduRoleTypeEnum) => {
+  if (roleType === EduRoleTypeEnum.invisible) {
     return false;
   }
 
-  if (
-    roomServiceType === EduRoomServiceTypeEnum.MixStreamCDN &&
-    roleType !== EduRoleTypeEnum.teacher
-  ) {
-    return false;
-  }
   return true;
 };
 
@@ -98,18 +74,6 @@ const shareLinkInClass = ({ roomId, owner }: ShareURLParams) => {
   return url;
 };
 
-const getLatencyLevel = (
-  roomType: EduRoomTypeEnum,
-  roomServiceType: EduRoomServiceTypeEnum,
-): AgoraLatencyLevel => {
-  // 极速直播场景
-  const isLivePremium =
-    roomType === EduRoomTypeEnum.RoomBigClass &&
-    roomServiceType === EduRoomServiceTypeEnum.LivePremium;
-
-  return isLivePremium ? AgoraLatencyLevel.UltraLow : AgoraLatencyLevel.Low;
-};
-
 const defaultPlatform = checkBrowserDevice();
 export const useJoinRoom = () => {
   const history = useHistory();
@@ -126,7 +90,7 @@ export const useJoinRoom = () => {
         userName,
         roomId,
         userId,
-        roomServiceType,
+        latencyLevel,
         token,
         appId,
         language,
@@ -150,26 +114,22 @@ export const useJoinRoom = () => {
         return Promise.reject(failResult(ErrorCode.USER_NAME_EMPTY));
       }
 
-      const courseWareList = courseware.getList();
-
       const shareUrl = shareLinkInClass({ region, roomId, owner: userStore.nickName });
 
       console.log('## get rtm Token from demo server', token);
 
-      const latencyLevel = getLatencyLevel(roomType, roomServiceType);
+      const needPretest = needPreset(role);
 
-      const needPretest = needPreset(roomType, roomServiceType, role);
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
 
       const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
-      const webRTCCodec =
-        isProctoring || webRTCCodecH264.includes(roomServiceType) ? 'h264' : 'vp8';
+      const webRTCCodec = isProctoring ? 'h264' : 'vp8';
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
         sdkDomain,
         pretest: needPretest,
-        courseWareList: courseWareList.slice(0, 1),
+        courseWareList: [],
         userUuid: userId,
         rtmToken: token,
         roomUuid: roomId,
@@ -235,7 +195,7 @@ export const useJoinRoom = () => {
       const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
       return roomStore.joinRoom({ roomId, role, userUuid }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
-        const { serviceType, ...rProps } = roomDetail.roomProperties;
+        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
 
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
         if (checkResult.status === Status.Failed) {
@@ -253,7 +213,7 @@ export const useJoinRoom = () => {
             roomId: roomDetail.roomId,
             roomName: roomDetail.roomName,
             roomType: roomDetail.roomType,
-            roomServiceType: serviceType,
+            latencyLevel,
             language,
             region,
           },
@@ -269,7 +229,7 @@ export const useJoinRoom = () => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
       return roomStore.joinRoomNoAuth({ roomId, role, userUuid: userId }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
-        const { serviceType, ...rProps } = roomDetail.roomProperties;
+        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
 
         if (!builderConfig.ready) {
           return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
@@ -291,7 +251,7 @@ export const useJoinRoom = () => {
             roomId: roomDetail.roomId,
             roomName: roomDetail.roomName,
             roomType: roomDetail.roomType,
-            roomServiceType: serviceType,
+            latencyLevel,
             language,
             region,
           },

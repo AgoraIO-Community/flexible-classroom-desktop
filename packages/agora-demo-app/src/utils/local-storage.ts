@@ -5,7 +5,12 @@ export function getLSStore<TStore>(storeLSName: string): null | TStore {
       return null;
     }
 
-    return JSON.parse(str);
+    const ls = JSON.parse(str);
+    // compatible with old version
+    if(Array.isArray(ls)){
+      return ls[1]
+    }
+    return ls;
   } catch (e) {
     return null;
   }

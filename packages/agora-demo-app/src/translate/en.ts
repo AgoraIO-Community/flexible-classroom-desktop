@@ -140,7 +140,7 @@ export default {
   fcr_share_link_label_invitation: 'invite you to attend ',
   fcr_share_link_form_time: '13:10-13:40 2022-02-02   2022-02-02',
   fcr_share_link_tips_room_id: 'Room ID has been copied',
-  fcr_share_h5_tips_class_mode: 'Only big classroom is supported on HTML5',
+  fcr_share_h5_tips_class_mode: 'Only lecture hall is supported on HTML5',
   fcr_share_h5_tips_role_teacher: 'Role Teacher is not supported on HTML5',
   fcr_share_link_tips_name: 'Please input your name ',
   fcr_past_label_past_classroom: 'Class history',
@@ -173,7 +173,7 @@ export default {
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_ID]]: 'Room ID is invalid',
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_INFO]]: 'Invalid room info',
   [ErrorCodeMessage[ErrorCode.ROOM_IS_ENDED]]: 'The current room live has ended',
-  [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'Only big classroom is supported on HTML5',
+  [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'Only lecture hall is supported on HTML5',
 
   /** Home Settings*/
   fcr_settings_setting: 'Settings',
