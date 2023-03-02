@@ -29,7 +29,10 @@ export const LaunchPage = observer(() => {
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
   const launchOption = homeStore.launchOption;
-
+  const { setLoading, loading } = useContext(GlobalStoreContext);
+  useEffect(() => {
+    loading && setLoading(false);
+  }, [loading]);
   useEffect(() => {
     if (isEmpty(launchOption)) {
       history.push('/');

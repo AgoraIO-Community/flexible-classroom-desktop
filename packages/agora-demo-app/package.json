@@ -39,6 +39,10 @@
       {
         "from": "src/assets/pretest-audio.mp3",
         "to": "assets/pretest-audio.mp3"
+      },
+      {
+        "from": "public/assets/classroom-background/",
+        "to": "assets/classroom-background/"
       }
     ],
     "asar": true,
