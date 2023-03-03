@@ -23,7 +23,8 @@ import { RadioCard } from './radio-card';
 import './index.css';
 import { AgoraRteEngineConfig, AgoraRteRuntimePlatform, AgoraLatencyLevel } from 'agora-rte-sdk';
 
-const classroomBackgroundImagePath = 'classroom-background/default1.png';
+const classroomBackgroundImagePath =
+  'https://solutions-apaas.agora.io/demo/education/static/img/background_default1.png';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -225,9 +226,7 @@ export const CreateRoom = observer(() => {
         : {
             watermark,
             backgroundImage:
-              roomType === EduRoomTypeEnum.RoomBigClass
-                ? getAssetURL(classroomBackgroundImagePath)
-                : undefined,
+              roomType === EduRoomTypeEnum.RoomBigClass ? classroomBackgroundImagePath : undefined,
             latencyLevel: serviceType,
           };
       roomStore
