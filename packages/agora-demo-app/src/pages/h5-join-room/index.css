@@ -1,5 +1,5 @@
 .h5-join-room {
-  @apply h-full w-full relative flex flex-col;
+  @apply w-full relative flex flex-col min-h-screen;
   /* fcr_light_background1 */
   background: #f8faff;
 }
