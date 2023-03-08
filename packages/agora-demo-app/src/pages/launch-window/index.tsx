@@ -31,5 +31,5 @@ export const LaunchWindow = observer(() => {
     return destroy;
   }, []);
 
-  return <div ref={domRef} id="app" style={{ width: '100%', height: '100%' }} />;
+  return <div ref={domRef} id="app" className="w-screen h-screen" />;
 });
