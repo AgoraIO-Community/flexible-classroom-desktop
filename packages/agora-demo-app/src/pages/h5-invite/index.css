@@ -1,5 +1,5 @@
 .h5-invite {
-  @apply w-full h-full relative bg-no-repeat;
+  @apply w-full min-h-screen relative bg-no-repeat;
   padding: 15px;
   background: linear-gradient(180deg, #ffffff 0%, #f8faff 12.21%);
 }

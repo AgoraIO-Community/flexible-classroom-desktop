@@ -2,7 +2,7 @@ import { SSOAuth } from '@app/components/sso-auth';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { isH5Browser, token } from '@app/utils';
 import { observer } from 'mobx-react';
-import { FC, PropsWithChildren, useCallback, useContext, useEffect } from 'react';
+import { FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 type AuthLayoutProps = {
@@ -16,6 +16,7 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
     const { setLoading } = useContext(GlobalStoreContext);
     const location = useLocation();
     const history = useHistory();
+    const [preCheck, setPreCheck] = useState(false);
     useEffect(() => {
       // h5和pc切换在鉴权请求前的原因是 切换前后的两个地址可能鉴权需求不同，比如 /invite 页面需要鉴权， /h5/invite 页面不需要鉴权。
 
@@ -35,6 +36,7 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
           return;
         }
       }
+      setPreCheck(true);
     });
 
     const shouldAuth = includes.includes(location.pathname);
@@ -65,6 +67,12 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
 
     const needAuth = !isLogin && !token.accessToken && shouldAuth;
 
-    return needAuth ? <SSOAuth onComplete={handleAccessToken} /> : <>{children}</>;
+    return preCheck ? (
+      needAuth ? (
+        <SSOAuth onComplete={handleAccessToken} />
+      ) : (
+        <>{children}</>
+      )
+    ) : null;
   },
 );

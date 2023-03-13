@@ -12,7 +12,7 @@ import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
-import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
+import { Default_Hosting_URL, ErrorCode, getAssetURL, messageError } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
@@ -22,6 +22,9 @@ import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RadioCard } from './radio-card';
 import './index.css';
 import { AgoraRteEngineConfig, AgoraRteRuntimePlatform, AgoraLatencyLevel } from 'agora-rte-sdk';
+
+const classroomBackgroundImagePath =
+  'https://solutions-apaas.agora.io/demo/education/static/img/background_default1.png';
 
 const weekday = {
   0: 'fcr_create_option_time_selector_Sun',
@@ -218,11 +221,13 @@ export const CreateRoom = observer(() => {
         ? {
             watermark,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
-            latencyLevel: serviceType
+            latencyLevel: serviceType,
           }
         : {
             watermark,
-            latencyLevel: serviceType
+            backgroundImage:
+              roomType === EduRoomTypeEnum.RoomBigClass ? classroomBackgroundImagePath : undefined,
+            latencyLevel: serviceType,
           };
       roomStore
         .createRoom({

@@ -33,7 +33,7 @@ export const BasicLayout: FC<PropsWithChildren<unknown>> = observer(({ children 
       spinning={globalStore.loading}
       size={'large'}
       className="global-loading-container">
-      <div className="h-screen w-screen">{children}</div>
+      <div>{children}</div>
     </ASpin>
   );
 });
