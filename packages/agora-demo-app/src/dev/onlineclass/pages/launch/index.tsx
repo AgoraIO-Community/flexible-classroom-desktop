@@ -1,5 +1,5 @@
 import { GlobalStoreContext } from '@app/stores';
-import { AgoraOnlineClassSDK } from 'agora-onlineclass-sdk';
+import { AgoraOnlineclassSDK } from 'agora-onlineclass-sdk';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
@@ -21,7 +21,7 @@ export const LaunchPage = observer(() => {
     }
 
     if (appRef.current) {
-      const unmount = AgoraOnlineClassSDK.launch(appRef.current);
+      const unmount = AgoraOnlineclassSDK.launch(appRef.current, {});
       return unmount as () => void;
     }
   }, []);

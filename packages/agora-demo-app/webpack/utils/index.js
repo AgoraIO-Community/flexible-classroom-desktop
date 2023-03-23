@@ -10,7 +10,7 @@ const libs = {
   'agora-common-libs': '../agora-common-libs/src',
   'agora-classroom-sdk': '../agora-classroom-sdk/src/infra/api',
   'agora-proctor-sdk': '../agora-proctor-sdk/src/infra/api',
-  'agora-onlineclass-sdk': '../agora-onlineclass-sdk/src/infra/api',
+  'agora-onlineclass-sdk': '../agora-onlineclass-sdk/src',
 };
 
 let ALIAS = Object.keys(libs).reduce((prev, cur) => {

@@ -44,7 +44,7 @@
       "~app-components/*": ["src/ui-kit/components/*"],
       "agora-classroom-sdk": ["../agora-classroom-sdk/src/infra/api"],
       "agora-proctor-sdk": ["../agora-proctor-sdk/src/infra/api"],
-      "agora-onlineclass-sdk": ["../agora-onlineclass-sdk/src/infra/api"],
+      "agora-onlineclass-sdk": ["../agora-onlineclass-sdk/src"],
     }
   },
   "include": [
