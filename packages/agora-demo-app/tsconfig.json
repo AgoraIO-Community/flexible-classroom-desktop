@@ -32,7 +32,6 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/*"],
-      "@proctor/*": ["../agora-proctor-sdk/src/*"],
       "~app-ui-kit": ["src/ui-kit"],
       "~app-ui-kit/*": ["src/ui-kit/*"],
       "~app-scaffold": ["src/ui-kit/scaffold"],

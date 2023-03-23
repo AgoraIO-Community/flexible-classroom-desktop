@@ -7,13 +7,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { ROOT_PATH } = require('./utils/index');
 const { prod } = require('./utils/loaders');
-const template = path.resolve(ROOT_PATH, './public/index.html');
+
 const entry = path.resolve(ROOT_PATH, './src/index.tsx');
+
+const outHtml = 'index.html';
+const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 
 const config = {
   mode: 'production',
@@ -51,15 +53,12 @@ const config = {
     },
   },
   plugins: [
-    new dotenv({
-      path: path.resolve(ROOT_PATH, '../../.env'),
-    }),
     new MiniCssExtractPlugin({
       filename: 'static/[name].[contenthash].css',
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: template,
+      filename: outHtml,
+      template: htmlTemplate,
       inject: true,
     }),
     new CopyPlugin({

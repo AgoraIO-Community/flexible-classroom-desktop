@@ -1,31 +1,32 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
-const baseConfig = require('./webpack.base');
-const path = require('path');
-const { DEFAULT_PORT, ROOT_PATH, ALIAS } = require('./utils/index');
-const { dev } = require('./utils/loaders');
 const webpack = require('webpack');
-const dotenv = require('dotenv-webpack');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const baseConfig = require('./webpack.base');
+const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
+const { dev } = require('./utils/loaders');
+const { sdkDevEntry, sdkWebpackConfig } = require('./utils/development-config');
 
-const entryMap = {
-  main: path.resolve(ROOT_PATH, './src/index.tsx'),
-  classroom: path.resolve(ROOT_PATH, './src/dev/classroom/index.tsx'),
-  onlineclass: path.resolve(ROOT_PATH, './src/dev/onlineclass/index.tsx'),
-  proctor: path.resolve(ROOT_PATH, './src/dev/proctor/index.tsx'),
-};
-const template = path.resolve(ROOT_PATH, './public/index.html');
+const outHtml = 'index.html';
+const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 
 const config = {
   mode: 'development',
   devtool: 'source-map',
-  entry: entryMap[process.env['FCR_ENTRY']],
+  entry: sdkDevEntry,
+  resolve: {
+    alias: {
+      'agora-classroom-sdk': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
+      'agora-proctor-sdk': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src'),
+      'agora-onlineclass-sdk': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src'),
+    },
+  },
+  module: {
+    rules: [...dev],
+  },
   output: {
     publicPath: '/',
     filename: 'bundle-[contenthash].js',
-  },
-  resolve: {
-    alias: { ...ALIAS },
   },
   devServer: {
     compress: true,
@@ -51,32 +52,20 @@ const config = {
       },
     ],
   },
-  module: {
-    rules: [...dev],
-  },
-  optimization: {
-    nodeEnv: 'development',
-    // splitChunks: {
-    //   chunks: 'all',
-    // },
-  },
   plugins: [
-    new dotenv({
-      path: path.resolve(ROOT_PATH, '../../.env'),
-    }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: template,
+      filename: outHtml,
+      template: htmlTemplate,
       inject: true,
     }),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('development'),
     }),
-    new ESLintPlugin(),
   ],
-  ignoreWarnings: [/createRoot/],
 };
 
-const mergedConfig = webpackMerge.merge(baseConfig, config);
+const final = webpackMerge.merge(baseConfig, sdkWebpackConfig, config);
 
-module.exports = mergedConfig;
+console.log('final', JSON.stringify(final, null, 2));
+
+module.exports = final;

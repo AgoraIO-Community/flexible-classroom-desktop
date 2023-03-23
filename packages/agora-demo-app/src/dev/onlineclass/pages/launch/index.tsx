@@ -21,7 +21,9 @@ export const LaunchPage = observer(() => {
     }
 
     if (appRef.current) {
-      const unmount = AgoraOnlineclassSDK.launch(appRef.current, {});
+      const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
+        pretest: true,
+      });
       return unmount as () => void;
     }
   }, []);
