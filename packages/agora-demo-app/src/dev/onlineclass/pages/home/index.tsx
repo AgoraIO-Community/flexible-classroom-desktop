@@ -241,7 +241,7 @@ export const HomePage = () => {
   return (
     <Fragment>
       <MessageDialog />
-      <div className="app-home h-full">
+      <div className="app-home h-screen">
         <nav className="absolute left-0 top-0 w-full text-white z-10" style={{ padding: 32 }}>
           <Layout className="justify-between items-center">
             <Layout className="nav-header flex items-center">
