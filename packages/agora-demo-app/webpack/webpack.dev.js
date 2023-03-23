@@ -2,22 +2,30 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
 const path = require('path');
-const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
+const { DEFAULT_PORT, ROOT_PATH, ALIAS } = require('./utils/index');
 const { dev } = require('./utils/loaders');
 const webpack = require('webpack');
 const dotenv = require('dotenv-webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
 
-const entry = path.resolve(ROOT_PATH, './src/index.tsx');
+const entryMap = {
+  main: path.resolve(ROOT_PATH, './src/index.tsx'),
+  classroom: path.resolve(ROOT_PATH, './src/dev/classroom/index.tsx'),
+  onlineclass: path.resolve(ROOT_PATH, './src/dev/onlineclass/index.tsx'),
+  proctor: path.resolve(ROOT_PATH, './src/dev/proctor/index.tsx'),
+};
 const template = path.resolve(ROOT_PATH, './public/index.html');
 
 const config = {
   mode: 'development',
   devtool: 'source-map',
-  entry: entry,
+  entry: entryMap[process.env['FCR_ENTRY']],
   output: {
     publicPath: '/',
     filename: 'bundle-[contenthash].js',
+  },
+  resolve: {
+    alias: { ...ALIAS },
   },
   devServer: {
     compress: true,

@@ -4,7 +4,7 @@ const webpackbar = require('webpackbar');
 const eduCoreVersion = require('agora-edu-core/package.json').version;
 const rteVersion = require('agora-rte-sdk/package.json').version;
 const { base } = require('./utils/loaders');
-const { ROOT_PATH, ALIAS } = require('./utils/index');
+const { ROOT_PATH } = require('./utils/index');
 
 const classroomSdkVersion = require('agora-classroom-sdk/package.json').version;
 const proctorSdkVersion = require('agora-proctor-sdk/package.json').version;
@@ -24,8 +24,9 @@ module.exports = {
     alias: {
       '@classroom': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src/'),
       '@proctor': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src/'),
+      '@onlineclass': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src/'),
+
       '@app': path.resolve(ROOT_PATH, 'src'),
-      ...ALIAS,
     },
   },
   module: {

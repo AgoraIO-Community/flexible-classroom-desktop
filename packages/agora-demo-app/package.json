@@ -7,7 +7,10 @@
     "electron:client": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./electron/",
     "electron:copy:electron:mac": "cpx './electron/**/*.js' ./build",
     "electron:copy:electron:win": "cpx \"./electron/**/*.js\" ./build",
-    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 webpack serve --config ./webpack/webpack.dev.js",
+    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=main webpack serve --config ./webpack/webpack.dev.js",
+    "dev:classroom": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=classroom webpack serve --config ./webpack/webpack.dev.js",
+    "dev:onlineclass": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=onlineclass webpack serve --config ./webpack/webpack.dev.js",
+    "dev:proctor": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=proctor webpack serve --config ./webpack/webpack.dev.js",
     "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 webpack --config ./webpack/webpack.prod.js",
     "pack:mac": "yarn electron:copy:electron:mac && electron-builder --mac -p never",
     "pack:win": "yarn electron:copy:electron:win && electron-builder --win -p never"

@@ -1,11 +1,14 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { ROOT_PATH } = require('.');
-
+const excludeBundleJSReg = /packages\/(?!agora-demo-app)/;
 module.exports.base = [
   {
     test: /\.js(x)?$/,
-    exclude: /node_modules/,
+    exclude:
+      process.env['NODE_ENV'] === 'production'
+        ? [/node_modules/, excludeBundleJSReg]
+        : /node_modules/,
     use: [
       {
         loader: 'babel-loader',

@@ -3,13 +3,14 @@ const fs = require('fs');
 const PUBLIC_PATH = path.resolve(__dirname, '../../', 'public');
 const ROOT_PATH = path.resolve(__dirname, '../../');
 const DEFAULT_PORT = 3000;
-
+const ENTRY = process.env['FCR_ENTRY'];
 const libs = {
   'agora-rte-sdk': '../agora-rte-sdk/src',
   'agora-edu-core': '../agora-edu-core/src',
   'agora-common-libs': '../agora-common-libs/src',
   'agora-classroom-sdk': '../agora-classroom-sdk/src/infra/api',
   'agora-proctor-sdk': '../agora-proctor-sdk/src/infra/api',
+  'agora-onlineclass-sdk': '../agora-onlineclass-sdk/src/infra/api',
 };
 
 let ALIAS = Object.keys(libs).reduce((prev, cur) => {
@@ -31,4 +32,5 @@ module.exports = {
   ROOT_PATH,
   DEFAULT_PORT,
   ALIAS,
+  ENTRY,
 };

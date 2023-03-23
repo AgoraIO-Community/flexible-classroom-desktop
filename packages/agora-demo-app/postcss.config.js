@@ -8,11 +8,17 @@ const tailwindcss = require('tailwindcss');
 const tailwindConfig = require('./tailwind.config');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const postcssPxToViewport = require('../agora-classroom-sdk/webpack/postcss-plugin/px-to-vw');
-
+const { ENTRY } = require('./webpack/utils');
+const configMap = {
+  main: require('./tailwind.config'),
+  classroom: require('../agora-classroom-sdk/tailwind.config'),
+  onlineclass: require('../agora-onlineclass-sdk/tailwind.config'),
+  proctor: require('../agora-proctor-sdk/tailwind.config'),
+};
 module.exports = {
   plugins: [
     autoprefixer(),
-    tailwindcss(tailwindConfig),
+    tailwindcss(configMap[ENTRY]),
     postcssPxToViewport({
       viewportWidth: 375,
       unitPrecision: 5,
