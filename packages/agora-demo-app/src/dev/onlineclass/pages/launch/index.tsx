@@ -4,6 +4,7 @@ import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { coursewareList } from './courseware-list';
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -22,7 +23,8 @@ export const LaunchPage = observer(() => {
 
     if (appRef.current) {
       const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
-        pretest: true,
+        ...launchOption,
+        courseWareList: coursewareList,
       });
       return unmount as () => void;
     }
