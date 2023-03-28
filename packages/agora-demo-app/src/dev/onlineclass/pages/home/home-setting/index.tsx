@@ -49,7 +49,7 @@ export const HomeSetting = () => {
   );
 };
 
-export const HomeSettingContainer: FC = ({ children }) => {
+export const HomeSettingContainer: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const t = useI18n();
   return (
@@ -92,5 +92,3 @@ export const HomeSettingContainer: FC = ({ children }) => {
     </>
   );
 };
-
-export { HomeSettingContainerH5 } from './h5';

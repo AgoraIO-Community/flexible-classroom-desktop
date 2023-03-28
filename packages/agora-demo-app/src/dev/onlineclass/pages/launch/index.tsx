@@ -6,27 +6,36 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 export const LaunchPage = observer(() => {
-  const homeStore = useContext(GlobalStoreContext);
+  const { launchOption } = useContext(GlobalStoreContext);
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
-  const launchOption = homeStore.launchOption;
-  const { setLoading, loading } = useContext(GlobalStoreContext);
-  useEffect(() => {
-    loading && setLoading(false);
-  }, [loading]);
+
   useEffect(() => {
     if (isEmpty(launchOption)) {
+      console.log('Invalid launch option, nav to /');
       history.push('/');
       return;
     }
 
     if (appRef.current) {
       const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
-        pretest: true,
+        userUuid: launchOption.userUuid,
+        userName: launchOption.userName,
+        roomUuid: launchOption.roomUuid,
+        roleType: launchOption.roleType,
+        language: launchOption.language,
+        token: launchOption.rtmToken,
+        appId: launchOption.appId,
+        region: launchOption.region,
+        devicePretest: true,
+        roomName: launchOption.roomName,
+        roomType: launchOption.roomType,
+        startTime: launchOption.startTime,
+        duration: launchOption.duration,
       });
-      return unmount as () => void;
+      return unmount;
     }
   }, []);
 
-  return <div ref={appRef} id="app" className="bg-background w-full h-full"></div>;
+  return <div ref={appRef} className="bg-background w-full h-full" />;
 });

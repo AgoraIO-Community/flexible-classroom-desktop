@@ -7,11 +7,11 @@
 module.exports = [
   {
     name: 'classroom',
-    webpackConfig: 'agora-classroom-sdk/webpack/webpack.base.js',
+    webpackConfig: 'agora-classroom-sdk/webpack/webpack.dev.js',
   },
   {
     name: 'proctor',
-    webpackConfig: 'agora-proctor-sdk/webpack/webpack.base.js',
+    webpackConfig: 'agora-proctor-sdk/webpack/webpack.dev.js',
   },
   {
     name: 'onlineclass',

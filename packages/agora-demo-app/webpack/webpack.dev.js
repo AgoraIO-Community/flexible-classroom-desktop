@@ -16,8 +16,8 @@ const config = {
   entry: sdkDevEntry,
   resolve: {
     alias: {
-      'agora-classroom-sdk': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
-      'agora-proctor-sdk': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src'),
+      'agora-classroom-sdk': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src/infra/api'),
+      'agora-proctor-sdk': path.resolve(ROOT_PATH, '../agora-proctor-sdk/src/infra/api'),
       'agora-onlineclass-sdk': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src'),
     },
   },
@@ -64,8 +64,4 @@ const config = {
   ],
 };
 
-const final = webpackMerge.merge(baseConfig, sdkWebpackConfig, config);
-
-console.log('final', JSON.stringify(final, null, 2));
-
-module.exports = final;
+module.exports = webpackMerge.merge(baseConfig, sdkWebpackConfig, config);

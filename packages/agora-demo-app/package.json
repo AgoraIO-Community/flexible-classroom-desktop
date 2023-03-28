@@ -104,12 +104,11 @@
     }
   },
   "devDependencies": {
-    "electron-builder": "23.0.2",
-    "electron-util": "0.16.0",
-    "electron": "12.0.0"
+    "electron-builder": "23.6.0",
+    "electron": "12.0.0",
+    "wait-on": "3.3.0"
   },
   "dependencies": {
-    "wait-on": "3.3.0",
     "react-infinite-scroll-component": "6.1.0",
     "react-i18next": "11.16.7",
     "agora-access-token": "2.0.4",
