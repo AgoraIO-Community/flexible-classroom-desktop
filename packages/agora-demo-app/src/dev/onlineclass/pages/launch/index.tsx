@@ -27,11 +27,11 @@ export const LaunchPage = observer(() => {
         token: launchOption.rtmToken,
         appId: launchOption.appId,
         region: launchOption.region,
-        devicePretest: true,
         roomName: launchOption.roomName,
         roomType: launchOption.roomType,
         startTime: launchOption.startTime,
         duration: launchOption.duration,
+        devicePretest: true,
       });
       return unmount;
     }
