@@ -5,6 +5,7 @@ import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import logo from '@app/assets/favicon.png';
 
 export const assetURLs = {
   // virtual background assets
@@ -31,21 +32,23 @@ export const LaunchPage = observer(() => {
       return;
     }
 
-    const virtualBackgroundImages = [
-      getAssetURL(assetURLs.virtualBackground1),
-      getAssetURL(assetURLs.virtualBackground2),
-      getAssetURL(assetURLs.virtualBackground3),
-      getAssetURL(assetURLs.virtualBackground4),
-      getAssetURL(assetURLs.virtualBackground5),
-      getAssetURL(assetURLs.virtualBackground6),
-      getAssetURL(assetURLs.virtualBackground7),
-    ];
-    const virtualBackgroundVideos = [
-      getAssetURL(assetURLs.virtualBackground8),
-      getAssetURL(assetURLs.virtualBackground9),
-    ];
-
     if (appRef.current) {
+      const virtualBackgroundImages = [
+        getAssetURL(assetURLs.virtualBackground1),
+        getAssetURL(assetURLs.virtualBackground2),
+        getAssetURL(assetURLs.virtualBackground3),
+        getAssetURL(assetURLs.virtualBackground4),
+        getAssetURL(assetURLs.virtualBackground5),
+        getAssetURL(assetURLs.virtualBackground6),
+        getAssetURL(assetURLs.virtualBackground7),
+      ];
+      const virtualBackgroundVideos = [
+        getAssetURL(assetURLs.virtualBackground8),
+        getAssetURL(assetURLs.virtualBackground9),
+      ];
+
+      AgoraOnlineclassSDK.setParameters(JSON.stringify({ logo, host: launchOption.sdkDomain }));
+
       const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
         userUuid: launchOption.userUuid,
         userName: launchOption.userName,
