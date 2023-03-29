@@ -4,30 +4,39 @@ import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { coursewareList } from './courseware-list';
 import logo from '@app/assets/favicon.png';
+
 export const LaunchPage = observer(() => {
-  const homeStore = useContext(GlobalStoreContext);
+  const { launchOption } = useContext(GlobalStoreContext);
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
-  const launchOption = homeStore.launchOption;
-  const { setLoading, loading } = useContext(GlobalStoreContext);
-  useEffect(() => {
-    loading && setLoading(false);
-  }, [loading]);
+
   useEffect(() => {
     if (isEmpty(launchOption)) {
+      console.log('Invalid launch option, nav to /');
       history.push('/');
       return;
     }
     AgoraOnlineclassSDK.setParameters(JSON.stringify({ logo, host: launchOption.sdkDomain }));
     if (appRef.current) {
       const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
-        ...launchOption,
+        userUuid: launchOption.userUuid,
+        userName: launchOption.userName,
+        roomUuid: launchOption.roomUuid,
+        roleType: launchOption.roleType,
+        language: launchOption.language,
+        token: launchOption.rtmToken,
+        appId: launchOption.appId,
+        region: launchOption.region,
+        roomName: launchOption.roomName,
+        roomType: launchOption.roomType,
+        startTime: launchOption.startTime,
+        duration: launchOption.duration,
+        devicePretest: true,
       });
-      return unmount as () => void;
+      return unmount;
     }
   }, []);
 
-  return <div ref={appRef} id="app" className="bg-background w-full h-full"></div>;
+  return <div ref={appRef} className="bg-background w-full h-full" />;
 });

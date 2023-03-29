@@ -15,10 +15,6 @@ module.exports = {
       path: path.resolve(ROOT_PATH, '../../.env'),
     }),
     new webpackbar(),
-    new webpack.DefinePlugin({
-      BUILD_TIME: JSON.stringify(Date.now()),
-      BUILD_COMMIT_ID: JSON.stringify(process.env.FCR_BUILD_COMMIT_ID),
-    }),
   ],
   stats: {
     children: true,

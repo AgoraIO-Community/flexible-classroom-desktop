@@ -1,92 +1,32 @@
-import { homeApi, roomApi } from '@app/api';
+import { roomApi } from '@app/api';
 import { GlobalStoreContext } from '@app/stores';
-import { GlobalLaunchOption } from '@app/stores/global';
 import { getBrowserLanguage } from '@app/utils';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
-import { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
-import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
 import md5 from 'js-md5';
-import { Fragment, useContext, useEffect, useRef, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { v4 as uuidv4 } from 'uuid';
-import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
 import './style.css';
 import { transI18n, useI18n } from 'agora-common-libs';
 import { Layout } from '@app/components/layout';
-import { Button } from '@app/components/button';
+import { isElectron } from 'agora-onlineclass-sdk';
+import { SettingsButton } from './setting-button';
+import { GlobalLaunchOption } from '@app/stores/global';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
-declare global {
-  interface Window {
-    __launchRegion: string;
-    __launchLanguage: string;
-    __launchRoomName: string;
-    __launchUserName: string;
-    __launchRoleType: string;
-    __launchRoomType: string;
-    __launchCompanyId: string;
-    __launchProjectId: string;
-  }
-}
-
 const regionByLang = {
-  zh: EduRegion.CN,
-  en: EduRegion.NA,
-};
-
-export const useBuilderConfig = () => {
-  const [configReady, setConfigReady] = useState(false);
-  const builderResource = useRef({
-    scenes: {},
-    themes: {},
-  });
-  const t = useI18n();
-
-  const defaultScenes = [
-    { text: t('home.roomType_1v1'), value: `${EduRoomTypeEnum.Room1v1Class}` },
-    { text: t('home.roomType_interactiveSmallClass'), value: `${EduRoomTypeEnum.RoomSmallClass}` },
-    { text: t('home.roomType_interactiveBigClass'), value: `${EduRoomTypeEnum.RoomBigClass}` },
-    { text: t('fcr_home_label_proctoring'), value: `${EduRoomTypeEnum.RoomProctor}` },
-  ];
-
-  const [roomTypes, setRoomTypes] = useState<EduRoomTypeEnum[]>([]);
-
-  const sceneOptions = defaultScenes.filter(({ value }) => {
-    return roomTypes.some((t) => `${t}` === value);
-  });
-
-  useEffect(() => {
-    const companyId = window.__launchCompanyId;
-    const projectId = window.__launchProjectId;
-
-    if (companyId && projectId) {
-      homeApi.getBuilderResource(companyId, projectId).then(({ scenes, themes }) => {
-        builderResource.current = {
-          scenes: scenes ?? {},
-          themes: themes ? { default: themes } : {},
-        };
-
-        setConfigReady(true);
-      });
-    } else {
-      setConfigReady(true);
-    }
-  }, []);
-
-  return {
-    builderResource,
-    sceneOptions: sceneOptions.length ? sceneOptions : defaultScenes,
-    configReady,
-  };
+  zh: 'CN',
+  en: 'NA',
 };
 
 export const HomePage = () => {
   const globalStore = useContext(GlobalStoreContext);
+
   const history = useHistory();
 
   const [duration] = useState<string>(`${30}`);
@@ -95,28 +35,7 @@ export const HomePage = () => {
 
   const t = useI18n();
 
-  const { builderResource, sceneOptions, configReady } = useBuilderConfig();
-
-  useEffect(() => {
-    const language = window.__launchLanguage || globalStore.language || getBrowserLanguage();
-    const region =
-      window.__launchRegion || globalStore.region || regionByLang[getBrowserLanguage()];
-    globalStore.setLanguage(language);
-    globalStore.setRegion(region as EduRegion);
-  }, []);
-
-  useEffect(() => {
-    if (history.location.pathname === '/share' && configReady) {
-      setTimeout(() => {
-        handleSubmit({
-          roleType: window.__launchRoleType,
-          roomType: window.__launchRoomType,
-          roomName: window.__launchRoomName,
-          userName: `user_${''.padEnd(6, `${Math.floor(Math.random() * 10000)}`)}`,
-        });
-      });
-    }
-  }, [configReady]);
+  const defaultScenes = [{ text: t('home.roomType_interactiveSmallClass'), value: `${4}` }];
 
   const handleSubmit = async ({
     roleType,
@@ -139,13 +58,7 @@ export const HomePage = () => {
 
     const roomType = parseInt(rt);
 
-    const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
-    const webRTCCodec = isProctoring ? 'h264' : 'vp8';
-    const isStudent = userRole === EduRoleTypeEnum.student;
-    const userUuid =
-      isProctoring && isStudent
-        ? `${md5(userName)}${userRole}-main`
-        : `${md5(userName)}${userRole}`;
+    const userUuid = `${md5(userName)}${userRole}`;
 
     const roomUuid = `${md5(roomName)}${roomType}`;
 
@@ -160,17 +73,9 @@ export const HomePage = () => {
         role: userRole,
       });
 
-      const companyId = window.__launchCompanyId;
-      const projectId = window.__launchProjectId;
-
-      const shareUrl =
-        AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron
-          ? ''
-          : `${location.origin}${
-              location.pathname
-            }?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=${
-              EduRoleTypeEnum.student
-            }&companyId=${companyId ?? ''}&projectId=${projectId ?? ''}#/share`;
+      const shareUrl = isElectron()
+        ? ''
+        : `${location.origin}${location.pathname}?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=2#/share`;
 
       console.log('## get rtm Token from demo server', token);
 
@@ -187,25 +92,10 @@ export const HomePage = () => {
         roomName: `${roomName}`,
         userName: userName,
         roleType: userRole,
-        region: region as EduRegion,
+        region: region,
         duration: +duration * 60,
         latencyLevel: 2,
-        scenes: builderResource.current.scenes,
-        themes: builderResource.current.themes,
         shareUrl,
-        mediaOptions: {
-          web: {
-            codec: webRTCCodec,
-          },
-          screenShareEncoderConfiguration: isProctoring
-            ? {
-                width: 1280,
-                height: 720,
-                frameRate: 15,
-                bitrate: 1130,
-              }
-            : undefined,
-        },
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;
@@ -249,12 +139,6 @@ export const HomePage = () => {
               <span className="product-name">{t('home_product_name')}</span>
             </Layout>
             <Layout>
-              {/* <div className='mr-3'>
-                                <Dropdown options={regionOptions} value={region} onChange={handleChangeRegion} />
-                            </div>
-                            <div className='mr-3'>
-                                <Dropdown options={languageOptions} value={language} onChange={handleChangeLanguage} width={68} />
-                            </div> */}
               <span className="about-btn cursor-pointer">
                 <SettingsButton />
               </span>
@@ -268,41 +152,9 @@ export const HomePage = () => {
             left: 'calc((100% - 477px) * 0.81)',
             padding: '36px 54px 26px',
           }}>
-          <LoginForm onSubmit={handleSubmit} sceneOptions={sceneOptions} />
+          <LoginForm onSubmit={handleSubmit} sceneOptions={defaultScenes} />
         </div>
       </div>
     </Fragment>
-  );
-};
-
-export const SettingsButton = () => {
-  const t = useI18n();
-  const [hover, setHover] = useState(false);
-  const handleOver = () => {
-    setHover(true);
-  };
-
-  const handleLeave = () => {
-    setHover(false);
-  };
-
-  const textColor = hover ? '#fff' : '#030303';
-  const backgroundColor = hover ? '#030303' : '#fff';
-
-  return (
-    <HomeSettingContainer>
-      <Button
-        animate={false}
-        onMouseOver={handleOver}
-        onMouseLeave={handleLeave}
-        style={{ background: backgroundColor, transition: 'all .2s' }}>
-        <div className="flex items-center">
-          {/* <SvgImg type={SvgIconEnum.SET_OUTLINE} size={16} colors={{ iconPrimary: textColor }} /> */}
-          <span className="ml-1" style={{ color: textColor }}>
-            {t('fcr_settings_setting')}
-          </span>
-        </div>
-      </Button>
-    </HomeSettingContainer>
   );
 };
