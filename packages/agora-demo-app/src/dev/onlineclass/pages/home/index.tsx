@@ -96,6 +96,7 @@ export const HomePage = () => {
         duration: +duration * 60,
         latencyLevel: 2,
         shareUrl,
+        recordUrl: `https://solutions-apaas.agora.io/apaas/record/dev/2.8.21/record_page.html`,
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;
