@@ -19,4 +19,13 @@ const sdkDevEntry = path.resolve(ROOT_PATH, 'src/dev', sdk.name);
 
 const sdkWebpackConfig = require(path.resolve(ROOT_PATH, '../', sdk.webpackConfig));
 
-module.exports = { sdkDevEntry, sdkWebpackConfig };
+let sdkDevServe = undefined;
+
+if (sdk.assetsDir) {
+  sdkDevServe = {
+    directory: path.resolve(path.resolve(ROOT_PATH), '../', sdk.assetsDir),
+    publicPath: '/',
+  };
+}
+
+module.exports = { sdkDevEntry, sdkWebpackConfig, sdkDevServe };

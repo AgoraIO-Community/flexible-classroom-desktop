@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const baseConfig = require('./webpack.base');
 const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
 const { dev } = require('./utils/loaders');
-const { sdkDevEntry, sdkWebpackConfig } = require('./utils/development-config');
+const { sdkDevEntry, sdkWebpackConfig, sdkDevServe } = require('./utils/development-config');
 
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
@@ -50,6 +50,7 @@ const config = {
         ),
         publicPath: '/extensions/agora-extension-virtual-background',
       },
+      sdkDevServe,
     ],
   },
   plugins: [
