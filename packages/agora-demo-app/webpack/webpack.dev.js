@@ -10,6 +10,28 @@ const { sdkDevEntry, sdkWebpackConfig, sdkDevServe } = require('./utils/developm
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 
+const devServes = [
+  {
+    directory: path.resolve(ROOT_PATH, 'public'),
+    publicPath: '/',
+  },
+  {
+    directory: path.resolve(ROOT_PATH, '../../node_modules/agora-extension-ai-denoiser/external'),
+    publicPath: '/extensions/ai-denoiser',
+  },
+  {
+    directory: path.resolve(
+      ROOT_PATH,
+      '../../node_modules/agora-extension-virtual-background/wasms',
+    ),
+    publicPath: '/extensions/agora-extension-virtual-background',
+  },
+];
+
+if (sdkDevServe) {
+  devServes.push(sdkDevServe);
+}
+
 const config = {
   mode: 'development',
   devtool: 'source-map',
@@ -31,27 +53,7 @@ const config = {
   devServer: {
     compress: true,
     port: DEFAULT_PORT,
-    static: [
-      {
-        directory: path.resolve(ROOT_PATH, 'public'),
-        publicPath: '/',
-      },
-      {
-        directory: path.resolve(
-          ROOT_PATH,
-          '../../node_modules/agora-extension-ai-denoiser/external',
-        ),
-        publicPath: '/extensions/ai-denoiser',
-      },
-      {
-        directory: path.resolve(
-          ROOT_PATH,
-          '../../node_modules/agora-extension-virtual-background/wasms',
-        ),
-        publicPath: '/extensions/agora-extension-virtual-background',
-      },
-      sdkDevServe,
-    ],
+    static: devServes,
   },
   plugins: [
     new HtmlWebpackPlugin({
