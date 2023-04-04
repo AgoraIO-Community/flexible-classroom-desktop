@@ -19,3 +19,6 @@
 [submodule "packages/agora-onlineclass-sdk"]
 	path = packages/agora-onlineclass-sdk
 	url = ../online-class-desktop.git
+[submodule "packages/agora-scenario-ui-kit"]
+	path = packages/agora-scenario-ui-kit
+	url = ssh://git@git.agoralab.co/aduc/agora-scenario-ui-kit-desktop.git

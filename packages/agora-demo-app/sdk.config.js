@@ -16,5 +16,6 @@ module.exports = [
   {
     name: 'onlineclass',
     webpackConfig: 'agora-onlineclass-sdk/webpack/webpack.dev.js',
+    assetsDir: 'agora-onlineclass-sdk/src/resources'
   },
 ];

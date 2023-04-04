@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { FC } from 'react';
 import { useHistory } from 'react-router';
 import { useCallback } from 'react';
-import { transI18n } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs/lib/i18n';
 import { Modal } from '@app/components/modal';
 import { Button } from '@app/components/button';
 

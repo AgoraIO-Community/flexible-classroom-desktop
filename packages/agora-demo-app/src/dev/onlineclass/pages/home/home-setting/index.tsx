@@ -1,5 +1,5 @@
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { FC, useState } from 'react';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';

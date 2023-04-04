@@ -1,5 +1,5 @@
 import { aMessage } from '@app/components/message';
-import { transI18n } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs/lib/i18n';
 
 export enum ErrorCode {
   COURSE_HAS_ENDED = 1101012,

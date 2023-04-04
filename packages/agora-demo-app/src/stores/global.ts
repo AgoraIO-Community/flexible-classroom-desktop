@@ -1,6 +1,7 @@
 import { LanguageEnum, LaunchOption } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
-import { changeLanguage, FcrMultiThemeMode } from 'agora-common-libs';
+import { FcrMultiThemeMode } from 'agora-common-libs/lib/ui';
+import { changeLanguage } from 'agora-common-libs/lib/i18n';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
