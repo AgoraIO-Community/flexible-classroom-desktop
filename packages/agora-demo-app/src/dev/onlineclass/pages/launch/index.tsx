@@ -6,6 +6,8 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
+import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard/v2';
+import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
 
 export const assetURLs = {
   // virtual background assets
@@ -18,6 +20,11 @@ export const assetURLs = {
   virtualBackground7: 'effect/default7.jpg',
   virtualBackground8: 'effect/default8.mp4',
   virtualBackground9: 'effect/default9.mp4',
+};
+
+const getWidgetName = (widgetClass: unknown) => {
+  const Clz = widgetClass as typeof AgoraWidgetBase;
+  return Object.create(Clz.prototype).widgetName;
 };
 
 export const LaunchPage = observer(() => {
@@ -62,9 +69,11 @@ export const LaunchPage = observer(() => {
         roomType: launchOption.roomType,
         startTime: launchOption.startTime,
         duration: launchOption.duration,
-        devicePretest: true,
+        // devicePretest: true,
+        devicePretest: false,
         virtualBackgroundImages,
         virtualBackgroundVideos,
+        widgets: { [getWidgetName(FcrBoardWidget)]: FcrBoardWidget },
       });
       return unmount;
     }

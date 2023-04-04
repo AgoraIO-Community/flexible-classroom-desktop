@@ -8,6 +8,17 @@ import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { getAssetURL } from '@app/utils';
 
+import { AgoraCountdown } from 'agora-plugin-gallery/gallery/counter';
+import { AgoraHXChatWidget } from 'agora-plugin-gallery/gallery/hx-chat';
+import { AgoraPolling } from 'agora-plugin-gallery/gallery/vote';
+import { AgoraSelector } from 'agora-plugin-gallery/gallery/answer';
+import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard';
+import { FcrStreamMediaPlayerWidget } from 'agora-plugin-gallery/gallery/stream-media';
+import { FcrWatermarkWidget } from 'agora-plugin-gallery/gallery/watermark';
+import { FcrWebviewWidget } from 'agora-plugin-gallery/gallery/webview';
+
+import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
+
 declare const CLASSROOM_SDK_VERSION: string;
 
 export const assetURLs = {
@@ -21,6 +32,11 @@ export const assetURLs = {
   virtualBackground7: 'effect/default7.jpg',
   virtualBackground8: 'effect/default8.mp4',
   virtualBackground9: 'effect/default9.mp4',
+};
+
+const getWidgetName = (widgetClass: unknown) => {
+  const Clz = widgetClass as typeof AgoraWidgetBase;
+  return Object.create(Clz.prototype).widgetName;
 };
 
 export const LaunchPage = observer(() => {
@@ -69,6 +85,17 @@ export const LaunchPage = observer(() => {
         getAssetURL(assetURLs.virtualBackground9),
       ];
 
+      const widgets = {
+        [getWidgetName(AgoraHXChatWidget)]: AgoraHXChatWidget,
+        [getWidgetName(AgoraCountdown)]: AgoraCountdown,
+        [getWidgetName(AgoraSelector)]: AgoraSelector,
+        [getWidgetName(AgoraPolling)]: AgoraPolling,
+        [getWidgetName(FcrBoardWidget)]: FcrBoardWidget,
+        [getWidgetName(FcrWebviewWidget)]: FcrWebviewWidget,
+        [getWidgetName(FcrStreamMediaPlayerWidget)]: FcrStreamMediaPlayerWidget,
+        [getWidgetName(FcrWatermarkWidget)]: FcrWatermarkWidget,
+      };
+
       const unmount = AgoraEduSDK.launch(appRef.current, {
         ...launchOption,
         // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
@@ -77,6 +104,7 @@ export const LaunchPage = observer(() => {
         uiMode: homeStore.theme,
         virtualBackgroundImages,
         virtualBackgroundVideos,
+        widgets,
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {

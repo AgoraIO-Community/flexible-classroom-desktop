@@ -1,4 +1,4 @@
-import { transI18n } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs/lib/i18n';
 import { action, autorun, observable, runInAction } from 'mobx';
 import {
   roomApi,

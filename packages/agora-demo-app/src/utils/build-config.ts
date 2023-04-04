@@ -1,5 +1,5 @@
 import { AgoraEduSDK } from 'agora-classroom-sdk';
-import { transI18n } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs/lib/i18n';
 import { EduRoomTypeEnum } from 'agora-edu-core';
 import { homeApi } from '../api';
 

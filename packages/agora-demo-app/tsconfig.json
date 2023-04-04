@@ -20,7 +20,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noEmitHelpers": true,
     "noEmitOnError": false,
     "emitDeclarationOnly": true,
@@ -41,9 +40,10 @@
       "~app-utilities/*": ["src/ui-kit/utilities/*"],
       "~app-components": ["src/ui-kit/components"],
       "~app-components/*": ["src/ui-kit/components/*"],
+      "agora-plugin-gallery/*": ["../agora-plugin-gallery/src/*"],
       "agora-classroom-sdk": ["../agora-classroom-sdk/src/infra/api"],
       "agora-proctor-sdk": ["../agora-proctor-sdk/src/infra/api"],
-      "agora-onlineclass-sdk": ["../agora-onlineclass-sdk/src"],
+      "agora-onlineclass-sdk": ["../agora-onlineclass-sdk/src"], 
     }
   },
   "include": [

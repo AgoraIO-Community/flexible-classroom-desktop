@@ -1,4 +1,4 @@
-import { themeContext } from 'agora-common-libs';
+import { themeContext } from 'agora-common-libs/lib/ui';
 import classnames from 'classnames';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { OverlayWrap } from '../overlay-wrap';
@@ -31,7 +31,7 @@ export interface ModalProps {
   topLevel?: boolean;
   animate?: boolean;
   className?: string;
-  style?: React.CSSProperties
+  style?: React.CSSProperties;
 }
 
 type ModalType = FC<ModalProps>;
