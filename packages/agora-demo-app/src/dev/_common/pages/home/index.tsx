@@ -3,7 +3,7 @@ import { GlobalStoreContext } from '@app/stores';
 import { getBrowserLanguage } from '@app/utils';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import md5 from 'js-md5';
-import { Fragment, useContext, useState } from 'react';
+import { FC, Fragment, useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { v4 as uuidv4 } from 'uuid';
@@ -24,7 +24,7 @@ const regionByLang = {
   en: 'NA',
 };
 
-export const HomePage = () => {
+export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ scenes }) => {
   const globalStore = useContext(GlobalStoreContext);
 
   const history = useHistory();
@@ -34,8 +34,6 @@ export const HomePage = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const t = useI18n();
-
-  const defaultScenes = [{ text: t('home.roomType_interactiveSmallClass'), value: `${4}` }];
 
   const handleSubmit = async ({
     roleType,
@@ -133,7 +131,9 @@ export const HomePage = () => {
     <Fragment>
       <MessageDialog />
       <div className="app-home fcr-h-screen">
-        <nav className="fcr-absolute fcr-left-0 fcr-top-0 w-full fcr-text-white fcr-z-10" style={{ padding: 32 }}>
+        <nav
+          className="fcr-absolute fcr-left-0 fcr-top-0 w-full fcr-text-white fcr-z-10"
+          style={{ padding: 32 }}>
           <Layout className="fcr-justify-between fcr-items-center">
             <Layout className="nav-header fcr-flex fcr-items-center">
               <span className="product-logo" />
@@ -153,7 +153,7 @@ export const HomePage = () => {
             left: 'calc((100% - 477px) * 0.81)',
             padding: '36px 54px 26px',
           }}>
-          <LoginForm onSubmit={handleSubmit} sceneOptions={defaultScenes} />
+          <LoginForm onSubmit={handleSubmit} sceneOptions={scenes} />
         </div>
       </div>
     </Fragment>
