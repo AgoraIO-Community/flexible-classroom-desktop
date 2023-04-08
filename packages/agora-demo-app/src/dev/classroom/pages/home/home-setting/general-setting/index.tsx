@@ -4,7 +4,9 @@ import { Modal } from '@app/components/modal';
 import { RadioGroup } from '@app/components/radio';
 import { useLogout } from '@app/hooks';
 import { GlobalStoreContext } from '@app/stores';
-import { FcrMultiThemeMode, transI18n } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs/lib/i18n';
+import { FcrMultiThemeMode } from 'agora-common-libs/lib/ui';
+
 import { observer } from 'mobx-react';
 import { useContext, useState } from 'react';
 import './index.css';

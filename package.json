@@ -98,7 +98,7 @@
     "pack:electron:win": "lerna exec --scope=agora-demo-app npm run pack:win",
     "build:demo": "lerna exec --scope=agora-demo-app npm run build",
     "ci:install": "yarn install:packages:all",
-    "ci:build:web": "yarn build:demo",
+    "ci:build:web": "run-s pack:classroom:sdk pack:proctor:sdk pack:onlineclass:sdk build:demo",
     "ci:build:electron:win": "yarn release:electron:win",
     "ci:build:electron:mac": "yarn release:electron:mac",
     "install:packages:all": "node ./scripts/install all",

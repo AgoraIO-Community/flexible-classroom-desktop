@@ -132,22 +132,22 @@ export const HomePage = () => {
   return (
     <Fragment>
       <MessageDialog />
-      <div className="app-home h-screen">
-        <nav className="absolute left-0 top-0 w-full text-white z-10" style={{ padding: 32 }}>
-          <Layout className="justify-between items-center">
-            <Layout className="nav-header flex items-center">
+      <div className="app-home fcr-h-screen">
+        <nav className="fcr-absolute fcr-left-0 fcr-top-0 w-full fcr-text-white fcr-z-10" style={{ padding: 32 }}>
+          <Layout className="fcr-justify-between fcr-items-center">
+            <Layout className="nav-header fcr-flex fcr-items-center">
               <span className="product-logo" />
               <span className="product-name">{t('home_product_name')}</span>
             </Layout>
             <Layout>
-              <span className="about-btn cursor-pointer">
+              <span className="about-btn fcr-cursor-pointer">
                 <SettingsButton />
               </span>
             </Layout>
           </Layout>
         </nav>
         <div
-          className="form-section fixed animated-form"
+          className="form-section fcr-fixed animated-form"
           style={{
             top: 'calc((100% - 540px) * 0.5)',
             left: 'calc((100% - 477px) * 0.81)',

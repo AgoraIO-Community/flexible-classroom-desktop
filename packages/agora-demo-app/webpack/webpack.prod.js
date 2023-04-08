@@ -62,6 +62,10 @@ const config = {
       template: htmlTemplate,
       inject: true,
     }),
+    new webpack.DefinePlugin({
+      NODE_ENV: JSON.stringify('production'),
+    }),
+    // copy wasm files of Web RTC SDK extension from node_modules
     new CopyPlugin({
       patterns: [
         {
@@ -72,14 +76,6 @@ const config = {
           },
           noErrorOnMissing: true,
         },
-      ],
-    }),
-    new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify('production'),
-    }),
-    // copy wasm files of Web RTC SDK extension from node_modules
-    new CopyPlugin({
-      patterns: [
         // ai denoiser
         {
           from: path.resolve(ROOT_PATH, '../../node_modules/agora-extension-ai-denoiser/external'),

@@ -44,27 +44,19 @@ if (ENTRY === 'demo') {
     };
   }
 
-  const libs = ['agora-rte-sdk', 'agora-edu-core'];
+  devAlias = Object.entries(sdk.sources).reduce((prev, [requirePath, resolvePath]) => {
+    const libName = requirePath.split('/')[0];
 
-  let devAlias = libs.reduce((prev, cur) => {
-    const libName = cur;
-
-    const libPath = path.resolve(ROOT_PATH, `../${libName}/src`);
+    const libPath = path.resolve(ROOT_PATH, `../${libName}/${resolvePath}`);
 
     const libExists = fs.existsSync(libPath);
 
     if (libExists) {
-      prev[libName] = libPath;
+      prev[requirePath] = libPath;
     }
 
     return prev;
   }, {});
-
-  const commonLibsSrcPath = path.resolve(ROOT_PATH, `../agora-common-libs/src`);
-
-  if (fs.existsSync(commonLibsSrcPath)) {
-    devAlias['agora-common-libs/lib'] = commonLibsSrcPath;
-  }
 }
 
 module.exports = { devEntry, devWebpackConfig, sdkDevServe, devAlias, devRules };

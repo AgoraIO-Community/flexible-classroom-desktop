@@ -49,7 +49,8 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "../../node_modules/electron"
   ],
   "exclude": [
     "node_modules",

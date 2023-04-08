@@ -17,7 +17,7 @@ import { HomeSettingContainer } from './home-setting';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
 import './style.css';
-import { transI18n, useI18n } from 'agora-common-libs';
+import { transI18n, useI18n } from 'agora-common-libs/lib/i18n';
 import { Layout } from '@app/components/layout';
 import { Toast } from '@app/components/toast';
 import { Button } from '@app/components/button';

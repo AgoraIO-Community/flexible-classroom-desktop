@@ -147,8 +147,8 @@ export const LoginForm: FC<{
         e.preventDefault();
         return false;
       }}>
-      <p className="form-header text-center">{t('home_greeting')}</p>
-      <Layout className="mt-8">
+      <p className="form-header fcr-text-center">{t('home_greeting')}</p>
+      <Layout className="fcr-mt-8">
         <Field
           label={t('home_form_field_room')}
           type="text"
@@ -159,7 +159,7 @@ export const LoginForm: FC<{
           error={errors.roomName}
         />
       </Layout>
-      <Layout className="mt-6 relative z-20 justify-between">
+      <Layout className="fcr-mt-6 fcr-relative fcr-z-20 fcr-justify-between">
         <Field
           label={t('home_form_field_name')}
           type="text"
@@ -180,7 +180,7 @@ export const LoginForm: FC<{
           error={errors.roleType}
         />
       </Layout>
-      <Layout className="mt-6 relative z-10 justify-between">
+      <Layout className="fcr-mt-6 fcr-relative fcr-z-10 fcr-justify-between">
         <Field
           label={t('home_form_field_type')}
           type="select"
@@ -200,16 +200,16 @@ export const LoginForm: FC<{
           value={''}
         />
       </Layout>
-      <Layout className="mt-8 mb-6">
+      <Layout className="fcr-mt-8 fcr-mb-6">
         <Button
-          className="form-submit-button w-full"
+          className="form-submit-button fcr-w-full"
           size="lg"
           type={'primary'}
           onClick={handleSubmit}>
           {t('home_form_submit')}
         </Button>
       </Layout>
-      <p className="form-footer text-center mt-8 mb-0">
+      <p className="form-footer fcr-text-center fcr-mt-8 fcr-mb-0">
         Version: Flexible Classroom_{CLASSROOM_SDK_VERSION}
       </p>
     </form>

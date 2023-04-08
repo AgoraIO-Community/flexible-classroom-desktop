@@ -21,7 +21,7 @@ export function parseHashUrlQuery(locationHash: string): Record<string, any> {
 
 export function parseQuery(query: string) {
   const strArr = query.split('&');
-  const result = new Object();
+  const result: any = {};
   for (let i = 0; i < strArr.length; i++) {
     const q = strArr[i];
     // 这里需要注意对base64值的处理，base64中是包含 = 符号的。(分享的传值是通过url传值,值是通过base64加密的)
