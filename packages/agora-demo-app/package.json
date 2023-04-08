@@ -110,7 +110,6 @@
   },
   "dependencies": {
     "react-infinite-scroll-component": "6.1.0",
-    "react-i18next": "11.16.7",
     "agora-access-token": "2.0.4",
     "agora-classroom-sdk": "~2.8.0",
     "agora-proctor-sdk": "~1.0.0"
