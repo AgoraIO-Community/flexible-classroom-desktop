@@ -7,5 +7,5 @@
 @tailwind screens;
 
 .flex-import {
-  display: flex !important;
+  display: fcr-flex !important;
 }

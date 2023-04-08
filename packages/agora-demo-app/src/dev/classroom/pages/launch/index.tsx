@@ -19,8 +19,6 @@ import { FcrWebviewWidget } from 'agora-plugin-gallery/gallery/webview';
 
 import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 export const assetURLs = {
   // virtual background assets
   virtualBackground1: 'effect/default1.jpg',

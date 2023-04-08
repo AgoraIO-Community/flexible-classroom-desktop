@@ -2,11 +2,9 @@ import { Button } from '@app/components/button';
 import { Field } from '@app/components/form-field';
 import { Layout } from '@app/components/layout';
 import { GlobalStoreContext } from '@app/stores';
-import { transI18n, useI18n } from 'agora-common-libs';
+import { transI18n, useI18n } from 'agora-common-libs/lib/i18n';
 import { EduRoleTypeEnum } from 'agora-edu-core';
 import { FC, useContext, useState } from 'react';
-
-declare const CLASSROOM_SDK_VERSION: string;
 
 const useForm = <T extends Record<string, string>>({
   initialValues,

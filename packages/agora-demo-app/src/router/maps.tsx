@@ -2,8 +2,6 @@ import React from 'react';
 import { CreateRoom } from '../pages/create-room';
 import { H5Invite } from '../pages/h5-invite';
 import { H5JoinRoom } from '../pages/h5-join-room';
-import { HomePage } from '../pages/home';
-import { HomeH5Page } from '../pages/home/h5';
 import { InviteRoom } from '../pages/invite';
 import { JoinRoom } from '../pages/join-room';
 import { LaunchPage } from '../pages/launch';
@@ -59,12 +57,7 @@ export const routesMap: Record<string, AppRouteComponent> = {
     component: () => <LaunchPage />,
     exact: true,
   },
-  // Legacy landing page
-  [PageRouter.FlexHome]: {
-    path: '/flex',
-    component: () => <HomePage />,
-    exact: true,
-  },
+
   // For H5
   [PageRouter.H5Index]: {
     path: '/h5',
@@ -79,18 +72,6 @@ export const routesMap: Record<string, AppRouteComponent> = {
   [PageRouter.H5Invite]: {
     path: '/h5/invite',
     component: () => <H5Invite />,
-    exact: true,
-  },
-  // Legacy landing page for H5
-  [PageRouter.FlexH5Home]: {
-    path: '/flex/h5login',
-    component: () => <HomeH5Page />,
-    exact: true,
-  },
-  // Path that will serve for share usage
-  [PageRouter.ShareLinkPage]: {
-    path: '/share',
-    component: () => <HomePage />,
     exact: true,
   },
   [PageRouter.Window]: {

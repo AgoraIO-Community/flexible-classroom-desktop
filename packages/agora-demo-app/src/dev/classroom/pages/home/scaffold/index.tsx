@@ -2,7 +2,7 @@ import { Button } from '@app/components/button';
 import { Col, Row, Table } from '@app/components/table';
 import { Input } from '@app/components/input';
 import { Select } from '@app/components/select';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import React from 'react';
 
 import './style.css';

@@ -4,12 +4,13 @@ const webpackMerge = require('webpack-merge');
 const webpack = require('webpack');
 const baseConfig = require('./webpack.base');
 const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
-const { dev } = require('./utils/loaders');
+
 const {
-  sdkDevEntry,
-  sdkWebpackConfig,
+  devEntry,
+  devWebpackConfig,
   sdkDevServe,
   devAlias,
+  devRules,
 } = require('./utils/development-config');
 
 const outHtml = 'index.html';
@@ -40,12 +41,13 @@ if (sdkDevServe) {
 const config = {
   mode: 'development',
   devtool: 'source-map',
-  entry: sdkDevEntry,
+  entry: devEntry,
   resolve: {
     alias: devAlias,
   },
   module: {
-    rules: [...dev],
+    unknownContextCritical: false,
+    rules: devRules,
   },
   output: {
     publicPath: '/',
@@ -68,4 +70,4 @@ const config = {
   ],
 };
 
-module.exports = webpackMerge.merge(baseConfig, sdkWebpackConfig, config);
+module.exports = webpackMerge.merge(baseConfig, devWebpackConfig, config);

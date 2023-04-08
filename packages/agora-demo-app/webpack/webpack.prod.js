@@ -27,6 +27,7 @@ const config = {
     clean: true,
   },
   module: {
+    unknownContextCritical: false,
     rules: [...prod],
   },
   optimization: {

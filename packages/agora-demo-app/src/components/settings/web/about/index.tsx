@@ -2,10 +2,8 @@ import logo from '@app/assets/logo.svg';
 import { useLogout } from '@app/hooks';
 import { privacyPolicyURL, useAgreementURL } from '@app/utils/url';
 import { EduClassroomConfig } from 'agora-edu-core';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import './index.css';
-
-declare const CLASSROOM_SDK_VERSION: string;
 
 export const About = () => {
   const { logout } = useLogout();
@@ -33,7 +31,7 @@ export const About = () => {
         </a>
       </p>
       <div
-        className="logout-btn px-6 rounded-md border inline-block cursor-pointer"
+        className="logout-btn px-6 rounded-md fcr-border inline-block cursor-pointer"
         onClick={() => {
           logout();
         }}>

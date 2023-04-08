@@ -56,7 +56,7 @@
 }
 
 .start-time {
-  @apply relative;
+  @apply fcr-relative;
 }
 .start-time .ant-form-item {
   display: inline-block;
@@ -91,7 +91,7 @@
 }
 
 .create-form .current-time {
-  @apply absolute flex justify-center items-center pointer-events-none;
+  @apply fcr-absolute fcr-flex fcr-justify-center fcr-items-center fcr-pointer-events-none;
   background: #fff;
   top: 2px;
   left: 2px;
@@ -105,7 +105,7 @@
 }
 
 .room-type {
-  @apply grid;
+  @apply fcr-grid;
   grid-template-columns: repeat(auto-fill, 189px);
   gap: 16px;
   line-height: 1.5;
@@ -114,7 +114,7 @@
 }
 
 .service-type {
-  @apply grid;
+  @apply fcr-grid;
   grid-template-columns: repeat(auto-fill, 186px);
   gap: 16px;
   /* fcr-white */
@@ -154,7 +154,7 @@
 }
 
 .more-settings .expand-btn {
-  @apply cursor-pointer;
+  @apply fcr-cursor-pointer;
   font-family: 'PingFang HK';
   font-style: normal;
   font-weight: 400;
@@ -173,7 +173,7 @@
 }
 
 .setting-item .title {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -190,7 +190,7 @@
 }
 .security-prefix-icon,
 .live-playback-prefix-icon {
-  @apply bg-no-repeat bg-center;
+  @apply fcr-bg-no-repeat fcr-bg-center;
   display: inline-block;
   background-size: 18px;
   /* fcr-black */
@@ -219,7 +219,7 @@
 }
 
 .live-playback .header {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-family: 'Montserrat Roboto';
   font-weight: 400;
   font-size: 16px;
@@ -229,7 +229,7 @@
 }
 
 .live-playback .header::before {
-  @apply bg-cover bg-no-repeat bg-center;
+  @apply fcr-bg-cover fcr-bg-no-repeat fcr-bg-center;
   content: '';
   width: 48px;
   height: 48px;

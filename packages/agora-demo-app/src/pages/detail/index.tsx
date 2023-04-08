@@ -16,7 +16,7 @@ import { RouteComponentProps } from 'react-router';
 import dayjs from 'dayjs';
 import { roomTypeMap } from '../welcome/room-list/item';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { ATabs, ATabsProps } from '@app/components/tabs';
 import { ACarousel } from '@app/components/carousel';
 import { ATable } from '@app/components/table';
@@ -68,7 +68,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
         return (
           <div className="mr-6 flex items-center">
             {node}
-            <div className="border border-solid rounded-xl px-2 relative scale-75	transform font-black">
+            <div className="border  fcr-border-solid rounded-xl px-2 relative scale-75	transform font-black">
               {roomHistory?.academicMessageDTO[node.key as string]?.length || 0}
             </div>
           </div>
@@ -173,7 +173,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
                         window.open(r.recordUrls[0]);
                       }}
                       className={
-                        'w-32 w-20 border border-solid border-gray rounded-xl flex flex-col justify-center pl-4 py-2 pr-2 transform hover:border-black hover:-translate-y-0.5 hover:shadow'
+                        'w-32 w-20 fcr-border  fcr-border-solid border-gray rounded-xl flex flex-col justify-center pl-4 py-2 pr-2 transform hover:border-black hover:-translate-y-0.5 hover:shadow'
                       }>
                       <div className="font-black">{index < 9 ? '0' + (index + 1) : index + 1}</div>
                       <div className="flex items-center justify-between">

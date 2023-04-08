@@ -3,7 +3,7 @@
 }
 .playback-carousel .prev-arrow,
 .playback-carousel .next-arrow {
-  @apply h-full mt-0 items-center  top-0;
+  @apply fcr-h-full fcr-mt-0 fcr-items-center  fcr-top-0;
   display: flex !important;
   width: 77px;
   z-index: 1;
@@ -23,12 +23,12 @@
   right: 0px;
 }
 .detail-tabs .ant-tabs-content-holder {
-  @apply px-20;
+  @apply fcr-px-20;
 
   background: #f0f0f780;
 }
 .detail-tabs .ant-tabs-nav {
-  @apply px-20;
+  @apply fcr-px-20;
 
   margin-bottom: 0;
 }
@@ -72,7 +72,7 @@
   border-bottom-right-radius: 8px;
 }
 .detail-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  @apply font-black;
+  @apply fcr-font-black;
   color: #000;
 }
 .detail-tabs .ant-tabs-tab-btn:focus,

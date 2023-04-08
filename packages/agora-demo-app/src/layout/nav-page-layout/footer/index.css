@@ -1,12 +1,12 @@
 .nav-footer {
-  @apply flex justify-between items-end pointer-events-none;
+  @apply fcr-flex fcr-justify-between fcr-items-end fcr-pointer-events-none;
   height: 128px;
   padding-bottom: 30px;
 }
 
 .nav-footer .ant-btn.cancel,
 .nav-footer .ant-btn.ok {
-  @apply pointer-events-auto;
+  @apply fcr-pointer-events-auto;
   height: 49px;
   border-radius: 32px;
   font-family: 'Montserrat';

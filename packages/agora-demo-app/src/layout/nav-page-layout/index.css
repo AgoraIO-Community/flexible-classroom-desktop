@@ -6,7 +6,7 @@
 }
 
 .nav-page-layout > header {
-  @apply absolute top-0 left-0 z-10 w-full;
+  @apply fcr-absolute fcr-top-0 fcr-left-0 fcr-z-10 fcr-w-full;
   padding-top: 53px;
   padding-bottom: 17px;
   /* fcr- light-white trans90% */
@@ -16,14 +16,14 @@
 }
 
 .nav-page-layout > .content {
-  @apply h-full w-full;
+  @apply fcr-h-full fcr-w-full;
   padding: 0 114px;
   position: relative;
   overflow-y: auto;
 }
 
 .nav-page-layout > footer {
-  @apply absolute bottom-0 left-0 w-full pointer-events-none;
+  @apply fcr-absolute fcr-bottom-0 fcr-left-0 fcr-w-full fcr-pointer-events-none;
   padding: 0 114px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 58.33%);
   filter: drop-shadow(0px 4px 4px rgba(255, 255, 255, 0.25));

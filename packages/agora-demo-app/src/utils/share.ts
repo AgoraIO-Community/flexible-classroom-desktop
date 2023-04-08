@@ -9,8 +9,6 @@ export type ShareContent = {
   role: EduRoleTypeEnum;
 };
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 /**
  * Share links function
  */

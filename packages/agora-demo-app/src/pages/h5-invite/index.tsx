@@ -22,7 +22,7 @@ import {
   Status,
 } from '@app/utils';
 import { shareLink } from '@app/utils/share';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';

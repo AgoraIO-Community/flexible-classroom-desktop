@@ -6,8 +6,6 @@ import { transI18n, useI18n } from 'agora-common-libs/lib/i18n';
 import { EduRoleTypeEnum } from 'agora-edu-core';
 import { FC, useContext, useState } from 'react';
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 const useForm = <T extends Record<string, string>>({
   initialValues,
   validate,

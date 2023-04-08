@@ -40,6 +40,8 @@
       "~app-utilities/*": ["src/ui-kit/utilities/*"],
       "~app-components": ["src/ui-kit/components"],
       "~app-components/*": ["src/ui-kit/components/*"],
+      "@components/*": ["../agora-scenario-ui-kit/src/components/*"],
+      "@ui-kit-utils/*": ["../agora-scenario-ui-kit/src/utils/*"],
       "agora-plugin-gallery/*": ["../agora-plugin-gallery/src/*"],
       "agora-classroom-sdk": ["../agora-classroom-sdk/src/infra/api"],
       "agora-proctor-sdk": ["../agora-proctor-sdk/src/infra/api"],

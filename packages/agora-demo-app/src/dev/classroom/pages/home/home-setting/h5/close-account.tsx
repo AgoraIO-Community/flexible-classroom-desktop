@@ -1,6 +1,6 @@
 import { CheckBox } from '@app/components/checkbox';
 import { useLogout } from '@app/hooks';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { FC, useState } from 'react';
 import { SettingsMenuEnum } from '.';
 import { ConfirmDialogH5 } from './components/confirm-dialog';
@@ -37,7 +37,7 @@ export const CloseAccount: FC<CloseAccountProps> = ({ removeMenuPopup }) => {
         </p>
       </div>
       <div
-        className={`close-account-submit-btn px-6 rounded-md border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center ${
+        className={`close-account-submit-btn px-6 rounded-md fcr-border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center ${
           checked ? '' : 'disabled'
         }`}
         onClick={() => {

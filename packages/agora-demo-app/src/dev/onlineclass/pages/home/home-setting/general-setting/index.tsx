@@ -60,7 +60,7 @@ export const GeneralSetting = observer(() => {
       </div>
       <p>
         <button
-          className="px-4 rounded-md border border-slate-600 text-slate-600"
+          className="px-4 rounded-md fcr-border border-slate-600 text-slate-600"
           type="button"
           onClick={() => {
             setCloseAccountModal(true);

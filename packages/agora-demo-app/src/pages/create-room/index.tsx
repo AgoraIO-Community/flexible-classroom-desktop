@@ -1,7 +1,7 @@
 import watermarkIcon from '@app/assets/fcr_watermark.png';
 import premiumIcon from '@app/assets/service-type/fcr_premium.png';
 import standardIcon from '@app/assets/service-type/fcr_standard.png';
-import { ADatePicker, ADatePickerProps, locale } from '@app/components/date-picker';
+import { ADatePicker, locale } from '@app/components/date-picker';
 import { AForm, AFormItem, useAForm } from '@app/components/form';
 import { AInput } from '@app/components/input';
 import { RadioIcon } from '@app/components/radio-icon';
@@ -12,8 +12,8 @@ import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
-import { Default_Hosting_URL, ErrorCode, getAssetURL, messageError } from '@app/utils';
-import { useI18n } from 'agora-common-libs';
+import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
@@ -80,6 +80,12 @@ const roomTypeOptions = [
     value: EduRoomTypeEnum.Room1v1Class,
     className: 'card-green',
   },
+  {
+    label: 'fcr_h5create_label_small_onlineclass',
+    description: 'fcr_create_label_small_onlineclass_description',
+    value: EduRoomTypeEnum.RoomSmallClass,
+    className: 'card-purple',
+  },
 ];
 
 if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
@@ -135,8 +141,11 @@ export const CreateRoom = observer(() => {
 
   const showLivePlaybackOption = false;
 
-  const customFormat: ADatePickerProps['format'] = useCallback(
-    (value) => `${value.format('YYYY-MM-DD')}  |  ${transI18n(weekday[value.day()])}`,
+  const customFormat = useCallback(
+    (value: dayjs.Dayjs) =>
+      `${value.format('YYYY-MM-DD')}  |  ${transI18n(
+        weekday[value.day() as keyof typeof weekday],
+      )}`,
     [],
   );
 

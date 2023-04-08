@@ -1,5 +1,5 @@
 .room-type-card {
-  @apply cursor-pointer;
+  @apply fcr-cursor-pointer;
   border-radius: 16px;
   padding: 20px;
   position: relative;
@@ -30,7 +30,7 @@
 }
 
 .room-type-card .radio {
-  @apply absolute;
+  @apply fcr-absolute;
   top: 12.5px;
   right: 12.5px;
 }

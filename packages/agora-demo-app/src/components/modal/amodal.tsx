@@ -1,5 +1,5 @@
 import Modal, { ModalProps } from 'antd/lib/modal';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 export type AModalProps = Pick<
   ModalProps,
   | 'className'
@@ -20,7 +20,7 @@ export type AModalProps = Pick<
   | 'cancelText'
   | 'centered'
 >;
-export const AModal: React.FC<AModalProps> = (props) => {
+export const AModal: React.FC<PropsWithChildren<AModalProps>> = (props) => {
   return <Modal {...props} />;
 };
 

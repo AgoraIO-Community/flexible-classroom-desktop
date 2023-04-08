@@ -7,7 +7,6 @@ import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '../store
 import { GlobalLaunchOption } from '../stores/global';
 import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
-import { builderConfig } from '../utils/build-config';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
   REACT_APP_AGORA_APP_ID,
@@ -142,8 +141,6 @@ export const useJoinRoom = () => {
         duration: +duration * 60,
         latencyLevel,
         userFlexProperties: options.roomProperties || {},
-        scenes: builderConfig.resource.scenes,
-        themes: builderConfig.resource.themes,
         shareUrl,
         platform,
         mediaOptions: {
@@ -181,10 +178,6 @@ export const useJoinRoom = () => {
 
   const quickJoinRoom = useCallback(
     async (params: QuickJoinRoomParams) => {
-      if (!builderConfig.ready) {
-        return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-      }
-
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
       const {
         data: { data: roomInfo },
@@ -230,10 +223,6 @@ export const useJoinRoom = () => {
       return roomStore.joinRoomNoAuth({ roomId, role, userUuid: userId }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
         const { latencyLevel, ...rProps } = roomDetail.roomProperties;
-
-        if (!builderConfig.ready) {
-          return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-        }
 
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
         if (checkResult.status === Status.Failed) {

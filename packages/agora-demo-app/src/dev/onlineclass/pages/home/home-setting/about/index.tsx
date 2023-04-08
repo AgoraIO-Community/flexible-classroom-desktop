@@ -4,8 +4,6 @@ import { EduClassroomConfig } from 'agora-edu-core';
 import logo from '../assets/logo.svg';
 import './index.css';
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 export const About = () => {
   return (
     <div className="about-setting leading-8">

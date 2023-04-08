@@ -26,7 +26,7 @@
 }
 
 .role-choose .role-item {
-  @apply flex items-center justify-between;
+  @apply fcr-flex fcr-items-center fcr-justify-between;
   border-radius: 16px;
   /* fcr-white */
   color: #ffffff;
@@ -43,5 +43,5 @@
 
 .header-blank::before,
 .footer-blank::after {
-  @apply col-start-1 col-end-3;
+  @apply fcr-col-start-1 fcr-col-end-3;
 }

@@ -1,11 +1,11 @@
 .h5-join-room {
-  @apply w-full relative flex flex-col min-h-screen;
+  @apply fcr-w-full fcr-relative fcr-flex fcr-flex-col fcr-min-h-screen;
   /* fcr_light_background1 */
   background: #f8faff;
 }
 
 .h5-join-room .header-bg {
-  @apply bg-cover w-full flex items-center;
+  @apply fcr-bg-cover fcr-w-full fcr-flex fcr-items-center;
   height: 35vh;
   background-image: url(@app/assets/h5-bg.png);
 }
@@ -28,7 +28,7 @@
 }
 
 .h5-join-room .content {
-  @apply relative flex-1;
+  @apply fcr-relative fcr-flex-1;
   /* fcr_light_background1 */
   background: #f8faff;
   border-radius: 20px;
@@ -37,7 +37,7 @@
 }
 
 .h5-join-room .content .hello {
-  @apply flex justify-between items-center;
+  @apply fcr-flex fcr-justify-between fcr-items-center;
   font-family: 'Montserrat Roboto';
   font-style: normal;
   font-weight: 400;
@@ -63,7 +63,7 @@
 }
 
 .h5-join-room .form .form-item {
-  @apply flex;
+  @apply fcr-flex;
   padding: 13px 20px;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .h5-join-room .join-btn {
-  @apply absolute;
+  @apply fcr-absolute;
   bottom: 10vh;
   width: calc(100% - 40px);
   height: 46px;

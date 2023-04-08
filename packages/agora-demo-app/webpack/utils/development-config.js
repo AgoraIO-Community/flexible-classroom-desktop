@@ -2,53 +2,69 @@ const fs = require('fs');
 const path = require('path');
 const { ENTRY, ROOT_PATH } = require('.');
 const sdks = require('../../sdk.config');
+const loaders = require('./loaders');
 
-const sdk = sdks.find(({ name }) => {
-  return name === ENTRY;
-});
+let devEntry,
+  devWebpackConfig,
+  sdkDevServe,
+  devRules = undefined;
 
-if (!sdk) {
-  throw new Error(`Cannot found [${ENTRY}] SDK in sdk.config.js`);
-}
+let devAlias = {};
 
-// check sdk config
-if (!sdk.webpackConfig) {
-  throw new Error(`Missing webpackConfig of [${ENTRY}] SDK in sdk.config.js`);
-}
+if (ENTRY === 'demo') {
+  devEntry = path.resolve(ROOT_PATH, 'src/index');
 
-const sdkDevEntry = path.resolve(ROOT_PATH, 'src/dev', sdk.name);
+  devRules = loaders.dev;
 
-const sdkWebpackConfig = require(path.resolve(ROOT_PATH, '../', sdk.webpackConfig));
+  devWebpackConfig = {};
+} else {
+  const sdk = sdks.find(({ name }) => {
+    return name === ENTRY;
+  });
 
-let sdkDevServe = undefined;
-
-if (sdk.assetsDir) {
-  sdkDevServe = {
-    directory: path.resolve(path.resolve(ROOT_PATH), '../', sdk.assetsDir),
-    publicPath: '/',
-  };
-}
-
-const libs = ['agora-rte-sdk', 'agora-edu-core'];
-
-let devAlias = libs.reduce((prev, cur) => {
-  const libName = cur;
-
-  const libPath = path.resolve(ROOT_PATH, `../${libName}/src`);
-
-  const libExists = fs.existsSync(libPath);
-
-  if (libExists) {
-    prev[libName] = libPath;
+  if (!sdk) {
+    throw new Error(`Cannot found [${ENTRY}] SDK in sdk.config.js`);
   }
 
-  return prev;
-}, {});
+  // check sdk config
+  if (!sdk.webpackConfig) {
+    throw new Error(`Missing webpackConfig of [${ENTRY}] SDK in sdk.config.js`);
+  }
 
-const commonLibsSrcPath = path.resolve(ROOT_PATH, `../agora-common-libs/src`);
+  devEntry = path.resolve(ROOT_PATH, 'src/dev', sdk.name);
 
-if (fs.existsSync(commonLibsSrcPath)) {
-  devAlias['agora-common-libs/lib'] = commonLibsSrcPath;
+  devWebpackConfig = require(path.resolve(ROOT_PATH, '../', sdk.webpackConfig));
+
+  devRules = loaders.devSdk;
+
+  if (sdk.assetsDir) {
+    sdkDevServe = {
+      directory: path.resolve(path.resolve(ROOT_PATH), '../', sdk.assetsDir),
+      publicPath: '/',
+    };
+  }
+
+  const libs = ['agora-rte-sdk', 'agora-edu-core'];
+
+  let devAlias = libs.reduce((prev, cur) => {
+    const libName = cur;
+
+    const libPath = path.resolve(ROOT_PATH, `../${libName}/src`);
+
+    const libExists = fs.existsSync(libPath);
+
+    if (libExists) {
+      prev[libName] = libPath;
+    }
+
+    return prev;
+  }, {});
+
+  const commonLibsSrcPath = path.resolve(ROOT_PATH, `../agora-common-libs/src`);
+
+  if (fs.existsSync(commonLibsSrcPath)) {
+    devAlias['agora-common-libs/lib'] = commonLibsSrcPath;
+  }
 }
 
-module.exports = { sdkDevEntry, sdkWebpackConfig, sdkDevServe, devAlias };
+module.exports = { devEntry, devWebpackConfig, sdkDevServe, devAlias, devRules };

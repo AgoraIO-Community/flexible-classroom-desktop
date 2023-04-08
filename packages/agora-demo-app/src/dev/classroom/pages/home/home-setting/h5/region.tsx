@@ -1,5 +1,5 @@
 import { GlobalStoreContext } from '@app/stores';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';

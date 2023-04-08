@@ -1,6 +1,6 @@
 import { ASpin } from '@app/components/spin';
 import { GlobalStoreContext, HistoryStoreContext } from '@app/stores';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { observer } from 'mobx-react';
 import { FC, PropsWithChildren, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';

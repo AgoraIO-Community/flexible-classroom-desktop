@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useI18n } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs/lib/i18n';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
 import './index.css';

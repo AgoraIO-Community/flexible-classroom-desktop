@@ -1,5 +1,5 @@
 .slider-router-wrapper {
-  @apply relative;
+  @apply fcr-relative;
 }
 
 /* fcr-route-slider-forward page animation */

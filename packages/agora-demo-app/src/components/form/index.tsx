@@ -5,7 +5,7 @@ export type AFormItemProps = Pick<
   FormItemProps,
   'className' | 'label' | 'name' | 'required' | 'rules'
 >;
-export const AFormItem: FC<AFormItemProps> = (props) => {
+export const AFormItem: FC<PropsWithChildren<AFormItemProps>> = (props) => {
   return <Form.Item {...props} />;
 };
 

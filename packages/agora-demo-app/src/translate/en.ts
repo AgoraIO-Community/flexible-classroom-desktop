@@ -81,6 +81,8 @@ export default {
   fcr_create_label_security: 'Security',
   fcr_create_label_1on1_description:
     'Suitable for 1-on-1 teaching scenario, Teacher and Student can talk directly face to face .',
+  fcr_create_label_small_onlineclass_description:
+    'New interactive teaching scenarios with a small number of people',
   fcr_create_label_small_classroom_description:
     'Suitable for interactive teaching scenarios with a small number of people, Teacher and students could talk at any time ',
   fcr_create_label_lecture_hall_description:
@@ -99,6 +101,7 @@ export default {
   fcr_h5create_label_small_classroom: 'Small Classroom',
   fcr_h5create_label_lecture_hall: 'Lecture Hall',
   fcr_h5create_label_1on1: '1 on 1',
+  fcr_h5create_label_small_onlineclass: 'Online Classroom',
   fcr_h5create_label_interactive: 'interactive',
   fcr_h5create_label_broadcast: 'broadcast',
   fcr_create_tips_create_success: 'You have created a room successfully',
