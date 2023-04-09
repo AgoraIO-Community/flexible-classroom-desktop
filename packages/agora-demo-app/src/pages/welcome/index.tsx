@@ -136,7 +136,7 @@ export const Welcome = observer(() => {
             <span className="text">{transI18n('fcr_home_button_create')}</span>
           </div>
         </div>
-        <div className={`room-list flex-1`}>
+        <div className={`room-list fcr-flex-1`}>
           <div className="title">
             <span>{transI18n('fcr_home_label_roomlist')}</span>
           </div>

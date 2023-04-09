@@ -311,7 +311,7 @@ export const CreateRoom = observer(() => {
           </AFormItem>
         </div>
         {/* 课程时间 */}
-        <div className="form-item flex">
+        <div className="form-item fcr-flex">
           <div className="start-time">
             <div className="label">{transI18n('fcr_create_label_starttime')}</div>
             <AFormItem
@@ -334,7 +334,7 @@ export const CreateRoom = observer(() => {
                 locale={dateLocale!}
               />
             </AFormItem>
-            <div className="relative inline-block">
+            <div className="fcr-relative fcr-inline-block">
               <AFormItem
                 name="time"
                 rules={[{ required: true, message: 'Please select time!' }]}

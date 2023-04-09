@@ -51,6 +51,9 @@ async function buildPackages() {
     await exec(
       `${lernaPath} exec --scope=agora-edu-core yarn proto && yarn build && yarn build:types`,
     );
+    await exec(
+      `${lernaPath} exec --scope=agora-edu-core yarn build && yarn build:types`,
+    );
     await exec(`${lernaPath} exec --scope=agora-common-libs yarn build && yarn build:types`);
   } catch (e) {
     console.log(chalk.red('Failed to build packages, please try again.'));

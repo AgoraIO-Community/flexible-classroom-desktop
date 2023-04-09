@@ -14,7 +14,7 @@ export const Settings = () => {
   const transI18n = useI18n();
 
   return (
-    <div className="settings-container flex">
+    <div className="settings-container fcr-flex">
       <div className="left">
         <div
           className={`tab-item ${tab === SettingTabType.GeneralSetting ? 'active' : ''}`}

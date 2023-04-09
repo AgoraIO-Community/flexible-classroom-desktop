@@ -79,7 +79,7 @@
 .home-right {
   font-family: 'Montserrat Roboto';
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .home-right::before {
