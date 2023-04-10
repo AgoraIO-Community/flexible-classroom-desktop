@@ -1,12 +1,11 @@
 const childProcess = require('child_process');
-const path = require('path');
 const readline = require('readline');
 
 /**
  * Execute a shell command.
  * @param {*} command
  */
-function exec(command, { stdout, stderr } = { stdout: false, stderr: false }) {
+function exec(command, { stdout, stderr } = { stdout: true, stderr: true }) {
   if (process.platform === 'win32') {
     // Windows OS
     const stream = childProcess.exec(command, {});
@@ -20,15 +19,21 @@ function exec(command, { stdout, stderr } = { stdout: false, stderr: false }) {
 }
 
 function _handleOutput(stream, { stdout, stderr }) {
+  const args = getCmdArgs();
+  const disableLoading = args.includes('disable-loading');
   return new Promise((resolve, reject) => {
-    var twirlTimer = (function () {
-      var P = ['\\', '|', '/', '-'];
-      var x = 0;
-      return setInterval(function () {
-        process.stdout.write('\r' + P[x++]);
-        x &= 3;
-      }, 250);
-    })();
+    let twirlTimer = 0;
+    if (!disableLoading) {
+      twirlTimer = (function () {
+        var P = ['\\', '|', '/', '-'];
+        var x = 0;
+        return setInterval(function () {
+          process.stdout.write('\r' + P[x++]);
+          x &= 3;
+        }, 250);
+      })();
+    }
+
     stream.stdout.on('data', (data) => {
       if (stdout) {
         console.log(data.toString());
@@ -37,7 +42,7 @@ function _handleOutput(stream, { stdout, stderr }) {
 
     stream.stderr.on('data', (data) => {
       if (stderr) {
-        console.log(data.toString());
+        console.error(data.toString());
       }
     });
 
@@ -76,7 +81,13 @@ async function question(quest, cb) {
   });
 }
 
+const getCmdArgs = () => {
+  const [cmd, path, ...others] = process.argv;
+  return others;
+};
+
 module.exports = {
   exec,
   question,
+  getCmdArgs,
 };

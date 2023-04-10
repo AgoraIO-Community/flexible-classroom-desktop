@@ -49,14 +49,11 @@ async function buildPackages() {
     console.log(chalk.yellowBright('Building packages...'));
     const lernaPath = path.resolve(__dirname, '..', 'node_modules', '.bin', 'lerna');
 
-    await exec(`${lernaPath} exec --scope=agora-rte-sdk yarn build && yarn build:types`);
+    await exec(`${lernaPath} exec --scope=agora-rte-sdk 'yarn build && yarn build:types'`);
     await exec(
-      `${lernaPath} exec --scope=agora-edu-core yarn proto && yarn build && yarn build:types`,
+      `${lernaPath} exec --scope=agora-edu-core 'yarn proto && yarn build && yarn build:types'`,
     );
-    await exec(
-      `${lernaPath} exec --scope=agora-edu-core yarn build && yarn build:types`,
-    );
-    await exec(`${lernaPath} exec --scope=agora-common-libs yarn build && yarn build:types`);
+    await exec(`${lernaPath} exec --scope=agora-common-libs 'yarn build && yarn build:types'`);
   } catch (e) {
     console.error(e);
     console.log(chalk.red('Failed to build packages, please try again.'));

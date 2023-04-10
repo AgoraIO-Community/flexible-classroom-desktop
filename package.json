@@ -97,7 +97,7 @@
     "pack:electron:mac": "lerna exec --scope=agora-demo-app npm run pack:mac",
     "pack:electron:win": "lerna exec --scope=agora-demo-app npm run pack:win",
     "build:demo": "lerna exec --scope=agora-demo-app npm run build",
-    "ci:install": "node ./scripts/install all skip-env",
+    "ci:install": "node ./scripts/install all skip-env disable-loading",
     "ci:build:web": "run-s pack:classroom:sdk pack:proctor:sdk pack:onlineclass:sdk build:demo",
     "ci:build:electron:win": "yarn release:electron:win",
     "ci:build:electron:mac": "yarn release:electron:mac",

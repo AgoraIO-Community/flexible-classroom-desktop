@@ -1,4 +1,4 @@
-const { exec } = require('./exec');
+const { exec, getCmdArgs } = require('./exec');
 const { exists } = require('./fs');
 
 const run = async () => {
@@ -12,9 +12,9 @@ const run = async () => {
     buildPackages,
   } = require('./link-and-build');
 
-  const [cmd, path, ...others] = process.argv;
-  const installAll = others.includes('all');
-  const skipEnv = others.includes('skip-env');
+  const args = getCmdArgs();
+  const installAll = args.includes('all');
+  const skipEnv = args.includes('skip-env');
   let r = 0;
   if (installAll) {
     r = await fetchAllPackages();
