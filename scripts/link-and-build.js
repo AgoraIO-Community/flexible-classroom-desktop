@@ -21,6 +21,7 @@ async function fetchOpenSourcePackages() {
     console.log('');
     console.log(chalk.yellow(']'));
   } catch (e) {
+    console.error(e);
     console.log(chalk.red('Failed to fetch packages, please try again.'));
     return 1;
   }
@@ -36,6 +37,7 @@ async function fetchAllPackages() {
     );
     await initSubModules();
   } catch (e) {
+    console.error(e);
     console.log(chalk.red('Failed to fetch packages, please try again.'));
     return 1;
   }
@@ -56,6 +58,7 @@ async function buildPackages() {
     );
     await exec(`${lernaPath} exec --scope=agora-common-libs yarn build && yarn build:types`);
   } catch (e) {
+    console.error(e);
     console.log(chalk.red('Failed to build packages, please try again.'));
     return 1;
   }
@@ -68,6 +71,7 @@ async function installModules() {
     console.log(chalk.yellowBright('Installing node modules...'));
     await exec(`yarn install --check-files`);
   } catch (e) {
+    console.error(e);
     console.log(chalk.red('Failed to install modules, please try again.'));
     return 1;
   }
@@ -80,6 +84,7 @@ async function linkPackages() {
     console.log(chalk.yellowBright('Linking packages...'));
     await exec(`yarn bootstrap`);
   } catch (e) {
+    console.error(e);
     console.log(chalk.red('Failed to link packages, please try again.'));
     return 1;
   }

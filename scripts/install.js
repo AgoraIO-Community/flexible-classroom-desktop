@@ -13,8 +13,10 @@ const run = async () => {
   } = require('./link-and-build');
 
   const [cmd, path, ...others] = process.argv;
+  const installAll = others.includes('all');
+  const skipEnv = others.includes('skip-env');
   let r = 0;
-  if (others[0] === 'all') {
+  if (installAll) {
     r = await fetchAllPackages();
 
     if (r) {
@@ -42,7 +44,7 @@ const run = async () => {
     return;
   }
 
-  !(await linkPackages()) && (await copyEnv());
+  !(await linkPackages()) && !skipEnv && (await copyEnv());
 
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };
