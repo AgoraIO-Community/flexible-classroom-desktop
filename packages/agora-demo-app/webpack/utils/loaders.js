@@ -5,7 +5,7 @@ const { ROOT_PATH } = require('../utils');
 const jsLoader = {
   test: /\.(t|j)s(x)?$/,
   exclude:
-    /(node_modules)|(agora-common-libs)|(agora-rte-sdk)|(agora-edu-core)|(agora-edu-core)|(agora-classroom-sdk)|(agora-proctor-sdk)|(agora-onlineclass-sdk)/,
+    /(node_modules)|(agora-common-libs)|(agora-rte-sdk)|(agora-edu-core)|(agora-classroom-sdk)|(agora-proctor-sdk)|(agora-onlineclass-sdk)/,
   use: [
     {
       loader: 'thread-loader',

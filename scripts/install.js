@@ -1,4 +1,4 @@
-const { exec } = require('./exec');
+const { exec, getCmdArgs } = require('./exec');
 const { exists } = require('./fs');
 
 const run = async () => {
@@ -12,9 +12,11 @@ const run = async () => {
     buildPackages,
   } = require('./link-and-build');
 
-  const [cmd, path, ...others] = process.argv;
+  const args = getCmdArgs();
+  const installAll = args.includes('all');
+  const skipEnv = args.includes('skip-env');
   let r = 0;
-  if (others[0] === 'all') {
+  if (installAll) {
     r = await fetchAllPackages();
 
     if (r) {
@@ -42,7 +44,7 @@ const run = async () => {
     return;
   }
 
-  !(await linkPackages()) && (await copyEnv());
+  !(await linkPackages()) && !skipEnv && (await copyEnv());
 
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };

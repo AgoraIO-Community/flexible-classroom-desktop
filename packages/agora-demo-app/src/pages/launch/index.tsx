@@ -95,7 +95,7 @@ export const AgoraClassroomApp = () => {
     }
   }, [ready]);
 
-  return <div ref={appRef} id="app" className="w-screen h-screen"></div>;
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
 };
 
 export const AgoraProctorApp = () => {
@@ -134,7 +134,7 @@ export const AgoraProctorApp = () => {
     }
   }, [ready]);
 
-  return <div ref={appRef} id="app" className="w-screen h-screen"></div>;
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
 };
 
 export const AgoraOnlineClassApp = () => {
@@ -166,7 +166,7 @@ export const AgoraOnlineClassApp = () => {
     }
   }, [ready]);
 
-  return <div ref={appRef} id="app" className="w-screen h-screen"></div>;
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
 };
 
 export const assetURLs = {
