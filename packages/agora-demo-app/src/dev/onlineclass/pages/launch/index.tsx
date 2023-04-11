@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
 import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard/v2';
 import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
+import { AgoraEduClassroomEvent } from 'agora-edu-core';
 
 export const assetURLs = {
   // virtual background assets
@@ -74,6 +75,12 @@ export const LaunchPage = observer(() => {
         virtualBackgroundImages,
         virtualBackgroundVideos,
         widgets: { [getWidgetName(FcrBoardWidget)]: FcrBoardWidget },
+        listener: (evt: AgoraEduClassroomEvent, type) => {
+          console.log('launch#listener ', evt);
+          if (evt === AgoraEduClassroomEvent.Destroyed) {
+            history.push(`/?reason=${type}`);
+          }
+        },
       });
       return unmount;
     }
