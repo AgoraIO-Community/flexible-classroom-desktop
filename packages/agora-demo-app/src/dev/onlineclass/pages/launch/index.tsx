@@ -7,6 +7,8 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
 import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard/v2';
+import { AgoraHXChatWidget } from 'agora-plugin-gallery/gallery/hx-chat/';
+
 import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
 import { AgoraEduClassroomEvent } from 'agora-edu-core';
 
@@ -74,7 +76,10 @@ export const LaunchPage = observer(() => {
         devicePretest: false,
         virtualBackgroundImages,
         virtualBackgroundVideos,
-        widgets: { [getWidgetName(FcrBoardWidget)]: FcrBoardWidget },
+        widgets: {
+          [getWidgetName(FcrBoardWidget)]: FcrBoardWidget,
+          [getWidgetName(AgoraHXChatWidget)]: AgoraHXChatWidget,
+        },
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {
