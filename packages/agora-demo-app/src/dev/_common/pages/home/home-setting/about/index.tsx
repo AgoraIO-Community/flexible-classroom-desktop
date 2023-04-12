@@ -6,7 +6,7 @@ import './index.css';
 
 export const About = () => {
   return (
-    <div className="about-setting leading-8">
+    <div className="about-setting fcr-leading-8">
       <div className="title">{transI18n('fcr_settings_label_about_us_about_us')}</div>
       <p>
         {transI18n('fcr_settings_label_about_us_fcr_ver')}

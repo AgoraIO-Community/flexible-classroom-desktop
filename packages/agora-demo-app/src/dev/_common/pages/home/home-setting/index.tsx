@@ -14,7 +14,7 @@ export const HomeSetting = () => {
   const [tab, setTab] = useState(HomeSettingTabType.GeneralSetting);
   const transI18n = useI18n();
   return (
-    <div className="home-setting-content flex">
+    <div className="home-setting-content fcr-flex">
       <div className="left">
         <div
           className={`tab-item ${tab === HomeSettingTabType.GeneralSetting ? 'active' : ''}`}
@@ -36,12 +36,12 @@ export const HomeSetting = () => {
       <div className="right">
         <div
           key={HomeSettingTabType.GeneralSetting}
-          className={`tab-container ${tab === HomeSettingTabType.GeneralSetting ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === HomeSettingTabType.GeneralSetting ? '' : 'fcr-hidden'}`}>
           <GeneralSetting />
         </div>
         <div
           key={HomeSettingTabType.About}
-          className={`tab-container ${tab === HomeSettingTabType.About ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === HomeSettingTabType.About ? '' : 'fcr-hidden'}`}>
           <About />
         </div>
       </div>
@@ -63,7 +63,7 @@ export const HomeSettingContainer: FC<{ children: React.ReactNode }> = ({ childr
         </div>
       ) : (
         <div
-          className="setting-btn inline-block p-0.5 z-50"
+          className="setting-btn fcr-inline-block fcr-p-0.5 fcr-z-50"
           onClick={() => {
             setVisible(true);
           }}>
@@ -71,14 +71,14 @@ export const HomeSettingContainer: FC<{ children: React.ReactNode }> = ({ childr
         </div>
       )}
       {visible ? (
-        <div className={`absolute top-0 left-0 flex justify-center items-center w-screen h-screen`}>
+        <div className={`fcr-absolute fcr-top-0 fcr-left-0 fcr-flex fcr-justify-center fcr-items-center fcr-w-screen fcr-h-screen`}>
           <div className="home-setting-modal-container">
             <div className="home-setting-title">
               {t('fcr_settings_setting')}
               <div className="btn-pin">
                 <SvgImg
                   type={SvgIconEnum.CLOSE}
-                  className="cursor-pointer"
+                  className="fcr-cursor-pointer"
                   onClick={() => {
                     setVisible(false);
                   }}
