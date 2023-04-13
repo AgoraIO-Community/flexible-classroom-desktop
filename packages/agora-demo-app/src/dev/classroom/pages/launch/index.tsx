@@ -115,5 +115,5 @@ export const LaunchPage = observer(() => {
     }
   }, []);
 
-  return <div ref={appRef} id="app" className="bg-background w-full h-full"></div>;
+  return <div ref={appRef} className="fcr-bg-background fcr-w-full fcr-h-full"></div>;
 });
