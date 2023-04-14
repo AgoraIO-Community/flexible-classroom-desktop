@@ -1,6 +1,24 @@
 .app-home {
   background: url(@app/assets/home-bg.png);
   background-size: cover;
+  --fcr_system_background_color: #f9f9fc;
+  --fcr_system_foreground_color: #ffffff;
+  --fcr_system_brand_color: #357bf6;
+  --fcr_system_divider_color: #eeeef7;
+  --fcr_system_error_color: #f5655c;
+  --fcr_system_warning_color: #ffb554;
+  --fcr_system_safe_color: #64bb5c;
+  --fcr_system_icon_primary_color: #90949d;
+  --fcr_system_icon_secondary_color: #90949d80;
+  --fcr_system_icon_selected_color: #f7f7fa;
+  --fcr_system_component_color: #ffffff;
+  --fcr_system_toast_normal_color: #4e90fe;
+  --fcr_system_text_primary_button_color: #ffffff;
+  --fcr_system_text_level1_color: #191919;
+  --fcr_system_text_level2_color: #586376;
+  --fcr_system_text_level3_color: #7b88a0;
+  --fcr_system_text_disable_color: #bdbdca;
+  --fcr_system_text_link_color: #357bf6;
 }
 
 .form-section {

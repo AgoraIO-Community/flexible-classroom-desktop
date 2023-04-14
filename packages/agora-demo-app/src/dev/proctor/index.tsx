@@ -6,8 +6,7 @@ import { addResourceBundle } from 'agora-common-libs/lib/i18n';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
 import { HomePage } from './pages/home';
-addResourceBundle('en', en);
-addResourceBundle('zh', zh);
+
 const App = () => {
   return (
     <StoreProvider>
@@ -20,4 +19,7 @@ const App = () => {
     </StoreProvider>
   );
 };
-render(<App></App>, document.getElementById('root'));
+
+Promise.all([addResourceBundle('en', en), addResourceBundle('zh', zh)]).then(() => {
+  render(<App></App>, document.getElementById('root'));
+});

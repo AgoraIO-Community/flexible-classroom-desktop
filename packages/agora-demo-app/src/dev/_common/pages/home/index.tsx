@@ -132,7 +132,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ sc
       <MessageDialog />
       <div className="app-home fcr-h-screen">
         <nav
-          className="fcr-absolute fcr-left-0 fcr-top-0 w-full fcr-text-white fcr-z-10"
+          className="fcr-absolute fcr-left-0 fcr-top-0 fcr-w-full fcr-text-white fcr-z-10"
           style={{ padding: 32 }}>
           <Layout className="fcr-justify-between fcr-items-center">
             <Layout className="nav-header fcr-flex fcr-items-center">

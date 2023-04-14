@@ -46,7 +46,7 @@ export const CheckBox: FC<CheckboxProps> = ({
         {...restProps}
       />
       <span>
-        <span className="flex-grow truncate">{text}</span>
+        <span className="fcr-flex-grow fcr-truncate">{text}</span>
       </span>
     </label>
   );
