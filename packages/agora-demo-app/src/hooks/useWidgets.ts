@@ -61,7 +61,7 @@ export const useWidgets = (
         widgets[getWidgetName(FcrWatermarkWidget)] = FcrWatermarkWidget;
       }
       if (ids.includes('FcrBoardWidgetV2')) {
-        const { FcrBoardWidget } = await import('agora-plugin-gallery/gallery/whiteboard/v2');
+        const { FcrBoardWidget } = await import('agora-plugin-gallery/gallery/whiteboard-v2');
         widgets[getWidgetName(FcrBoardWidget)] = FcrBoardWidget;
       }
 
