@@ -6,11 +6,8 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
-import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard/v2';
-import { AgoraHXChatWidget } from 'agora-plugin-gallery/gallery/hx-chat/v2';
-
-import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
 import { AgoraEduClassroomEvent } from 'agora-edu-core';
+import { useWidgets } from '@app/hooks/useWidgets';
 
 export const assetURLs = {
   // virtual background assets
@@ -25,20 +22,21 @@ export const assetURLs = {
   virtualBackground9: 'effect/default9.mp4',
 };
 
-const getWidgetName = (widgetClass: unknown) => {
-  const Clz = widgetClass as typeof AgoraWidgetBase;
-  return Object.create(Clz.prototype).widgetName;
-};
-
 export const LaunchPage = observer(() => {
   const { launchOption } = useContext(GlobalStoreContext);
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
 
+  const { widgets, ready } = useWidgets(['FcrPolling', 'FcrBoardWidgetV2', 'AgoraHXChatWidgetV2']);
+
   useEffect(() => {
     if (isEmpty(launchOption)) {
       console.log('Invalid launch option, nav to /');
       history.push('/');
+      return;
+    }
+
+    if (!ready) {
       return;
     }
 
@@ -76,10 +74,7 @@ export const LaunchPage = observer(() => {
         devicePretest: false,
         virtualBackgroundImages,
         virtualBackgroundVideos,
-        widgets: {
-          [getWidgetName(FcrBoardWidget)]: FcrBoardWidget,
-          [getWidgetName(AgoraHXChatWidget)]: AgoraHXChatWidget,
-        },
+        widgets,
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {
@@ -89,7 +84,7 @@ export const LaunchPage = observer(() => {
       });
       return unmount;
     }
-  }, []);
+  }, [ready]);
 
   return <div ref={appRef} className="fcr-bg-background fcr-w-full fcr-h-full" />;
 });
