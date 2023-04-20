@@ -107,7 +107,7 @@
     "pre-publish:rte-sdk": "lerna exec --scope=agora-rte-sdk npm run pre-publish",
     "pre-publish:edu-core": "lerna exec --scope=agora-edu-core npm run pre-publish",
     "pre-publish:common-libs": "lerna exec --scope=agora-common-libs npm run pre-publish",
-    "pre-publish": "run-s pre-publish:common-libs pre-publish:rte-sdk pre-publish:edu-core pack:classroom:sdk pack:proctor:sdk"
+    "pre-publish": "run-s pre-publish:common-libs pre-publish:rte-sdk pre-publish:edu-core pack:classroom:sdk pack:proctor:sdk pack:onlineclass:sdk"
   },
   "keywords": [],
   "author": "agora.io",
