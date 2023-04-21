@@ -144,7 +144,7 @@ export const AgoraOnlineClassApp = () => {
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
 
-  const { ready, widgets } = useWidgets(['FcrBoardWidgetV2', 'FcrPolling']);
+  const { ready, widgets } = useWidgets(['FcrBoardWidgetV2', 'FcrPolling', 'AgoraHXChatWidgetV2']);
 
   useEffect(() => {
     if (ready && appRef.current) {
