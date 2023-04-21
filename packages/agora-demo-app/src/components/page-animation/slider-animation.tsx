@@ -41,7 +41,7 @@ export const SliderAnimation: FC<PropsWithChildren<unknown>> = ({ children }) =>
         timeout={300}
         unmountOnExit={false}
         classNames={'page-animation-slider'}>
-        <div className="h-screen w-full top-0 absolute">{children as any}</div>
+        <div className="fcr-h-screen fcr-w-full tcr-top-0 fcr-absolute">{children as any}</div>
       </CSSTransition>
     </TransitionGroup>
   );

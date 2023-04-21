@@ -36,12 +36,12 @@ export const Settings = () => {
       <div className="right">
         <div
           key={SettingTabType.GeneralSetting}
-          className={`tab-container ${tab === SettingTabType.GeneralSetting ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === SettingTabType.GeneralSetting ? '' : 'fcr-hidden'}`}>
           <GeneralSetting />
         </div>
         <div
           key={SettingTabType.About}
-          className={`tab-container ${tab === SettingTabType.About ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === SettingTabType.About ? '' : 'fcr-hidden'}`}>
           <About />
         </div>
       </div>

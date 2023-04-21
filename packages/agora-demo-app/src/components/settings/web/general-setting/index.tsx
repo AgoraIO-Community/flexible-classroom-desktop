@@ -27,7 +27,7 @@ export const GeneralSetting = observer(() => {
   ];
 
   return (
-    <div className="general-setting leading-8">
+    <div className="general-setting fcr-leading-8">
       <div className="item">
         <div className="title">{transI18n('fcr_settings_label_language')}</div>
         <div className="form">
