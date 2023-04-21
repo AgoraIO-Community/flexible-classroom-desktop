@@ -38,6 +38,7 @@ export type RoomCreateRequest = {
   startTime: number;
   endTime: number;
   roomProperties?: RoomProperties;
+  widgets?: Record<string, any>;
 };
 export type RoomCreateResponse = {
   roomId: string;

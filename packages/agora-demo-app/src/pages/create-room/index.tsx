@@ -19,6 +19,7 @@ import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RadioCard } from './radio-card';
 import './index.css';
+import set from 'lodash/set';
 import {
   CreateFormValue,
   TimeFormat,
@@ -29,6 +30,7 @@ import {
   serviceTypeOptions,
   weekday,
 } from './helper';
+import { SdkType } from '@app/type';
 
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
@@ -140,6 +142,8 @@ export const CreateRoom = observer(() => {
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
 
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+      const isOnlineclass =
+        roomType === EduRoomTypeEnum.RoomSmallClass && sdkType === SdkType.AgoraOnlineclassSdk;
       const roomProperties = isProctoring
         ? {
             watermark,
@@ -154,7 +158,10 @@ export const CreateRoom = observer(() => {
             latencyLevel: serviceType,
             sdkType,
           };
-
+      const widgets = {};
+      if (isOnlineclass) {
+        set(widgets, 'netlessBoard.state', 0);
+      }
       roomStore
         .createRoom({
           roomName: name,
@@ -162,6 +169,7 @@ export const CreateRoom = observer(() => {
           endTime: computeEndTime(dateTime).valueOf(),
           roomType,
           roomProperties,
+          widgets,
         })
         .then((data) => {
           if (useCurrentTime) {
