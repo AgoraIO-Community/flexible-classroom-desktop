@@ -100,10 +100,6 @@
   height: 44px;
 }
 
-.create-form .current-time.hidden {
-  display: none;
-}
-
 .room-type {
   @apply fcr-grid;
   grid-template-columns: repeat(auto-fill, 189px);
