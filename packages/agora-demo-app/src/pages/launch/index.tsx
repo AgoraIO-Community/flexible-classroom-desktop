@@ -12,6 +12,7 @@ import { getAssetURL } from '@app/utils';
 import { setTailwindConfig } from '@ui-kit-utils/tailwindcss';
 import tailwindConfig from '../../../tailwind.config';
 import { useWidgets } from '@app/hooks/useWidgets';
+import { SdkType } from '@app/type';
 setTailwindConfig(tailwindConfig);
 
 export const LaunchPage = observer(() => {
@@ -29,16 +30,17 @@ export const LaunchPage = observer(() => {
     return null;
   }
 
-  const roomType = launchOption.roomType;
+  const { roomType, sdkType } = launchOption;
 
-  switch (roomType) {
-    case EduRoomTypeEnum.RoomProctor:
-      return <AgoraProctorApp />;
-    case EduRoomTypeEnum.RoomSmallClass:
-      return <AgoraOnlineClassApp />;
-    default:
-      return <AgoraClassroomApp />;
+  if (roomType === EduRoomTypeEnum.RoomProctor) {
+    return <AgoraProctorApp />;
   }
+
+  if (roomType === EduRoomTypeEnum.RoomSmallClass && sdkType === SdkType.AgoraOnlineclassSdk) {
+    return <AgoraOnlineClassApp />;
+  }
+
+  return <AgoraClassroomApp />;
 });
 
 export const AgoraClassroomApp = () => {
@@ -142,7 +144,7 @@ export const AgoraOnlineClassApp = () => {
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
 
-  const { ready, widgets } = useWidgets(['FcrBoardWidgetV2']);
+  const { ready, widgets } = useWidgets(['FcrBoardWidgetV2', 'FcrPolling', 'AgoraHXChatWidgetV2']);
 
   useEffect(() => {
     if (ready && appRef.current) {

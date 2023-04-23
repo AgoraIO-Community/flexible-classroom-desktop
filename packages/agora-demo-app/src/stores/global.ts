@@ -6,6 +6,7 @@ import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
+import { SdkType } from '@app/type';
 
 export interface ToastType {
   id: string;
@@ -19,6 +20,7 @@ export type GlobalLaunchOption = Omit<LaunchOption, 'listener'> & {
   region: EduRegion;
   scenes?: any;
   themes?: any;
+  sdkType: SdkType;
 };
 const LS_REGION = `region`;
 const LS_LAUNCH = `launch_options`;
