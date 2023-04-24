@@ -75,6 +75,8 @@ export const LaunchPage = observer(() => {
         virtualBackgroundImages,
         virtualBackgroundVideos,
         widgets,
+        recordUrl:
+          'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {
