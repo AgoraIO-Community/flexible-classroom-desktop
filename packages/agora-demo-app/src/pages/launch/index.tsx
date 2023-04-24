@@ -156,7 +156,7 @@ export const AgoraOnlineClassApp = () => {
         }),
       );
 
-      AgoraOnlineclassSDK.launch(appRef.current, {
+      const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
         ...launchOption,
         widgets,
         virtualBackgroundImages,
@@ -164,6 +164,13 @@ export const AgoraOnlineClassApp = () => {
         uiMode: homeStore.theme,
         token: launchOption.rtmToken,
         devicePretest: true,
+        listener: (evt: AgoraEduClassroomEvent, type) => {
+          console.log('launch#listener ', evt);
+          if (evt === AgoraEduClassroomEvent.Destroyed) {
+            unmount();
+            history.push(`/?reason=${type}`);
+          }
+        },
       });
     }
   }, [ready]);
