@@ -66,12 +66,10 @@
           host: `https://api.sd-rtn.com`,
         }),
       );
-      AgoraOnlineclassSDK.config({
-        appId,
-        cachePath: undefined,
-        region: region ? region : 'CN',
-      });
+
       AgoraOnlineclassSDK.launch(document.querySelector('#root'), {
+        region: region ? region : 'CN',
+
         userUuid,
         userName,
         roomUuid,
