@@ -143,6 +143,7 @@ export const AgoraOnlineClassApp = () => {
   const homeStore = useContext(GlobalStoreContext);
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
+  const history = useHistory();
 
   const { ready, widgets } = useWidgets(['FcrBoardWidgetV2', 'FcrPolling', 'AgoraHXChatWidgetV2']);
 
