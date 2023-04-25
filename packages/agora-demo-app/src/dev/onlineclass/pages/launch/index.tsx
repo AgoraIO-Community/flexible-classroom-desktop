@@ -70,6 +70,9 @@ export const LaunchPage = observer(() => {
         roomType: launchOption.roomType,
         startTime: launchOption.startTime,
         duration: launchOption.duration,
+        mediaOptions: {
+          cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+        },
         devicePretest: true,
         // devicePretest: false,
         virtualBackgroundImages,

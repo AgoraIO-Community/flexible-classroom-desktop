@@ -13,6 +13,8 @@ import { setTailwindConfig } from '@ui-kit-utils/tailwindcss';
 import tailwindConfig from '../../../tailwind.config';
 import { useWidgets } from '@app/hooks/useWidgets';
 import { SdkType } from '@app/type';
+import logo from '@app/assets/favicon.png';
+
 setTailwindConfig(tailwindConfig);
 
 export const LaunchPage = observer(() => {
@@ -151,6 +153,7 @@ export const AgoraOnlineClassApp = () => {
     if (ready && appRef.current) {
       AgoraOnlineclassSDK.setParameters(
         JSON.stringify({
+          logo,
           host: homeStore.launchOption.sdkDomain,
           uiConfigs: homeStore.launchOption.scenes,
           themes: homeStore.launchOption.themes,
