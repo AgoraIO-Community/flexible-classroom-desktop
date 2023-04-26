@@ -339,7 +339,7 @@ export const CreateRoom = observer(() => {
             'form-item item-mb more-settings': 1,
             expanded: showMore,
           })}>
-          <div className="label">
+          {/* <div className="label">
             {transI18n('fcr_create_label_more_settings')}
             <span
               className={classNames({
@@ -351,8 +351,8 @@ export const CreateRoom = observer(() => {
               }}>
               {transI18n('fcr_create_more_settings_expand')}
             </span>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={classNames({
               'more-setting-list': 1,
               'fcr-hidden': !showMore,
@@ -363,7 +363,6 @@ export const CreateRoom = observer(() => {
                 {transI18n('fcr_create_label_security')}
               </div>
               <div className="content">
-                {/* 水印 */}
                 <RadioCard
                   className={'watermark-card'}
                   onClick={() => {
@@ -382,7 +381,6 @@ export const CreateRoom = observer(() => {
                   {transI18n('fcr_create_label_playback')}
                 </div>
                 <div className="content">
-                  {/* 伪直播 */}
                   <div className="live-playback">
                     <div
                       className="header"
@@ -413,7 +411,7 @@ export const CreateRoom = observer(() => {
                 </div>
               </div>
             ) : null}
-          </div>
+          </div> */}
         </div>
       </AForm>
     </NavPageLayout>

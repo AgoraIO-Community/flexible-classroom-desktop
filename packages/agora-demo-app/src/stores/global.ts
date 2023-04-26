@@ -39,7 +39,8 @@ export const getRegion = (): EduRegion => {
 };
 
 export const getLanguage = (): LanguageEnum => {
-  return getLSStore(LS_LANGUAGE) || getBrowserLanguage() || 'en';
+  // return getLSStore(LS_LANGUAGE) || getBrowserLanguage() || 'en';
+  return 'en'
 };
 
 export const getTheme = (): FcrMultiThemeMode => {
