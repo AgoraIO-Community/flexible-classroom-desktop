@@ -1,7 +1,7 @@
 import { GlobalStoreContext } from '@app/stores';
 import { AgoraEduClassroomEvent, EduRoomTypeEnum } from 'agora-edu-core';
 import { AgoraEduSDK } from 'agora-classroom-sdk';
-// import { AgoraProctorSDK } from 'agora-proctor-sdk';
+import { AgoraProctorSDK } from 'agora-proctor-sdk';
 import { AgoraOnlineclassSDK } from 'agora-onlineclass-sdk';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
@@ -34,9 +34,9 @@ export const LaunchPage = observer(() => {
 
   const { roomType, sdkType } = launchOption;
 
-  // if (roomType === EduRoomTypeEnum.RoomProctor) {
-  //   return <AgoraProctorApp />;
-  // }
+  if (roomType === EduRoomTypeEnum.RoomProctor) {
+    return <AgoraProctorApp />;
+  }
 
   if (roomType === EduRoomTypeEnum.RoomSmallClass && sdkType === SdkType.AgoraOnlineclassSdk) {
     return <AgoraOnlineClassApp />;
@@ -101,44 +101,44 @@ export const AgoraClassroomApp = () => {
   return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
 };
 
-// export const AgoraProctorApp = () => {
-//   const homeStore = useContext(GlobalStoreContext);
-//   const history = useHistory();
-//   const launchOption = homeStore.launchOption;
-//   const appRef = useRef<HTMLDivElement | null>(null);
+export const AgoraProctorApp = () => {
+  const homeStore = useContext(GlobalStoreContext);
+  const history = useHistory();
+  const launchOption = homeStore.launchOption;
+  const appRef = useRef<HTMLDivElement | null>(null);
 
-//   const { ready, widgets } = useWidgets(['FcrWebviewWidget']);
+  const { ready, widgets } = useWidgets(['FcrWebviewWidget']);
 
-//   useEffect(() => {
-//     if (ready && appRef.current) {
-//       AgoraProctorSDK.setParameters(
-//         JSON.stringify({
-//           host: homeStore.launchOption.sdkDomain,
-//           uiConfigs: homeStore.launchOption.scenes,
-//           themes: homeStore.launchOption.themes,
-//         }),
-//       );
+  useEffect(() => {
+    if (ready && appRef.current) {
+      AgoraProctorSDK.setParameters(
+        JSON.stringify({
+          host: homeStore.launchOption.sdkDomain,
+          uiConfigs: homeStore.launchOption.scenes,
+          themes: homeStore.launchOption.themes,
+        }),
+      );
 
-//       AgoraProctorSDK.config({
-//         appId: launchOption.appId,
-//         region: launchOption.region ?? 'CN',
-//       });
+      AgoraProctorSDK.config({
+        appId: launchOption.appId,
+        region: launchOption.region ?? 'CN',
+      });
 
-//       AgoraProctorSDK.launch(appRef.current, {
-//         ...launchOption,
-//         widgets,
-//         listener: (evt: AgoraEduClassroomEvent, type) => {
-//           console.log('launch#listener ', evt);
-//           if (evt === AgoraEduClassroomEvent.Destroyed) {
-//             history.push(`/?reason=${type}`);
-//           }
-//         },
-//       });
-//     }
-//   }, [ready]);
+      AgoraProctorSDK.launch(appRef.current, {
+        ...launchOption,
+        widgets,
+        listener: (evt: AgoraEduClassroomEvent, type) => {
+          console.log('launch#listener ', evt);
+          if (evt === AgoraEduClassroomEvent.Destroyed) {
+            history.push(`/?reason=${type}`);
+          }
+        },
+      });
+    }
+  }, [ready]);
 
-//   return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
-// };
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
+};
 
 export const AgoraOnlineClassApp = () => {
   const homeStore = useContext(GlobalStoreContext);
