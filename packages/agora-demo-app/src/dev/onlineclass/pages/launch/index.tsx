@@ -54,8 +54,9 @@ export const LaunchPage = observer(() => {
         getAssetURL(assetURLs.virtualBackground8),
         getAssetURL(assetURLs.virtualBackground9),
       ];
+      const shareUrl = `${location.origin}${location.pathname}?roomName=${launchOption.roomName}&roomType=${launchOption.roomType}&region=${launchOption.region}&language=${launchOption.language}&roleType=2#/share`;
 
-      AgoraOnlineclassSDK.setParameters(JSON.stringify({ logo, host: launchOption.sdkDomain }));
+      AgoraOnlineclassSDK.setParameters(JSON.stringify({ logo,shareUrl, host: launchOption.sdkDomain }));
 
       const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
         userUuid: launchOption.userUuid,
