@@ -1,4 +1,4 @@
-import { GlobalStoreContext } from '@app/stores';
+import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { AgoraEduClassroomEvent, EduRoomTypeEnum } from 'agora-edu-core';
 import { AgoraEduSDK } from 'agora-classroom-sdk';
 import { AgoraProctorSDK } from 'agora-proctor-sdk';
@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { getAssetURL } from '@app/utils';
+import { getAssetURL, shareLink } from '@app/utils';
 import { setTailwindConfig } from '@ui-kit-utils/tailwindcss';
 import tailwindConfig from '../../../tailwind.config';
 import { useWidgets } from '@app/hooks/useWidgets';
@@ -142,6 +142,7 @@ export const AgoraProctorApp = () => {
 
 export const AgoraOnlineClassApp = () => {
   const homeStore = useContext(GlobalStoreContext);
+  const userStore = useContext(UserStoreContext);
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
@@ -150,8 +151,13 @@ export const AgoraOnlineClassApp = () => {
 
   useEffect(() => {
     if (ready && appRef.current) {
-      const shareUrl = `${location.origin}${location.pathname}?roomName=${launchOption.roomName}&roomType=${launchOption.roomType}&region=${launchOption.region}&language=${launchOption.language}&roleType=2#/share`;
-
+      const shareUrl = shareLink.generateUrl({
+        roomId: launchOption.roomUuid,
+        owner: userStore.nickName,
+        region: homeStore.region,
+        role: 2,
+      });
+      console.log(shareUrl);
       AgoraOnlineclassSDK.setParameters(
         JSON.stringify({
           shareUrl,

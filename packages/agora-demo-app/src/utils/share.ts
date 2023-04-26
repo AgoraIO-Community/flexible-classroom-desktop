@@ -14,12 +14,7 @@ export type ShareContent = {
  */
 export class ShareLink {
   constructor() {
-    const match = CLASSROOM_SDK_VERSION.substring(
-      CLASSROOM_SDK_VERSION.lastIndexOf('.') + 1,
-    ).substring(0, 1);
-    const [major, minor] = CLASSROOM_SDK_VERSION.split('.');
-    const version = `${major}.${minor}.${match}x`;
-    this._url = `${REACT_APP_SHARE_LINK_PREFIX}/release_${version}/index.html`;
+    this._url = `${location.origin}${location.pathname}`;
   }
 
   private _url = '';
