@@ -162,6 +162,28 @@ export const CreateRoom = observer(() => {
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
       }
+      const roleConfig:
+        | {
+            [key: number]: {
+              limit: number;
+              defaultStream: {
+                audioState: 0 | 1;
+                videoState: 0 | 1;
+              };
+            };
+          }
+        | undefined =
+        roomType === EduRoomTypeEnum.RoomSmallClass
+          ? {
+              2: {
+                limit: 50,
+                defaultStream: {
+                  videoState: 1,
+                  audioState: 1,
+                },
+              },
+            }
+          : undefined;
       roomStore
         .createRoom({
           roomName: name,
@@ -170,6 +192,7 @@ export const CreateRoom = observer(() => {
           roomType,
           roomProperties,
           widgets,
+          roleConfig,
         })
         .then((data) => {
           if (useCurrentTime) {

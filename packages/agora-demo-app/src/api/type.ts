@@ -39,6 +39,15 @@ export type RoomCreateRequest = {
   endTime: number;
   roomProperties?: RoomProperties;
   widgets?: Record<string, any>;
+  roleConfig?: {
+    [key: number]: {
+      limit: number;
+      defaultStream: {
+        audioState: 0 | 1;
+        videoState: 0 | 1;
+      };
+    };
+  };
 };
 export type RoomCreateResponse = {
   roomId: string;
