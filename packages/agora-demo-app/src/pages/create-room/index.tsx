@@ -162,7 +162,7 @@ export const CreateRoom = observer(() => {
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
       }
-      const roleConfig:
+      const roleConfigs:
         | {
             [key: number]: {
               limit: number;
@@ -192,7 +192,7 @@ export const CreateRoom = observer(() => {
           roomType,
           roomProperties,
           widgets,
-          roleConfig,
+          roleConfigs,
         })
         .then((data) => {
           if (useCurrentTime) {
