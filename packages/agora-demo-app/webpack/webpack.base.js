@@ -8,7 +8,7 @@ const { ROOT_PATH, ALIAS } = require('./utils/index');
 
 const classroomSdkVersion = require('agora-classroom-sdk/package.json').version;
 const proctorSdkVersion = require('agora-proctor-sdk/package.json').version;
-
+const demoVersion = require('../package.json').version;
 module.exports = {
   externals: {
     'agora-electron-sdk': 'commonjs2 agora-electron-sdk',
@@ -42,6 +42,7 @@ module.exports = {
       EDU_SDK_VERSION: JSON.stringify(eduCoreVersion),
       CLASSROOM_SDK_VERSION: JSON.stringify(classroomSdkVersion),
       PROCTOR_SDK_VERSION: JSON.stringify(proctorSdkVersion),
+      DEMO_VERSION: JSON.stringify(demoVersion),
       BUILD_TIME: JSON.stringify(Date.now()),
       BUILD_COMMIT_ID: JSON.stringify(process.env.FCR_BUILD_COMMIT_ID),
     }),
