@@ -153,8 +153,7 @@ export const CreateRoom = observer(() => {
           }
         : {
             watermark,
-            backgroundImage:
-              roomType === EduRoomTypeEnum.RoomBigClass ? classroomBackgroundImagePath : undefined,
+            boardBackgroundImage: classroomBackgroundImagePath,
             latencyLevel: serviceType,
             sdkType,
           };
