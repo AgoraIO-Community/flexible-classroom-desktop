@@ -190,6 +190,7 @@ export const AgoraOnlineClassApp = () => {
           }
         },
       });
+      return unmount;
     }
   }, [ready]);
 

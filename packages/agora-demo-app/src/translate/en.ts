@@ -74,7 +74,7 @@ export default {
   fcr_create_label_create_classroom: 'Create Classroom',
   fcr_create_label_room_name: 'Room Name ',
   fcr_create_label_room_name_default: "{name}'s Room",
-  fcr_create_label_starttime: 'Starttime',
+  fcr_create_label_starttime: 'StartTime',
   fcr_create_label_end_time: 'EndTime',
   fcr_create_label_class_mode: 'Class Mode',
   fcr_create_label_more_settings: 'More Settings',
