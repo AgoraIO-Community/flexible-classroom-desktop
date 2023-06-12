@@ -22,6 +22,9 @@ pipeline {
     parameters {
         string(name: 'env', defaultValue: 'test', description: 'edu service environment')
     }
+    stages {
+        
+    }
 }
 
 def doBuild(buildVariables) {
