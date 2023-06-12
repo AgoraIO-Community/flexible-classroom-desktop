@@ -77,8 +77,8 @@ force_rebuild=1
 ci_script_version=v1
 lib_dependencies=(
     agora-rte-sdk
-    agora-common-libs
     agora-edu-core
+    agora-common-libs
     agora-classroom-sdk
     agora-proctor-sdk
     agora-onlineclass-sdk
