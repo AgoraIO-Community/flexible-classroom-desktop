@@ -25,7 +25,7 @@ pipeline {
     stages {
         stage('configure parameters') {
             steps {
-
+                echo "Hello ${params.env}"
             }
         }
     }
