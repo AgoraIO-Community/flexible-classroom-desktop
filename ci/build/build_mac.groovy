@@ -23,7 +23,8 @@ pipeline {
         string(name: 'env', defaultValue: 'test', description: 'edu service environment')
     }
     stages {
-        
+        stage('configure parameters') {
+        }
     }
 }
 
