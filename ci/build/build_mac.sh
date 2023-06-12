@@ -69,20 +69,13 @@
 # ========== Guidelines End=============
 # --------------------------------------------------------------------------------------------------------------------------
 
-echo Package_Publish: $Package_Publish
-echo is_tag_fetch: $is_tag_fetch
-echo arch: $arch
-echo source_root: $source_root
-echo output: /tmp/jenkins/${project}_out
-echo build_date: $build_date
-echo build_time: $build_time
-echo release_version: $release_version
-echo short_version: $short_version
-echo pwd: `pwd`
 
+
+source_root=`pwd`
+force_rebuild=1
 
 ci_script_version=v1
-build_dependencies=(
+lib_dependencies=(
     agora-common-libs
     agora-rte-sdk
     agora-edu-core
@@ -91,9 +84,20 @@ build_dependencies=(
     agora-onlineclass-sdk
 )
 
+recording_templates=(
+    record_page
+    onlineclass_record_page
+)
 
-#. ../apaas-cicd-web/build/$ci_script_version/dependency.sh
-#. ../apaas-cicd-web/build/$ci_script_version/build.sh
+. ../apaas-cicd-web/build/$ci_script_version/dependency.sh
+. ../apaas-cicd-web/build/$ci_script_version/build.sh
+. ../apaas-cicd-web/publish/$ci_script_version/publish.sh
+check_dependencies $source_root $branmch "${lib_dependencies[*]}"
 
-#check_dependencies $build_dependencies
-#build
+#build_demo
+
+#publish_web
+
+#publish_recording
+
+#publish_share
