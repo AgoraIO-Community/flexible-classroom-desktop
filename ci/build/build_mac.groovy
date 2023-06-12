@@ -17,20 +17,6 @@ compileConfig = [
     ]
 ]
 
-pipeline {
-    agent any
-    parameters {
-        string(name: 'env', defaultValue: 'test', description: 'edu service environment')
-    }
-    stages {
-        stage('configure parameters') {
-            steps {
-                echo "Hello ${params.env}"
-            }
-        }
-    }
-}
-
 def doBuild(buildVariables) {
     type = params.Package_Publish ? "publish" : "non-publish"
     command = compileConfig.get(type).command
