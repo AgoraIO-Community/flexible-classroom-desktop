@@ -74,6 +74,9 @@
 source_root=`pwd`
 force_rebuild=1
 
+sevenz=7za
+aws=aws
+
 ci_script_version=v1
 lib_dependencies=(
     agora-rte-sdk
