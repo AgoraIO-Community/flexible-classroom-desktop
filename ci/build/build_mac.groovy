@@ -24,6 +24,9 @@ pipeline {
     }
     stages {
         stage('configure parameters') {
+            steps {
+
+            }
         }
     }
 }
