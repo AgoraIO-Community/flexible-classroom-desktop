@@ -18,6 +18,7 @@ recording_templates=(
 )
 
 . ../apaas-cicd-web/utilities/tools.sh
+. ../apaas-cicd-web/utilities/aws.sh
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
