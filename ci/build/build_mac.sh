@@ -19,6 +19,12 @@ recording_templates=(
     onlineclass_record_page
 )
 
+rebuild_sdks=(
+    $agora-classroom-sdk
+    $agora-proctor-sdk
+    $agora-onlineclass-sdk
+)
+
 . ../apaas-cicd-web/utilities/tools.sh
 . ../apaas-cicd-web/utilities/aws.sh
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
