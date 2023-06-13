@@ -1,5 +1,5 @@
 source_root=$(pwd)
-ci_source_root=$(realpath $source_root/../apaas-cicd-web)
+ci_source_root=../apaas-cicd-web
 
 build_branch=$open_flexible_classroom_desktop_branch
 build_env=$env
