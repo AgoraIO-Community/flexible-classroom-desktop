@@ -69,12 +69,8 @@
 # ========== Guidelines End=============
 # --------------------------------------------------------------------------------------------------------------------------
 
-force_rebuild=1
-source_root=`pwd`
-# open_flexible_classroom_desktop_branch=test/ci
-sevenz=7za
-# sevenz=7zz
-aws=aws
+# force_rebuild=1
+source_root=$(pwd)
 branch_name=${open_flexible_classroom_desktop_branch//[\/-]/_}
 
 ci_script_version=v1
@@ -92,14 +88,14 @@ recording_templates=(
     onlineclass_record_page
 )
 
-
+. ../apaas-cicd-web/utilities/tools.sh
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
 
 check_dependencies $source_root $branch_name "${lib_dependencies[*]}"
 
-#build_demo
+# build_demo
 
 #publish_web
 
