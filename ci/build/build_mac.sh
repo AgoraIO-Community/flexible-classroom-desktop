@@ -73,6 +73,7 @@
 
 source_root=`pwd`
 force_rebuild=1
+branch_name=
 
 sevenz=7za
 aws=aws
@@ -83,8 +84,8 @@ lib_dependencies=(
     agora-edu-core
     agora-common-libs
     agora-classroom-sdk
-    agora-proctor-sdk
-    agora-onlineclass-sdk
+    # agora-proctor-sdk
+    # agora-onlineclass-sdk
 )
 
 recording_templates=(
@@ -95,7 +96,8 @@ recording_templates=(
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
-check_dependencies $source_root $branmch "${lib_dependencies[*]}"
+
+check_dependencies $source_root $branch_name "${lib_dependencies[*]}"
 
 #build_demo
 
