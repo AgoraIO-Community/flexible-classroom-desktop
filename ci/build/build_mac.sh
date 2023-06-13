@@ -80,11 +80,11 @@ branch_name=${open_flexible_classroom_desktop_branch//[\/-]/_}
 ci_script_version=v1
 lib_dependencies=(
     agora-rte-sdk
-    # agora-edu-core
-    # agora-common-libs
-    # agora-classroom-sdk
-    # agora-proctor-sdk
-    # agora-onlineclass-sdk
+    agora-edu-core
+    agora-common-libs
+    agora-classroom-sdk
+    agora-proctor-sdk
+    agora-onlineclass-sdk
 )
 
 recording_templates=(
