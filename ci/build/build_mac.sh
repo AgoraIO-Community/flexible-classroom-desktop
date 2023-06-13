@@ -69,28 +69,19 @@
 # ========== Guidelines End=============
 # --------------------------------------------------------------------------------------------------------------------------
 
-
-
-source_root=`pwd`
 force_rebuild=1
-var=feature/online-class
-branch_name=${var//[\/-]/_}
-
-
-#sevenz=7za
-sevenz=7zz
+source_root=`pwd`
+# open_flexible_classroom_desktop_branch=test/ci
+sevenz=7za
+# sevenz=7zz
 aws=aws
-
-
-debug=1
-
-set
+branch_name=${open_flexible_classroom_desktop_branch//[\/-]/_}
 
 ci_script_version=v1
 lib_dependencies=(
     agora-rte-sdk
-    agora-edu-core
-    agora-common-libs
+    # agora-edu-core
+    # agora-common-libs
     # agora-classroom-sdk
     # agora-proctor-sdk
     # agora-onlineclass-sdk
@@ -101,11 +92,10 @@ recording_templates=(
     onlineclass_record_page
 )
 
+
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
-
-echo open_flexible_classroom_desktop_branch $open_flexible_classroom_desktop_branch
 
 check_dependencies $source_root $branch_name "${lib_dependencies[*]}"
 
