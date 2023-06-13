@@ -8,8 +8,8 @@ lib_dependencies=(
     agora-edu-core
     agora-common-libs
     agora-classroom-sdk
-    # agora-proctor-sdk
-    # agora-onlineclass-sdk
+    agora-proctor-sdk
+    agora-onlineclass-sdk
 )
 
 recording_templates=(
