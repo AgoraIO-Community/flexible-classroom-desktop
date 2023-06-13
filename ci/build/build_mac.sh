@@ -31,6 +31,13 @@ rebuild_sdks=(
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
 
+if [ "$debug" == "true" ]; then
+    # show environment variables
+    echo "------------- variables --------------------"
+    set
+    echo "--------------------------------------------"
+fi
+
 check_dependencies $source_root $build_branch "${lib_dependencies[*]}"
 
 build_demo $source_root $ci_source_root $build_env
