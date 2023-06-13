@@ -8,8 +8,8 @@ lib_dependencies=(
     agora-edu-core
     agora-common-libs
     agora-classroom-sdk
-    agora-proctor-sdk
-    agora-onlineclass-sdk
+    # agora-proctor-sdk
+    # agora-onlineclass-sdk
 )
 
 recording_templates=(
@@ -27,10 +27,10 @@ check_dependencies $source_root $build_branch "${lib_dependencies[*]}"
 
 build_demo $source_root
 
-publish_web $source_root $build_branch $build_env
+#publish_web $source_root $build_branch $build_env
 
-publish_client $source_root $build_branch $build_env
+#publish_client $source_root $build_branch $build_env
 
-publish_recording $source_root $build_env
+#publish_recording $source_root $build_env
 
-publish_share $source_root $build_env
+#publish_share $source_root $build_env
