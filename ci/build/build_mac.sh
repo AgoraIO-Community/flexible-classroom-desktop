@@ -19,11 +19,19 @@ recording_templates=(
     onlineclass_record_page
 )
 
-rebuild_sdks=(
-    $agora-classroom-sdk
-    $agora-proctor-sdk
-    $agora-onlineclass-sdk
-)
+rebuild_sdks=()
+
+if [ ${agora-classroom-sdk} -eq "false" ]; then
+    rebuild_sdks+=(agora-classroom-sdk)
+fi
+
+if [ ${agora-proctor-sdk} -eq "false" ]; then
+    rebuild_sdks+=(agora-proctor-sdk)
+fi
+
+if [ ${agora-onlineclass-sdk} -eq "false" ]; then
+    rebuild_sdks+=(agora-onlineclass-sdk)
+fi
 
 . ../apaas-cicd-web/utilities/tools.sh
 . ../apaas-cicd-web/utilities/aws.sh
