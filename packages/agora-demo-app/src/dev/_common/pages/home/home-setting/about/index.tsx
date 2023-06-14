@@ -1,5 +1,5 @@
 import { privacyPolicyURL, useAgreementURL } from '@app/utils/url';
-import { transI18n } from 'agora-common-libs/lib/i18n';
+import { transI18n } from 'agora-common-libs';
 import { EduClassroomConfig } from 'agora-edu-core';
 import logo from '../assets/logo.svg';
 import './index.css';

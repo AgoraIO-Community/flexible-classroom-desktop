@@ -1,6 +1,6 @@
 import { CheckBox } from '@app/components/checkbox';
 import { useLogout } from '@app/hooks';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { FC, useState } from 'react';
 import { SettingsMenuEnum } from '.';

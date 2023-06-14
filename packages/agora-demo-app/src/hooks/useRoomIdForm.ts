@@ -1,5 +1,5 @@
 import { AFormInstance } from '@app/components/form';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { useCallback, useMemo } from 'react';
 
 /**

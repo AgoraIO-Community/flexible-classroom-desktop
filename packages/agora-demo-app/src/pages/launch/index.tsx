@@ -11,7 +11,11 @@ import courseWareList from './courseware-list';
 import { getAssetURL, shareLink } from '@app/utils';
 import { setTailwindConfig } from '@ui-kit-utils/tailwindcss';
 import tailwindConfig from '../../../tailwind.config';
-import { useWidgets } from '@app/hooks/useWidgets';
+import {
+  useClassroomWidgets,
+  useOnlineclassWidgets,
+  useProctorWidgets,
+} from '@app/hooks/useWidgets';
 import { SdkType } from '@app/type';
 import logo from '@app/assets/favicon.png';
 
@@ -49,8 +53,9 @@ export const AgoraClassroomApp = () => {
   const history = useHistory();
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
+  const { sdkType } = launchOption;
 
-  const { ready, widgets } = useWidgets([
+  const { ready, widgets } = useClassroomWidgets([
     'AgoraCountdown',
     'AgoraHXChatWidget',
     'AgoraPolling',
@@ -106,8 +111,9 @@ export const AgoraProctorApp = () => {
   const history = useHistory();
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
+  const { sdkType } = launchOption;
 
-  const { ready, widgets } = useWidgets(['FcrWebviewWidget']);
+  const { ready, widgets } = useProctorWidgets(['FcrWebviewWidget']);
 
   useEffect(() => {
     if (ready && appRef.current) {
@@ -127,7 +133,7 @@ export const AgoraProctorApp = () => {
       AgoraProctorSDK.launch(appRef.current, {
         ...launchOption,
         widgets,
-        listener: (evt: AgoraEduClassroomEvent, type) => {
+        listener: (evt: AgoraEduClassroomEvent, type: any) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {
             history.push(`/?reason=${type}`);
@@ -146,8 +152,12 @@ export const AgoraOnlineClassApp = () => {
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
-
-  const { ready, widgets } = useWidgets(['FcrBoardWidgetV2', 'FcrPolling', 'AgoraHXChatWidgetV2']);
+  const { sdkType } = launchOption;
+  const { ready, widgets } = useOnlineclassWidgets([
+    'FcrBoardWidgetV2',
+    'FcrPolling',
+    'AgoraHXChatWidgetV2',
+  ]);
 
   useEffect(() => {
     if (ready && appRef.current) {
@@ -182,7 +192,7 @@ export const AgoraOnlineClassApp = () => {
         },
         recordUrl:
           'https://solutions-apaas.agora.io/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
-        listener: (evt: AgoraEduClassroomEvent, type) => {
+        listener: (evt: AgoraEduClassroomEvent, type: any) => {
           console.log('launch#listener ', evt);
           if (evt === AgoraEduClassroomEvent.Destroyed) {
             unmount();

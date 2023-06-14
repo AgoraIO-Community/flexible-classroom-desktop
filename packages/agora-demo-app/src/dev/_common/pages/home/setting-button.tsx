@@ -1,5 +1,5 @@
 import { Button } from '@app/components/button';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { useState } from 'react';
 import { HomeSettingContainer } from './home-setting';
 

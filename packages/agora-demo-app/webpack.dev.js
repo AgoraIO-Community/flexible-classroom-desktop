@@ -2,8 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const webpack = require('webpack');
-const baseConfig = require('./webpack.base');
-const { DEFAULT_PORT, ROOT_PATH } = require('./utils/index');
+const baseConfig = require('./webpack/webpack.base');
+const { DEFAULT_PORT, ROOT_PATH } = require('./webpack/utils/index');
 
 const {
   devEntry,
@@ -11,7 +11,7 @@ const {
   sdkDevServe,
   devAlias,
   devRules,
-} = require('./utils/development-config');
+} = require('./webpack/utils/development-config');
 
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
@@ -49,6 +49,7 @@ const config = {
     unknownContextCritical: false,
     rules: devRules,
   },
+
   output: {
     publicPath: '/',
     filename: 'bundle-[contenthash].js',

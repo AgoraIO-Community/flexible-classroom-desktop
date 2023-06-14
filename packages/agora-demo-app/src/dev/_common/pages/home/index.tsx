@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { LoginForm } from './login-form';
 import { MessageDialog } from './message-dialog';
 import './style.css';
-import { transI18n, useI18n } from 'agora-common-libs/lib/i18n';
+import { transI18n, useI18n } from 'agora-common-libs';
 import { Layout } from '@app/components/layout';
 import { isElectron } from 'agora-onlineclass-sdk';
 import { SettingsButton } from './setting-button';

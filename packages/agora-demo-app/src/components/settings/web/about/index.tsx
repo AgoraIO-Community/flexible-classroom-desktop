@@ -2,7 +2,7 @@ import logo from '@app/assets/logo.svg';
 import { useLogout } from '@app/hooks';
 import { privacyPolicyURL, useAgreementURL } from '@app/utils/url';
 import { EduClassroomConfig } from 'agora-edu-core';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import './index.css';
 
 export const About = () => {

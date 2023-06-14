@@ -1,8 +1,8 @@
 import { GlobalStoreContext } from '@app/stores';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
-import { FcrMultiThemeMode } from 'agora-common-libs/lib/ui';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { FcrMultiThemeMode } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs';
 import './index.css';
 import { RadioGroup } from '@app/components/radio';
 

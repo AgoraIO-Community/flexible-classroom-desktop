@@ -16,7 +16,7 @@ import { RouteComponentProps } from 'react-router';
 import dayjs from 'dayjs';
 import { roomTypeMap } from '../welcome/room-list/item';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { ATabs, ATabsProps } from '@app/components/tabs';
 import { ACarousel } from '@app/components/carousel';
 import { ATable } from '@app/components/table';
@@ -177,7 +177,9 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
                       className={
                         'fcr-w-20 fcr-border fcr-border-solid fcr-border-gray fcr-rounded-xl fcr-flex fcr-flex-col fcr-justify-center fcr-pl-4 fcr-py-2 fcr-pr-2 fcr-transform hover:fcr-border-black hover:-translate-y-0.5 hover:fcr-shadow'
                       }>
-                      <div className="fcr-font-black">{index < 9 ? '0' + (index + 1) : index + 1}</div>
+                      <div className="fcr-font-black">
+                        {index < 9 ? '0' + (index + 1) : index + 1}
+                      </div>
                       <div className="fcr-flex fcr-items-center fcr-justify-between">
                         <div>{`${Math.floor(duration.asMinutes())}:${duration.format('ss')}`}</div>
                         <div>

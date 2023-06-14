@@ -11,7 +11,7 @@ import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';

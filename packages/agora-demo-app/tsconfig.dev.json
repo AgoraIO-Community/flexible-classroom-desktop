@@ -3,12 +3,7 @@
     "target": "es6",
     "experimentalDecorators": true,
     "module": "esnext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "webworker"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
     "outDir": "lib",
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -40,16 +35,9 @@
       "~app-utilities/*": ["src/ui-kit/utilities/*"],
       "~app-components": ["src/ui-kit/components"],
       "~app-components/*": ["src/ui-kit/components/*"],
-      "@ui-kit-utils/*": ["../agora-scenario-ui-kit/src/utils/*"],
+      "@ui-kit-utils/*": ["../agora-scenario-ui-kit/src/utils/*"]
     }
   },
-  "include": [
-    "src",
-    "../../node_modules/electron"
-  ],
-  "exclude": [
-    "src/dev",
-    "node_modules",
-    "**/*/*.stories.tsx"
-  ],
+  "include": ["src/dev", "../../node_modules/electron"],
+  "exclude": ["node_modules", "**/*/*.stories.tsx"]
 }

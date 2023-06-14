@@ -17,7 +17,7 @@ import { FcrStreamMediaPlayerWidget } from 'agora-plugin-gallery/gallery/stream-
 import { FcrWatermarkWidget } from 'agora-plugin-gallery/gallery/watermark';
 import { FcrWebviewWidget } from 'agora-plugin-gallery/gallery/webview';
 
-import { AgoraWidgetBase } from 'agora-common-libs/lib/widget';
+import { AgoraWidgetBase } from 'agora-common-libs';
 
 export const assetURLs = {
   // virtual background assets

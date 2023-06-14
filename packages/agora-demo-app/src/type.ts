@@ -1,5 +1,5 @@
 export enum SdkType {
-  AgoraEduSdk,
-  AgoraProctorSdk,
-  AgoraOnlineclassSdk,
+  AgoraEduSdk = 'classroom',
+  AgoraProctorSdk = 'proctor',
+  AgoraOnlineclassSdk = 'onlineclass',
 }

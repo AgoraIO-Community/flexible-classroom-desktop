@@ -1,7 +1,7 @@
 import { LanguageEnum, LaunchOption } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
-import { FcrMultiThemeMode } from 'agora-common-libs/lib/ui';
-import { changeLanguage } from 'agora-common-libs/lib/i18n';
+import { FcrMultiThemeMode } from 'agora-common-libs';
+import { changeLanguage } from 'agora-common-libs';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
@@ -40,7 +40,7 @@ export const getRegion = (): EduRegion => {
 
 export const getLanguage = (): LanguageEnum => {
   // return getLSStore(LS_LANGUAGE) || getBrowserLanguage() || 'en';
-  return 'en'
+  return 'en';
 };
 
 export const getTheme = (): FcrMultiThemeMode => {

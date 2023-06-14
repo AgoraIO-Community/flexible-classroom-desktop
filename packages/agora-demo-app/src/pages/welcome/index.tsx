@@ -20,7 +20,7 @@ import { ADivider } from '@app/components/divider';
 import { AList, AListItem } from '@app/components/list';
 import { AModal } from '@app/components/modal';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { AButton } from '@app/components/button';
 
 export const Welcome = observer(() => {

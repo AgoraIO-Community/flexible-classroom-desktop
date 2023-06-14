@@ -3,10 +3,11 @@ import { HashRouter, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/home';
 import { LaunchPage } from './pages/launch';
 import { StoreProvider } from '../../stores';
-import { addResourceBundle } from 'agora-common-libs/lib/i18n';
+import { addResourceBundle } from 'agora-common-libs';
 import './index.css';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
+import React from 'react';
 
 const App = () => {
   return (

@@ -5,7 +5,7 @@ import { AModal } from '@app/components/modal';
 import { Settings } from '@app/components/settings';
 import { useLogout } from '@app/hooks';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo, useState } from 'react';
 import './index.css';

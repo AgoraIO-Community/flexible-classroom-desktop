@@ -1,7 +1,7 @@
 import { RadioGroup } from '@app/components/radio';
 import { GlobalStoreContext } from '@app/stores';
-import { FcrMultiThemeMode } from 'agora-common-libs/lib/ui';
-import { transI18n } from 'agora-common-libs/lib/i18n';
+import { FcrMultiThemeMode } from 'agora-common-libs';
+import { transI18n } from 'agora-common-libs';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
 import './index.css';

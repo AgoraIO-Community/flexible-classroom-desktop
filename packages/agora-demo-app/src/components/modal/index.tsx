@@ -1,4 +1,4 @@
-import { themeContext } from 'agora-common-libs/lib/ui';
+import { themeContext } from 'agora-common-libs';
 import classnames from 'classnames';
 import React, { FC, useContext, useEffect, useState } from 'react';
 import { OverlayWrap } from '../overlay-wrap';

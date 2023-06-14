@@ -2,7 +2,7 @@ import { render } from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { LaunchPage } from '../../pages/launch';
 import { StoreProvider } from '../../stores';
-import { addResourceBundle } from 'agora-common-libs/lib/i18n';
+import { addResourceBundle } from 'agora-common-libs';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
 import { HomePage } from './pages/home';

@@ -8,7 +8,7 @@ import { formatRoomID, useRoomIdForm } from '@app/hooks/useRoomIdForm';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { ErrorCode, messageError } from '@app/utils';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';

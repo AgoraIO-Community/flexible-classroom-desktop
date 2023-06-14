@@ -1,24 +1,20 @@
 const webpackMerge = require('webpack-merge');
-const baseConfig = require('./webpack.base');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-
-const { ROOT_PATH } = require('./utils/index');
-const { prod } = require('./utils/loaders');
-
+const baseConfig = require('agora-common-libs/presets/webpack.config.base.js');
+const ROOT_PATH = path.resolve(__dirname, './');
+const dotenv = require('dotenv-webpack');
+const { locateEnvFile } = require('./webpack/utils/index');
 const entry = path.resolve(ROOT_PATH, './src/index.tsx');
 
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 
 const config = {
-  mode: 'production',
   entry: entry,
   output: {
     path: path.resolve(ROOT_PATH, './build'),
@@ -26,34 +22,20 @@ const config = {
     filename: 'static/bundle-[contenthash].js',
     clean: true,
   },
-  module: {
-    unknownContextCritical: false,
-    rules: [...prod],
-  },
-  optimization: {
-    minimize: true,
-    nodeEnv: 'production',
-    minimizer: [
-      new TerserPlugin({
-        // parallel: require('os').cpus().length, // 多线程并行构建
-        parallel: false,
-        extractComments: false,
-        terserOptions: {
-          keep_classnames: true,
-          keep_fnames: true,
-          compress: {
-            warnings: false, // 删除无用代码时是否给出警告
-            drop_debugger: true, // 删除所有的debugger
-          },
-        },
-      }),
-      new CssMinimizerPlugin(),
-    ],
-    splitChunks: {
-      chunks: 'all',
+  resolve: {
+    alias: {
+      '@app': path.resolve(ROOT_PATH, './src'),
+      '@ui-kit-utils': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/utils'),
     },
   },
+  module: {
+    unknownContextCritical: false,
+  },
+
   plugins: [
+    new dotenv({
+      path: locateEnvFile(),
+    }),
     new MiniCssExtractPlugin({
       filename: 'static/[name].[contenthash].css',
     }),
@@ -93,7 +75,7 @@ const config = {
         },
       ],
     }),
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
   ],
 };
 

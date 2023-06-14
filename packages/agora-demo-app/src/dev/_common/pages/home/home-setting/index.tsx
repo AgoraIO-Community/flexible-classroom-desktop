@@ -1,5 +1,5 @@
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { FC, useState } from 'react';
 import { About } from './about';
 import { GeneralSetting } from './general-setting';
@@ -36,7 +36,9 @@ export const HomeSetting = () => {
       <div className="right">
         <div
           key={HomeSettingTabType.GeneralSetting}
-          className={`tab-container ${tab === HomeSettingTabType.GeneralSetting ? '' : 'fcr-hidden'}`}>
+          className={`tab-container ${
+            tab === HomeSettingTabType.GeneralSetting ? '' : 'fcr-hidden'
+          }`}>
           <GeneralSetting />
         </div>
         <div
@@ -71,7 +73,8 @@ export const HomeSettingContainer: FC<{ children: React.ReactNode }> = ({ childr
         </div>
       )}
       {visible ? (
-        <div className={`fcr-absolute fcr-top-0 fcr-left-0 fcr-flex fcr-justify-center fcr-items-center fcr-w-screen fcr-h-screen`}>
+        <div
+          className={`fcr-absolute fcr-top-0 fcr-left-0 fcr-flex fcr-justify-center fcr-items-center fcr-w-screen fcr-h-screen`}>
           <div className="home-setting-modal-container">
             <div className="home-setting-title">
               {t('fcr_settings_setting')}

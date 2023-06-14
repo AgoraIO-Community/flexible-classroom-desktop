@@ -6,7 +6,7 @@ import './item.css';
 import roomStateLive from '@app/assets/fcr-room-state-live.svg';
 import { formatRoomID } from '@app/hooks';
 import classNames from 'classnames';
-import { useI18n } from 'agora-common-libs/lib/i18n';
+import { useI18n } from 'agora-common-libs';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 
 type RoomListItemProps = {
