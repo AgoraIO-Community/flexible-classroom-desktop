@@ -25,7 +25,7 @@ export const useClassroomWidgets = (
   const [widgets, setWidgets] = useState<Record<string, typeof AgoraWidgetBase>>({});
   useEffect(() => {
     const load = async () => {
-      const widget = await import(`agora-plugin-gallery/classroom`);
+      const widget = await import(/* webpackPrefetch: true */ `agora-plugin-gallery/classroom`);
       const widgets: Record<string, typeof AgoraWidgetBase> = {};
       if (ids.includes('FcrWebviewWidget')) {
         const { FcrWebviewWidget } = widget;
@@ -101,7 +101,7 @@ export const useProctorWidgets = (
   const [widgets, setWidgets] = useState<Record<string, typeof AgoraWidgetBase>>({});
   useEffect(() => {
     const load = async () => {
-      const widget = await import(`agora-plugin-gallery/proctor`);
+      const widget = await import(/* webpackPrefetch: true */ `agora-plugin-gallery/proctor`);
       const widgets: Record<string, typeof AgoraWidgetBase> = {};
       if (ids.includes('FcrWebviewWidget')) {
         const { FcrWebviewWidget } = widget;
@@ -135,7 +135,7 @@ export const useOnlineclassWidgets = (
   const [widgets, setWidgets] = useState<Record<string, typeof AgoraWidgetBase>>({});
   useEffect(() => {
     const load = async () => {
-      const widget = await import(`agora-plugin-gallery/onlineclass`);
+      const widget = await import(/* webpackPrefetch: true */ `agora-plugin-gallery/onlineclass`);
       const widgets: Record<string, typeof AgoraWidgetBase> = {};
 
       if (ids.includes('FcrBoardWidgetV2')) {
