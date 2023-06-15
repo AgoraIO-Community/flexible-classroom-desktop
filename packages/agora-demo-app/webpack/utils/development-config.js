@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const { ENTRY, ROOT_PATH } = require('.');
 const sdks = require('../../sdk.config');
-const loaders = require('./loaders');
 
 let devEntry,
   devWebpackConfig,
@@ -13,8 +12,6 @@ let devAlias = {};
 
 if (ENTRY === 'demo') {
   devEntry = path.resolve(ROOT_PATH, 'src/index');
-
-  devRules = loaders.dev;
 
   devWebpackConfig = {};
 } else {
