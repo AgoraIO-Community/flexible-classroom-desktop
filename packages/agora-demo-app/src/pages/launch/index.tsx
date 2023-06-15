@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { getAssetURL, shareLink } from '@app/utils';
+import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
 import { setTailwindConfig } from '@ui-kit-utils/tailwindcss';
 import tailwindConfig from '../../../tailwind.config';
 import {
@@ -81,7 +81,7 @@ export const AgoraClassroomApp = () => {
           region: launchOption.region ?? 'CN',
         });
 
-        const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+        const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
         // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
 
         return AgoraEduSDK.launch(appRef.current, {
@@ -196,8 +196,7 @@ export const AgoraOnlineClassApp = () => {
           mediaOptions: {
             cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
           },
-          recordUrl:
-            'https://solutions-apaas.agora.io/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
+          recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/onlineclass_record_page.html`,
           listener: (evt: AgoraEduClassroomEvent, type: any) => {
             console.log('launch#listener ', evt);
             if (evt === AgoraEduClassroomEvent.Destroyed) {
