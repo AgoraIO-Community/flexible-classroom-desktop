@@ -9,6 +9,7 @@ lib_dependencies=(
     agora-rte-sdk
     agora-edu-core
     agora-common-libs
+    agora-plugin-gallery
     agora-classroom-sdk
     agora-proctor-sdk
     agora-onlineclass-sdk
