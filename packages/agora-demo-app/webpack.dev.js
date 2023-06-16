@@ -2,16 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 const webpack = require('webpack');
-const baseConfig = require('./webpack/webpack.base');
-const { DEFAULT_PORT, ROOT_PATH } = require('./webpack/utils/index');
-
-const {
-  devEntry,
-  devWebpackConfig,
-  sdkDevServe,
-  devAlias,
-  devRules,
-} = require('./webpack/utils/development-config');
+const ROOT_PATH = path.resolve(__dirname, './');
+const entry = path.resolve(ROOT_PATH, './src/index.tsx');
+const baseConfig = require('agora-common-libs/presets/webpack.config.base.js');
+const { locateEnvFile } = require('./webpack/utils/index');
+const dotenv = require('dotenv-webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const classroomSdkVersion = require('./package.json').version;
+const { sdkDevServe } = require('./webpack/utils/development-config');
 
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
@@ -41,13 +39,15 @@ if (sdkDevServe) {
 const config = {
   mode: 'development',
   devtool: 'source-map',
-  entry: devEntry,
+  entry: entry,
   resolve: {
-    alias: devAlias,
+    alias: {
+      '@app': path.resolve(ROOT_PATH, './src'),
+      '@ui-kit-utils': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/utils'),
+    },
   },
   module: {
     unknownContextCritical: false,
-    rules: devRules,
   },
 
   output: {
@@ -56,19 +56,24 @@ const config = {
   },
   devServer: {
     compress: true,
-    port: DEFAULT_PORT,
+    port: 3000,
     static: devServes,
   },
   plugins: [
+    new dotenv({
+      path: locateEnvFile(),
+    }),
     new HtmlWebpackPlugin({
       filename: outHtml,
       template: htmlTemplate,
       inject: true,
     }),
+
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('development'),
+      CLASSROOM_SDK_VERSION: JSON.stringify(classroomSdkVersion),
     }),
   ],
 };
 
-module.exports = webpackMerge.merge(baseConfig, devWebpackConfig, config);
+module.exports = webpackMerge.merge(baseConfig, config);

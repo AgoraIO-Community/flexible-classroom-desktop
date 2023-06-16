@@ -6,6 +6,8 @@
 
 @tailwind screens;
 
+@import '~antd/dist/antd.css';
+
 .flex-import {
   display: fcr-flex !important;
 }

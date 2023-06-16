@@ -51,7 +51,6 @@ export const AgoraClassroomApp = () => {
   const history = useHistory();
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
-  const { sdkType } = launchOption;
 
   const { ready, widgets } = useClassroomWidgets([
     'AgoraCountdown',
@@ -67,7 +66,7 @@ export const AgoraClassroomApp = () => {
   useEffect(() => {
     const launch = async () => {
       if (ready && appRef.current) {
-        const { AgoraEduSDK } = await import('agora-classroom-sdk');
+        const { AgoraEduSDK } = await import(/* webpackPrefetch: true */ 'agora-classroom-sdk');
         AgoraEduSDK.setParameters(
           JSON.stringify({
             host: homeStore.launchOption.sdkDomain,
@@ -119,7 +118,7 @@ export const AgoraProctorApp = () => {
   useEffect(() => {
     const launch = async () => {
       if (ready && appRef.current) {
-        const { AgoraProctorSDK } = await import('agora-proctor-sdk');
+        const { AgoraProctorSDK } = await import(/* webpackPrefetch: true */ 'agora-proctor-sdk');
         AgoraProctorSDK.setParameters(
           JSON.stringify({
             host: homeStore.launchOption.sdkDomain,
@@ -166,7 +165,9 @@ export const AgoraOnlineClassApp = () => {
 
   useEffect(() => {
     const launch = async () => {
-      const { AgoraOnlineclassSDK } = await import('agora-onlineclass-sdk');
+      const { AgoraOnlineclassSDK } = await import(
+        /* webpackPrefetch: true */ 'agora-onlineclass-sdk'
+      );
       if (ready && appRef.current) {
         const shareUrl = shareLink.generateUrl({
           roomId: launchOption.roomUuid,
