@@ -156,7 +156,6 @@ export const AgoraOnlineClassApp = () => {
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
-  const { sdkType } = launchOption;
   const { ready, widgets } = useOnlineclassWidgets([
     'FcrBoardWidgetV2',
     'FcrPolling',

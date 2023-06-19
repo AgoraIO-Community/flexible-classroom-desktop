@@ -1,7 +1,6 @@
 import { LanguageEnum, LaunchOption } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
-import { FcrMultiThemeMode } from 'agora-common-libs';
-import { changeLanguage } from 'agora-common-libs';
+import { FcrMultiThemeMode, changeLanguage, languageCacheKey } from 'agora-common-libs';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
@@ -24,7 +23,6 @@ export type GlobalLaunchOption = Omit<LaunchOption, 'listener'> & {
 };
 const LS_REGION = `region`;
 const LS_LAUNCH = `launch_options`;
-const LS_LANGUAGE = `language`;
 const LS_THEME = `theme`;
 
 export const regionByLang = {
@@ -50,7 +48,7 @@ export const getTheme = (): FcrMultiThemeMode => {
 export const clearHomeOption = () => {
   clearLSStore(LS_LAUNCH);
   clearLSStore(LS_REGION);
-  clearLSStore(LS_LANGUAGE);
+  clearLSStore(languageCacheKey);
   clearLSStore(LS_THEME);
 };
 
@@ -81,7 +79,6 @@ export class GlobalStore {
 
     autorun(() => {
       changeLanguage(this.language);
-      setLSStore(LS_LANGUAGE, this.language);
     });
 
     autorun(() => {
