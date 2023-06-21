@@ -7,7 +7,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
 import { AgoraEduClassroomEvent } from 'agora-edu-core';
-import { useWidgets } from '@app/hooks/useWidgets';
+import { useOnlineclassWidgets } from '@app/hooks/useWidgets';
 
 export const assetURLs = {
   // virtual background assets
@@ -27,7 +27,11 @@ export const LaunchPage = observer(() => {
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
 
-  const { widgets, ready } = useWidgets(['FcrPolling', 'FcrBoardWidgetV2', 'AgoraHXChatWidgetV2']);
+  const { widgets, ready } = useOnlineclassWidgets([
+    'FcrPolling',
+    'FcrBoardWidgetV2',
+    'AgoraHXChatWidgetV2',
+  ]);
 
   useEffect(() => {
     if (isEmpty(launchOption)) {

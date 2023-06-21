@@ -48,7 +48,6 @@
     "../../node_modules/electron"
   ],
   "exclude": [
-    "src/dev",
     "node_modules",
     "**/*/*.stories.tsx"
   ],

@@ -4,10 +4,11 @@
  *  name: SDK package name
  *  webpackConfig: SDK webpack config path, relative to packages directory
  */
+const path = require('path');
+const ROOT_PATH = path.resolve(__dirname, './');
 module.exports = [
   {
     name: 'classroom',
-    webpackConfig: 'agora-classroom-sdk/webpack/webpack.dev.js',
     sources: {
       'agora-rte-sdk': 'src',
       'agora-edu-core': 'src',
@@ -17,7 +18,6 @@ module.exports = [
   },
   {
     name: 'proctor',
-    webpackConfig: 'agora-proctor-sdk/webpack/webpack.dev.js',
     sources: {
       'agora-rte-sdk': 'src',
       'agora-edu-core': 'src',
@@ -27,12 +27,17 @@ module.exports = [
   },
   {
     name: 'onlineclass',
-    webpackConfig: 'agora-onlineclass-sdk/webpack/webpack.dev.js',
+    alias: {
+      '@onlineclass': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src'),
+      '@components': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/components'),
+      '@res': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src/resources'),
+    },
     sources: {
       'agora-rte-sdk': 'src',
       'agora-edu-core': 'src',
       'agora-common-libs/lib': 'src',
       'agora-onlineclass-sdk': 'src',
+      'agora-plugin-gallery/onlineclass': 'src/onlineclass.tsx',
     },
     assetsDir: 'agora-onlineclass-sdk/src/resources',
   },

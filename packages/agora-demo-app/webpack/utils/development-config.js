@@ -24,15 +24,15 @@ if (ENTRY === 'demo') {
   }
 
   // check sdk config
-  if (!sdk.webpackConfig) {
-    throw new Error(`Missing webpackConfig of [${ENTRY}] SDK in sdk.config.js`);
-  }
+  // if (!sdk.webpackConfig) {
+  //   throw new Error(`Missing webpackConfig of [${ENTRY}] SDK in sdk.config.js`);
+  // }
 
   devEntry = path.resolve(ROOT_PATH, 'src/dev', sdk.name);
 
-  devWebpackConfig = require(path.resolve(ROOT_PATH, '../', sdk.webpackConfig));
+  // devWebpackConfig = require(path.resolve(ROOT_PATH, '../', sdk.webpackConfig));
 
-  devRules = loaders.devSdk;
+  // devRules = loaders.devSdk;
 
   if (sdk.assetsDir) {
     sdkDevServe = {
@@ -54,6 +54,7 @@ if (ENTRY === 'demo') {
 
     return prev;
   }, {});
+  devAlias = Object.assign(devAlias, sdk.alias);
 }
 
 module.exports = { devEntry, devWebpackConfig, sdkDevServe, devAlias, devRules };
