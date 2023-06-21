@@ -40,10 +40,11 @@ export class UserStore {
   private setUserInfo(data: UserInfo | null) {
     this.userInfo = data;
     if (this.nickName === '') {
-      if(this.userInfo?.displayName) {
+      if (this.userInfo?.displayName) {
         this.setNickName(this.userInfo.displayName);
-      } else if(this.userInfo?.companyName) {
-        this.setNickName(this.userInfo.companyName);
+      } else {
+        const rand = `${Math.floor(Math.random() * 9999)}`.padStart(4, '0');
+        this.setNickName(`user${rand}`);
       }
     }
   }
