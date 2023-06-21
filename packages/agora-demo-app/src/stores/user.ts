@@ -39,8 +39,12 @@ export class UserStore {
   @action.bound
   private setUserInfo(data: UserInfo | null) {
     this.userInfo = data;
-    if (this.nickName === '' && this.userInfo?.displayName) {
-      this.setNickName(this.userInfo.displayName);
+    if (this.nickName === '') {
+      if(this.userInfo?.displayName) {
+        this.setNickName(this.userInfo.displayName);
+      } else if(this.userInfo?.companyName) {
+        this.setNickName(this.userInfo.companyName);
+      }
     }
   }
 
@@ -70,6 +74,7 @@ export class UserStore {
   @action.bound
   async clearUserInfo() {
     this.setUserInfo(null);
+    this.setNickName('');
   }
 }
 
