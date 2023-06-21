@@ -14,6 +14,24 @@ lib_dependencies=(
     agora-proctor-sdk
     agora-onlineclass-sdk
 )
+lib_versions=(
+    2.8.21
+    2.8.21
+    2.8.1
+    1.0.0
+    2.8.21
+    1.0.4
+    1.0.0
+)
+lib_branches=(
+    feature/online-class-sdk
+    feature/online-class-sdk
+    feature/online-class-sdk
+    feature/online-class-sdk
+    feature/online-class-sdk
+    feature/online-class-sdk
+    feature/online-class-sdk
+)
 
 recording_templates=(
     record_page
@@ -33,7 +51,7 @@ if [ "$debug" == "true" ]; then
     echo "--------------------------------------------"
 fi
 
-check_dependencies $source_root $build_branch "${lib_dependencies[*]}"
+download_packages $source_root $build_branch "${lib_dependencies[*]}" "${lib_versions[*]}" "${lib_branches[*]}"
 
 build_demo $source_root $ci_source_root $build_env
 
