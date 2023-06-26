@@ -34,13 +34,18 @@ export class UserStore {
   public userInfo: UserInfo | null = getLSStore<UserInfo>(LS_USER_INFO)! || {};
 
   @observable
-  public nickName = getLSStore<string>(LS_NICK_NAME) || this.userInfo?.companyName || '';
+  public nickName = getLSStore<string>(LS_NICK_NAME) || this.userInfo?.displayName || '';
 
   @action.bound
   private setUserInfo(data: UserInfo | null) {
     this.userInfo = data;
-    if (this.nickName === '' && this.userInfo?.companyName) {
-      this.setNickName(this.userInfo.companyName);
+    if (this.nickName === '') {
+      if (this.userInfo?.displayName) {
+        this.setNickName(this.userInfo.displayName);
+      } else {
+        const rand = `${Math.floor(Math.random() * 9999)}`.padStart(4, '0');
+        this.setNickName(`user${rand}`);
+      }
     }
   }
 
@@ -70,6 +75,7 @@ export class UserStore {
   @action.bound
   async clearUserInfo() {
     this.setUserInfo(null);
+    this.setNickName('');
   }
 }
 

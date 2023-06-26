@@ -9,7 +9,7 @@ import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { getAssetURL } from '@app/utils';
 
-declare const CLASSROOM_SDK_VERSION: string;
+declare const DEMO_VERSION: string;
 
 export const assetURLs = {
   // virtual background assets
@@ -80,7 +80,7 @@ export const LaunchPage = observer(() => {
           region: launchOption.region ?? 'CN',
         });
 
-        const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+        const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${DEMO_VERSION}/record_page.html`;
         // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
 
         const virtualBackgroundImages = [

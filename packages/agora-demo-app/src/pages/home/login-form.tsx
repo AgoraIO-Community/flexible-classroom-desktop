@@ -6,7 +6,7 @@ import { transI18n, useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum } from 'agora-edu-core';
 import { FC, useContext, useState } from 'react';
 
-declare const CLASSROOM_SDK_VERSION: string;
+declare const DEMO_VERSION: string;
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -212,7 +212,7 @@ export const LoginForm: FC<{
         </Button>
       </Layout>
       <p className="form-footer text-center mt-8 mb-0">
-        Version: Flexible Classroom_{CLASSROOM_SDK_VERSION}
+        Version: Flexible Classroom_{DEMO_VERSION}
       </p>
     </form>
   );

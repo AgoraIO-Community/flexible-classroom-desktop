@@ -4,7 +4,8 @@ import { EduClassroomConfig } from 'agora-edu-core';
 import logo from '../assets/logo.svg';
 import './index.css';
 
-declare const CLASSROOM_SDK_VERSION: string;
+declare const DEMO_VERSION: string;
+
 
 export const About = () => {
   return (
@@ -12,7 +13,7 @@ export const About = () => {
       <div className="title">{transI18n('fcr_settings_label_about_us_about_us')}</div>
       <p>
         {transI18n('fcr_settings_label_about_us_fcr_ver')}
-        {`: ver ${CLASSROOM_SDK_VERSION}`}
+        {`: ver ${DEMO_VERSION}`}
       </p>
       <p>
         {transI18n('fcr_settings_label_about_us_sdk_ver')}
