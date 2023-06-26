@@ -84,7 +84,7 @@
     "release:electron:win": "run-s build:demo pack:electron:win",
     "dev:demo": "run-p dev dev:onlineclass ",
     "dev": "lerna exec --scope=agora-demo-app yarn dev",
-    "dev:onlineclass": "lerna exec --scope=agora-onlineclass-sdk yarn dev:onlineclass",
+    "dev:onlineclass": "lerna exec --scope=agora-demo-app yarn dev:onlineclass",
     "dev:classroom": "lerna exec --scope=agora-demo-app yarn dev:classroom",
     "dev:proctor": "lerna exec --scope=agora-demo-app yarn dev:proctor",
     "dev:electron": "lerna exec --scope=agora-demo-app yarn electron",
