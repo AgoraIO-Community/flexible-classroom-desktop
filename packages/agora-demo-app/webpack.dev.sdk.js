@@ -10,7 +10,6 @@ const classroomSdkVersion = require('./package.json').version;
 const { sdkDevServe, devAlias, devEntry } = require('./webpack/utils/development-config');
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
-
 const devServes = [
   {
     directory: path.resolve(ROOT_PATH, 'public'),

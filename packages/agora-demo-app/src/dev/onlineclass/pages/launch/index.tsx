@@ -1,6 +1,6 @@
 import { GlobalStoreContext } from '@app/stores';
 import { getAssetURL } from '@app/utils/url';
-import { AgoraOnlineclassSDK } from 'agora-onlineclass-sdk';
+import { AgoraOnlineclassSDK, CoursewareList } from 'agora-onlineclass-sdk';
 import { isEmpty } from 'lodash';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
@@ -85,6 +85,7 @@ export const LaunchPage = observer(() => {
         virtualBackgroundImages,
         virtualBackgroundVideos,
         widgets,
+        coursewareList,
         recordUrl:
           'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
         listener: (evt: AgoraEduClassroomEvent, type) => {
@@ -100,3 +101,49 @@ export const LaunchPage = observer(() => {
 
   return <div ref={appRef} className="fcr-bg-background fcr-w-full fcr-h-full" />;
 });
+
+const coursewareList: CoursewareList = [
+  {
+    name: 'Agora Flexible Classroom v2.1 Demo Instructions.pptx',
+    ext: 'pptx',
+    size: 8478024,
+    url: 'https://agora-adc-artifacts.oss-cn-beijing.aliyuncs.com/cloud-disk/f488493d1886435f963dfb3d95984fd4/test02090054/20c2281deddefa96a97fe16b3628b456.pptx',
+    updateTime: 1646988472045,
+    taskUuid: 'b81275a0a11711ecb94f39bd66b92986',
+  },
+  {
+    name: 'H5 Demo 1',
+    ext: 'ah5',
+    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-k1a-20',
+    size: 0,
+    updateTime: Date.now(),
+  },
+  {
+    name: 'H5 Demo 2',
+    ext: 'ah5',
+    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-disappear-dinosaur',
+    size: 0,
+    updateTime: Date.now(),
+  },
+  {
+    name: 'youtube - RTE2022',
+    ext: 'alf',
+    url: 'http://youtube.com/watch?v=p3Bt6rAYIsQ',
+    size: 0,
+    updateTime: Date.now(),
+  },
+  {
+    name: 'AgoraFlexibleClassroom',
+    ext: 'alf',
+    url: 'https://docs.google.com/presentation/d/1EbE3km3bIHOyzg49mcC92JRd5OQjw59c/edit?usp=sharing&ouid=109918631701376245075&rtpof=true&sd=true',
+    size: 0,
+    updateTime: Date.now(),
+  },
+  {
+    name: 'scratch',
+    ext: 'alf',
+    url: 'https://istonecode.isoftstone.com/agora/',
+    size: 0,
+    updateTime: Date.now(),
+  },
+];
