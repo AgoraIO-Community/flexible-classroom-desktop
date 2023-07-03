@@ -25,7 +25,7 @@ export interface SelectProps {
   onOpen?: () => void;
   onClose?: () => void;
   className?: string;
-  style?: React.CSSProperties
+  style?: React.CSSProperties;
 }
 
 // 基于react-select封装 https://github.com/JedWatson/react-select/blob/master/README.md
@@ -43,8 +43,8 @@ export const Select: FC<SelectProps> = ({
   size,
   direction = 'down',
   defaultValue,
-  onOpen = () => { },
-  onClose = () => { },
+  onOpen = () => {},
+  onClose = () => {},
   ...restProps
 }) => {
   const wrappedOptions = options.map((item: any) => ({

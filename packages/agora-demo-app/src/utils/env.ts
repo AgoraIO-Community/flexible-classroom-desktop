@@ -7,4 +7,5 @@ export const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 export const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 export const REACT_APP_SHARE_LINK_PREFIX = process.env.REACT_APP_SHARE_LINK_PREFIX;
 export const REACT_APP_AGORA_APP_ASSETS_CDN = process.env.REACT_APP_AGORA_APP_ASSETS_CDN;
+export const REACT_APP_RECORDING_LINK_PREFIX = process.env.REACT_APP_RECORDING_LINK_PREFIX;
 export const isProduction = NODE_ENV === 'production';

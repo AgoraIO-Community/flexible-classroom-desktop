@@ -33,7 +33,7 @@ export const About = () => {
         </a>
       </p>
       <div
-        className="logout-btn px-6 rounded-md border inline-block cursor-pointer"
+        className="logout-btn px-6 rounded-md fcr-border inline-block cursor-pointer"
         onClick={() => {
           logout();
         }}>

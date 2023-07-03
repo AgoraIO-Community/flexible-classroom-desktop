@@ -21,9 +21,9 @@ export const NavHeader: FC<PropsWithChildren<NavHeaderProps>> = ({
   };
 
   return (
-    <div className={`nav-header flex ${className}`}>
+    <div className={`nav-header fcr-flex ${className}`}>
       <div className="back" onClick={onBackHandle} />
-      <div className="content flex-1">{children}</div>
+      <div className="content fcr-flex-1">{children}</div>
     </div>
   );
 };

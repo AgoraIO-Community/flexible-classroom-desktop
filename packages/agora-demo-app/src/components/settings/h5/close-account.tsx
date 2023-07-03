@@ -39,7 +39,7 @@ export const CloseAccount: FC<CloseAccountProps> = observer(({ removeMenuPopup }
         </p>
       </div>
       <div
-        className={`close-account-submit-btn px-6 rounded-md border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center ${
+        className={`close-account-submit-btn px-6 rounded-md fcr-border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center ${
           checked ? '' : 'disabled'
         }`}
         onClick={() => {

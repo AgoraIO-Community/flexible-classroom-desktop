@@ -1,46 +1,83 @@
 .fcr-btn {
-  @apply cursor-pointer text-base rounded-full relative overflow-hidden;
+  cursor: pointer;
+  font-size: 1rem /* 16px */;
+  line-height: 1.5rem /* 24px */;
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
 }
 
 .fcr-btn-primary {
-  @apply text-white bg-brand;
-  @apply active:bg-brand;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  background-color: var(--fcr_system_brand_color);
+}
+.fcr-btn-primary:active {
+  background-color: var(--fcr_system_brand_color);
 }
 
 .fcr-btn-danger {
-  @apply text-error bg-white  border;
+  color: var(--fcr_system_error_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-width: 1px;
 }
 
 .fcr-btn-danger:hover {
-  @apply text-error;
+  color: var(--fcr_system_error_color);
 }
 
 .fcr-btn-danger:active {
-  @apply text-error;
+  color: var(--fcr_system_error_color);
 }
 
 .fcr-btn-secondary {
-  @apply bg-white border-divider border text-brand;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  border-width: 1px;
+
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
 }
 
 .fcr-btn-secondary:hover {
-  @apply bg-white border-divider border text-brand;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
+  border-width: 1px;
 }
 
 .fcr-btn-secondary:active {
-  @apply text-brand bg-white border-divider border;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
+  border-width: 1px;
 }
 
 .fcr-btn-ghost {
-  @apply text-brand bg-white border-divider border;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
+  border-width: 1px;
 }
 
 .fcr-btn-ghost:hover {
-  @apply text-brand bg-white border-divider border;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
+  border-width: 1px;
 }
 
 .fcr-btn-ghost:active {
-  @apply text-brand bg-white border-divider border;
+  color: var(--fcr_system_brand_color);
+  --tw-bg-opacity: 1;
+  background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+  border-color: var(--fcr_system_divider_color);
+  border-width: 1px;
 }
 
 .fcr-btn-xs {
@@ -62,11 +99,13 @@
 }
 
 .fcr-btn:focus {
-  @apply outline-none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
 }
 
 .fcr-btn[disabled] {
-  @apply disabled:opacity-50 pointer-events-none;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .fcr-btn.fcr-btn-xs[disabled],

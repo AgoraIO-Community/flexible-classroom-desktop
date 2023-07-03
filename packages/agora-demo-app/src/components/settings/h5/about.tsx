@@ -7,8 +7,6 @@ import { Menu } from './components/menu';
 import { MenuItemProps } from './components/menu-item';
 import { PageLayout } from './components/page-layout';
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 interface AboutMenuProps {
   addMenuPopup: (menu: SettingsMenuEnum) => void;
   removeMenuPopup: (menu: SettingsMenuEnum) => void;

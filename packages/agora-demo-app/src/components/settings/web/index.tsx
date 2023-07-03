@@ -14,7 +14,7 @@ export const Settings = () => {
   const transI18n = useI18n();
 
   return (
-    <div className="settings-container flex">
+    <div className="settings-container fcr-flex">
       <div className="left">
         <div
           className={`tab-item ${tab === SettingTabType.GeneralSetting ? 'active' : ''}`}
@@ -36,12 +36,12 @@ export const Settings = () => {
       <div className="right">
         <div
           key={SettingTabType.GeneralSetting}
-          className={`tab-container ${tab === SettingTabType.GeneralSetting ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === SettingTabType.GeneralSetting ? '' : 'fcr-hidden'}`}>
           <GeneralSetting />
         </div>
         <div
           key={SettingTabType.About}
-          className={`tab-container ${tab === SettingTabType.About ? '' : 'hidden'}`}>
+          className={`tab-container ${tab === SettingTabType.About ? '' : 'fcr-hidden'}`}>
           <About />
         </div>
       </div>

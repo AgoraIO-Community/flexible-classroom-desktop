@@ -7,10 +7,14 @@
     "electron:client": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./electron/",
     "electron:copy:electron:mac": "cpx './electron/**/*.js' ./build",
     "electron:copy:electron:win": "cpx \"./electron/**/*.js\" ./build",
-    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 webpack serve --config ./webpack/webpack.dev.js",
-    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 webpack --config ./webpack/webpack.prod.js",
+    "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=demo webpack serve --config ./webpack.dev.js",
+    "dev:classroom": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=classroom webpack serve --config ./webpack.dev.sdk.js",
+    "dev:onlineclass": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=onlineclass webpack serve --config ./webpack.dev.sdk.js",
+    "dev:proctor": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=proctor webpack serve --config ./webpack.dev.sdk.js",
+    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.config.js",
     "pack:mac": "yarn electron:copy:electron:mac && electron-builder --mac -p never",
-    "pack:win": "yarn electron:copy:electron:win && electron-builder --win -p never"
+    "pack:win": "yarn electron:copy:electron:win && electron-builder --win -p never",
+    "ci:build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -101,16 +105,17 @@
     }
   },
   "devDependencies": {
-    "electron-builder": "23.0.2",
-    "electron-util": "0.16.0",
-    "electron": "12.0.0"
+    "cross-env": "7.0.3",
+    "electron-builder": "23.6.0",
+    "electron": "12.0.0",
+    "wait-on": "3.3.0"
   },
   "dependencies": {
-    "wait-on": "3.3.0",
     "react-infinite-scroll-component": "6.1.0",
-    "react-i18next": "11.16.7",
     "agora-access-token": "2.0.4",
     "agora-classroom-sdk": "~2.8.0",
-    "agora-proctor-sdk": "~1.0.0"
+    "agora-proctor-sdk": "~1.0.0",
+    "agora-common-libs": "2.8.1",
+    "agora-plugin-gallery": "1.0.0"
   }
 }

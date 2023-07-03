@@ -1,6 +1,6 @@
 /* --- room-item-card --- */
 .room-item-card {
-  @apply w-full h-full relative;
+  @apply fcr-w-full fcr-h-full fcr-relative;
   border-radius: 16px;
   padding: 12px 16px 12px 22px;
   transition: transform 0.2s linear;
@@ -34,12 +34,12 @@
 }
 
 .room-item-card .info {
-  @apply flex-1;
+  @apply fcr-flex-1;
   margin-right: 15px;
 }
 
 .room-item-card .info .header {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-style: italic;
   font-weight: 800;
   font-size: 12px;
@@ -47,7 +47,7 @@
 }
 
 .room-item-card .info .header .date {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
 }
 
 .room-item-card .info .header .date::after {
@@ -60,7 +60,7 @@
 }
 
 .room-item-card .info .header .id {
-  @apply flex items-start;
+  @apply fcr-flex fcr-items-start;
 
   font-style: italic;
   font-weight: 800;
@@ -84,7 +84,7 @@
 }
 
 .room-item-card .info .name {
-  @apply truncate;
+  @apply fcr-truncate;
   font-weight: 500;
   font-size: 14px;
   line-height: 130%;
@@ -92,19 +92,19 @@
 }
 
 .room-item-card .footer {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-style: italic;
   font-weight: 800;
   font-size: 9px;
 }
 
 .room-item-card .footer .state {
-  @apply inline-flex items-center;
+  @apply fcr-inline-flex fcr-items-center;
   margin-right: 20px;
 }
 
 .room-item-card .footer .type {
-  @apply inline-flex items-center;
+  @apply fcr-inline-flex fcr-items-center;
   font-style: normal;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .room-item-card .operation {
-  @apply absolute top-0 h-full flex items-center;
+  @apply fcr-absolute fcr-top-0 fcr-h-full fcr-flex fcr-items-center;
   right: 16px;
 }
 .room-item-card .operation .btn {
@@ -137,7 +137,7 @@
 }
 
 .room-item-card .operation .btn.replay {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   padding: 0 20px 0 16px;
 }
 
@@ -147,7 +147,7 @@
 
 .room-item-card .operation .enter .text,
 .room-item-card .operation .replay .text {
-  @apply h-full;
+  @apply fcr-h-full;
   text-align: center;
   border: none;
   font-weight: 800;
@@ -161,7 +161,7 @@
 }
 
 .room-item-card .operation .enter .share {
-  @apply h-full relative items-center justify-center;
+  @apply fcr-h-full fcr-relative fcr-items-center fcr-justify-center;
   width: 34px;
   display: none;
 }
@@ -171,7 +171,7 @@
 }
 
 .room-item-card .operation .enter .share::before {
-  @apply h-full absolute;
+  @apply fcr-h-full fcr-absolute;
   width: 1px;
   content: '';
   background: #4a4c5f;

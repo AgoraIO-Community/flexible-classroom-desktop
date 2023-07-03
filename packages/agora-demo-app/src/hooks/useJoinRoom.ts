@@ -7,7 +7,6 @@ import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '../store
 import { GlobalLaunchOption } from '../stores/global';
 import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
-import { builderConfig } from '../utils/build-config';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
   REACT_APP_AGORA_APP_ID,
@@ -17,6 +16,7 @@ import { shareLink } from '../utils/share';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
 import { roomApi } from '@app/api';
+import { SdkType } from '@app/type';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -32,6 +32,7 @@ type JoinRoomParams = {
   region: AgoraRegion;
   platform?: Platform;
   latencyLevel: AgoraLatencyLevel;
+  sdkType: SdkType;
 };
 type QuickJoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -97,6 +98,7 @@ export const useJoinRoom = () => {
         region,
         duration = 30,
         platform = defaultPlatform,
+        sdkType,
       } = params;
 
       if (platform === Platform.H5) {
@@ -141,9 +143,8 @@ export const useJoinRoom = () => {
         language: language,
         duration: +duration * 60,
         latencyLevel,
+        sdkType,
         userFlexProperties: options.roomProperties || {},
-        scenes: builderConfig.resource.scenes,
-        themes: builderConfig.resource.themes,
         shareUrl,
         platform,
         mediaOptions: {
@@ -181,10 +182,6 @@ export const useJoinRoom = () => {
 
   const quickJoinRoom = useCallback(
     async (params: QuickJoinRoomParams) => {
-      if (!builderConfig.ready) {
-        return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-      }
-
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
       const {
         data: { data: roomInfo },
@@ -195,7 +192,7 @@ export const useJoinRoom = () => {
       const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
       return roomStore.joinRoom({ roomId, role, userUuid }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
-        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
+        const { latencyLevel, sdkType, ...rProps } = roomDetail.roomProperties;
 
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
         if (checkResult.status === Status.Failed) {
@@ -216,6 +213,7 @@ export const useJoinRoom = () => {
             latencyLevel,
             language,
             region,
+            sdkType,
           },
           { roomProperties: rProps },
         );
@@ -229,11 +227,7 @@ export const useJoinRoom = () => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
       return roomStore.joinRoomNoAuth({ roomId, role, userUuid: userId }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
-        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
-
-        if (!builderConfig.ready) {
-          return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-        }
+        const { latencyLevel, sdkType, ...rProps } = roomDetail.roomProperties;
 
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
         if (checkResult.status === Status.Failed) {
@@ -254,6 +248,7 @@ export const useJoinRoom = () => {
             latencyLevel,
             language,
             region,
+            sdkType,
           },
           { roomProperties: rProps },
         );

@@ -7,3 +7,5 @@ declare module '*.mp4';
 declare module '*.png';
 declare module '*.gif';
 declare module '*.jpg';
+
+declare const CLASSROOM_SDK_VERSION: string;

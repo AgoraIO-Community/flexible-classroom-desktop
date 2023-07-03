@@ -27,5 +27,5 @@
 }
 
 .can-hover:hover {
-  @apply bg-icon-selected-color;
+  background-color: var(--fcr_system_icon_selected_color);
 }

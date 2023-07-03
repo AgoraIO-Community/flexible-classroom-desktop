@@ -21,7 +21,7 @@
   border-radius: 12px;
   background: #ffffff;
   color: #030303;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .form-field .select a:link,

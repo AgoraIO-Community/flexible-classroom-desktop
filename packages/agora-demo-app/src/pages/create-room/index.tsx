@@ -1,7 +1,5 @@
 import watermarkIcon from '@app/assets/fcr_watermark.png';
-import premiumIcon from '@app/assets/service-type/fcr_premium.png';
-import standardIcon from '@app/assets/service-type/fcr_standard.png';
-import { ADatePicker, ADatePickerProps, locale } from '@app/components/date-picker';
+import { ADatePicker, locale } from '@app/components/date-picker';
 import { AForm, AFormItem, useAForm } from '@app/components/form';
 import { AInput } from '@app/components/input';
 import { RadioIcon } from '@app/components/radio-icon';
@@ -12,7 +10,7 @@ import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
-import { Default_Hosting_URL, ErrorCode, getAssetURL, messageError } from '@app/utils';
+import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
 import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
@@ -21,96 +19,18 @@ import { observer } from 'mobx-react';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { RadioCard } from './radio-card';
 import './index.css';
-import { AgoraRteEngineConfig, AgoraRteRuntimePlatform, AgoraLatencyLevel } from 'agora-rte-sdk';
-
-const classroomBackgroundImagePath =
-  'https://solutions-apaas.agora.io/demo/education/static/img/background_default1.png';
-
-const weekday = {
-  0: 'fcr_create_option_time_selector_Sun',
-  1: 'fcr_create_option_time_selector_Mon',
-  2: 'fcr_create_option_time_selector_Tue',
-  3: 'fcr_create_option_time_selector_Wed',
-  4: 'fcr_create_option_time_selector_Thu',
-  5: 'fcr_create_option_time_selector_Fri',
-  6: 'fcr_create_option_time_selector_Sat',
-};
-
-const TimeFormat = 'HH:mm';
-
-const computeEndTime = (date: Dayjs) => {
-  return date.add(30, 'minute');
-};
-
-const combDateTime = (date: Dayjs, time: Dayjs) => {
-  const result = new Date(
-    date.year(),
-    date.month(),
-    date.date(),
-    time.hour(),
-    time.minute(),
-    time.second(),
-  );
-  return dayjs(result);
-};
-
-type CreateFormValue = {
-  name: string;
-  date: Dayjs;
-  time: Dayjs;
-  link: string;
-};
-
-const roomTypeOptions = [
-  {
-    label: 'fcr_h5create_label_small_classroom',
-    description: 'fcr_create_label_small_classroom_description',
-    value: EduRoomTypeEnum.RoomSmallClass,
-    className: 'card-purple',
-  },
-  {
-    label: 'fcr_h5create_label_lecture_hall',
-    description: 'fcr_create_label_lecture_hall_description',
-    value: EduRoomTypeEnum.RoomBigClass,
-    className: 'card-red',
-  },
-  {
-    label: 'fcr_h5create_label_1on1',
-    description: 'fcr_create_label_1on1_description',
-    value: EduRoomTypeEnum.Room1v1Class,
-    className: 'card-green',
-  },
-];
-
-if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
-  roomTypeOptions.push({
-    label: 'fcr_home_label_proctoring',
-    description: 'fcr_home_label_proctoring',
-    value: EduRoomTypeEnum.RoomProctor,
-    className: 'card-green',
-  });
-}
-
-const serviceTypeOptions = [
-  {
-    label: 'fcr_create_label_service_type_RTC',
-    description: 'fcr_create_label_latency_RTC',
-    value: AgoraLatencyLevel.UltraLow,
-    icon: <img src={premiumIcon} />,
-  },
-  {
-    label: 'fcr_create_label_service_type_Standard',
-    description: 'fcr_create_label_latency_Standard',
-    value: AgoraLatencyLevel.Low,
-    icon: <img src={standardIcon} />,
-  },
-  // {
-  //   label: 'fcr_create_label_service_type_CDN',
-  //   description: 'fcr_create_label_latency_CDN',
-  //   value: EduRoomServiceTypeEnum.Fusion,
-  //   icon: <img src={cdnIcon} />,
-  // },
-];
+import set from 'lodash/set';
+import {
+  CreateFormValue,
+  TimeFormat,
+  classroomBackgroundImagePath,
+  combDateTime,
+  computeEndTime,
+  roomTypeOptions,
+  serviceTypeOptions,
+  weekday,
+} from './helper';
+import { SdkType } from '@app/type';
 
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
@@ -123,6 +43,8 @@ export const CreateRoom = observer(() => {
   const [form] = useAForm<CreateFormValue>();
   const [showMore, setShowMore] = useState(false);
   const [roomType, setRoomType] = useState(roomTypeOptions[0].value);
+  const [sdkType, setSdkType] = useState(roomTypeOptions[0].sdkType);
+
   const [serviceType, setServiceType] = useState(serviceTypeOptions[0].value);
   const [watermark, setWatermark] = useState(false);
   const [livePlayback, setLivePlayback] = useState(false);
@@ -135,8 +57,11 @@ export const CreateRoom = observer(() => {
 
   const showLivePlaybackOption = false;
 
-  const customFormat: ADatePickerProps['format'] = useCallback(
-    (value) => `${value.format('YYYY-MM-DD')}  |  ${transI18n(weekday[value.day()])}`,
+  const customFormat = useCallback(
+    (value: dayjs.Dayjs) =>
+      `${value.format('YYYY-MM-DD')}  |  ${transI18n(
+        weekday[value.day() as keyof typeof weekday],
+      )}`,
     [],
   );
 
@@ -217,18 +142,26 @@ export const CreateRoom = observer(() => {
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
 
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
+      const isOnlineclass =
+        roomType === EduRoomTypeEnum.RoomSmallClass && sdkType === SdkType.AgoraOnlineclassSdk;
       const roomProperties = isProctoring
         ? {
             watermark,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
             latencyLevel: serviceType,
+            sdkType,
           }
         : {
             watermark,
-            backgroundImage:
-              roomType === EduRoomTypeEnum.RoomBigClass ? classroomBackgroundImagePath : undefined,
+            boardBackgroundImage: classroomBackgroundImagePath,
             latencyLevel: serviceType,
+            sdkType,
           };
+      const widgets = {};
+      if (isOnlineclass) {
+        set(widgets, 'netlessBoard.state', 0);
+      }
+
       roomStore
         .createRoom({
           roomName: name,
@@ -236,6 +169,7 @@ export const CreateRoom = observer(() => {
           endTime: computeEndTime(dateTime).valueOf(),
           roomType,
           roomProperties,
+          widgets,
         })
         .then((data) => {
           if (useCurrentTime) {
@@ -302,7 +236,7 @@ export const CreateRoom = observer(() => {
           </AFormItem>
         </div>
         {/* 课程时间 */}
-        <div className="form-item flex">
+        <div className="form-item fcr-flex">
           <div className="start-time">
             <div className="label">{transI18n('fcr_create_label_starttime')}</div>
             <AFormItem
@@ -325,7 +259,7 @@ export const CreateRoom = observer(() => {
                 locale={dateLocale!}
               />
             </AFormItem>
-            <div className="relative inline-block">
+            <div className="fcr-relative fcr-inline-block">
               <AFormItem
                 name="time"
                 rules={[{ required: true, message: 'Please select time!' }]}
@@ -341,7 +275,7 @@ export const CreateRoom = observer(() => {
                   popupStyle={{ marginTop: '8px' }}
                 />
               </AFormItem>
-              <div className={`current-time ${useCurrentTime ? '' : 'hidden'}`}>
+              <div className={`current-time ${useCurrentTime ? '' : 'fcr-hidden'}`}>
                 {transI18n('fcr_create_room_current_time')}
               </div>
             </div>
@@ -365,11 +299,12 @@ export const CreateRoom = observer(() => {
                 <RoomTypeCard
                   title={transI18n(v.label)}
                   description={transI18n(v.description)}
-                  checked={roomType === v.value}
+                  checked={roomType === v.value && sdkType === v.sdkType}
                   className={v.className}
                   key={v.value + v.label}
                   onClick={() => {
                     setRoomType(v.value);
+                    setSdkType(v.sdkType);
                   }}
                 />
               );
@@ -391,7 +326,7 @@ export const CreateRoom = observer(() => {
                     checked={v.value === serviceType}
                     label={transI18n(v.label)}
                     description={transI18n(v.description)}
-                    icon={v.icon}
+                    icon={<img src={v.icon} />}
                   />
                 );
               })}
@@ -404,23 +339,23 @@ export const CreateRoom = observer(() => {
             'form-item item-mb more-settings': 1,
             expanded: showMore,
           })}>
-          <div className="label">
+          {/* <div className="label">
             {transI18n('fcr_create_label_more_settings')}
             <span
               className={classNames({
                 'expand-btn': 1,
-                hidden: showMore,
+                'fcr-hidden': showMore,
               })}
               onClick={() => {
                 setShowMore((pre) => !pre);
               }}>
               {transI18n('fcr_create_more_settings_expand')}
             </span>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className={classNames({
               'more-setting-list': 1,
-              hidden: !showMore,
+              'fcr-hidden': !showMore,
             })}>
             <div className="setting-item">
               <div className="title">
@@ -428,7 +363,6 @@ export const CreateRoom = observer(() => {
                 {transI18n('fcr_create_label_security')}
               </div>
               <div className="content">
-                {/* 水印 */}
                 <RadioCard
                   className={'watermark-card'}
                   onClick={() => {
@@ -447,7 +381,6 @@ export const CreateRoom = observer(() => {
                   {transI18n('fcr_create_label_playback')}
                 </div>
                 <div className="content">
-                  {/* 伪直播 */}
                   <div className="live-playback">
                     <div
                       className="header"
@@ -459,7 +392,7 @@ export const CreateRoom = observer(() => {
                       </span>
                       <RadioIcon checked={livePlayback} />
                     </div>
-                    <div className={`link ${!livePlayback ? 'hidden' : ''}`}>
+                    <div className={`link ${!livePlayback ? 'fcr-hidden' : ''}`}>
                       <div className="link-label">
                         {transI18n('fcr_create_label_playback_link')}
                       </div>
@@ -478,7 +411,7 @@ export const CreateRoom = observer(() => {
                 </div>
               </div>
             ) : null}
-          </div>
+          </div> */}
         </div>
       </AForm>
     </NavPageLayout>

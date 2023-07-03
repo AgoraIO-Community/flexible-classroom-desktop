@@ -15,7 +15,7 @@ import './index.css';
 import { messageError } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
 import { useAForm, AFormProps, AForm, AFormItem } from '@app/components/form';
-import { SvgImg, SvgIconEnum, } from '@app/components/svg-img';
+import { SvgImg, SvgIconEnum } from '@app/components/svg-img';
 import { AInput } from '@app/components/input';
 import { AButton } from '@app/components/button';
 

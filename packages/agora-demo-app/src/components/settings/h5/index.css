@@ -12,7 +12,7 @@
 }
 
 .setting-h5-css-transition {
-  @apply absolute top-0 w-screen h-screen;
+  @apply fcr-absolute fcr-top-0 fcr-w-screen fcr-h-screen;
 }
 
 .setting-h5-menu-container .logout-btn {

@@ -20,8 +20,6 @@ declare global {
   }
 }
 
-
-
 token.update(window.location.search);
 
 export const App: React.FC = () => {
@@ -36,6 +34,3 @@ addResourceBundle('en', en);
 addResourceBundle('zh', zh);
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-
-

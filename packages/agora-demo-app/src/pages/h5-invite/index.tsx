@@ -153,7 +153,7 @@ export const H5Invite = observer(() => {
           region,
           language,
           platform: Platform.H5,
-          latencyLevel
+          latencyLevel,
         },
         { roomProperties: rProps },
       )

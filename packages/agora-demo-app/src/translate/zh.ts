@@ -77,6 +77,7 @@ export default {
   fcr_create_label_more_settings: '更多设置',
   fcr_create_label_security: '安全防护',
   fcr_create_label_1on1_description: '适合1对1教学场景，老师和学生可以在课堂中自由的互动交流',
+  fcr_create_label_small_onlineclass_description: '新的小班课',
   fcr_create_label_small_classroom_description:
     '适合人数较少的互动教学场景，老师和学生可以自由的在台上交流',
   fcr_create_label_lecture_hall_description:
@@ -95,6 +96,7 @@ export default {
   fcr_h5create_label_small_classroom: '小班课堂',
   fcr_h5create_label_lecture_hall: '大班课堂',
   fcr_h5create_label_1on1: '1对1课堂',
+  fcr_h5create_label_small_onlineclass: '在线课堂',
   fcr_h5create_label_interactive: '实时互动',
   fcr_h5create_label_broadcast: '单向直播',
   fcr_create_tips_room_id: '输入房间名称',

@@ -1,5 +1,5 @@
 .home {
-  @apply bg-cover flex  w-screen h-screen;
+  @apply fcr-bg-cover fcr-flex  fcr-w-screen fcr-h-screen;
   background-image: url('@app/assets/home-background.jpg');
   min-width: 1300px;
   overflow-x: auto;
@@ -22,7 +22,7 @@
 }
 
 .home-left::before {
-  @apply block left-0 top-0 w-full h-full absolute;
+  @apply fcr-block fcr-left-0 fcr-top-0 fcr-w-full fcr-h-full fcr-absolute;
   content: '';
   background: linear-gradient(190.08deg, rgba(95, 72, 238, 0) 0%, rgb(0 0 0 / 75%) 99.44%);
   opacity: 0.5;
@@ -34,7 +34,7 @@
 }
 
 .home-left .logo {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   width: 250px;
   height: 30px;
   margin-right: 20px;
@@ -79,11 +79,11 @@
 .home-right {
   font-family: 'Montserrat Roboto';
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .home-right::before {
-  @apply absolute top-0 left-0 w-full h-full;
+  @apply fcr-absolute fcr-top-0 fcr-left-0 fcr-w-full fcr-h-full;
   content: '';
   /* fcr-light-web background1 */
   background: rgb(248 248 248 / 98%);
