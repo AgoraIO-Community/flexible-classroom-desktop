@@ -10,8 +10,8 @@
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-runtime": "7.13.15",
     "@babel/runtime-corejs3": "7.13.10",
-    "agora-edu-core": "2.8.40",
-    "agora-rte-sdk": "2.8.40"
+    "agora-edu-core": "2.8.50",
+    "agora-rte-sdk": "2.8.50"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
