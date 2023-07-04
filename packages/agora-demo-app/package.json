@@ -113,9 +113,9 @@
   "dependencies": {
     "react-infinite-scroll-component": "6.1.0",
     "agora-access-token": "2.0.4",
-    "agora-classroom-sdk": "~2.8.0",
+    "agora-classroom-sdk": "~2.9.0",
     "agora-proctor-sdk": "~1.0.0",
-    "agora-common-libs": "2.8.1",
+    "agora-common-libs": "~2.9.0",
     "agora-plugin-gallery": "1.0.0"
   }
 }

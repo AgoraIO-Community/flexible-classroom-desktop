@@ -15,22 +15,22 @@ lib_dependencies=(
     agora-onlineclass-sdk
 )
 lib_versions=(
-    2.8.21
-    2.8.21
-    2.8.1
+    2.9.0
+    2.9.0
+    2.9.0
     1.0.0
-    2.8.21
-    1.0.4
+    2.9.0
+    1.0.5
     1.0.0
 )
 lib_branches=(
-    feature/online-class-sdk
-    feature/online-class-sdk
-    feature/online-class-sdk
-    feature/online-class-sdk
-    feature/online-class-sdk
-    feature/online-class-sdk
-    feature/online-class-sdk
+    release/2.9.0
+    release/2.9.0
+    release/2.9.0
+    release/2.9.0
+    release/2.9.0
+    release/1.0.5
+    feature/online-class-sdk-test
 )
 
 recording_templates=(
