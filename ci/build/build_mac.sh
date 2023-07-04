@@ -30,7 +30,7 @@ lib_branches=(
     release/2.9.0
     release/2.9.0
     release/1.0.5
-    feature/online-class-sdk-test
+    feature/online-class-sdk
 )
 
 recording_templates=(
