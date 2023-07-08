@@ -8,7 +8,7 @@ const baseConfig = require('agora-common-libs/presets/webpack.config.base.js');
 const { locateEnvFile } = require('./webpack/utils/index');
 const dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const classroomSdkVersion = require('./package.json').version;
+const version = require('./package.json').version;
 const { sdkDevServe } = require('./webpack/utils/development-config');
 
 const outHtml = 'index.html';
@@ -71,7 +71,7 @@ const config = {
 
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('development'),
-      CLASSROOM_SDK_VERSION: JSON.stringify(classroomSdkVersion),
+      DEMO_VERSION: JSON.stringify(version),
     }),
   ],
 };

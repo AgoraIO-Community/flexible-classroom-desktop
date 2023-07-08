@@ -1,7 +1,7 @@
-import { AgoraWidgetBase } from 'agora-common-libs';
+import { AgoraOnlineclassSDKWidgetBase, AgoraWidgetBase } from 'agora-common-libs';
 import { useEffect, useState } from 'react';
 const getWidgetName = (widgetClass: unknown) => {
-  const Clz = widgetClass as typeof AgoraWidgetBase;
+  const Clz = widgetClass as typeof AgoraOnlineclassSDKWidgetBase | typeof AgoraWidgetBase;
   return Object.create(Clz.prototype).widgetName;
 };
 
@@ -58,20 +58,6 @@ export const useClassroomWidgets = (
         const { FcrWatermarkWidget } = widget;
         widgets[getWidgetName(FcrWatermarkWidget)] = FcrWatermarkWidget;
       }
-      if (ids.includes('FcrBoardWidgetV2')) {
-        const { FcrBoardWidgetV2 } = widget;
-        widgets[getWidgetName(FcrBoardWidgetV2)] = FcrBoardWidgetV2;
-      }
-
-      if (ids.includes('FcrPolling')) {
-        const { FcrPollingWidget } = widget;
-        widgets[getWidgetName(FcrPollingWidget)] = FcrPollingWidget;
-      }
-
-      if (ids.includes('AgoraHXChatWidgetV2')) {
-        const { FcrChatroom } = widget;
-        widgets[getWidgetName(FcrChatroom)] = FcrChatroom;
-      }
 
       setWidgets(widgets);
       setReady(true);
@@ -81,21 +67,7 @@ export const useClassroomWidgets = (
 
   return { ready, widgets };
 };
-export const useProctorWidgets = (
-  ids: (
-    | 'FcrWebviewWidget'
-    | 'FcrBoardWidget'
-    | 'AgoraSelector'
-    | 'AgoraCountdown'
-    | 'AgoraHXChatWidget'
-    | 'FcrStreamMediaPlayerWidget'
-    | 'AgoraPolling'
-    | 'FcrWatermarkWidget'
-    | 'FcrBoardWidgetV2'
-    | 'FcrPolling'
-    | 'AgoraHXChatWidgetV2'
-  )[],
-) => {
+export const useProctorWidgets = (ids: 'FcrWebviewWidget'[]) => {
   const [ready, setReady] = useState(false);
   const [widgets, setWidgets] = useState<Record<string, typeof AgoraWidgetBase>>({});
   useEffect(() => {
@@ -119,25 +91,19 @@ export const useOnlineclassWidgets = (
   ids: (
     | 'FcrWebviewWidget'
     | 'FcrBoardWidget'
-    | 'AgoraSelector'
-    | 'AgoraCountdown'
-    | 'AgoraHXChatWidget'
     | 'FcrStreamMediaPlayerWidget'
-    | 'AgoraPolling'
-    | 'FcrWatermarkWidget'
-    | 'FcrBoardWidgetV2'
     | 'FcrPolling'
-    | 'AgoraHXChatWidgetV2'
+    | 'AgoraChatroomWidget'
   )[],
 ) => {
   const [ready, setReady] = useState(false);
-  const [widgets, setWidgets] = useState<Record<string, typeof AgoraWidgetBase>>({});
+  const [widgets, setWidgets] = useState<Record<string, typeof AgoraOnlineclassSDKWidgetBase>>({});
   useEffect(() => {
     const load = async () => {
       const widget = await import(/* webpackPrefetch: true */ 'agora-plugin-gallery/onlineclass');
-      const widgets: Record<string, typeof AgoraWidgetBase> = {};
+      const widgets: Record<string, typeof AgoraOnlineclassSDKWidgetBase> = {};
 
-      if (ids.includes('FcrBoardWidgetV2')) {
+      if (ids.includes('FcrBoardWidget')) {
         const { FcrBoardWidgetV2 } = widget;
         widgets[getWidgetName(FcrBoardWidgetV2)] = FcrBoardWidgetV2;
       }
@@ -147,11 +113,19 @@ export const useOnlineclassWidgets = (
         widgets[getWidgetName(FcrPollingWidget)] = FcrPollingWidget;
       }
 
-      if (ids.includes('AgoraHXChatWidgetV2')) {
+      if (ids.includes('AgoraChatroomWidget')) {
         const { FcrChatroom } = widget;
         widgets[getWidgetName(FcrChatroom)] = FcrChatroom;
       }
 
+      if (ids.includes('FcrWebviewWidget')) {
+        const { FcrWebviewWidget } = widget;
+        widgets[getWidgetName(FcrWebviewWidget)] = FcrWebviewWidget;
+      }
+      if (ids.includes('FcrStreamMediaPlayerWidget')) {
+        const { FcrStreamMediaPlayerWidget } = widget;
+        widgets[getWidgetName(FcrStreamMediaPlayerWidget)] = FcrStreamMediaPlayerWidget;
+      }
       setWidgets(widgets);
       setReady(true);
     };

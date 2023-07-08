@@ -31,6 +31,7 @@ import {
   weekday,
 } from './helper';
 import { SdkType } from '@app/type';
+import { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
@@ -161,7 +162,17 @@ export const CreateRoom = observer(() => {
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
       }
-
+      const roleConfigs = isOnlineclass
+        ? {
+            [EduRoleTypeEnum.student]: {
+              limit: 50,
+              defaultStream: {
+                audioState: AgoraRteMediaPublishState.Published,
+                videoState: AgoraRteMediaPublishState.Published,
+              },
+            },
+          }
+        : undefined;
       roomStore
         .createRoom({
           roomName: name,
@@ -170,6 +181,7 @@ export const CreateRoom = observer(() => {
           roomType,
           roomProperties,
           widgets,
+          roleConfigs,
         })
         .then((data) => {
           if (useCurrentTime) {

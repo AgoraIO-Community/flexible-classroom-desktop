@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { getAssetURL } from '@app/utils';
+import { getAssetURL, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
 
 import { AgoraCountdown } from 'agora-plugin-gallery/gallery/counter';
 import { AgoraHXChatWidget } from 'agora-plugin-gallery/gallery/hx-chat';
@@ -66,7 +66,7 @@ export const LaunchPage = observer(() => {
         region: launchOption.region ?? 'CN',
       });
 
-      const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+      const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
       // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
 
       const virtualBackgroundImages = [

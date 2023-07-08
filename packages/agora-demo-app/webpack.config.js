@@ -10,7 +10,7 @@ const ROOT_PATH = path.resolve(__dirname, './');
 const dotenv = require('dotenv-webpack');
 const { locateEnvFile } = require('./webpack/utils/index');
 const entry = path.resolve(ROOT_PATH, './src/index.tsx');
-
+const version = require('./package.json').version;
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 
@@ -46,6 +46,7 @@ const config = {
     }),
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('production'),
+      DEMO_VERSION: JSON.stringify(version),
     }),
     // copy wasm files of Web RTC SDK extension from node_modules
     new CopyPlugin({

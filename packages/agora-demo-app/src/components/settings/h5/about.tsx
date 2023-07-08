@@ -31,7 +31,7 @@ export const AboutMenu: FC<AboutMenuProps> = ({ addMenuPopup, removeMenuPopup })
     {
       text: transI18n('fcr_settings_label_about_us_fcr_ver'),
       onClick: () => {},
-      rightContent: <span>{`ver ${CLASSROOM_SDK_VERSION}`}</span>,
+      rightContent: <span>{`ver ${DEMO_VERSION}`}</span>,
     },
     {
       text: transI18n('fcr_settings_label_about_us_sdk_ver'),

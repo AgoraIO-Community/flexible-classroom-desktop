@@ -6,7 +6,7 @@ const ROOT_PATH = path.resolve(__dirname, './');
 const baseConfig = require('agora-common-libs/presets/webpack.config.base.js');
 const { locateEnvFile } = require('./webpack/utils/index');
 const dotenv = require('dotenv-webpack');
-const classroomSdkVersion = require('./package.json').version;
+const version = require('./package.json').version;
 const { sdkDevServe, devAlias, devEntry } = require('./webpack/utils/development-config');
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
@@ -69,7 +69,7 @@ const config = {
 
     new webpack.DefinePlugin({
       NODE_ENV: JSON.stringify('development'),
-      CLASSROOM_SDK_VERSION: JSON.stringify(classroomSdkVersion),
+      DEMO_VERSION: JSON.stringify(version),
     }),
   ],
 };

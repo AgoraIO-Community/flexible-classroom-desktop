@@ -159,9 +159,11 @@ export const AgoraOnlineClassApp = () => {
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
   const { ready, widgets } = useOnlineclassWidgets([
-    'FcrBoardWidgetV2',
+    'FcrBoardWidget',
     'FcrPolling',
-    'AgoraHXChatWidgetV2',
+    'AgoraChatroomWidget',
+    'FcrWebviewWidget',
+    'FcrStreamMediaPlayerWidget',
   ]);
 
   useEffect(() => {
@@ -189,7 +191,7 @@ export const AgoraOnlineClassApp = () => {
         const unmount = AgoraOnlineclassSDK.launch(appRef.current, {
           ...launchOption,
           widgets,
-
+          coursewareList: courseWareList,
           virtualBackgroundImages,
           virtualBackgroundVideos,
           uiMode: homeStore.theme,
