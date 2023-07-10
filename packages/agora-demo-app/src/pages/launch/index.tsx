@@ -17,8 +17,6 @@ import {
 import { SdkType } from '@app/type';
 import logo from '@app/assets/favicon.png';
 
-declare const DEMO_VERSION: string;
-
 setTailwindConfig(tailwindConfig);
 
 export const LaunchPage = observer(() => {
