@@ -167,24 +167,7 @@ export default [
       prefix: 'https://convertcdn.netless.link/dynamicConvert',
     },
   },
-  {
-    resourceName: 'H5 Demo 1',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'ah5',
-    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-k1a-20',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
-  {
-    resourceName: 'H5 Demo 2',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'ah5',
-    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-disappear-dinosaur',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
+  
   {
     resourceName: 'youtube - RTE2022',
     resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
@@ -203,13 +186,5 @@ export default [
     updateTime: Date.now(),
     initOpen: false,
   },
-  {
-    resourceName: 'scratch',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'alf',
-    url: 'https://istonecode.isoftstone.com/agora/',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
+  
 ] as CourseWareList;

@@ -169,6 +169,7 @@ export const CreateRoom = observer(() => {
               defaultStream: {
                 audioState: AgoraRteMediaPublishState.Published,
                 videoState: AgoraRteMediaPublishState.Published,
+                state: AgoraRteMediaPublishState.Published,
               },
             },
           }
