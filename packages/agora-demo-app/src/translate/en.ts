@@ -51,7 +51,9 @@ export default {
 
   // 2.8.0分割线
   fcr_create_label_room_name_empty: 'The Room Name cannot  be empty',
-  fcr_create_tips_starttime: 'The class start time must be earlier than the current time',
+  fcr_create_tips_starttime: 'The class start time must be later than the current time',
+  fcr_create_tips_endtime_too_early: 'The class end time must be later than the start time',
+  fcr_create_tips_duration_too_short: 'Duration must be greater than or equal to 15 minutes',
   fcr_share_label_copy_invitation: 'You can copy Invitation and send to attendees',
   fcr_industry_option_education: 'Education',
   fcr_industry_option_entertainment: 'Entertainment',

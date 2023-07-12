@@ -55,6 +55,11 @@ export const CreateRoom = observer(() => {
     help: '',
     tip: '',
   });
+  const [endDateTimeValidate, setEndDateTimeValidate] = useState({
+    validateStatus: 'success',
+    help: '',
+    tip: '',
+  });
 
   const showLivePlaybackOption = false;
 
@@ -69,11 +74,14 @@ export const CreateRoom = observer(() => {
   const initialValues: CreateFormValue = useMemo(() => {
     const date = dayjs();
     date.set('seconds', 0);
+    const endDate = computeEndTime(date);
     return {
       name: transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }),
       date: date,
       time: date,
       link: Default_Hosting_URL,
+      endDate: endDate,
+      endTime: endDate,
     };
   }, []);
 
@@ -84,15 +92,17 @@ export const CreateRoom = observer(() => {
     );
   }, [userStore.nickName]);
 
-  const [endTime, setEndTime] = useState(() => {
-    return computeEndTime(initialValues.date).format(TimeFormat);
-  });
-
   const dateLocale = useLangSwitchValue({ zh: locale.zh_CN, en: locale.en_US });
 
   const getFormDateTime = useCallback(() => {
     const time: Dayjs = form.getFieldValue('time');
     const date: Dayjs = form.getFieldValue('date');
+    return combDateTime(date, time);
+  }, [form]);
+
+  const getFormEndDateTime = useCallback(() => {
+    const time: Dayjs = form.getFieldValue('endTime');
+    const date: Dayjs = form.getFieldValue('endDate');
     return combDateTime(date, time);
   }, [form]);
 
@@ -117,30 +127,70 @@ export const CreateRoom = observer(() => {
     [getFormDateTime],
   );
 
-  const recomputeEndTime = useCallback(() => {
-    const dateTime = getFormDateTime();
-    setEndTime(computeEndTime(dateTime).format(TimeFormat));
-  }, [getFormDateTime]);
+  const checkFormEndTimeGreaterThanStartTime = () => {
+    const startDateTime = getFormDateTime();
+    const endDateTime = getFormEndDateTime();
 
-  const dateTimeOnChange = useCallback(
-    (value: Dayjs | null) => {
-      if (value) {
-        setUseCurrentTime(false);
-        checkFormDateTimeIsAfterNow(false);
-        recomputeEndTime();
-      }
-    },
-    [checkFormDateTimeIsAfterNow, recomputeEndTime],
-  );
+    if (endDateTime.isAfter(startDateTime)) {
+      setEndDateTimeValidate({ validateStatus: 'success', help: '', tip: '' });
+      return true;
+    }
+    setEndDateTimeValidate({
+      validateStatus: 'error',
+      help: '',
+      tip: transI18n('fcr_create_tips_endtime_too_early'),
+    });
+
+    return false;
+  };
+
+  const checkFormDurationIsMoreThan15Minute = () => {
+    const startDateTime = getFormDateTime();
+    const endDateTime = getFormEndDateTime();
+    const diffInMin = endDateTime.diff(startDateTime, 'minutes');
+
+    if (diffInMin >= 15) {
+      setEndDateTimeValidate({ validateStatus: 'success', help: '', tip: '' });
+      return true;
+    }
+
+    setEndDateTimeValidate({
+      validateStatus: 'error',
+      help: '',
+      tip: transI18n('fcr_create_tips_duration_too_short'),
+    });
+
+    return false;
+  };
+
+  const dateTimeOnChange = (value: Dayjs | null) => {
+    if (value) {
+      setUseCurrentTime(false);
+      checkFormDateTimeIsAfterNow(false);
+      // const endDate = computeEndTime(getFormDateTime());
+
+      // form.setFieldValue('endDate', endDate);
+      // form.setFieldValue('endTime', endDate);
+    }
+  };
+  const endDateTimeOnChange = () => {
+    checkFormEndTimeGreaterThanStartTime() && checkFormDurationIsMoreThan15Minute();
+  };
 
   const onSubmit = () => {
-    if (!checkFormDateTimeIsAfterNow(useCurrentTime)) {
+    if (
+      !checkFormDateTimeIsAfterNow(useCurrentTime) ||
+      !checkFormEndTimeGreaterThanStartTime() ||
+      !checkFormDurationIsMoreThan15Minute()
+    ) {
       return;
     }
+
     form.validateFields().then((data) => {
       setLoading(true);
-      const { date, time, name } = data;
+      const { date, time, name, endDate, endTime } = data;
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
+      const endDateTime = combDateTime(endDate,endTime);
 
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
       const isOnlineclass =
@@ -178,7 +228,7 @@ export const CreateRoom = observer(() => {
         .createRoom({
           roomName: name,
           startTime: dateTime.valueOf(),
-          endTime: computeEndTime(dateTime).valueOf(),
+          endTime: endDateTime.valueOf(),
           roomType,
           roomProperties,
           widgets,
@@ -288,21 +338,66 @@ export const CreateRoom = observer(() => {
                   popupStyle={{ marginTop: '8px' }}
                 />
               </AFormItem>
-              <div className={`current-time ${useCurrentTime ? '' : 'fcr-hidden'}`}>
+              <div className={`current-time ${useCurrentTime ? '' : 'current-time--hidden'}`}>
                 {transI18n('fcr_create_room_current_time')}
               </div>
             </div>
             <div className="tip">{dateTimeValidate.tip}</div>
           </div>
-          <div className="gap-symbol" />
-          <div className="end-time">
+          {/* <div className="gap-symbol" /> */}
+          {/* <div className="end-time">
             <div className="label">{transI18n('fcr_create_label_end_time')}</div>
             <div className="end-time-picker">
               {endTime}
               <span>{transI18n('fcr_create_label_default_time')}</span>
             </div>
+          </div> */}
+        </div>
+
+        <div className="form-item fcr-flex">
+          <div className="start-time">
+            <div className="label">{transI18n('fcr_create_label_end_time')}</div>
+            <AFormItem
+              name="endDate"
+              rules={[{ required: true, message: 'Please select date!' }]}
+              {...endDateTimeValidate}>
+              <ADatePicker
+                className="start-date-picker"
+                format={customFormat}
+                allowClear={false}
+                disabledDate={(current) => {
+                  const now = dayjs().set('hour', 0).set('minute', 0).set('second', 0);
+                  return !dayjs(current).isBetween(now, now.add(7, 'day'));
+                }}
+                superNextIcon={null}
+                superPrevIcon={null}
+                suffixIcon={<SvgImg type={SvgIconEnum.CALENDAR} />}
+                popupStyle={{ marginTop: '8px' }}
+                locale={dateLocale!}
+                onChange={endDateTimeOnChange}
+              />
+            </AFormItem>
+            <div className="fcr-relative fcr-inline-block">
+              <AFormItem
+                name="endTime"
+                rules={[{ required: true, message: 'Please select time!' }]}
+                {...endDateTimeValidate}>
+                <ATimePicker
+                  className="start-time-picker"
+                  format={TimeFormat}
+                  inputReadOnly
+                  minuteStep={5}
+                  allowClear={false}
+                  showNow={false}
+                  popupStyle={{ marginTop: '8px' }}
+                  onChange={endDateTimeOnChange}
+                />
+              </AFormItem>
+            </div>
+            <div className="tip">{endDateTimeValidate.tip}</div>
           </div>
         </div>
+
         {/* 班型 */}
         <div className="form-item item-mb">
           <div className="label">{transI18n('fcr_create_label_class_mode')}</div>

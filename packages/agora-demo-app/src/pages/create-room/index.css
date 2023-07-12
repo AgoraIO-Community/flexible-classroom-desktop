@@ -57,6 +57,7 @@
 
 .start-time {
   @apply fcr-relative;
+  width: 100%;
 }
 .start-time .ant-form-item {
   display: inline-block;
@@ -98,6 +99,10 @@
   width: calc(100% - 4px);
   border-radius: 12px;
   height: 44px;
+}
+
+.create-form .current-time--hidden {
+  display: none;
 }
 
 .room-type {
