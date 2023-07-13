@@ -224,6 +224,13 @@ export const CreateRoom = observer(() => {
             },
           }
         : undefined;
+      const processes = isOnlineclass
+        ? {
+            handsUp: {
+              defaultAcceptRole: '',
+            },
+          }
+        : undefined;
       roomStore
         .createRoom({
           roomName: name,
@@ -233,6 +240,7 @@ export const CreateRoom = observer(() => {
           roomProperties,
           widgets,
           roleConfigs,
+          processes,
         })
         .then((data) => {
           if (useCurrentTime) {

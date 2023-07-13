@@ -39,6 +39,12 @@ export type RoomCreateRequest = {
   endTime: number;
   roomProperties?: RoomProperties;
   widgets?: Record<string, any>;
+  processes?: {
+    handsUp?: {
+      defaultAcceptRole?: EduRoleTypeEnum | string;
+    };
+  };
+
   roleConfigs?: {
     [key: number]: {
       limit: number;
