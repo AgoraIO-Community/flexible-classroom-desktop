@@ -13,7 +13,6 @@ const entry = path.resolve(ROOT_PATH, './src/index.tsx');
 const version = require('./package.json').version;
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
-const packConfig = require('agora-common-libs/presets/webpack.config.pack.js');
 
 const config = {
   entry: entry,
@@ -81,5 +80,5 @@ const config = {
   ],
 };
 
-const mergedConfig = webpackMerge.merge(baseConfig, packConfig, config);
+const mergedConfig = webpackMerge.merge(baseConfig, config);
 module.exports = mergedConfig;
