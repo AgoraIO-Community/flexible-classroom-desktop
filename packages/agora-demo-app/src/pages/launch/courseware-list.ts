@@ -181,7 +181,7 @@ export default [
     resourceName: 'AgoraFlexibleClassroom',
     resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
     ext: 'alf',
-    url: 'https://docs.google.com/presentation/d/1EbE3km3bIHOyzg49mcC92JRd5OQjw59c/edit?usp=sharing&ouid=109918631701376245075&rtpof=true&sd=true',
+    url: 'https://docs.google.com/presentation/d/e/2PACX-1vQnzK1Fai2oRRjrOQBjC6zheJEaEtjr0QtXYSsmaf8a5R_RZxCM13xT_T1Wjw_s1A/embed?start=false&loop=false&delayms=3000',
     size: 0,
     updateTime: Date.now(),
     initOpen: false,
