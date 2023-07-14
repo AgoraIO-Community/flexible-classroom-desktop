@@ -32,7 +32,7 @@ import {
 } from './helper';
 import { SdkType } from '@app/type';
 import { AgoraRteMediaPublishState } from 'agora-rte-sdk';
-
+export const OnlineclassStudentLimit = 80;
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
   const { setLoading } = useContext(GlobalStoreContext);
@@ -190,7 +190,7 @@ export const CreateRoom = observer(() => {
       setLoading(true);
       const { date, time, name, endDate, endTime } = data;
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
-      const endDateTime = combDateTime(endDate,endTime);
+      const endDateTime = combDateTime(endDate, endTime);
 
       const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
       const isOnlineclass =
@@ -215,7 +215,7 @@ export const CreateRoom = observer(() => {
       const roleConfigs = isOnlineclass
         ? {
             [EduRoleTypeEnum.student]: {
-              limit: 50,
+              limit: OnlineclassStudentLimit,
               defaultStream: {
                 audioState: AgoraRteMediaPublishState.Published,
                 videoState: AgoraRteMediaPublishState.Published,
