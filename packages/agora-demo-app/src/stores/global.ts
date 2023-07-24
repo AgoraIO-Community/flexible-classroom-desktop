@@ -1,6 +1,10 @@
-import { LanguageEnum, LaunchOption } from 'agora-classroom-sdk';
 import { getBrowserLanguage } from '@app/utils';
-import { FcrMultiThemeMode, changeLanguage, languageCacheKey } from 'agora-common-libs';
+import {
+  FcrMultiThemeMode,
+  changeLanguage,
+  getLanguage,
+  languageCacheKey,
+} from 'agora-common-libs';
 import { EduRegion } from 'agora-edu-core';
 import { AgoraRegion } from 'agora-rte-sdk';
 import { action, autorun, observable, toJS } from 'mobx';
@@ -13,13 +17,14 @@ export interface ToastType {
   type?: 'success' | 'error' | 'warning';
 }
 
-export type GlobalLaunchOption = Omit<LaunchOption, 'listener'> & {
+export type GlobalLaunchOption = {
   appId: string;
   sdkDomain: string;
   region: EduRegion;
   scenes?: any;
   themes?: any;
   sdkType: SdkType;
+  language: string;
 };
 const LS_REGION = `region`;
 const LS_LAUNCH = `launch_options`;
@@ -34,11 +39,6 @@ const regionList = [AgoraRegion.CN, AgoraRegion.NA, AgoraRegion.EU, AgoraRegion.
 
 export const getRegion = (): EduRegion => {
   return getLSStore(LS_REGION) || regionByLang[getBrowserLanguage()] || EduRegion.NA;
-};
-
-export const getLanguage = (): LanguageEnum => {
-  // return getLSStore(LS_LANGUAGE) || getBrowserLanguage() || 'en';
-  return 'en';
 };
 
 export const getTheme = (): FcrMultiThemeMode => {
@@ -60,7 +60,7 @@ export class GlobalStore {
   region: EduRegion = getRegion();
 
   @observable
-  language: LanguageEnum = getLanguage();
+  language: string = getLanguage();
 
   @observable
   theme: FcrMultiThemeMode = getTheme();
@@ -110,7 +110,7 @@ export class GlobalStore {
   }
 
   @action.bound
-  setLanguage(language: LanguageEnum) {
+  setLanguage(language: string) {
     // TODO:language和launchOption最好要拆开
     this.language = language;
     this.launchOption.language = language;
