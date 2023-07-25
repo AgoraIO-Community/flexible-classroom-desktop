@@ -33,7 +33,9 @@ module.exports = [
       '@res': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src/resources'),
     },
     sources: {
+      'agora-rte-sdk/lib': 'src',
       'agora-rte-sdk': 'src',
+      'agora-edu-core/lib': 'src',
       'agora-edu-core': 'src',
       'agora-common-libs/lib': 'src',
       'agora-onlineclass-sdk': 'src',

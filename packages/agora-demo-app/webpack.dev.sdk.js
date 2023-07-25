@@ -40,9 +40,6 @@ const config = {
     alias: {
       '@app': path.resolve(ROOT_PATH, './src'),
       '@ui-kit-utils': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/utils'),
-      'agora-edu-core/lib': path.resolve(ROOT_PATH, '../agora-edu-core/src'),
-      'agora-rte-sdk/lib': path.resolve(ROOT_PATH, '../agora-rte-sdk/src'),
-
       ...devAlias,
     },
   },

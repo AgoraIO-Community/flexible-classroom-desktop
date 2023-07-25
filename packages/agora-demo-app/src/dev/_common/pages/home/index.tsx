@@ -12,9 +12,9 @@ import { MessageDialog } from './message-dialog';
 import './style.css';
 import { transI18n, useI18n } from 'agora-common-libs';
 import { Layout } from '@app/components/layout';
-import { isElectron } from 'agora-onlineclass-sdk';
 import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;

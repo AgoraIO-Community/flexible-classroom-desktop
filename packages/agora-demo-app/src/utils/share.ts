@@ -1,6 +1,5 @@
 import { EduRegion } from 'agora-edu-core';
 import { EduRoleTypeEnum } from 'agora-edu-core';
-import { REACT_APP_SHARE_LINK_PREFIX } from './env';
 
 export type ShareContent = {
   roomId: string;
