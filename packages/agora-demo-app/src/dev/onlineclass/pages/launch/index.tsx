@@ -33,6 +33,7 @@ export const LaunchPage = observer(() => {
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'AgoraChatroomWidget',
+    'FcrCountdownWidget',
   ]);
 
   useEffect(() => {

@@ -162,6 +162,7 @@ export const AgoraOnlineClassApp = () => {
     'AgoraChatroomWidget',
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
+    'FcrCountdownWidget',
   ]);
 
   useEffect(() => {
