@@ -6,13 +6,13 @@ import { RadioIcon } from '@app/components/radio-icon';
 import { RoomTypeCard } from '@app/components/room-type-card';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { ATimePicker } from '@app/components/time-picker';
-import { useJoinRoom, useLangSwitchValue } from '@app/hooks';
+import { useJoinRoom, useLangSwitchValue, useNickNameForm } from '@app/hooks';
 import { useHistoryBack } from '@app/hooks/useHistoryBack';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { Default_Hosting_URL, ErrorCode, messageError } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
-import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
+import type { Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
@@ -32,6 +32,7 @@ import {
 } from './helper';
 import { SdkType } from '@app/type';
 import { AgoraRteMediaPublishState } from 'agora-rte-sdk';
+import { useRoomNameForm } from '@app/hooks/useRoomNameForm';
 export const OnlineclassStudentLimit = 80;
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
@@ -61,6 +62,9 @@ export const CreateRoom = observer(() => {
     tip: '',
   });
 
+  const { rule: nickNameRule } = useNickNameForm();
+  const { rule: roomNameRule } = useRoomNameForm();
+
   const showLivePlaybackOption = false;
 
   const customFormat = useCallback(
@@ -82,6 +86,7 @@ export const CreateRoom = observer(() => {
       link: Default_Hosting_URL,
       endDate: endDate,
       endTime: endDate,
+      nickName: userStore.nickName,
     };
   }, []);
 
@@ -90,6 +95,7 @@ export const CreateRoom = observer(() => {
       'name',
       transI18n('fcr_create_label_room_name_default', { name: userStore.nickName }),
     );
+    form.setFieldValue('nickName', userStore.nickName);
   }, [userStore.nickName]);
 
   const dateLocale = useLangSwitchValue({ zh: locale.zh_CN, en: locale.en_US });
@@ -188,13 +194,12 @@ export const CreateRoom = observer(() => {
 
     form.validateFields().then((data) => {
       setLoading(true);
-      const { date, time, name, endDate, endTime } = data;
+      const { date, time, name, nickName, endDate, endTime } = data;
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
       const endDateTime = combDateTime(endDate, endTime);
 
-      const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
-      const isOnlineclass =
-        roomType === EduRoomTypeEnum.RoomSmallClass && sdkType === SdkType.AgoraOnlineclassSdk;
+      const isProctoring = sdkType === SdkType.AgoraProctorSdk;
+      const isOnlineclass = sdkType === SdkType.AgoraOnlineclassSdk;
       const roomProperties = isProctoring
         ? {
             watermark,
@@ -214,7 +219,7 @@ export const CreateRoom = observer(() => {
       }
       const roleConfigs = isOnlineclass
         ? {
-            [EduRoleTypeEnum.student]: {
+            2: {
               limit: OnlineclassStudentLimit,
               defaultStream: {
                 audioState: AgoraRteMediaPublishState.Published,
@@ -246,10 +251,10 @@ export const CreateRoom = observer(() => {
           if (useCurrentTime) {
             return quickJoinRoom({
               roomId: data.roomId,
-              role: EduRoleTypeEnum.teacher,
-              nickName: userStore.nickName,
+              role: 1,
+              nickName: nickName,
               userId: userStore.userInfo!.companyId,
-              platform: Platform.PC,
+              platform: 'PC' as Platform,
             });
           } else {
             historyBackHandle();
@@ -284,18 +289,10 @@ export const CreateRoom = observer(() => {
         className="create-form header-blank footer-blank"
         form={form}
         initialValues={initialValues}>
-        {/* 课程名称 */}
+        {/* room name */}
         <div className="form-item">
           <div className="label">{transI18n('fcr_create_label_room_name')}</div>
-          <AFormItem
-            name="name"
-            rules={[
-              { required: true, message: transI18n('fcr_create_label_room_name_empty') },
-              {
-                pattern: /^.{0,50}$/,
-                message: transI18n('fcr_create_room_tips_name_rule'),
-              },
-            ]}>
+          <AFormItem name="name" rules={roomNameRule}>
             <AInput
               maxLength={50}
               showCount={{
@@ -306,7 +303,20 @@ export const CreateRoom = observer(() => {
             />
           </AFormItem>
         </div>
-        {/* 课程时间 */}
+        {/* user nickname */}
+        <div className="form-item">
+          <div className="label">{transI18n('fcr_join_room_label_name')}</div>
+          <AFormItem name="nickName" rules={nickNameRule}>
+            <AInput
+              maxLength={20}
+              showCount={{
+                formatter: (args) => (args.maxLength || 20) - args.count,
+              }}
+              className="create-input"
+            />
+          </AFormItem>
+        </div>
+        {/* room duration */}
         <div className="form-item fcr-flex">
           <div className="start-time">
             <div className="label">{transI18n('fcr_create_label_starttime')}</div>
@@ -406,7 +416,7 @@ export const CreateRoom = observer(() => {
           </div>
         </div>
 
-        {/* 班型 */}
+        {/* class mode */}
         <div className="form-item item-mb">
           <div className="label">{transI18n('fcr_create_label_class_mode')}</div>
           <div className="room-type">
@@ -427,8 +437,8 @@ export const CreateRoom = observer(() => {
             })}
           </div>
         </div>
-        {/* 服务类型 */}
-        {roomType === EduRoomTypeEnum.RoomBigClass ? (
+        {/* service type */}
+        {roomType === 2 ? (
           <div className="form-item item-mb ">
             <div className="label">{transI18n('fcr_create_label_latency_type')}</div>
             <div className="service-type">
@@ -449,7 +459,7 @@ export const CreateRoom = observer(() => {
             </div>
           </div>
         ) : null}
-        {/* 更多设置 */}
+        {/* more settings */}
         <div
           className={classNames({
             'form-item item-mb more-settings': 1,

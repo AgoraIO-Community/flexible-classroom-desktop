@@ -24,6 +24,7 @@
   padding-left: 35px;
   font-size: 13px;
   position: relative;
+  cursor: pointer;
 }
 
 .settings-container .left .tab-item.active {

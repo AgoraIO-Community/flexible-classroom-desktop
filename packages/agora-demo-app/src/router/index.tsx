@@ -1,51 +1,41 @@
 import { useMemo } from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, useHistory } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { AuthLayout } from '../layout/auth-layout';
 import { BasicLayout } from '../layout/basic-layout';
-import { routesMap } from './maps';
+import { routesMap, commonRoutesMap } from './maps';
 import { PageRouter } from './type';
-
-const routes: PageRouter[] = [
-  PageRouter.Logout,
-  PageRouter.PretestPage,
-  PageRouter.Setting,
-  PageRouter.OneToOne,
-  PageRouter.MidClass,
-  PageRouter.BigClass,
-  PageRouter.Launch,
-  PageRouter.RecordationSearchPage,
-  PageRouter.Window,
-  PageRouter.ShareLinkPage,
-  PageRouter.FlexH5Home,
-  PageRouter.FlexHome,
-  PageRouter.VocationalHome,
-  PageRouter.VocationalHomeH5Home,
-  PageRouter.H5Index,
-  PageRouter.H5JoinRoom,
-  PageRouter.H5Invite,
-  PageRouter.Index,
-  PageRouter.Detail,
-];
+import { isH5Browser } from '@app/utils/browser';
 
 export const RouteContainer = () => {
+  const history = useHistory();
   const browserPlatformRedirectPaths = useMemo(() => {
     const list = [
-      PageRouter.Index,
-      PageRouter.Welcome,
-      PageRouter.JoinRoom,
-      PageRouter.CreateRoom,
-      PageRouter.Detail,
-      PageRouter.Invite,
-      PageRouter.H5Index,
-      PageRouter.H5JoinRoom,
-      PageRouter.H5Invite,
+      PageRouter.IndexMobileWeb,
+      PageRouter.InviteMobileWeb,
+      PageRouter.JoinRoomMobileWeb,
     ];
     return list.map((v) => routesMap[v].path);
   }, []);
 
+  if (browserPlatformRedirectPaths.includes(location.pathname)) {
+    const isH5 = isH5Browser();
+    // redirect to mobile web page
+    if (isH5 && !location.pathname.match('/mobile')) {
+      const url = window.location.hash.replace('#/', '/mobile/');
+      history.replace(url);
+      return null;
+    }
+    // redirect to desktop web page
+    if (!isH5 && location.pathname.match('/mobile')) {
+      const url = window.location.hash.replace('#/mobile', '');
+      history.replace(url);
+      return null;
+    }
+  }
+
   const authIncludes = useMemo(() => {
-    const list = [PageRouter.JoinRoom, PageRouter.CreateRoom, PageRouter.Invite, PageRouter.Detail];
+    const list = [PageRouter.JoinRoom, PageRouter.CreateRoom, PageRouter.Detail];
     return list.map((v) => routesMap[v].path);
   }, []);
 
@@ -54,9 +44,8 @@ export const RouteContainer = () => {
       <BasicLayout>
         <AuthLayout includes={authIncludes} platformRedirectPaths={browserPlatformRedirectPaths}>
           <Switch>
-            {routes.map((item, index) => {
+            {Object.keys(commonRoutesMap).map((item, index) => {
               const route = routesMap[item];
-              if (!route) return null;
               return (
                 <Route
                   key={item + index}

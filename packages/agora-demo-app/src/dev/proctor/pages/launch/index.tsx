@@ -1,10 +1,11 @@
 import { GlobalStoreContext } from '@app/stores';
-import { AgoraProctorSDK } from 'agora-proctor-sdk';
-import { AgoraEduClassroomEvent } from 'agora-edu-core';
-import { isEmpty } from 'lodash';
+import type { AgoraEduClassroomEvent } from 'agora-edu-core';
+import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useProctorSdk } from '@app/hooks/useSdk';
+import { useProctorWidgets } from '@app/hooks/useWidgets';
 
 export const assetURLs = {
   // virtual background assets
@@ -24,19 +25,19 @@ export const LaunchPage = observer(() => {
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
   const launchOption = homeStore.launchOption;
-  const { setLoading, loading } = useContext(GlobalStoreContext);
-  useEffect(() => {
-    loading && setLoading(false);
-  }, [loading]);
+
+  const { ready: widgetsReady, widgets } = useProctorWidgets(['FcrWebviewWidget']);
+  const { ready: sdkReady, sdk } = useProctorSdk();
+
   useEffect(() => {
     if (isEmpty(launchOption)) {
+      console.log('Invalid launch option, nav to /');
       history.push('/');
       return;
     }
 
-    if (appRef.current) {
-      let unmount = () => {};
-      AgoraProctorSDK.setParameters(
+    if (sdkReady && widgetsReady && sdk && appRef.current) {
+      sdk.setParameters(
         JSON.stringify({
           host: homeStore.launchOption.sdkDomain,
           uiConfigs: homeStore.launchOption.scenes,
@@ -44,17 +45,18 @@ export const LaunchPage = observer(() => {
         }),
       );
 
-      AgoraProctorSDK.config({
-        appId: launchOption.appId,
-        region: launchOption.region ?? 'CN',
+      sdk.config({
+        appId: launchOption.appId ?? '',
+        region: homeStore.region ?? 'CN',
       });
 
-      unmount = AgoraProctorSDK.launch(appRef.current, {
-        ...launchOption,
-        widgets: {},
+      const unmount = sdk.launch(appRef.current, {
+        ...(launchOption as any),
+        language: homeStore.language,
+        widgets,
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
-          if (evt === AgoraEduClassroomEvent.Destroyed) {
+          if (evt === 2) {
             history.push(`/?reason=${type}`);
           }
         },
@@ -62,7 +64,7 @@ export const LaunchPage = observer(() => {
 
       return unmount;
     }
-  }, []);
+  }, [sdkReady, widgetsReady]);
 
   return <div ref={appRef} className="fcr-bg-background fcr-w-full fcr-h-full"></div>;
 });

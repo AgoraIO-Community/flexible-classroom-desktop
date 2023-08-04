@@ -3,6 +3,7 @@ import { getRegion } from '@app/stores/global';
 import { indexUrl, token } from '@app/utils';
 import { AgoraRegion, AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
 import { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 
 type Props = {
   onComplete: () => void;
@@ -10,12 +11,14 @@ type Props = {
 
 export const SSOAuth: FC<Props> = ({ onComplete }) => {
   const [url, setURL] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     let mounted = true;
     UserApi.shared
       .getAuthorizedURL({
-        redirectUrl: indexUrl,
+        // redirectUrl: indexUrl,
+        redirectUrl: `${indexUrl}?from=${encodeURIComponent(window.location.href)}`,
         toRegion: getRegion() === AgoraRegion.CN ? 'cn' : 'en',
       })
       .then((redirectURL) => {
@@ -51,8 +54,8 @@ export const SSOAuth: FC<Props> = ({ onComplete }) => {
   }, []);
 
   return (
-    <div className="fixed z-50 inset-0">
-      <iframe className="w-full h-full" src={url} />
+    <div className="fcr-fixed fcr-z-50 fcr-inset-0">
+      <iframe className="fcr-w-full fcr-h-full" src={url} />
     </div>
   );
 };

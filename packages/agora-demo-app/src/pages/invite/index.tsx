@@ -1,26 +1,19 @@
 import { ModalMethod } from '@app/components/modal';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
-import { GlobalStoreContext, UserStoreContext } from '@app/stores';
-import { ErrorCode, i18nError, messageError } from '@app/utils';
+import { GlobalStoreContext } from '@app/stores';
+import { ErrorCode, i18nError } from '@app/utils';
 import { ShareContent, shareLink } from '@app/utils/share';
-import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 export const InviteRoom = observer(() => {
-  const { setLoading } = useContext(GlobalStoreContext);
   const history = useHistory();
   const location = useLocation();
   const { quickJoinRoom } = useJoinRoom();
-  const userStore = useContext(UserStoreContext);
+  const globalStore = useContext(GlobalStoreContext);
 
-  // 根据分享信息初始化`
   useEffect(() => {
-    if (!userStore.userInfo) {
-      return;
-    }
-
     const data: ShareContent | null = shareLink.parseSearch(location.search);
     if (!data) {
       ModalMethod.confirm({
@@ -32,25 +25,11 @@ export const InviteRoom = observer(() => {
       return;
     }
 
-    setLoading(true);
-    quickJoinRoom({
-      role: data.role || EduRoleTypeEnum.student,
-      roomId: data.roomId,
-      userId: userStore.userInfo.companyId,
-      nickName: userStore.nickName,
-      platform: Platform.PC,
-    })
-      .catch((error) => {
-        console.warn('invite page quickJoinRoom failed. error:%o', error);
-        if (error.code) {
-          messageError(error.code);
-        } else {
-          messageError(ErrorCode.FETCH_ROOM_INFO_FAILED);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (globalStore.loginType === 0) {
+      history.push('/quick-start?roomId=' + data.roomId);
+    } else {
+      history.push('/join-room?roomId=' + data.roomId);
+    }
     return () => {
       ModalMethod.destroyAll();
     };

@@ -1,13 +1,14 @@
 import { RoomInfo, RoomState } from '@app/api/room';
-import { EduRoomTypeEnum } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { FC, useCallback, useMemo } from 'react';
 import './item.css';
 import roomStateLive from '@app/assets/fcr-room-state-live.svg';
+import roomDurationTime from '@app/assets/fcr_time2.svg';
 import { formatRoomID } from '@app/hooks';
 import classNames from 'classnames';
 import { useI18n } from 'agora-common-libs';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import type { EduRoomTypeEnum } from 'agora-edu-core';
 
 type RoomListItemProps = {
   className?: string;
@@ -32,10 +33,10 @@ const roomStateMap = {
 };
 
 export const roomTypeMap = {
-  [EduRoomTypeEnum.Room1v1Class]: 'fcr_home_label_1on1',
-  [EduRoomTypeEnum.RoomSmallClass]: 'fcr_home_label_small_classroom',
-  [EduRoomTypeEnum.RoomBigClass]: 'fcr_home_label_lecture_hall',
-  [EduRoomTypeEnum.RoomProctor]: 'fcr_home_label_proctoring',
+  [0 as EduRoomTypeEnum]: 'fcr_home_label_1on1',
+  [4 as EduRoomTypeEnum]: 'fcr_home_label_small_classroom',
+  [2 as EduRoomTypeEnum]: 'fcr_home_label_lecture_hall',
+  [6 as EduRoomTypeEnum]: 'fcr_home_label_proctoring',
 };
 
 export const RoomListItem: FC<RoomListItemProps> = ({
@@ -47,7 +48,11 @@ export const RoomListItem: FC<RoomListItemProps> = ({
 }) => {
   const transI18n = useI18n();
   const dateStr = useMemo(() => {
-    return `${dayjs(data.startTime).format(Format)}-${dayjs(data.endTime).format('HH:mm')}`;
+    return `${dayjs(data.startTime).format(Format)}`;
+  }, [data]);
+
+  const durationInMins = useMemo(() => {
+    return Math.ceil(dayjs.duration({ seconds: data.duration }).asMinutes());
   }, [data]);
 
   const roomState = useMemo(() => {
@@ -97,6 +102,16 @@ export const RoomListItem: FC<RoomListItemProps> = ({
               })}
             />
             {transI18n(roomStateMap[roomState])}
+          </span>
+          <span className="state">
+            <img
+              src={roomDurationTime}
+              alt="room-time-duration"
+              className={classNames({
+                'time-icon': 1,
+              })}
+            />
+            {transI18n('duration_in_mins', { reason: durationInMins })}
           </span>
           <span className="type">
             <SvgImg

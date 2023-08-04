@@ -1,4 +1,4 @@
-import { EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
+import type { EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 
 export enum RoomState {
   NO_STARTED,
@@ -18,6 +18,8 @@ export type RoomInfo = {
   roleConfig?: Record<number, number>;
   roomProperties: RoomProperties;
   role: EduRoleTypeEnum; // 上次加入房间的角色
+  userName: string;
+  duration: number;
 };
 
 export type RoomListRequest = {
@@ -55,6 +57,11 @@ export type RoomCreateRequest = {
     };
   };
 };
+
+export type RoomCreateNoAuthRequest = RoomCreateRequest & {
+  userUuid: string;
+};
+
 export type RoomCreateResponse = {
   roomId: string;
 };
@@ -63,6 +70,7 @@ export type RoomJoinRequest = {
   roomId: string;
   role: EduRoleTypeEnum;
   userUuid?: string;
+  userName?: string;
 };
 
 export type RoomJoinNoAuthRequest = RoomJoinRequest & {

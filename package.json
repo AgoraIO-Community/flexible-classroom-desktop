@@ -74,7 +74,6 @@
     "bootstrap": "lerna bootstrap",
     "release:electron:mac": "run-s build:demo pack:electron:mac",
     "release:electron:win": "run-s build:demo pack:electron:win",
-    "dev:demo": "run-p dev dev:onlineclass ",
     "dev": "lerna exec --scope=agora-demo-app yarn dev",
     "dev:onlineclass": "lerna exec --scope=agora-demo-app yarn dev:onlineclass",
     "dev:classroom": "lerna exec --scope=agora-demo-app yarn dev:classroom",

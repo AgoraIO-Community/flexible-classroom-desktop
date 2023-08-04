@@ -2,7 +2,8 @@ import { UserApi } from '@app/api';
 import { SSOLogout } from '@app/components/sso-logout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { indexUrl, token } from '@app/utils';
-import { AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
+
 import { FC, useContext, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router';
 
@@ -18,7 +19,7 @@ export const Logout = () => {
     setLogin(false);
   };
 
-  const logout = () => {
+  const logout = async () => {
     setLoading(true);
     return UserApi.shared
       .logoutAccount()
@@ -28,11 +29,7 @@ export const Logout = () => {
       });
   };
 
-  return AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron ? (
-    <LogoutWeb logout={logout} />
-  ) : (
-    <LogoutElectron logout={logout} />
-  );
+  return isElectron() ? <LogoutElectron logout={logout} /> : <LogoutWeb logout={logout} />;
 };
 
 type Props = {

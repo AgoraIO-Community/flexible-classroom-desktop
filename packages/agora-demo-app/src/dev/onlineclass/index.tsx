@@ -7,7 +7,6 @@ import { addResourceBundle } from 'agora-common-libs';
 import './index.css';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
-import React from 'react';
 
 const App = () => {
   return (

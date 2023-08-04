@@ -5,16 +5,6 @@ import { EduRoomTypeEnum } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 
-declare global {
-  interface Window {
-    __launchWindowID: string;
-    __launchLanguage: string;
-    __launchArgs: any;
-    __launchRoomType: string;
-    __launchUIMode: string;
-  }
-}
-
 export const LaunchWindow = observer(() => {
   const domRef = useRef<HTMLDivElement>(null);
   const { theme } = useContext(GlobalStoreContext);

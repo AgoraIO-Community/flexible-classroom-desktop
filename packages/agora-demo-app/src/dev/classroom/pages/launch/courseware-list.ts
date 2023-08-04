@@ -1,4 +1,4 @@
-import { CourseWareList } from 'agora-classroom-sdk';
+import type { CourseWareList } from 'agora-classroom-sdk';
 
 export default [
   {

@@ -16,11 +16,10 @@ import {
   RoomCredentialNoAuthResponse,
   RoomCredentialRequest,
   RoomCredentialResponse,
+  RoomCreateNoAuthRequest,
 } from './type';
 
 export * from './type';
-
-const noAuthCompanyID = 0;
 
 export class RoomAPI {
   private get appDomain() {
@@ -70,6 +69,22 @@ export class RoomAPI {
    */
   public async create(params: RoomCreateRequest) {
     const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms`;
+    return request.post<Response<RoomCreateResponse>>(url, params);
+  }
+
+  /**
+   * 创建教室(免鉴权)
+   * @param params
+   * @returns
+   *
+   **/
+  /** @en
+   * Create room without auth
+   * @param params
+   * @returns
+   */
+  public async createNoAuth(params: RoomCreateNoAuthRequest) {
+    const url = `${this.appDomain}/edu/companys/v1/rooms`;
     return request.post<Response<RoomCreateResponse>>(url, params);
   }
 

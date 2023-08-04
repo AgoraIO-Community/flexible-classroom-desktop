@@ -2,11 +2,9 @@ import { Button } from '@app/components/button';
 import { Field } from '@app/components/form-field';
 import { Layout } from '@app/components/layout';
 import { GlobalStoreContext } from '@app/stores';
+import { SdkType } from '@app/type';
 import { transI18n, useI18n } from 'agora-common-libs';
-import { EduRoleTypeEnum } from 'agora-edu-core';
 import { FC, useContext, useState } from 'react';
-
-declare const DEMO_VERSION: string;
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -77,29 +75,33 @@ const useForm = <T extends Record<string, string>>({
 
 export const LoginForm: FC<{
   onSubmit: (values: any) => void;
-  sceneOptions: { text: string; value: string }[];
+  sceneOptions: { text: string; value: string; sdkType: SdkType }[];
 }> = ({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
   const globalStore = useContext(GlobalStoreContext);
 
   const roleOptions = [
-    { text: t('home.role_teacher'), value: `${EduRoleTypeEnum.teacher}` },
-    { text: t('home.role_student'), value: `${EduRoleTypeEnum.student}` },
-    { text: t('home.role_assistant'), value: `${EduRoleTypeEnum.assistant}` },
-    { text: t('home.role_audience'), value: `${EduRoleTypeEnum.invisible}` },
+    { text: t('home.role_teacher'), value: '1' },
+    { text: t('home.role_student'), value: '2' },
+    { text: t('home.role_assistant'), value: '3' },
+    { text: t('home.role_audience'), value: '0' },
   ];
+
+  const typeOptions = sceneOptions.map(({ text, value, sdkType }) => {
+    return { text, value: `${value}-${sdkType}` };
+  });
 
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roleType, roomType } = launchConfig;
+      const { roomName, userName, roleType, roomType, sdkType } = launchConfig;
 
       return {
-        roomName: window.__launchRoomName || (launchConfig.roomName as string) || '',
-        userName: window.__launchUserName || (launchConfig.userName as string) || '',
+        roomName: window.__launchRoomName || `${roomName ?? ''}`,
+        userName: window.__launchUserName || `${userName ?? ''}`,
         roleType: window.__launchRoleType || `${roleType ?? ''}`,
-        roomType: window.__launchRoomType || `${roomType ?? ''}`,
+        roomType: window.__launchRoomType || `${roomType + '-' + sdkType}`,
       };
     },
     validate: (values, fieldName, onError) => {
@@ -190,7 +192,7 @@ export const LoginForm: FC<{
           width={203}
           value={roomType}
           {...eventHandlers('roomType')}
-          options={sceneOptions}
+          options={typeOptions}
           error={errors.roomType}
         />
         <Field

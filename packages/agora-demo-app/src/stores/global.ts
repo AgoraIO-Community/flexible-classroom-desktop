@@ -1,13 +1,8 @@
-import { getBrowserLanguage } from '@app/utils';
-import {
-  FcrMultiThemeMode,
-  changeLanguage,
-  getLanguage,
-  languageCacheKey,
-} from 'agora-common-libs';
-import { EduRegion } from 'agora-edu-core';
-import { AgoraRegion } from 'agora-rte-sdk';
-import { action, autorun, observable, toJS } from 'mobx';
+import { LS_LANGUAGE, LS_LAUNCH, LS_REGION, LS_THEME, getBrowserLanguage } from '@app/utils';
+import { FcrMultiThemeMode, changeLanguage } from 'agora-common-libs';
+import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
+import type { LanguageEnum } from 'agora-classroom-sdk';
+import { action, observable, toJS, computed, runInAction } from 'mobx';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
 import { SdkType } from '@app/type';
 
@@ -19,70 +14,61 @@ export interface ToastType {
 
 export type GlobalLaunchOption = {
   appId: string;
+  userUuid: string;
+  userName: string;
+  roomUuid: string;
+  roomName: string;
   sdkDomain: string;
-  region: EduRegion;
   scenes?: any;
   themes?: any;
   sdkType: SdkType;
-  language: string;
+  roomType: EduRoomTypeEnum;
+  roleType: EduRoleTypeEnum;
+  returnToPath: string;
+  rtmToken: string;
+  [key: string]: any;
 };
-const LS_REGION = `region`;
-const LS_LAUNCH = `launch_options`;
-const LS_THEME = `theme`;
 
 export const regionByLang = {
-  zh: EduRegion.CN,
-  en: EduRegion.NA,
+  zh: 'CN',
+  en: 'NA',
 };
 
-const regionList = [AgoraRegion.CN, AgoraRegion.NA, AgoraRegion.EU, AgoraRegion.AP];
-
 export const getRegion = (): EduRegion => {
-  return getLSStore(LS_REGION) || regionByLang[getBrowserLanguage()] || EduRegion.NA;
+  return (getLSStore(LS_REGION) || regionByLang[getBrowserLanguage()] || 'NA') as EduRegion;
 };
 
 export const getTheme = (): FcrMultiThemeMode => {
   return getLSStore(LS_THEME) || FcrMultiThemeMode.light;
 };
 
-export const clearHomeOption = () => {
-  clearLSStore(LS_LAUNCH);
-  clearLSStore(LS_REGION);
-  clearLSStore(languageCacheKey);
-  clearLSStore(LS_THEME);
-};
-
 export class GlobalStore {
   @observable
-  launchOption: GlobalLaunchOption = getLSStore<GlobalLaunchOption>(LS_LAUNCH)! || {};
+  launchOption: Partial<GlobalLaunchOption> = {};
 
   @observable
-  region: EduRegion = getRegion();
+  region = 'CN' as EduRegion;
 
   @observable
-  language: string = getLanguage();
+  language = 'zh' as LanguageEnum;
 
   @observable
-  theme: FcrMultiThemeMode = getTheme();
+  theme = {} as FcrMultiThemeMode;
 
   @observable
   toastList: ToastType[] = [];
 
   constructor() {
-    autorun(() => {
-      setLSStore(LS_REGION, this.region);
-    });
+    runInAction(() => {
+      this.launchOption = getLSStore<GlobalLaunchOption>(LS_LAUNCH) || {};
 
-    autorun(() => {
-      setLSStore(LS_THEME, this.theme);
-    });
+      this.language = (getLSStore<string>(LS_LANGUAGE) || getBrowserLanguage()) as LanguageEnum;
 
-    autorun(() => {
+      this.region = getRegion();
+
+      this.theme = getTheme();
+
       changeLanguage(this.language);
-    });
-
-    autorun(() => {
-      setLSStore(LS_LAUNCH, toJS(this.launchOption));
     });
   }
 
@@ -98,47 +84,51 @@ export class GlobalStore {
 
   @action.bound
   setRegion(region: EduRegion) {
-    if (regionList.includes(region)) {
-      this.region = region;
-      this.launchOption.region = region;
-    }
+    console.log('Region changed:', this.region);
+    this.region = region;
+    setLSStore(LS_REGION, this.region);
   }
 
   @action.bound
   setTheme(theme: FcrMultiThemeMode) {
+    console.log('Theme changed:', this.theme);
     this.theme = theme;
+    setLSStore(LS_THEME, this.theme);
   }
 
   @action.bound
-  setLanguage(language: string) {
-    // TODO:language和launchOption最好要拆开
+  setLanguage(language: LanguageEnum) {
+    console.log('Language changed:', this.language);
     this.language = language;
-    this.launchOption.language = language;
+    setLSStore(LS_LANGUAGE, this.language);
+    changeLanguage(this.language);
   }
 
   @action.bound
   setLaunchConfig(payload: GlobalLaunchOption) {
+    console.log('Launch option changed:', this.launchOption);
     this.launchOption = payload;
-    if (payload.region) {
-      this.region = payload.region;
-    }
+    setLSStore(LS_LAUNCH, toJS(this.launchOption));
   }
 
+  @computed
   get launchConfig() {
     const config = toJS(this.launchOption);
-    config.region = this.region;
-    config.language = this.language;
     return config;
   }
 
   @action.bound
   clear() {
-    clearHomeOption();
+    clearLSStore(LS_LAUNCH);
+    clearLSStore(LS_REGION);
+    clearLSStore(LS_LANGUAGE);
+    clearLSStore(LS_THEME);
+
+    this.language = (getLSStore<string>(LS_LANGUAGE) || getBrowserLanguage()) as LanguageEnum;
     this.region = getRegion();
-    this.language = getLanguage();
-    //@ts-ignore
-    this.launchOption = getLSStore(LS_LAUNCH) || {};
     this.theme = getTheme();
+    //@ts-ignore
+    this.launchOption = {};
   }
 
   @observable
@@ -147,6 +137,10 @@ export class GlobalStore {
   @action.bound
   setLoading(loading: boolean) {
     this.loading = loading;
+  }
+
+  get isRegionSet() {
+    return !!getLSStore(LS_REGION);
   }
 }
 

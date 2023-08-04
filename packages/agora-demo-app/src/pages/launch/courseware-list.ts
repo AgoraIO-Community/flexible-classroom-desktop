@@ -1,4 +1,4 @@
-import { CourseWareList } from 'agora-classroom-sdk';
+import type { CourseWareList } from 'agora-classroom-sdk';
 
 export default [
   {
@@ -167,7 +167,7 @@ export default [
       prefix: 'https://convertcdn.netless.link/dynamicConvert',
     },
   },
-  
+
   {
     resourceName: 'youtube - RTE2022',
     resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
@@ -186,5 +186,4 @@ export default [
     updateTime: Date.now(),
     initOpen: false,
   },
-  
 ] as CourseWareList;

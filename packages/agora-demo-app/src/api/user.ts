@@ -17,9 +17,6 @@ export type UserInfo = {
   accountType: string;
   displayName: string;
   email: string;
-  profiled: string;
-  companyCountry: string;
-  isInfoMissing: string;
 };
 
 type GetAuthorizedURLRequest = {

@@ -2,8 +2,8 @@ import { NavPageLayout } from '@app/layout/nav-page-layout';
 import { useState, FC, CSSProperties, useEffect, useMemo } from 'react';
 import './index.css';
 import EmptyImg from '@app/assets/welcome-empty-list.png';
-
 import {
+  AcademicMessage,
   AcademicMessageKeyEnum,
   AttendanceTracking,
   EngagementTracking,
@@ -69,7 +69,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
           <div className="fcr-mr-6 fcr-flex fcr-items-center">
             {node}
             <div className="fcr-border fcr-border-solid fcr-rounded-xl fcr-px-2 fcr-relative fcr-scale-75	fcr-transform fcr-font-black">
-              {roomHistory?.academicMessageDTO[node.key as string]?.length || 0}
+              {roomHistory?.academicMessageDTO[node.key as keyof AcademicMessage]?.length || 0}
             </div>
           </div>
         );
@@ -130,9 +130,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
             </div>{' '}
             <div className="fcr-font-black fcr-flex fcr-items-center fcr-transform fcr-scale-90">
               <span className="fcr-w-8">
-                <SvgImg type={SvgIconEnum.ROOM_LABEL} size={20} colors={{ color: '#000' }}>
-                  {' '}
-                </SvgImg>
+                <SvgImg type={SvgIconEnum.ROOM_LABEL} size={20} colors={{ color: '#000' }} />
               </span>
               <span>{roomInfo && transI18n(roomTypeMap[roomInfo.roomType])}</span>
             </div>{' '}

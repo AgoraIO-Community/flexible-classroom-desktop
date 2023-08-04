@@ -4,6 +4,17 @@
 
 .create-form .form-item:first-child {
   margin-top: 15px;
+  width: 340px;
+  display: inline-block;
+}
+
+.create-form .form-item:nth-child(2) {
+  width: calc(100% - 340px - 16px);
+  margin-left: 16px;
+  display: inline-block;
+}
+.create-form .form-item:nth-child(2) .ant-input-show-count-suffix {
+  display: none;
 }
 
 .create-form .item-mb {

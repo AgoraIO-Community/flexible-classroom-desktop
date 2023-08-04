@@ -1,42 +1,31 @@
 import { transI18n } from 'agora-common-libs';
-import { action, autorun, observable, runInAction } from 'mobx';
+import { action, observable } from 'mobx';
 import {
   roomApi,
+  RoomCreateNoAuthRequest,
   RoomCreateRequest,
   RoomInfo,
   RoomJoinNoAuthRequest,
   RoomJoinRequest,
 } from '../api/room';
 import { ErrorCode, messageError } from '../utils/error';
-import { getLSStore, LS_LAST_JOINED_ROOM_ID, setLSStore } from '../utils/local-storage';
 import { ToastType } from './global';
 
 export class RoomStore {
-  constructor() {
-    runInAction(() => {
-      this.lastJoinedRoomId = getLSStore<string>(LS_LAST_JOINED_ROOM_ID) || '';
-    });
-
-    autorun(() => {
-      setLSStore(LS_LAST_JOINED_ROOM_ID, this.lastJoinedRoomId);
-    });
-  }
   @observable
-  public fetching = false;
+  fetching = false;
 
   @observable
-  public total = 0;
+  total = 0;
 
   @observable
-  public nextId: string | undefined = undefined;
-
-  @observable
-  public lastJoinedRoomId = '';
-
-  public rooms = observable.map<string, RoomInfo>();
+  nextId: string | undefined = undefined;
 
   @observable
   roomToastList: ToastType[] = [];
+
+  rooms = observable.map<string, RoomInfo>();
+
   @action.bound
   addRoomToast(toast: ToastType) {
     this.roomToastList.push(toast);
@@ -48,32 +37,14 @@ export class RoomStore {
   }
 
   @action.bound
-  private setTotal(total: number): void {
-    this.total = total;
-  }
-
-  @action.bound
-  public setLastJoinedRoomId(id: string): void {
-    this.lastJoinedRoomId = id;
-  }
-
-  @action.bound
-  private setNextId(nextId: string | undefined): void {
-    this.nextId = nextId;
-  }
-  @action.bound
-  private setFetching(fetching: boolean): void {
-    this.fetching = fetching;
-  }
-  @action.bound
-  public async clearRooms() {
+  async clearRooms() {
     this.rooms.clear();
     this.setNextId(undefined);
     this.setTotal(0);
   }
 
   @action.bound
-  public async createRoom(params: RoomCreateRequest) {
+  async createRoom(params: RoomCreateRequest) {
     const {
       data: { data },
     } = await roomApi.create(params);
@@ -91,7 +62,15 @@ export class RoomStore {
   }
 
   @action.bound
-  public async refreshRoomList() {
+  async createRoomNoAuth(params: RoomCreateNoAuthRequest) {
+    const {
+      data: { data },
+    } = await roomApi.createNoAuth(params);
+    return data;
+  }
+
+  @action.bound
+  async refreshRoomList() {
     this.setFetching(true);
     try {
       const {
@@ -113,7 +92,7 @@ export class RoomStore {
   }
 
   @action.bound
-  public async fetchMoreRoomList() {
+  async fetchMoreRoomList() {
     this.setFetching(true);
     try {
       const {
@@ -134,7 +113,7 @@ export class RoomStore {
   }
 
   @action.bound
-  public updateRoom(roomId: string, roomInfo: RoomInfo): void {
+  updateRoom(roomId: string, roomInfo: RoomInfo): void {
     const room = this.rooms.get(roomId);
     if (room) {
       const keys = Object.keys(roomInfo) as unknown as Array<keyof RoomInfo>;
@@ -149,7 +128,7 @@ export class RoomStore {
   }
 
   @action.bound
-  public async joinRoom(params: RoomJoinRequest) {
+  async joinRoom(params: RoomJoinRequest) {
     return roomApi.join(params).catch((error) => {
       console.warn('join room api failed. error:%o', error);
       if (error?.response?.data?.code === ErrorCode.COURSE_HAS_ENDED) {
@@ -162,7 +141,7 @@ export class RoomStore {
   }
 
   @action.bound
-  public async joinRoomNoAuth(params: RoomJoinNoAuthRequest) {
+  async joinRoomNoAuth(params: RoomJoinNoAuthRequest) {
     return roomApi.joinNoAuth(params).catch((error) => {
       console.warn('join room no auth api failed. error:%o', error);
       if (error?.response?.data?.code === ErrorCode.COURSE_HAS_ENDED) {
@@ -172,6 +151,20 @@ export class RoomStore {
       }
       return error;
     });
+  }
+
+  @action.bound
+  private setTotal(total: number): void {
+    this.total = total;
+  }
+
+  @action.bound
+  private setNextId(nextId: string | undefined): void {
+    this.nextId = nextId;
+  }
+  @action.bound
+  private setFetching(fetching: boolean): void {
+    this.fetching = fetching;
   }
 }
 

@@ -1,6 +1,6 @@
 import { getRegion } from '@app/stores/global';
 import { request } from '@app/utils/request';
-import { EduRegion } from 'agora-edu-core';
+import type { EduRegion } from 'agora-edu-core';
 import { getApiDomain, getAppDomain } from '../utils';
 
 export class HomeApi {
@@ -17,14 +17,20 @@ export class HomeApi {
     return data.data;
   }
 
-  public async getBuilderResource(
+  async getBuilderResource(
     companyId: string,
     projectId: string,
-    region: EduRegion = EduRegion.CN,
+    region = 'CN' as EduRegion,
   ): Promise<any> {
     const { data } = await request.get(
       `${this.appDomain(region)}/builder/companys/${companyId}/v1/projects/${projectId}/preview`,
     );
+
+    return data;
+  }
+
+  async preflight(): Promise<any> {
+    const { data } = await request.get(`${this.apiDomain}/edu/v1/preflight`);
 
     return data;
   }

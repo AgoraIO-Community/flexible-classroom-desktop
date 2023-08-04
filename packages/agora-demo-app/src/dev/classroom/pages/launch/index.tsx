@@ -1,23 +1,13 @@
 import { GlobalStoreContext } from '@app/stores';
-import { AgoraEduSDK } from 'agora-classroom-sdk';
-import { AgoraEduClassroomEvent } from 'agora-edu-core';
-import { isEmpty } from 'lodash';
+import type { AgoraEduClassroomEvent } from 'agora-edu-core';
+import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { getAssetURL, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
-
-import { AgoraCountdown } from 'agora-plugin-gallery/gallery/counter';
-import { AgoraHXChatWidget } from 'agora-plugin-gallery/gallery/hx-chat';
-import { AgoraPolling } from 'agora-plugin-gallery/gallery/vote';
-import { AgoraSelector } from 'agora-plugin-gallery/gallery/answer';
-import { FcrBoardWidget } from 'agora-plugin-gallery/gallery/whiteboard';
-import { FcrStreamMediaPlayerWidget } from 'agora-plugin-gallery/gallery/stream-media';
-import { FcrWatermarkWidget } from 'agora-plugin-gallery/gallery/watermark';
-import { FcrWebviewWidget } from 'agora-plugin-gallery/gallery/webview';
-
-import { AgoraWidgetBase } from 'agora-common-libs';
+import { useClassroomWidgets } from '@app/hooks/useWidgets';
+import { useEduSdk } from '@app/hooks/useSdk';
 
 export const assetURLs = {
   // virtual background assets
@@ -32,28 +22,34 @@ export const assetURLs = {
   virtualBackground9: 'effect/default9.mp4',
 };
 
-const getWidgetName = (widgetClass: unknown) => {
-  const Clz = widgetClass as typeof AgoraWidgetBase;
-  return Object.create(Clz.prototype).widgetName;
-};
-
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
   const launchOption = homeStore.launchOption;
-  const { setLoading, loading } = useContext(GlobalStoreContext);
-  useEffect(() => {
-    loading && setLoading(false);
-  }, [loading]);
+
+  const { ready: widgetsReady, widgets } = useClassroomWidgets([
+    'AgoraCountdown',
+    'AgoraHXChatWidget',
+    'AgoraPolling',
+    'AgoraSelector',
+    'FcrBoardWidget',
+    'FcrStreamMediaPlayerWidget',
+    'FcrWatermarkWidget',
+    'FcrWebviewWidget',
+  ]);
+
+  const { ready: sdkReady, sdk } = useEduSdk();
+
   useEffect(() => {
     if (isEmpty(launchOption)) {
+      console.log('Invalid launch option, nav to /');
       history.push('/');
       return;
     }
 
-    if (appRef.current) {
-      AgoraEduSDK.setParameters(
+    if (sdkReady && widgetsReady && sdk && appRef.current) {
+      sdk.setParameters(
         JSON.stringify({
           host: homeStore.launchOption.sdkDomain,
           uiConfigs: homeStore.launchOption.scenes,
@@ -61,9 +57,9 @@ export const LaunchPage = observer(() => {
         }),
       );
 
-      AgoraEduSDK.config({
-        appId: launchOption.appId,
-        region: launchOption.region ?? 'CN',
+      sdk.config({
+        appId: launchOption.appId ?? '',
+        region: homeStore.region ?? 'CN',
       });
 
       const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
@@ -83,29 +79,19 @@ export const LaunchPage = observer(() => {
         getAssetURL(assetURLs.virtualBackground9),
       ];
 
-      const widgets = {
-        [getWidgetName(AgoraHXChatWidget)]: AgoraHXChatWidget,
-        [getWidgetName(AgoraCountdown)]: AgoraCountdown,
-        [getWidgetName(AgoraSelector)]: AgoraSelector,
-        [getWidgetName(AgoraPolling)]: AgoraPolling,
-        [getWidgetName(FcrBoardWidget)]: FcrBoardWidget,
-        [getWidgetName(FcrWebviewWidget)]: FcrWebviewWidget,
-        [getWidgetName(FcrStreamMediaPlayerWidget)]: FcrStreamMediaPlayerWidget,
-        [getWidgetName(FcrWatermarkWidget)]: FcrWatermarkWidget,
-      };
-
-      const unmount = AgoraEduSDK.launch(appRef.current, {
-        ...launchOption,
+      const unmount = sdk.launch(appRef.current, {
+        ...(launchOption as any),
         // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
         recordUrl,
         courseWareList,
         uiMode: homeStore.theme,
+        language: homeStore.language,
         virtualBackgroundImages,
         virtualBackgroundVideos,
         widgets,
-        listener: (evt: AgoraEduClassroomEvent, type) => {
+        listener: (evt: AgoraEduClassroomEvent, type: string) => {
           console.log('launch#listener ', evt);
-          if (evt === AgoraEduClassroomEvent.Destroyed) {
+          if (evt === 2) {
             history.push(`/?reason=${type}`);
           }
         },
@@ -113,7 +99,7 @@ export const LaunchPage = observer(() => {
 
       return unmount;
     }
-  }, []);
+  }, [sdkReady, widgetsReady]);
 
   return <div ref={appRef} className="fcr-bg-background fcr-w-full fcr-h-full"></div>;
 });

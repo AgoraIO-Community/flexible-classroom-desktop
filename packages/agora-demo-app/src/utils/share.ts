@@ -1,5 +1,5 @@
-import { EduRegion } from 'agora-edu-core';
-import { EduRoleTypeEnum } from 'agora-edu-core';
+import type { EduRegion } from 'agora-edu-core';
+import type { EduRoleTypeEnum } from 'agora-edu-core';
 
 export type ShareContent = {
   roomId: string;
@@ -64,3 +64,5 @@ export class ShareLink {
 }
 
 export const shareLink = new ShareLink();
+//@ts-ignore
+window.__parseSearch = shareLink.parseSearch.bind(shareLink);

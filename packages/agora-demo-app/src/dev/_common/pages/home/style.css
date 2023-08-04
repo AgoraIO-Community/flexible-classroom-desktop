@@ -28,10 +28,10 @@
 }
 
 .form-submit-button {
-  background: #030303;
-  color: #fff;
-  font-size: 20px;
-  height: 56px;
+  background: #030303 !important;
+  color: #fff !important;
+  font-size: 20px !important;
+  height: 56px !important;
 }
 
 .form-header {

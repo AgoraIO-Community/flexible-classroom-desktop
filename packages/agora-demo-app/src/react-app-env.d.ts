@@ -8,3 +8,46 @@ declare module '*.png';
 declare module '*.gif';
 declare module '*.jpg';
 declare const DEMO_VERSION: string;
+
+interface Window {
+  __launchRegion: string;
+  __launchLanguage: string;
+  __launchRoomName: string;
+  __launchUserName: string;
+  __launchRoleType: string;
+  __launchRoomType: string;
+  __launchCompanyId: string;
+  __launchProjectId: string;
+  __launchWindowID: string;
+  __launchArgs: any;
+  __launchUIMode: string;
+}
+
+declare module 'agora-plugin-gallery/onlineclass' {
+  declare class FcrWebviewWidget extends (await import('agora-common-libs'))
+    .AgoraOnlineclassSDKWidgetBase {}
+  declare class FcrBoardWidgetV2 extends (await import('agora-common-libs'))
+    .AgoraOnlineclassSDKWidgetBase {}
+  declare class FcrPollingWidget extends (await import('agora-common-libs'))
+    .AgoraOnlineclassSDKWidgetBase {}
+  declare class FcrChatroom extends (await import('agora-common-libs'))
+    .AgoraOnlineclassSDKWidgetBase {}
+  declare class FcrStreamMediaPlayerWidget extends (await import('agora-common-libs'))
+    .AgoraOnlineclassSDKWidgetBase {}
+}
+
+declare module 'agora-plugin-gallery/classroom' {
+  declare class FcrWebviewWidget extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class FcrBoardWidget extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class AgoraSelector extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class AgoraCountdown extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class AgoraHXChatWidget extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class FcrStreamMediaPlayerWidget extends (await import('agora-common-libs'))
+    .AgoraWidgetBase {}
+  declare class AgoraPolling extends (await import('agora-common-libs')).AgoraWidgetBase {}
+  declare class FcrWatermarkWidget extends (await import('agora-common-libs')).AgoraWidgetBase {}
+}
+
+declare module 'agora-plugin-gallery/proctor' {
+  declare class FcrWebviewWidget extends (await import('agora-common-libs')).AgoraWidgetBase {}
+}

@@ -113,6 +113,11 @@
   width: 16px;
 }
 
+.room-item-card .footer .state .time-icon {
+  margin-right: 3px;
+  width: 16px;
+}
+
 .room-item-card .footer .type .label {
   margin-right: 1px;
 }

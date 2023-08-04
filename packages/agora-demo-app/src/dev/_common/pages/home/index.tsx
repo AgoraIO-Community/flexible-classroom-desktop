@@ -1,6 +1,5 @@
 import { roomApi } from '@app/api';
 import { GlobalStoreContext } from '@app/stores';
-import { getBrowserLanguage } from '@app/utils';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import md5 from 'js-md5';
 import { FC, Fragment, useContext, useState } from 'react';
@@ -15,16 +14,15 @@ import { Layout } from '@app/components/layout';
 import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
+import { SdkType } from '@app/type';
+import split from 'lodash/split';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
-const regionByLang = {
-  zh: 'CN',
-  en: 'NA',
-};
-
-export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ scenes }) => {
+export const HomePage: FC<{ scenes: { text: string; value: string; sdkType: SdkType }[] }> = ({
+  scenes,
+}) => {
   const globalStore = useContext(GlobalStoreContext);
 
   const history = useHistory();
@@ -49,12 +47,12 @@ export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ sc
     if (loading) {
       return;
     }
-    const language = globalStore.language || getBrowserLanguage();
-    const region = globalStore.region || regionByLang[getBrowserLanguage()];
+    const language = globalStore.language || 'zh';
+    const region = globalStore.region || 'CN';
 
     const userRole = parseInt(roleType);
 
-    const roomType = parseInt(rt);
+    const [roomType, sdkType] = split(rt, '-');
 
     const userUuid = `${md5(userName)}${userRole}`;
 
@@ -86,7 +84,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ sc
         userUuid: `${userUuid}`,
         rtmToken: token,
         roomUuid: `${roomUuid}`,
-        roomType: roomType,
+        roomType: parseInt(roomType),
         roomName: `${roomName}`,
         userName: userName,
         roleType: userRole,
@@ -95,6 +93,8 @@ export const HomePage: FC<{ scenes: { text: string; value: string }[] }> = ({ sc
         latencyLevel: 2,
         shareUrl,
         recordUrl: `https://solutions-apaas.agora.io/apaas/record/dev/2.8.21/record_page.html`,
+        sdkType: sdkType as SdkType,
+        returnToPath: '/flex',
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;

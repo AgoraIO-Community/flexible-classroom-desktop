@@ -7,7 +7,7 @@ import './index.css';
 import { RadioGroup } from '@app/components/radio';
 
 const languageOptions = [
-  // { label: '中文', value: 'zh' },
+  { label: '中文', value: 'zh' },
   { label: 'English', value: 'en' },
 ];
 

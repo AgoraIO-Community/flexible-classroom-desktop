@@ -7,12 +7,12 @@ import { useNickNameForm } from '@app/hooks/useNickNameForm';
 import { formatRoomID, useRoomIdForm } from '@app/hooks/useRoomIdForm';
 import { NavFooter, NavPageLayout } from '@app/layout/nav-page-layout';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
-import { ErrorCode, messageError } from '@app/utils';
+import { ErrorCode, messageError, parseHashUrlQuery } from '@app/utils';
 import { useI18n } from 'agora-common-libs';
-import { EduRoleTypeEnum, Platform } from 'agora-edu-core';
+import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import './index.css';
 type JoinFormValue = {
   roomId: string;
@@ -25,17 +25,17 @@ export const JoinRoom = observer(() => {
   const roles = [
     {
       label: transI18n('fcr_join_room_option_teacher'),
-      value: EduRoleTypeEnum.teacher,
+      value: 1 as EduRoleTypeEnum,
       backgroundColor: '#5765FF',
     },
     {
       label: transI18n('fcr_join_room_option_student'),
-      value: EduRoleTypeEnum.student,
+      value: 2 as EduRoleTypeEnum,
       backgroundColor: '#F5655C',
     },
     {
       label: transI18n('fcr_join_room_option_audience'),
-      value: EduRoleTypeEnum.assistant,
+      value: 3 as EduRoleTypeEnum,
       backgroundColor: '#83BC53',
     },
   ];
@@ -49,27 +49,30 @@ export const JoinRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
   const historyBackHandle = useHistoryBack();
 
+  const params = useMemo(() => {
+    return parseHashUrlQuery(window.location.hash);
+  }, []);
+
   useEffect(() => {
-    form.setFieldValue('roomId', formatRoomID(roomStore.lastJoinedRoomId));
+    form.setFieldValue('roomId', formatRoomID(params.roomId ?? ''));
     form.setFieldValue('nickName', userStore.nickName);
   }, []);
 
   const onSubmit = () => {
     form.validateFields().then((data) => {
       const roomId = getUnformattedValue(data.roomId);
-      roomId && roomStore.setLastJoinedRoomId(roomId);
-      userStore.setNickName(data.nickName);
 
       if (!userStore.userInfo) {
         return;
       }
 
       setLoading(true);
+
       quickJoinRoom({
         role,
         roomId,
         nickName: data.nickName,
-        platform: Platform.PC,
+        platform: 'PC' as Platform,
         userId: userStore.userInfo.companyId,
       })
         .then(() => {
@@ -120,7 +123,7 @@ export const JoinRoom = observer(() => {
         <div className="form-item">
           <div className="label">{transI18n('fcr_join_room_label_name')}</div>
           <AFormItem name="nickName" rules={nickNameRule}>
-            <AInput maxLength={50} />
+            <AInput maxLength={20} />
           </AFormItem>
         </div>
         <div className="form-item col-start-1 col-end-3">

@@ -33,6 +33,7 @@ request.interceptors.response.use(
     if (error.response.status === 401) {
       const { retryTimes = 0 } = error.config;
       if (retryTimes < maxRetryTimes && token.refreshToken) {
+        console.log('try to refresh token');
         return UserApi.shared
           .refreshToken(token.refreshToken)
           .then((response) => {
@@ -54,13 +55,19 @@ request.interceptors.response.use(
             });
           })
           .catch((refreshTokenError) => {
+            console.error('refreshTokenError', refreshTokenError);
             // refreshToken 接口报错，直接登出。
-            history.pushState({}, '', `${indexUrl}#/logout`);
-            return refreshTokenError;
+            window.location.replace(`${indexUrl}#/logout`);
           });
       } else {
-        history.pushState({}, '', `${indexUrl}#/logout`);
-        return error;
+        console.log(
+          'cannot refresh token, retryTimes:',
+          retryTimes,
+          ', refreshToken:',
+          token.refreshToken,
+        );
+        window.location.replace(`${indexUrl}#/logout`);
+        return Promise.reject(error);
       }
     }
     return Promise.reject(error);

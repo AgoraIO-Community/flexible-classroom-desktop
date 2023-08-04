@@ -1,6 +1,6 @@
 import { SdkType } from '@app/type';
 import { EduRoomTypeEnum } from 'agora-edu-core';
-import { AgoraLatencyLevel, AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
+import type { AgoraLatencyLevel } from 'agora-rte-sdk';
 import premiumIcon from '@app/assets/service-type/fcr_premium.png';
 import standardIcon from '@app/assets/service-type/fcr_standard.png';
 import dayjs, { Dayjs } from 'dayjs';
@@ -50,13 +50,13 @@ export const serviceTypeOptions = [
   {
     label: 'fcr_create_label_service_type_RTC',
     description: 'fcr_create_label_latency_RTC',
-    value: AgoraLatencyLevel.UltraLow,
+    value: 2 as AgoraLatencyLevel,
     icon: premiumIcon,
   },
   {
     label: 'fcr_create_label_service_type_Standard',
     description: 'fcr_create_label_latency_Standard',
-    value: AgoraLatencyLevel.Low,
+    value: 1 as AgoraLatencyLevel,
     icon: standardIcon,
   },
   // {
@@ -105,4 +105,5 @@ export type CreateFormValue = {
   link: string;
   endDate: Dayjs;
   endTime: Dayjs;
+  nickName: string;
 };
