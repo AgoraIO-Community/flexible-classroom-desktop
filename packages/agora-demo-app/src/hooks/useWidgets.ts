@@ -95,6 +95,7 @@ export const useOnlineclassWidgets = (
     | 'FcrPolling'
     | 'AgoraChatroomWidget'
     | 'FcrCountdownWidget'
+    | 'FcrPopupQuizWidget'
   )[],
 ) => {
   const [ready, setReady] = useState(false);
@@ -103,6 +104,10 @@ export const useOnlineclassWidgets = (
     const load = async () => {
       const widget = await import(/* webpackPrefetch: true */ 'agora-plugin-gallery/onlineclass');
       const widgets: Record<string, typeof AgoraOnlineclassSDKWidgetBase> = {};
+      if (ids.includes('FcrPopupQuizWidget')) {
+        const { FcrPopupQuizWidget } = widget;
+        widgets[getWidgetName(FcrPopupQuizWidget)] = FcrPopupQuizWidget;
+      }
       if (ids.includes('FcrCountdownWidget')) {
         const { FcrCountdownWidget } = widget;
         widgets[getWidgetName(FcrCountdownWidget)] = FcrCountdownWidget;

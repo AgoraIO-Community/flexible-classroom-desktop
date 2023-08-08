@@ -35,6 +35,7 @@ export const LaunchPage = observer(() => {
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrCountdownWidget',
+    'FcrPopupQuizWidget'
   ]);
 
   const { ready: sdkReady, sdk } = useOnlineclassSdk();

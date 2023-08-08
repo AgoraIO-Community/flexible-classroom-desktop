@@ -184,6 +184,7 @@ export const AgoraOnlineClassApp = () => {
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrCountdownWidget',
+    'FcrPopupQuizWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useOnlineclassSdk();
