@@ -23,6 +23,7 @@ import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { useI18n } from 'agora-common-libs';
 import { AButton } from '@app/components/button';
 import { UserAgreement } from '@app/components/user-agreement';
+import { Consult } from '../quick-start/consult';
 
 export const Welcome = observer(() => {
   const history = useHistory();
@@ -204,6 +205,8 @@ export const Welcome = observer(() => {
         footer={false}>
         <Share data={shareRoomInfo} />
       </AModal>
+      {/* product manager introduction */}
+      <Consult />
     </div>
   );
 });

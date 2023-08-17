@@ -10,12 +10,13 @@ import { SdkType } from '@app/type';
 import { useContext, useMemo, useRef, useState } from 'react';
 import { LoginButon, SettingButton } from './menu-buttons';
 import { Consult } from './consult';
-import { UserStoreContext } from '@app/stores';
+import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { parseHashUrlQuery } from '@app/utils/url';
 import classNames from 'classnames';
 
 export const QuickStart = () => {
   const t = useI18n();
+  const homeStore = useContext(GlobalStoreContext);
   const agreementRef = useRef<{ check: () => void }>(null);
   const [quickTipVisible, setQuickTipVisible] = useState(true);
   const history = useHistory();
@@ -96,7 +97,7 @@ export const QuickStart = () => {
   });
 
   return (
-    <div className="fcr-quick-start">
+    <div className={`fcr-quick-start fcr-${homeStore.language}`}>
       {/* header */}
       <div className="fcr-quick-header">
         <div className="fcr-logo">
@@ -124,11 +125,10 @@ export const QuickStart = () => {
           <div className="fcr-quick-tip__close" onClick={() => setQuickTipVisible(false)}>
             <SvgImg type={SvgIconEnum.CLOSE} size={10.6} />
           </div>
-          Quick start can‘t save your course information and recordings. If you want to experience
-          the full demo functionality, please register for a Agora account first.
+          {t('fcr_login_free_tips_login_guide')}
           <p>
-            <a className="fcr-quick-tip__sign-in-link" href="/#/">
-              Sign in
+            <a className="fcr-quick-tip__sign-in-link" href="/#/" onClick={toCreateRoomPage}>
+              {t('fcr_login_free_tips_login_guide_sign_in')}
             </a>
           </p>
         </div>

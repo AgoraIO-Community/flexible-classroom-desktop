@@ -2,7 +2,7 @@ export const zhCn = {
 
   //****************** 登录页 login ******************
   fcr_login_label_welcome: '欢迎使用灵动课堂',
-  fcr_login_button_welcome: '登录/注册',
+  fcr_login_button_welcome: '登录 / 注册',
   fcr_login_button_create_room: '创建课堂',
   fcr_login_button_join_room: '加入课堂',
 
@@ -29,14 +29,16 @@ export const zhCn = {
   fcr_login_free_label_nick_name: '昵称',
   fcr_login_free_label_duration_time: '课程时间',
   fcr_login_free_tips_room_name: '请输入你的房间名',
-  fcr_login_free_tips_nick_name: '请输入你的昵称',
-  fcr_login_free_tips_duration_time: '默认30分钟',
+  fcr_login_free_tips_nick_name: '怎么称呼您？',
+  fcr_login_free_tips_duration_time: '30分钟',
 
   //xxx灵动课堂用户协议,yyy灵动课堂隐私政策,zzz 海外灵动课堂用户协议
   fcr_login_free_option_read_agree: '我已阅读并同意{reason1}和{reason2}',
 
   //xxx灵动课堂用户协议,yyy灵动课堂隐私政策,zzz 海外灵动课堂用户协议
   fcr_login_free_tips_read_agree: '请阅读并同意{reason1}和{reason2}',
+  fcr_login_free_tips_read_agree_mobile: '请勾选并同意',
+  fcr_login_free_tips_login_guide_title: '体验完整Demo功能',
   fcr_login_free_tips_login_guide: '快速体验无法保存你的课程信息和录像。如果你想体验完整的Demo功能，请先注册Agora账号。',
   fcr_login_free_tips_login_guide_sign_in: '登录',
   fcr_login_free_option_create: '创建课堂',
@@ -49,14 +51,16 @@ export const zhCn = {
   fcr_login_free_class_mode_option_lecture_hall: '大班课课堂',
   fcr_login_free_class_mode_option_1on1: '1对1课堂',
   fcr_login_free_class_mode_option_proctoring: '在线监考',
+  fcr_login_free_class_mode_label_choose: '请选择一个教学模式',
   fcr_login_free_label_room_id: '房间号',
+  fcr_login_free_label_role: '角色',
   fcr_login_free_tips_room_id: '请输入你的房间号',
   fcr_login_free_role_option_student: '学生',
   fcr_login_free_role_option_teacher: '老师',
   fcr_login_free_role_option_audience: '观众',
   fcr_login_free_button_create: '快速创建课堂',
   fcr_login_free_button_join: '快速加入课堂',
-  fcr_login_free_button_login_sign: '登录/注册',
+  fcr_login_free_button_login_sign: '登录 / 注册',
   fcr_login_free_button_setting: '设置',
 
   //****************** 帮助 help ******************
@@ -76,8 +80,9 @@ export const zhCn = {
   fcr_feedback_label_fcr: '灵动课堂',
   fcr_feedback_label_pm: '产品经理',
   fcr_feedback_label_content1: '如果你想深入了解我们的产品，或在使用过程中有什么问题和建议？欢迎直接添加我的联系方式进行反馈—>',
-  fcr_feedback_label_content2: '如无法添加，你也可以通过邮件联系我们:',
-  fcr_feedback_label_email: 'apaas_edu_public@agora.io',
+  fcr_feedback_label_content2: '如无法添加，你也可以通过已下方式联系我们:',
+  fcr_feedback_label_email: '企业邮箱',
   fcr_feedback_label_wecom: '企业微信',
-  fcr_feedback_label_facebook: 'Facebook',
+  fcr_feedback_label_messenger: 'Messenger',
+  fcr_feedback_label_slack: 'Slack',
 }

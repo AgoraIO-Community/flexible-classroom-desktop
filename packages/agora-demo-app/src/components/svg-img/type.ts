@@ -22,4 +22,7 @@ export enum SvgIconEnum {
   FCR_QUESTION = 'fcr_question',
   MORE = 'more',
   FCR_GEAR = 'fcr_gear',
+  EMAIL = 'email',
+  FACEBOOK_MESSENGER = 'facebook-messenger',
+  SLACK = 'slack',
 }

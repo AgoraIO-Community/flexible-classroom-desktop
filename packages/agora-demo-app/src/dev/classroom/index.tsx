@@ -4,6 +4,7 @@ import { HomePage } from './pages/home';
 import { LaunchPage } from './pages/launch';
 import { StoreProvider } from '../../stores';
 import { addResourceBundle } from 'agora-common-libs';
+import './index.css';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
 

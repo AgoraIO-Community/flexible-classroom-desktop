@@ -1,4 +1,5 @@
 import Modal, { ModalProps } from 'antd/lib/modal';
+import 'antd/lib/modal/style/css';
 import React, { PropsWithChildren } from 'react';
 export type AModalProps = Pick<
   ModalProps,

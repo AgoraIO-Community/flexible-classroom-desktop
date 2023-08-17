@@ -96,14 +96,36 @@ const PMCard: FC<{ onClose: () => void }> = ({ onClose }) => {
           </div>
           <div className="fcr-quick-intro__info2">{t('fcr_feedback_label_content1')}</div>
           <div className="fcr-quick-intro__info3">{t('fcr_feedback_label_content2')}</div>
-          <div className="fcr-quick-intro__info4">
-            <span>E-mail:</span> <span>{t('fcr_feedback_label_email')}</span>
-          </div>
-        </div>
-        <div className="fcr-quick-intro__right">
-          <div className="fcr-quick-intro__qrcode-wrap">
-            <img src={require('../../assets/pm-qrcode.png')} />
-            <span>{t('fcr_feedback_label_wecom')}</span>
+          <div className="fcr-quick-intro__contact">
+            <div className="fcr-quick-intro__left">
+              <div className="fcr-quick-intro__info4">
+                <div className="fcr-quick-intro__contact-icon">
+                  <SvgImg type={SvgIconEnum.EMAIL} size={18} />
+                </div>
+                <span>{t('fcr_feedback_label_email')}:</span>
+                <span>apaas_edu_public@agora.io</span>
+              </div>
+              <div className="fcr-quick-intro__info4">
+                <div className="fcr-quick-intro__contact-icon">
+                  <SvgImg type={SvgIconEnum.SLACK} size={18} />
+                </div>
+                <span>{t('fcr_feedback_label_slack')}:</span>
+                <span>apaas_edu_public@agora.io</span>
+              </div>
+              <div className="fcr-quick-intro__info4">
+                <div className="fcr-quick-intro__contact-icon">
+                  <SvgImg type={SvgIconEnum.FACEBOOK_MESSENGER} size={18} />
+                </div>
+                <span>{t('fcr_feedback_label_messenger')}:</span>
+                <span>apaas_edu_public@agora.io</span>
+              </div>
+            </div>
+            <div className="fcr-quick-intro__right">
+              <div className="fcr-quick-intro__qrcode-wrap">
+                <img src={require('../../assets/pm-qrcode.png')} />
+                <span>{t('fcr_feedback_label_wecom')}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

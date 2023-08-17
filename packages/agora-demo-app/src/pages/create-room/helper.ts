@@ -1,50 +1,52 @@
 import { SdkType } from '@app/type';
 import { EduRoomTypeEnum } from 'agora-edu-core';
-import type { AgoraLatencyLevel } from 'agora-rte-sdk';
 import premiumIcon from '@app/assets/service-type/fcr_premium.png';
 import standardIcon from '@app/assets/service-type/fcr_standard.png';
 import dayjs, { Dayjs } from 'dayjs';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
+import { AgoraLatencyLevel } from 'agora-rte-sdk/lib/type';
 
 export const roomTypeOptions = [
-  // {
-  //   label: 'fcr_h5create_label_small_classroom',
-  //   description: 'fcr_create_label_small_classroom_description',
-  //   value: EduRoomTypeEnum.RoomSmallClass,
-  //   sdkType: SdkType.AgoraEduSdk,
-  //   className: 'card-purple',
-  // },
-  // {
-  //   label: 'fcr_h5create_label_lecture_hall',
-  //   description: 'fcr_create_label_lecture_hall_description',
-  //   value: EduRoomTypeEnum.RoomBigClass,
-  //   sdkType: SdkType.AgoraEduSdk,
-  //   className: 'card-red',
-  // },
-  // {
-  //   label: 'fcr_h5create_label_1on1',
-  //   description: 'fcr_create_label_1on1_description',
-  //   value: EduRoomTypeEnum.Room1v1Class,
-  //   sdkType: SdkType.AgoraEduSdk,
-  //   className: 'card-green',
-  // },
   {
+    label: 'fcr_h5create_label_small_classroom',
+    description: 'fcr_create_label_small_classroom_description',
+    value: EduRoomTypeEnum.RoomSmallClass,
+    sdkType: SdkType.AgoraEduSdk,
+    className: 'card-purple',
+  },
+  {
+    label: 'fcr_h5create_label_lecture_hall',
+    description: 'fcr_create_label_lecture_hall_description',
+    value: EduRoomTypeEnum.RoomBigClass,
+    sdkType: SdkType.AgoraEduSdk,
+    className: 'card-red',
+  },
+  {
+    label: 'fcr_h5create_label_1on1',
+    description: 'fcr_create_label_1on1_description',
+    value: EduRoomTypeEnum.Room1v1Class,
+    sdkType: SdkType.AgoraEduSdk,
+    className: 'card-green',
+  },
+];
+
+if (!isElectron()) {
+  roomTypeOptions.push({
+    label: 'fcr_home_label_proctoring',
+    description: 'fcr_home_label_proctoring',
+    value: EduRoomTypeEnum.RoomProctor,
+    sdkType: SdkType.AgoraProctorSdk,
+    className: 'card-green',
+  });
+
+  roomTypeOptions.push({
     label: 'fcr_h5create_label_small_onlineclass',
     description: 'fcr_create_label_small_onlineclass_description',
     value: EduRoomTypeEnum.RoomSmallClass,
     sdkType: SdkType.AgoraOnlineclassSdk,
     className: 'card-purple',
-  },
-];
-
-// if (AgoraRteEngineConfig.platform !== AgoraRteRuntimePlatform.Electron) {
-//   roomTypeOptions.push({
-//     label: 'fcr_home_label_proctoring',
-//     description: 'fcr_home_label_proctoring',
-//     value: EduRoomTypeEnum.RoomProctor,
-//     sdkType: SdkType.AgoraProctorSdk,
-//     className: 'card-green',
-//   });
-// }
+  });
+}
 
 export const serviceTypeOptions = [
   {

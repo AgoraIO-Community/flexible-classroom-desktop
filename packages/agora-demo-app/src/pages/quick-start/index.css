@@ -1,9 +1,15 @@
 .fcr-quick-start {
   height: 100%;
-  background-image: url(../../assets/quick-bg.png);
   background-position: right 0% top 0%;
   background-repeat: no-repeat;
-  background-size: 50% 100%;
+  background-size: auto 100%;
+}
+
+.fcr-quick-start.fcr-en {
+  background-image: url(../../assets/home-background-en.png);
+}
+.fcr-quick-start.fcr-zh {
+  background-image: url(../../assets/home-background-zh.png);
 }
 .fcr-quick-header {
   display: flex;
@@ -109,7 +115,7 @@
 }
 
 .fcr-quick-menu__login-button {
-  background: rgba(66, 98, 255, 1);
+  background: rgba(0, 0, 0, 1);
   color: #fff;
 }
 .fcr-quick-menu__setting-button {
@@ -194,8 +200,8 @@
 
 .fcr-quick-intro {
   position: absolute;
-  right: 10px;
-  bottom: 30px;
+  right: 20px;
+  bottom: 31px;
   border-radius: 50px;
   background: #fff;
   padding: 6px 6px;
@@ -221,9 +227,10 @@
   right: 70px;
   bottom: 0px;
   padding: 40px 35px;
-  background-image: url(../../assets/pm-card-bg.png);
+  background-image: url(../../assets//background.png);
   background-repeat: no-repeat;
   background-position: bottom 0 right 0;
+  background-size: 100% 80%;
   border: 1px solid rgba(227, 231, 239, 1);
   background-color: rgba(254, 254, 255, 0.95);
 }
@@ -265,27 +272,6 @@
   color: rgba(117, 117, 117, 1);
 }
 
-.fcr-quick-intro__info4 {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 240px;
-  height: 39px;
-  border-radius: 8px;
-  background: rgba(0, 0, 0, 1);
-}
-.fcr-quick-intro__info4 span:first-child {
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.8);
-}
-.fcr-quick-intro__info4 span:last-child {
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 1);
-  margin-left: 20px;
-}
-
 .fcr-quick-intro__info1__name {
   display: flex;
   flex-direction: column;
@@ -312,10 +298,11 @@
 
 .fcr-quick-intro__qrcode-wrap {
   margin-left: 8px;
-  padding: 12px;
   border: 0.5px solid rgba(227, 231, 239, 1);
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  padding: 11px 16px 7px 16px;
 }
 
 .fcr-quick-intro__avatar-wrap {
@@ -333,9 +320,8 @@
 }
 
 .fcr-quick-intro__qrcode-wrap img {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 15px;
+  width: 100px;
+  height: 100px;
 }
 
 .fcr-quick-intro__pm-card .fcr-quick-tip__close {
@@ -357,6 +343,10 @@
 
 .fcr-quick-intro__part:nth-child(1) {
   padding: 20px 8px;
+}
+
+.fcr-quick-intro__part:nth-child(1) div {
+  overflow-wrap: break-word;
 }
 
 .fcr-quick-intro__part:hover {
@@ -394,4 +384,49 @@
 
 .fcr-quick-tooltip-overlay .rc-tooltip-arrow {
   border-left-color: #fff !important;
+}
+
+.fcr-quick-intro__contact {
+  display: flex;
+}
+
+.fcr-quick-intro__contact .fcr-quick-intro__info4 {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  border-radius: 8px;
+}
+
+.fcr-quick-intro__contact .fcr-quick-intro__info4:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.fcr-quick-intro__contact .fcr-quick-intro__info4:nth-child(1) {
+  background-color: rgba(66, 98, 255, 1);
+}
+.fcr-quick-intro__contact .fcr-quick-intro__info4:nth-child(2) {
+  background-color: rgba(77, 26, 81, 1);
+}
+.fcr-quick-intro__contact .fcr-quick-intro__info4:nth-child(3) {
+  background-color: rgba(93, 96, 243, 1);
+}
+
+.fcr-quick-intro__contact .fcr-quick-intro__info4 span:nth-child(2) {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+}
+.fcr-quick-intro__contact .fcr-quick-intro__info4 span:last-child {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+  margin-left: 9px;
+}
+
+.fcr-quick-intro__contact-icon {
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px;
+  margin-left: 4px;
+  margin-right: 4px;
 }

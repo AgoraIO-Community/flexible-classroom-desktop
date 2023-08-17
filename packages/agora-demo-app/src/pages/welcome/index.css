@@ -176,3 +176,7 @@
   background: #0056fd;
   color: #ffffff;
 }
+
+.welcome-container .ant-list-split .ant-list-item {
+  border-bottom: 0;
+}

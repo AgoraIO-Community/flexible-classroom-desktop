@@ -31,13 +31,12 @@ export const SettingsButton = () => {
         onMouseLeave={handleLeave}
         style={{ background: backgroundColor, transition: 'all .2s' }}
         onClick={handleClick}>
-        <div className="flex items-center">
-          <span className="ml-1" style={{ color: textColor }}>
+        <div className="fcr-flex fcr-items-center">
+          <span className="fcr-ml-1" style={{ color: textColor }}>
             {t('fcr_settings_setting')}
           </span>
         </div>
       </Button>
-
       <AModal
         className="setting-modal-container"
         open={settingModal}

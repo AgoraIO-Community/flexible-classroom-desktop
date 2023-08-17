@@ -119,10 +119,10 @@ export const JoinForm: FC<{
           if (!values.userName) {
             return onError('userName', transI18n('home_form_error_user_name_empty'));
           }
-          if (values.userName.length < 0 || values.userName.length > 20) {
+          if (values.userName.length < 2 || values.userName.length > 20) {
             return onError(
               'userName',
-              transI18n('home_form_error_user_name_limit', { min: 0, max: 20 }),
+              transI18n('home_form_error_user_name_limit', { min: 2, max: 20 }),
             );
           }
           break;
@@ -204,7 +204,7 @@ export const JoinForm: FC<{
           size="lg"
           type={'primary'}
           onClick={handleSubmit}>
-          {'Quick Join Room'}
+          {t('fcr_login_free_button_join')}
         </Button>
       </Layout>
     </form>

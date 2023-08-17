@@ -122,10 +122,10 @@ export const CreateForm: FC<{
           if (!values.userName) {
             return onError('userName', transI18n('home_form_error_user_name_empty'));
           }
-          if (values.userName.length < 0 || values.userName.length > 20) {
+          if (values.userName.length < 2 || values.userName.length > 20) {
             return onError(
               'userName',
-              transI18n('home_form_error_user_name_limit', { min: 0, max: 20 }),
+              transI18n('home_form_error_user_name_limit', { min: 2, max: 20 }),
             );
           }
           break;
@@ -139,7 +139,6 @@ export const CreateForm: FC<{
   const { roomName, userName, roomType } = values;
 
   const handleSubmit = () => {
-    console.log('values', values);
     if (validate() && onSubmit()) {
       const [roomTypeStr, sdkType] = roomType.split('-');
       const role = 1;
@@ -231,7 +230,7 @@ export const CreateForm: FC<{
           size="lg"
           type={'primary'}
           onClick={handleSubmit}>
-          {'Quick Create Room'}
+          {t('fcr_login_free_button_create')}
         </Button>
       </Layout>
     </form>

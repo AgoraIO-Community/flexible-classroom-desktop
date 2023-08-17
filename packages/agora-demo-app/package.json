@@ -46,9 +46,6 @@
       }
     ],
     "asar": true,
-    "asarUnpack": [
-      "node_modules/agora-rdc-core/**/*"
-    ],
     "afterPack": "after-pack.js",
     "extraMetadata": {
       "main": "build/index.js"
@@ -116,5 +113,18 @@
     "agora-proctor-sdk": "~1.0.0",
     "agora-common-libs": "~2.9.0",
     "agora-plugin-gallery": "1.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.3%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      ">0.3%",
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

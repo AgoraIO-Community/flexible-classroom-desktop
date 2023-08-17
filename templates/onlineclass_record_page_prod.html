@@ -63,12 +63,6 @@
       maxResolutionLevel: 1,
     };
 
-    AgoraOnlineclassSDK.setParameters(
-      JSON.stringify({
-        host: `https://api.sd-rtn.com`,
-      }),
-    );
-
     AgoraOnlineclassSDK.launch(document.querySelector('#root'), {
       region: region ? region : 'CN',
 
