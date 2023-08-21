@@ -246,6 +246,7 @@ export const CreateRoom = observer(() => {
           widgets,
           roleConfigs,
           processes,
+          userName: nickName,
         })
         .then((data) => {
           if (useCurrentTime) {

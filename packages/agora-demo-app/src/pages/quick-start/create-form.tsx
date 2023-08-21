@@ -98,11 +98,19 @@ export const CreateForm: FC<{
       const launchConfig = globalStore.launchConfig;
       const { roomName, userName, roomType, sdkType } = launchConfig;
 
+      let comboType =
+        window.__launchRoomType || (roomType && sdkType ? `${roomType + '-' + sdkType}` : '');
+
+      const exists = typeOptions.some(({ value }) => value === comboType);
+
+      if (!exists) {
+        comboType = '';
+      }
+
       return {
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
         userName: window.__launchUserName || `${userName ?? nickName ?? ''}`,
-        roomType:
-          window.__launchRoomType || (roomType && sdkType ? `${roomType + '-' + sdkType}` : ''),
+        roomType: comboType,
       };
     },
     validate: (values, fieldName, onError) => {

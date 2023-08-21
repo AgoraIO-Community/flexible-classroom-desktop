@@ -39,6 +39,7 @@ export type RoomCreateRequest = {
   roomType: EduRoomTypeEnum;
   startTime: number;
   endTime: number;
+  userName?: string;
   roomProperties?: RoomProperties;
   widgets?: Record<string, any>;
   processes?: {
