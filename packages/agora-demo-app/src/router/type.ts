@@ -13,4 +13,5 @@ export enum PageRouter {
   FlexHome = 'flex_home',
   RecordationSearchPage = 'recordation_search',
   QuickJoin = 'quick_join',
+  Window = 'window',
 }

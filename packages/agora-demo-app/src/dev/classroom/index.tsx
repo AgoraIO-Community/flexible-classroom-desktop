@@ -2,6 +2,7 @@ import { render } from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/home';
 import { LaunchPage } from './pages/launch';
+import { LaunchWindowPage } from './pages/launch-window';
 import { StoreProvider } from '../../stores';
 import { addResourceBundle } from 'agora-common-libs';
 import './index.css';
@@ -13,6 +14,11 @@ const App = () => {
     <StoreProvider>
       <HashRouter>
         <Switch>
+          <Route
+            key={'/window'}
+            path={'/window'}
+            component={() => <LaunchWindowPage></LaunchWindowPage>}
+          />
           <Route key={'/launch'} path={'/launch'} component={() => <LaunchPage></LaunchPage>} />
           <Route key={'/'} path={'/'} component={() => <HomePage></HomePage>} />
         </Switch>

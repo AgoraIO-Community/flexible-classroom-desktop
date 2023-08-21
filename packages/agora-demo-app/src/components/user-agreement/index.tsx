@@ -43,7 +43,7 @@ export const UserAgreement = observer(
     const cnMap = useLangSwitchValue({
       en: {
         agreement: (
-          <div style={{ marginLeft: 8 }} onClick={() => setChecked(!checked)}>
+          <div style={{ marginLeft: 8, lineHeight: '22px' }} onClick={() => setChecked(!checked)}>
             I have read and agree&nbsp;
             <a rel="noreferrer" href={cnPrivacyPolicyURL} target="_blank">
               privacy policy
@@ -58,7 +58,7 @@ export const UserAgreement = observer(
       },
       zh: {
         agreement: (
-          <div style={{ marginLeft: 8 }} onClick={handleCheck}>
+          <div style={{ marginLeft: 8, lineHeight: '22px' }} onClick={handleCheck}>
             同意
             <a rel="noreferrer" href={cnPrivacyPolicyURL} target="_blank">
               《灵动课堂用户服务协议》

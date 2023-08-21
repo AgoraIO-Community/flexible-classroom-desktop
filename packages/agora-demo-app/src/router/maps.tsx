@@ -12,6 +12,7 @@ import { RouteComponentProps } from 'react-router';
 import { Detail } from '../pages/detail';
 // import { FlexPage } from '../pages/flex';
 import { QuickStart } from '../pages/quick-start';
+import { LaunchWindowPage } from '../pages/window';
 
 export type AppRouteComponent = {
   path: string;
@@ -76,6 +77,12 @@ export const commonRoutesMap = {
   [PageRouter.InviteMobileWeb]: {
     path: '/mobile/invite',
     component: () => <H5Invite />,
+    exact: true,
+  },
+  // Extra window
+  [PageRouter.Window]: {
+    path: '/window',
+    component: () => <LaunchWindowPage />,
     exact: true,
   },
   // Animation container

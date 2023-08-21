@@ -50,7 +50,6 @@
 
 .fcr-quick-form p:first-child {
   color: rgba(3, 3, 3, 1);
-  font-family: Inter;
   font-size: 28px;
   font-weight: 800;
   line-height: 28px;
@@ -70,8 +69,8 @@
   background: linear-gradient(96.12deg, #f2fbfb 1.72%, #f7f8fc 100%);
   border-radius: 12px;
   padding: 16px;
-  left: 11px;
-  bottom: 17px;
+  right: 40px;
+  top: 78px;
 }
 
 .fcr-quick-tip__close {
@@ -105,22 +104,27 @@
   display: flex;
 }
 .fcr-quick-header__buttons button {
-  margin-right: 10px;
-  width: 177px;
-  height: 42px;
-  padding: 9px 24px 9px 24px;
+  margin-right: 12px;
+  height: 36px;
+  padding: 9px 20px 9px 20px;
   border-radius: 46px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
 }
 
 .fcr-quick-menu__login-button {
-  background: rgba(0, 0, 0, 1);
-  color: #fff;
+  background-color: rgba(0, 0, 0, 1) !important;
+  color: #fff !important;
+  font-weight: 700 !important;
 }
 .fcr-quick-menu__setting-button {
-  background: #fff;
-  color: #000;
+  background: #fff !important;
+  color: #000 !important;
+  font-weight: 400 !important;
+}
+
+.fcr-quick-menu__setting-button .fcr-button-icon-wrapper {
+  height: 16px;
 }
 
 .fcr-quick-form .ant-tabs {
@@ -347,6 +351,7 @@
 
 .fcr-quick-intro__part:nth-child(1) div {
   overflow-wrap: break-word;
+  line-height: 1.3;
 }
 
 .fcr-quick-intro__part:hover {
@@ -373,11 +378,12 @@
 
 .fcr-quick-intro__panel-title {
   font-size: 16px;
+  line-height: 1;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 .fcr-quick-intro__panel-content {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   color: rgba(117, 117, 117, 1);
 }

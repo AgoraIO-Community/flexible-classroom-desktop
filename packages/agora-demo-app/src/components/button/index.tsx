@@ -68,7 +68,7 @@ export const Button: FC<ButtonProps> = ({
     <button ref={buttonRef} className={`${cls} group`} disabled={disabled} {...restProps}>
       {animate ? <div className="fcr-btn-ripple" ref={rippleRef}></div> : null}
       <div className="fcr-absolute fcr-top-0 fcr-left-0 fcr-w-full fcr-h-full fcr-z-0 fcr-bg-black fcr-opacity-0 group-hover:fcr-opacity-10 focus:fcr-opacity-20"></div>
-      <div className="fcr-flex fcr-items-center fcr-justify-center">
+      <div className="fcr-flex fcr-items-center fcr-justify-center fcr-button-icon-wrapper">
         {icon}
         <span style={{ position: 'relative', zIndex: 1 }}>{children}</span>
       </div>

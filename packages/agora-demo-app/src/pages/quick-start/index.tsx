@@ -1,3 +1,6 @@
+import { useContext, useMemo, useRef, useState } from 'react';
+import classNames from 'classnames';
+import { observer } from 'mobx-react';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { ATabs } from '@app/components/tabs';
 import { useHistory } from 'react-router';
@@ -7,14 +10,12 @@ import { JoinForm } from './join-form';
 import { UserAgreement } from '@app/components/user-agreement';
 import { useI18n } from 'agora-common-libs';
 import { SdkType } from '@app/type';
-import { useContext, useMemo, useRef, useState } from 'react';
 import { LoginButon, SettingButton } from './menu-buttons';
 import { Consult } from './consult';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
 import { parseHashUrlQuery } from '@app/utils/url';
-import classNames from 'classnames';
 
-export const QuickStart = () => {
+export const QuickStart = observer(() => {
   const t = useI18n();
   const homeStore = useContext(GlobalStoreContext);
   const agreementRef = useRef<{ check: () => void }>(null);
@@ -126,15 +127,15 @@ export const QuickStart = () => {
             <SvgImg type={SvgIconEnum.CLOSE} size={10.6} />
           </div>
           {t('fcr_login_free_tips_login_guide')}
-          <p>
+          {/* <p>
             <a className="fcr-quick-tip__sign-in-link" href="/#/" onClick={toCreateRoomPage}>
               {t('fcr_login_free_tips_login_guide_sign_in')}
             </a>
-          </p>
+          </p> */}
         </div>
       )}
       {/* product manager introduction */}
       <Consult />
     </div>
   );
-};
+});
