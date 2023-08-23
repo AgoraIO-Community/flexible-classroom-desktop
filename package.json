@@ -86,9 +86,9 @@
     "pack:classroom:sdk": "lerna exec --scope=agora-classroom-sdk npm run pack:npm",
     "pack:proctor:sdk": "lerna exec --scope=agora-proctor-sdk npm run pack:npm",
     "pack:onlineclass:sdk": "lerna exec --scope=agora-onlineclass-sdk npm run pack:npm",
-    "pack:classroom:plugin": "lerna exec --scope=agora-plugin-gallery npm run ci:build",
-    "pack:proctor:plugin": "lerna exec --scope=agora-plugin-gallery npm run ci:build",
-    "pack:onlineclass:plugin": "lerna exec --scope=agora-plugin-gallery npm run ci:build",
+    "pack:classroom:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:classroom",
+    "pack:proctor:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:proctor",
+    "pack:onlineclass:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:onlineclass",
     "ci:build": "lerna exec --scope=agora-demo-app npm run ci:build",
     "install:packages": "node ./scripts/install",
     "prepare": "husky install"
