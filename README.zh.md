@@ -4,9 +4,10 @@
 
 ## 拉取子模块
 ```bash
-git submodule update --init --recursive packages/agora-classroom-sdk 
-git submodule update --init --recursive packages/agora-proctor-sdk 
+git submodule update --init --recursive packages/agora-classroom-sdk
+git submodule update --init --recursive packages/agora-proctor-sdk
 git submodule update --init --recursive packages/agora-plugin-gallery
+git submodule update --init --recursive packages/agora-scenario-ui-kit
 ```
 
 ## 安装依赖
@@ -53,3 +54,10 @@ npm run pack:electron:win
 # 构建 Mac 客户端（需要先执行 npm run build:demo 构建 Web 资源）
 npm run pack:electron:mac
 ```
+
+## 常见问题
+#### 打包electron客户端时若因网络问题出现electron下载失败，设置以下环境变量，设置使用淘宝镜像下载electron二进制包
+|Key| Value|
+|----|--------|
+|ELECTRON_MIRROR|https://npmmirror.com/mirrors/electron/|
+|ELECTRON_CUSTOM_DIR|12.0.0|

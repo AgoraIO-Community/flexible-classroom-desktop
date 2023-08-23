@@ -15,9 +15,17 @@ async function fetchOpenSourcePackages() {
     await initSubModules('packages/agora-proctor-sdk');
     process.stdout.write(chalk.blue('\r\tFetched agora-proctor-sdk.'));
     console.log('');
+    process.stdout.write(chalk.blue('\tFetching agora-onlineclass-sdk...'));
+    await initSubModules('packages/agora-onlineclass-sdk');
+    process.stdout.write(chalk.blue('\r\tFetched agora-onlineclass-sdk.'));
+    console.log('');
     process.stdout.write(chalk.blue('\tFetching agora-plugin-gallery...'));
     await initSubModules('packages/agora-plugin-gallery');
     process.stdout.write(chalk.blue('\r\tFetched agora-plugin-gallery.'));
+    console.log('');
+    process.stdout.write(chalk.blue('\tFetching agora-scenario-ui-kit...'));
+    await initSubModules('packages/agora-scenario-ui-kit');
+    process.stdout.write(chalk.blue('\r\tFetched agora-scenario-ui-kit.'));
     console.log('');
     console.log(chalk.yellow(']'));
   } catch (e) {
@@ -49,11 +57,11 @@ async function buildPackages() {
     console.log(chalk.yellowBright('Building packages...'));
     const lernaPath = path.resolve(__dirname, '..', 'node_modules', '.bin', 'lerna');
 
-    await exec(`${lernaPath} exec --scope=agora-rte-sdk 'yarn build && yarn build:types'`);
+    await exec(`${lernaPath} exec --scope=agora-rte-sdk 'yarn ci:build'`);
     await exec(
-      `${lernaPath} exec --scope=agora-edu-core 'yarn proto && yarn build && yarn build:types'`,
+      `${lernaPath} exec --scope=agora-edu-core 'yarn ci:build'`,
     );
-    await exec(`${lernaPath} exec --scope=agora-common-libs 'yarn build && yarn build:types'`);
+    await exec(`${lernaPath} exec --scope=agora-common-libs 'yarn ci:build'`);
   } catch (e) {
     console.error(e);
     console.log(chalk.red('Failed to build packages, please try again.'));
