@@ -12,9 +12,10 @@
   width: calc(100% - 340px - 16px);
   margin-left: 16px;
   display: inline-block;
+  max-width: 340px;
 }
 .create-form .form-item:nth-child(2) .ant-input-show-count-suffix {
-  display: none;
+  /* display: none; */
 }
 
 .create-form .item-mb {

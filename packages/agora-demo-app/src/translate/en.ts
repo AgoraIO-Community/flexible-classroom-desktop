@@ -134,7 +134,7 @@ export default {
   fcr_share_modal_button_share: 'share',
   fcr_join_room_label_join: 'Join Room',
   fcr_join_room_label_RoomID: 'Room ID',
-  fcr_join_room_label_name: 'Name',
+  fcr_join_room_label_name: 'Your Name',
   fcr_join_room_option_teacher: 'Teacher',
   fcr_join_room_option_student: 'Student',
   fcr_join_room_button_confirm: 'Join',

@@ -51,12 +51,18 @@
 }
 
 .room-item-card .info .header .date::after {
-  /* fcr-light-web-line 0 */
-  background-color: #dbdfec;
   content: '';
   height: 8px;
   width: 1px;
   margin: 0 15px;
+}
+
+.room-item-card.live .date::after {
+  background-color: #dbdfec;
+}
+
+.room-item-card.over .date::after {
+  background-color: rgba(0, 0, 0, 0.85);
 }
 
 .room-item-card .info .header .id {

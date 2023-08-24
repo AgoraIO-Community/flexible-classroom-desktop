@@ -9,7 +9,14 @@ export const Consult = () => {
   const [pmCardVisible, setPmCardVisible] = useState(false);
 
   const handleOpenLink = () => {
-    window.open('https://doc.shengwang.cn/doc/flexible-classroom/homepage', '_blank');
+    window.open('https://doc.shengwang.cn/api-ref/flexible-classroom/web/overview', '_blank');
+  };
+
+  const handleOpenDownloadLink = () => {
+    window.open(
+      'https://doc.shengwang.cn/doc/flexible-classroom/web/resources#%E4%B8%8B%E8%BD%BD-demo',
+      '_blank',
+    );
   };
 
   return (
@@ -40,7 +47,7 @@ export const Consult = () => {
             content={t('fcr_help_tips_download_content')}
           />
         }>
-        <div className="fcr-quick-intro__part" onClick={handleOpenLink}>
+        <div className="fcr-quick-intro__part" onClick={handleOpenDownloadLink}>
           <SvgImg
             type={SvgIconEnum.FCR_DOWNLOADAPP}
             size={32}
