@@ -60,4 +60,4 @@ npm run pack:electron:mac
 |Key| Value|
 |----|--------|
 |ELECTRON_MIRROR|https://npmmirror.com/mirrors/electron/|
-|ELECTRON_CUSTOM_DIR|12.0.0|
+|ELECTRON_CUSTOM_DIR|v12.0.0|
