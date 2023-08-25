@@ -1,110 +1,110 @@
 <!DOCTYPE html>
 <!-- templates -->
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cloud Recording</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cloud Recording</title>
-</head>
-
-<body>
-  <style>
-    #root {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
-  <div id="root"></div>
-  <script src="./onlineclass_sdk.bundle.js"></script>
-  <script src="./onlineclass.widget.js"></script>
-
-  <script type="text/javascript">
-    function useParams(location) {
-      const searchString = location.href.split('?').pop();
-      const urlParams = new URLSearchParams(location.href.split('?').pop());
-      const audienceParams = {};
-      for (let key of urlParams.keys()) {
-        audienceParams[key] = urlParams.get(key);
+  <body>
+    <style>
+      #root {
+        width: 100vw;
+        height: 100vh;
       }
-      console.log('urlParams ', audienceParams);
-      return audienceParams;
-    }
+    </style>
+    <div id="root"></div>
+    <script src="./onlineclass_sdk.bundle.js"></script>
+    <script src="./onlineclass.widget.js"></script>
 
-    const {
-      userUuid,
-      userName,
-      roomUuid,
-      roleType,
-      roomType,
-      roomName,
-      pretest,
-      rtmUid,
-      rtmToken,
-      language,
-      startTime,
-      duration,
-      recordUrl,
-      appId,
-      userRole,
-      translateLanguage,
-      region,
-      minFPS = 1,
-      maxFPS = 5,
-      resolution = 0.8,
-    } = useParams(window.location);
-
-    const recordOptions = {
-      minFPS,
-      maxFPS,
-      resolution,
-      autoResolution: false,
-      autoFPS: false,
-      maxResolutionLevel: 1,
-    };
-
-    AgoraOnlineclassSDK.setParameters(
-      JSON.stringify({
-        host: `https://api-test.agora.io/preview`,
-      }),
-    );
-
-    AgoraOnlineclassSDK.launch(document.querySelector('#root'), {
-      region: region ? region : 'CN',
-
-      userUuid,
-      userName,
-      roomUuid,
-      roleType: Number(roleType),
-      roomType: Number(roomType),
-      roomName,
-      pretest: false,
-      rtmUid,
-      token: rtmToken,
-      language,
-      startTime,
-      duration,
-      recordUrl,
-      appId,
-      userRole,
-      courseWareList: [],
-      recordOptions,
-      widgets: {
-        "easemobIM": FcrChatroom,
-        "netlessBoard": FcrBoardWidgetV2,
-        "poll": FcrPollingWidget,
-        "mediaPlayer": FcrStreamMediaPlayerWidget,
-        "webView": FcrWebviewWidget,
-      },
-      listener: (evt, args) => {
-        console.log('connected to classroom', evt, args);
-        if (evt === 1) {
-          // do something when classroom is connected
-          AgoraOnlineclassSDK.setRecordReady();
+    <script type="text/javascript">
+      function useParams(location) {
+        const searchString = location.href.split('?').pop();
+        const urlParams = new URLSearchParams(location.href.split('?').pop());
+        const audienceParams = {};
+        for (let key of urlParams.keys()) {
+          audienceParams[key] = urlParams.get(key);
         }
-      },
-    });
-  </script>
-</body>
+        console.log('urlParams ', audienceParams);
+        return audienceParams;
+      }
 
+      const {
+        userUuid,
+        userName,
+        roomUuid,
+        roleType,
+        roomType,
+        roomName,
+        pretest,
+        rtmUid,
+        rtmToken,
+        language,
+        startTime,
+        duration,
+        recordUrl,
+        appId,
+        userRole,
+        translateLanguage,
+        region,
+        minFPS = 1,
+        maxFPS = 5,
+        resolution = 0.8,
+      } = useParams(window.location);
+
+      const recordOptions = {
+        minFPS,
+        maxFPS,
+        resolution,
+        autoResolution: false,
+        autoFPS: false,
+        maxResolutionLevel: 1,
+      };
+
+      AgoraOnlineclassSDK.setParameters(
+        JSON.stringify({
+          host: `https://api-test.agora.io/preview`,
+        }),
+      );
+
+      AgoraOnlineclassSDK.launch(document.querySelector('#root'), {
+        region: region ? region : 'CN',
+
+        userUuid,
+        userName,
+        roomUuid,
+        roleType: Number(roleType),
+        roomType: Number(roomType),
+        roomName,
+        pretest: false,
+        rtmUid,
+        token: rtmToken,
+        language,
+        startTime,
+        duration,
+        recordUrl,
+        appId,
+        userRole,
+        courseWareList: [],
+        recordOptions,
+        widgets: {
+          easemobIM: FcrChatroom,
+          netlessBoard: FcrBoardWidgetV2,
+          poll: FcrPollingWidget,
+          mediaPlayer: FcrStreamMediaPlayerWidget,
+          webView: FcrWebviewWidget,
+          countdownTimer: FcrCountdownWidget,
+          popupQuiz: FcrPopupQuizWidget,
+        },
+        listener: (evt, args) => {
+          console.log('connected to classroom', evt, args);
+          if (evt === 1) {
+            // do something when classroom is connected
+            AgoraOnlineclassSDK.setRecordReady();
+          }
+        },
+      });
+    </script>
+  </body>
 </html>
