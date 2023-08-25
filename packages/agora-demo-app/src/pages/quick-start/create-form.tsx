@@ -119,10 +119,10 @@ export const CreateForm: FC<{
           if (!values.roomName) {
             return onError('roomName', transI18n('home_form_placeholder_room_name'));
           }
-          if (values.roomName.length < 6 || values.roomName.length > 50) {
+          if (values.roomName.length < 1 || values.roomName.length > 50) {
             return onError(
               'roomName',
-              transI18n('home_form_error_room_name_limit', { min: 6, max: 50 }),
+              transI18n('home_form_error_room_name_limit', { min: 1, max: 50 }),
             );
           }
           break;

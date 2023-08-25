@@ -117,13 +117,22 @@ export const JoinRoom = observer(() => {
         <div className="form-item">
           <div className="label">{transI18n('fcr_join_room_label_RoomID')}</div>
           <AFormItem name="roomId" rules={roomIdRule}>
-            <AInput />
+            <AInput
+              showCount={{
+                formatter: (args) => 9 - args.value.replace(/\s/g, '').length,
+              }}
+            />
           </AFormItem>
         </div>
         <div className="form-item">
           <div className="label">{transI18n('fcr_join_room_label_name')}</div>
           <AFormItem name="nickName" rules={nickNameRule}>
-            <AInput maxLength={20} />
+            <AInput
+              maxLength={20}
+              showCount={{
+                formatter: (args) => (args.maxLength || 20) - args.count,
+              }}
+            />
           </AFormItem>
         </div>
         <div className="form-item col-start-1 col-end-3">

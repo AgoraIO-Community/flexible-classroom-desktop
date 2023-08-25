@@ -7,7 +7,7 @@ export const useRoomNameForm = () => {
     () => [
       { required: true, message: transI18n('fcr_create_label_room_name_empty') },
       {
-        pattern: /^.{6,50}$/,
+        pattern: /^.{1,50}$/,
         message: transI18n('fcr_create_room_tips_name_rule'),
       },
     ],
