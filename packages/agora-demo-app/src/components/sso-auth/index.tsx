@@ -1,7 +1,7 @@
 import { UserApi } from '@app/api';
 import { getRegion } from '@app/stores/global';
 import { indexUrl, token } from '@app/utils';
-import { AgoraRegion, AgoraRteEngineConfig, AgoraRteRuntimePlatform } from 'agora-rte-sdk';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 import { FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 
@@ -19,10 +19,10 @@ export const SSOAuth: FC<Props> = ({ onComplete }) => {
       .getAuthorizedURL({
         // redirectUrl: indexUrl,
         redirectUrl: `${indexUrl}?from=${encodeURIComponent(window.location.href)}`,
-        toRegion: getRegion() === AgoraRegion.CN ? 'cn' : 'en',
+        toRegion: getRegion() === 'CN' ? 'cn' : 'en',
       })
       .then((redirectURL) => {
-        if (AgoraRteEngineConfig.platform === AgoraRteRuntimePlatform.Electron) {
+        if (isElectron()) {
           if (mounted) {
             setURL(redirectURL);
           }

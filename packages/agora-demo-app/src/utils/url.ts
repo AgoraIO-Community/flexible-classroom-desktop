@@ -1,6 +1,6 @@
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 import { isProduction } from './env';
-import { getLanguage } from 'agora-common-libs';
+
 /**
  * 解析hash地址中的query参数。避免query参数中用#作为值。
  * @param locationHash string

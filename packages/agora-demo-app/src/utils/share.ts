@@ -1,5 +1,4 @@
-import type { EduRegion } from 'agora-edu-core';
-import type { EduRoleTypeEnum } from 'agora-edu-core';
+import type { EduRegion, EduRoleTypeEnum } from 'agora-edu-core';
 
 export type ShareContent = {
   roomId: string;

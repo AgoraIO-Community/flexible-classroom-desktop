@@ -9,6 +9,8 @@ import md5 from 'js-md5';
 import { useJoinRoom } from '@app/hooks';
 import type { Platform } from 'agora-edu-core';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
+import { onlineclassStudentLimit } from '@app/utils/constants';
+import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -151,6 +153,22 @@ export const CreateForm: FC<{
       const [roomTypeStr, sdkType] = roomType.split('-');
       const role = 1;
       const userUuid = md5(`${userName}_${role}-main`);
+
+      const isOnlineclass = sdkType === SdkType.AgoraOnlineclassSdk;
+
+      const roleConfigs = isOnlineclass
+        ? {
+            2: {
+              limit: onlineclassStudentLimit,
+              defaultStream: {
+                audioState: 1 as AgoraRteMediaPublishState,
+                videoState: 1 as AgoraRteMediaPublishState,
+                state: 1 as AgoraRteMediaPublishState,
+              },
+            },
+          }
+        : undefined;
+
       globalStore.setLoading(true);
       createRoomNoAuth({
         roomName: roomName,
@@ -158,6 +176,7 @@ export const CreateForm: FC<{
         startTime: Date.now(),
         endTime: Date.now() + 30 * 60 * 1000,
         userUuid: userUuid,
+        roleConfigs,
         roomProperties: {
           sdkType,
         },

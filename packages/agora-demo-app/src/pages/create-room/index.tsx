@@ -31,9 +31,9 @@ import {
   weekday,
 } from './helper';
 import { SdkType } from '@app/type';
-import { AgoraRteMediaPublishState } from 'agora-rte-sdk';
+import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import { useRoomNameForm } from '@app/hooks/useRoomNameForm';
-export const OnlineclassStudentLimit = 80;
+import { onlineclassStudentLimit } from '@app/utils/constants';
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
   const { setLoading } = useContext(GlobalStoreContext);
@@ -220,11 +220,11 @@ export const CreateRoom = observer(() => {
       const roleConfigs = isOnlineclass
         ? {
             2: {
-              limit: OnlineclassStudentLimit,
+              limit: onlineclassStudentLimit,
               defaultStream: {
-                audioState: AgoraRteMediaPublishState.Published,
-                videoState: AgoraRteMediaPublishState.Published,
-                state: AgoraRteMediaPublishState.Published,
+                audioState: 1 as AgoraRteMediaPublishState,
+                videoState: 1 as AgoraRteMediaPublishState,
+                state: 1 as AgoraRteMediaPublishState,
               },
             },
           }

@@ -1,6 +1,5 @@
 import logo from '@app/assets/logo.svg';
 import { useLogout } from '@app/hooks';
-import { EduClassroomConfig } from 'agora-edu-core';
 import { useI18n } from 'agora-common-libs';
 import './index.css';
 import React, { useContext } from 'react';
@@ -46,10 +45,6 @@ export const About = observer(() => {
       <p>
         {transI18n('fcr_settings_label_about_us_fcr_ver')}
         {`: ver ${DEMO_VERSION}`}
-      </p>
-      <p>
-        {transI18n('fcr_settings_label_about_us_sdk_ver')}
-        {`: ver ${EduClassroomConfig.getRtcVersion()}`}
       </p>
       {region === 'CN' ? cn : na}
       <div

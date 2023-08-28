@@ -1,5 +1,4 @@
 import { useI18n } from 'agora-common-libs';
-import { EduClassroomConfig } from 'agora-edu-core';
 import { FC, useContext } from 'react';
 import { SettingsMenuEnum } from '.';
 import { Menu } from './components/menu';
@@ -50,11 +49,6 @@ export const AboutMenu: FC<AboutMenuProps> = observer(({ addMenuPopup, removeMen
       text: transI18n('fcr_settings_label_about_us_fcr_ver'),
       onClick: () => {},
       rightContent: <span>{`ver ${DEMO_VERSION}`}</span>,
-    },
-    {
-      text: transI18n('fcr_settings_label_about_us_sdk_ver'),
-      onClick: () => {},
-      rightContent: <span>{`ver ${EduClassroomConfig.getRtcVersion()}`}</span>,
     },
   ];
 

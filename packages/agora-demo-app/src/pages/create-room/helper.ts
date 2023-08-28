@@ -1,30 +1,29 @@
 import { SdkType } from '@app/type';
-import { EduRoomTypeEnum } from 'agora-edu-core';
 import premiumIcon from '@app/assets/service-type/fcr_premium.png';
 import standardIcon from '@app/assets/service-type/fcr_standard.png';
 import dayjs, { Dayjs } from 'dayjs';
+import type { AgoraLatencyLevel } from 'agora-rte-sdk';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
-import { AgoraLatencyLevel } from 'agora-rte-sdk/lib/type';
 
 export const roomTypeOptions = [
   {
     label: 'fcr_h5create_label_small_classroom',
     description: 'fcr_create_label_small_classroom_description',
-    value: EduRoomTypeEnum.RoomSmallClass,
+    value: 4,
     sdkType: SdkType.AgoraEduSdk,
     className: 'card-purple',
   },
   {
     label: 'fcr_h5create_label_lecture_hall',
     description: 'fcr_create_label_lecture_hall_description',
-    value: EduRoomTypeEnum.RoomBigClass,
+    value: 2,
     sdkType: SdkType.AgoraEduSdk,
     className: 'card-red',
   },
   {
     label: 'fcr_h5create_label_1on1',
     description: 'fcr_create_label_1on1_description',
-    value: EduRoomTypeEnum.Room1v1Class,
+    value: 0,
     sdkType: SdkType.AgoraEduSdk,
     className: 'card-green',
   },
@@ -34,7 +33,7 @@ if (!isElectron()) {
   roomTypeOptions.push({
     label: 'fcr_home_label_proctoring',
     description: 'fcr_home_label_proctoring',
-    value: EduRoomTypeEnum.RoomProctor,
+    value: 6,
     sdkType: SdkType.AgoraProctorSdk,
     className: 'card-green',
   });
@@ -42,7 +41,7 @@ if (!isElectron()) {
   roomTypeOptions.push({
     label: 'fcr_h5create_label_small_onlineclass',
     description: 'fcr_create_label_small_onlineclass_description',
-    value: EduRoomTypeEnum.RoomSmallClass,
+    value: 4,
     sdkType: SdkType.AgoraOnlineclassSdk,
     className: 'card-purple',
   });

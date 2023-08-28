@@ -1,7 +1,7 @@
+import { useEduSdk } from '@app/hooks/useSdk';
 import { GlobalStoreContext } from '@app/stores';
-import { AgoraEduSDK, LanguageEnum, WindowID } from 'agora-classroom-sdk';
 import { FcrMultiThemeMode } from 'agora-common-libs';
-import { EduRoomTypeEnum } from 'agora-edu-core';
+import type { EduRoomTypeEnum } from 'agora-edu-core';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 
@@ -10,17 +10,18 @@ export const LaunchWindowPage = observer(() => {
   const { theme } = useContext(GlobalStoreContext);
 
   useEffect(() => {
-    const destroy = AgoraEduSDK.launchWindow(domRef.current!, {
-      windowID: window.__launchWindowID as unknown as WindowID,
-      language: window.__launchLanguage as unknown as LanguageEnum,
-      args: window.__launchArgs,
-      roomType:
-        (parseInt(window.__launchRoomType) as EduRoomTypeEnum) || EduRoomTypeEnum.Room1v1Class,
-      uiMode: (window.__launchUIMode as FcrMultiThemeMode) || theme,
-    });
+    const { ready, sdk } = useEduSdk();
 
-    return destroy;
+    if (ready && sdk) {
+      sdk.launchWindow(domRef.current!, {
+        windowID: window.__launchWindowID as any,
+        language: window.__launchLanguage as any,
+        args: window.__launchArgs,
+        roomType: (parseInt(window.__launchRoomType) as EduRoomTypeEnum) || 0,
+        uiMode: (window.__launchUIMode as FcrMultiThemeMode) || theme,
+      });
+    }
   }, []);
 
-  return <div ref={domRef} id="app" className="w-screen h-screen" />;
+  return <div ref={domRef} id="app" className="fcr-w-screen fcr-h-screen" />;
 });

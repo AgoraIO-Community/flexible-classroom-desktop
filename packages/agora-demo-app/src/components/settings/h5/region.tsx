@@ -1,5 +1,5 @@
 import { GlobalStoreContext } from '@app/stores';
-import { AgoraRegion } from 'agora-rte-sdk';
+import type { AgoraRegion } from 'agora-rte-sdk';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
 import { useI18n } from 'agora-common-libs';
@@ -28,8 +28,8 @@ export const RegionMenu: FC<RegionMenuProps> = observer(({ removeMenuPopup }) =>
     };
 
     const result: MenuItemProps[] = [
-      regionMenuItem(AgoraRegion.NA),
-      regionMenuItem(AgoraRegion.CN),
+      regionMenuItem('NA' as AgoraRegion),
+      regionMenuItem('CN' as AgoraRegion),
     ];
     return result;
   }, [region]);
