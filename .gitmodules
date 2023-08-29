@@ -18,7 +18,7 @@
 	url = ssh://git@git.agoralab.co/aduc/apaas-common-libs-web.git
 [submodule "packages/agora-onlineclass-sdk"]
 	path = packages/agora-onlineclass-sdk
-	url = ../online-class-desktop.git
+	url = ../fcr-ui-scene-desktop.git
 [submodule "packages/agora-scenario-ui-kit"]
 	path = packages/agora-scenario-ui-kit
-	url = ssh://git@git.agoralab.co/aduc/agora-scenario-ui-kit-desktop.git
+	url = ../fcr-ui-kit-desktop.git
