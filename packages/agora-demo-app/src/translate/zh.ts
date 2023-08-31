@@ -38,7 +38,7 @@ export default {
   fcr_create_tips_room_playback_link: '请输入你的录像地址',
   fcr_create_label_latency_type: '服务类型',
   fcr_create_room_tips_name_rule: '请输入字母，数字，汉字或者下划线',
-  fcr_join_room_option_audience: '助教',
+  fcr_join_room_option_audience: '观众',
   fcr_join_room_label_role: '角色',
   fcr_join_room_tips_room_id_empty: '房间ID不能为空且必须为数字',
   fcr_join_room_tips_room_id: '请输入房间ID',
@@ -285,5 +285,5 @@ export default {
     'content-b': `本产品按“现状”提供，没有任何形式的明示担保，包括但不限于对适配性、特定目的的适用性和非侵权性的担保。无论是由于与本产品或本产品的使用或其他方式有关的任何合同、侵权或其他形式的行为，上海兆言均不对任何索赔、损害或其他责任负责。 `,
     'content-c': `您可以自由选择是否使用本产品提供的服务，如果您下载、安装、使用本产品中所提供的服务，即表明您信任该产品所有人，上海兆言对任何原因在使用本产品中提供的服务时可能对您自身或他人造成的任何形式的损失和伤害不承担任何责任。`,
   },
-  duration_in_mins: '{reason}分钟'
+  duration_in_mins: '{reason}分钟',
 };

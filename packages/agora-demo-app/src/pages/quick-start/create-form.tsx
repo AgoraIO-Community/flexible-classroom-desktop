@@ -11,6 +11,7 @@ import type { Platform } from 'agora-edu-core';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
 import { onlineclassStudentLimit } from '@app/utils/constants';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
+import set from 'lodash/set';
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -155,7 +156,10 @@ export const CreateForm: FC<{
       const userUuid = md5(`${userName}_${role}-main`);
 
       const isOnlineclass = sdkType === SdkType.AgoraOnlineclassSdk;
-
+      const widgets = {};
+      if (isOnlineclass) {
+        set(widgets, 'netlessBoard.state', 0);
+      }
       const roleConfigs = isOnlineclass
         ? {
             2: {
@@ -171,6 +175,7 @@ export const CreateForm: FC<{
 
       globalStore.setLoading(true);
       createRoomNoAuth({
+        widgets,
         roomName: roomName,
         roomType: parseInt(roomTypeStr),
         startTime: Date.now(),

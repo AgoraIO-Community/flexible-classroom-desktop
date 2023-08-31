@@ -154,6 +154,7 @@ export const AgoraProctorApp = () => {
 
       const unmount = sdk.launch(appRef.current, {
         ...(launchOption as any),
+        pretest: true,
         language: homeStore.language,
         widgets,
         listener: (evt: AgoraEduClassroomEvent, type: any) => {
