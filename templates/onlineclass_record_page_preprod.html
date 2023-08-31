@@ -51,6 +51,7 @@
         minFPS = 1,
         maxFPS = 5,
         resolution = 0.8,
+        defaultEnableDevice = 0,
       } = useParams(window.location);
 
       const recordOptions = {
@@ -66,6 +67,7 @@
       AgoraOnlineclassSDK.setParameters(
         JSON.stringify({
           host: `https://api-test.agora.io/preview`,
+          defaultEnableDevice: Number(defaultEnableDevice) === 1,
         }),
       );
 

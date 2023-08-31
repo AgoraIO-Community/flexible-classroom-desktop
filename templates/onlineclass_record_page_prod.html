@@ -51,6 +51,7 @@
         minFPS = 1,
         maxFPS = 5,
         resolution = 0.8,
+        defaultEnableDevice = 0,
       } = useParams(window.location);
 
       const recordOptions = {
@@ -62,7 +63,11 @@
         maxResolutionLevel: 1,
         forceCanvas: true,
       };
-
+      AgoraOnlineclassSDK.setParameters(
+        JSON.stringify({
+          defaultEnableDevice: Number(defaultEnableDevice) === 1,
+        }),
+      );
       AgoraOnlineclassSDK.launch(document.querySelector('#root'), {
         region: region ? region : 'CN',
 
