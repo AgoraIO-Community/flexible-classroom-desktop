@@ -1,5 +1,5 @@
 import { HomePage as BasePage } from '@app/dev/_common/pages/home';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import { useI18n } from 'agora-common-libs';
 
 export const HomePage = () => {
@@ -9,7 +9,7 @@ export const HomePage = () => {
     {
       text: t('home.roomType_interactiveSmallClass'),
       value: '4',
-      sdkType: SdkType.AgoraOnlineclassSdk,
+      sceneType: SceneType.AgoraOnlineclassSdk,
     },
   ];
 

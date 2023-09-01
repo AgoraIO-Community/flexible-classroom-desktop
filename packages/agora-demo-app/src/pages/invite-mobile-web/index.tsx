@@ -39,7 +39,7 @@ import {
 import { useHistory, useLocation } from 'react-router';
 import './index.css';
 import { aMessage } from '@app/components/message';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 
 type InviteFormValue = {
   nickName: string;
@@ -160,7 +160,7 @@ export const H5Invite = observer(() => {
           language,
           platform: 'H5' as Platform,
           latencyLevel,
-          sdkType: SdkType.AgoraEduSdk,
+          sceneType: SceneType.AgoraEduSdk,
         },
         { roomProperties: rProps, returnToPath: `${indexUrl}#/` },
       )

@@ -2,7 +2,7 @@ import { Button } from '@app/components/button';
 import { Field } from '@app/components/form-field';
 import { Layout } from '@app/components/layout';
 import { GlobalStoreContext } from '@app/stores';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import { transI18n, useI18n } from 'agora-common-libs';
 import { FC, useContext, useState } from 'react';
 
@@ -75,7 +75,7 @@ const useForm = <T extends Record<string, string>>({
 
 export const LoginForm: FC<{
   onSubmit: (values: any) => void;
-  sceneOptions: { text: string; value: string; sdkType: SdkType }[];
+  sceneOptions: { text: string; value: string; sceneType: SceneType }[];
 }> = ({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
@@ -88,17 +88,17 @@ export const LoginForm: FC<{
     { text: t('home.role_audience'), value: '0' },
   ];
 
-  const typeOptions = sceneOptions.map(({ text, value, sdkType }) => {
-    return { text, value: `${value}-${sdkType}` };
+  const typeOptions = sceneOptions.map(({ text, value, sceneType }) => {
+    return { text, value: `${value}-${sceneType}` };
   });
 
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, roleType, roomType, sdkType } = launchConfig;
+      const { roomName, userName, roleType, roomType, sceneType } = launchConfig;
 
       let comboType =
-        window.__launchRoomType || (roomType && sdkType ? `${roomType + '-' + sdkType}` : '');
+        window.__launchRoomType || (roomType && sceneType ? `${roomType + '-' + sceneType}` : '');
 
       const exists = typeOptions.some(({ value }) => value === comboType);
 

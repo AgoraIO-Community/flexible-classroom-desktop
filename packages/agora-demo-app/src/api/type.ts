@@ -1,3 +1,4 @@
+import { SceneType } from '@app/type';
 import type { EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 
 export enum RoomState {
@@ -20,6 +21,7 @@ export type RoomInfo = {
   role: EduRoleTypeEnum; // 上次加入房间的角色
   userName: string;
   duration: number;
+  sceneType: SceneType;
 };
 
 export type RoomListRequest = {
@@ -41,6 +43,7 @@ export type RoomCreateRequest = {
   endTime: number;
   userName?: string;
   roomProperties?: RoomProperties;
+  sceneType: SceneType;
   widgets?: Record<string, any>;
   processes?: {
     handsUp?: {

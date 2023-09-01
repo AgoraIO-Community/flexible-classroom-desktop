@@ -1,5 +1,5 @@
 import { HomePage as BasePage } from '@app/dev/_common/pages/home';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import { useI18n } from 'agora-common-libs';
 
 export const FlexPage = () => {
@@ -9,27 +9,27 @@ export const FlexPage = () => {
     {
       text: t('fcr_home_label_1on1'),
       value: `${0}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_small_classroom'),
       value: `${4}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_lecture_hall'),
       value: `${2}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_proctoring'),
       value: `${6}`,
-      sdkType: SdkType.AgoraProctorSdk,
+      sceneType: SceneType.AgoraProctorSdk,
     },
     {
       text: t('fcr_home_label_onlineclass'),
       value: `${4}`,
-      sdkType: SdkType.AgoraOnlineclassSdk,
+      sceneType: SceneType.AgoraOnlineclassSdk,
     },
   ];
 

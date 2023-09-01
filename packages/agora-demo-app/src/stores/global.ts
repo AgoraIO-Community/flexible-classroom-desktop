@@ -4,7 +4,7 @@ import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core
 import type { LanguageEnum } from 'agora-classroom-sdk';
 import { action, observable, toJS, computed, runInAction } from 'mobx';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 
 export interface ToastType {
   id: string;
@@ -21,7 +21,7 @@ export type GlobalLaunchOption = {
   sdkDomain: string;
   scenes?: any;
   themes?: any;
-  sdkType: SdkType;
+  sceneType: SceneType;
   roomType: EduRoomTypeEnum;
   roleType: EduRoleTypeEnum;
   returnToPath: string;

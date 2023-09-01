@@ -15,7 +15,7 @@ import {
 import { shareLink } from '../utils/share';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -31,7 +31,7 @@ type JoinRoomParams = {
   region: AgoraRegion;
   platform?: Platform;
   latencyLevel: AgoraLatencyLevel;
-  sdkType: SdkType;
+  sceneType: SceneType;
 };
 type QuickJoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -97,7 +97,7 @@ export const useJoinRoom = () => {
         region,
         duration = 30,
         platform = defaultPlatform,
-        sdkType,
+        sceneType,
       } = params;
 
       if (platform === 'H5') {
@@ -139,7 +139,7 @@ export const useJoinRoom = () => {
         language: language,
         duration: +duration * 60,
         latencyLevel,
-        sdkType,
+        sceneType,
         userFlexProperties: options.roomProperties || {},
         shareUrl,
         platform,
@@ -184,7 +184,7 @@ export const useJoinRoom = () => {
         .joinRoom({ roomId, role, userUuid: userId, userName: nickName })
         .then((response) => {
           const { roomDetail, token, appId } = response.data.data;
-          const { latencyLevel, sdkType, ...others } = roomDetail.roomProperties;
+          const { latencyLevel, sceneType, ...others } = roomDetail.roomProperties;
 
           const checkResult = checkRoomInfoBeforeJoin(roomDetail);
           if (checkResult.status === Status.Failed) {
@@ -205,7 +205,7 @@ export const useJoinRoom = () => {
               latencyLevel,
               language,
               region,
-              sdkType,
+              sceneType,
             },
             { roomProperties: others, returnToPath: '/', ...options },
           );
@@ -222,7 +222,7 @@ export const useJoinRoom = () => {
         .joinRoomNoAuth({ roomId, role, userUuid: userId, userName: nickName })
         .then((response) => {
           const { roomDetail, token, appId } = response.data.data;
-          const { latencyLevel, sdkType, ...others } = roomDetail.roomProperties;
+          const { latencyLevel, sceneType, ...others } = roomDetail.roomProperties;
 
           const checkResult = checkRoomInfoBeforeJoin(roomDetail);
           if (checkResult.status === Status.Failed) {
@@ -243,7 +243,7 @@ export const useJoinRoom = () => {
               latencyLevel,
               language,
               region,
-              sdkType,
+              sceneType,
             },
             { roomProperties: others, returnToPath: '/', ...options },
           );

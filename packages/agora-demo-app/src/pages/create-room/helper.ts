@@ -1,4 +1,4 @@
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import premiumIcon from '@app/assets/service-type/fcr_premium.png';
 import standardIcon from '@app/assets/service-type/fcr_standard.png';
 import dayjs, { Dayjs } from 'dayjs';
@@ -10,21 +10,21 @@ export const roomTypeOptions = [
     label: 'fcr_h5create_label_small_classroom',
     description: 'fcr_create_label_small_classroom_description',
     value: 4,
-    sdkType: SdkType.AgoraEduSdk,
+    sceneType: SceneType.AgoraEduSdk,
     className: 'card-purple',
   },
   {
     label: 'fcr_h5create_label_lecture_hall',
     description: 'fcr_create_label_lecture_hall_description',
     value: 2,
-    sdkType: SdkType.AgoraEduSdk,
+    sceneType: SceneType.AgoraEduSdk,
     className: 'card-red',
   },
   {
     label: 'fcr_h5create_label_1on1',
     description: 'fcr_create_label_1on1_description',
     value: 0,
-    sdkType: SdkType.AgoraEduSdk,
+    sceneType: SceneType.AgoraEduSdk,
     className: 'card-green',
   },
 ];
@@ -34,7 +34,7 @@ if (!isElectron()) {
     label: 'fcr_home_label_proctoring',
     description: 'fcr_home_label_proctoring',
     value: 6,
-    sdkType: SdkType.AgoraProctorSdk,
+    sceneType: SceneType.AgoraProctorSdk,
     className: 'card-green',
   });
 
@@ -42,7 +42,7 @@ if (!isElectron()) {
     label: 'fcr_h5create_label_small_onlineclass',
     description: 'fcr_create_label_small_onlineclass_description',
     value: 4,
-    sdkType: SdkType.AgoraOnlineclassSdk,
+    sceneType: SceneType.AgoraOnlineclassSdk,
     className: 'card-purple',
   });
 }

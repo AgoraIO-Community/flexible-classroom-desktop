@@ -14,13 +14,13 @@ import { Layout } from '@app/components/layout';
 import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import split from 'lodash/split';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
-export const HomePage: FC<{ scenes: { text: string; value: string; sdkType: SdkType }[] }> = ({
+export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: SceneType }[] }> = ({
   scenes,
 }) => {
   const globalStore = useContext(GlobalStoreContext);
@@ -52,7 +52,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sdkType: SdkT
 
     const userRole = parseInt(roleType);
 
-    const [roomType, sdkType] = split(rt, '-');
+    const [roomType, sceneType] = split(rt, '-');
 
     const userUuid = `${md5(userName)}${userRole}`;
 
@@ -93,7 +93,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sdkType: SdkT
         latencyLevel: 2,
         shareUrl,
         recordUrl: `https://solutions-apaas.agora.io/apaas/record/dev/2.8.21/record_page.html`,
-        sdkType: sdkType as SdkType,
+        sceneType: sceneType as unknown as SceneType,
         returnToPath: '/flex',
       };
 

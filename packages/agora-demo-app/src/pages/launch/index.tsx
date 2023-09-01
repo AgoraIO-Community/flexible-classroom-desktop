@@ -12,7 +12,7 @@ import {
   useOnlineclassWidgets,
   useProctorWidgets,
 } from '@app/hooks/useWidgets';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
 import { useEduSdk, useOnlineclassSdk, useProctorSdk } from '@app/hooks/useSdk';
 
@@ -34,13 +34,13 @@ export const LaunchPage = observer(() => {
     return null;
   }
 
-  const { sdkType } = launchOption;
+  const { sceneType } = launchOption;
 
-  if (sdkType === SdkType.AgoraProctorSdk) {
+  if (sceneType === SceneType.AgoraProctorSdk) {
     return <AgoraProctorApp />;
   }
 
-  if (sdkType === SdkType.AgoraOnlineclassSdk) {
+  if (sceneType === SceneType.AgoraOnlineclassSdk) {
     return <AgoraOnlineClassApp />;
   }
   return <AgoraClassroomApp />;

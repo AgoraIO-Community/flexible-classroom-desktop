@@ -1,7 +1,7 @@
-export enum SdkType {
-  AgoraEduSdk = 'classroom',
-  AgoraProctorSdk = 'proctor',
-  AgoraOnlineclassSdk = 'onlineclass',
+export enum SceneType {
+  AgoraEduSdk = 1,
+  AgoraProctorSdk = 3,
+  AgoraOnlineclassSdk = 2,
 }
 
 export enum LoginType {

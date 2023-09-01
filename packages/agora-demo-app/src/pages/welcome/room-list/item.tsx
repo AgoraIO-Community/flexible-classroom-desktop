@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import { useI18n } from 'agora-common-libs';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import type { EduRoomTypeEnum } from 'agora-edu-core';
+import { SceneType } from '@app/type';
 
 type RoomListItemProps = {
   className?: string;
@@ -120,7 +121,11 @@ export const RoomListItem: FC<RoomListItemProps> = ({
               colors={{ color: roomState !== RoomState.GOING ? '#78787c' : '#abb2ff' }}
               size={19}
             />
-            {transI18n(roomTypeMap[data.roomType])}
+            {transI18n(
+              data.sceneType === SceneType.AgoraOnlineclassSdk
+                ? 'fcr_home_label_onlineclass'
+                : roomTypeMap[data.roomType],
+            )}
           </span>
         </div>
       </div>

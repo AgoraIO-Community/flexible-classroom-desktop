@@ -9,7 +9,7 @@ import { CreateForm } from './create-form';
 import { JoinForm } from './join-form';
 import { UserAgreement } from '@app/components/user-agreement';
 import { useI18n } from 'agora-common-libs';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import { LoginButon, SettingButton } from './menu-buttons';
 import { Consult } from './consult';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
@@ -32,27 +32,27 @@ export const QuickStart = observer(() => {
     {
       text: t('fcr_home_label_1on1'),
       value: `${0}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_small_classroom'),
       value: `${4}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_lecture_hall'),
       value: `${2}`,
-      sdkType: SdkType.AgoraEduSdk,
+      sceneType: SceneType.AgoraEduSdk,
     },
     {
       text: t('fcr_home_label_proctoring'),
       value: `${6}`,
-      sdkType: SdkType.AgoraProctorSdk,
+      sceneType: SceneType.AgoraProctorSdk,
     },
     {
       text: t('fcr_home_label_onlineclass'),
       value: `${4}`,
-      sdkType: SdkType.AgoraOnlineclassSdk,
+      sceneType: SceneType.AgoraOnlineclassSdk,
     },
   ];
 

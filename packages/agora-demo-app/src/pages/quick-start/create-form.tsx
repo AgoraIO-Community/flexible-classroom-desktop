@@ -2,7 +2,7 @@ import { Button } from '@app/components/button';
 import { Field } from '@app/components/form-field';
 import { Layout } from '@app/components/layout';
 import { GlobalStoreContext, RoomStoreContext } from '@app/stores';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import { transI18n, useI18n } from 'agora-common-libs';
 import { FC, useContext, useState } from 'react';
 import md5 from 'js-md5';
@@ -82,15 +82,15 @@ const useForm = <T extends Record<string, string>>({
 
 export const CreateForm: FC<{
   onSubmit: () => boolean;
-  sceneOptions: { text: string; value: string; sdkType: SdkType }[];
+  sceneOptions: { text: string; value: string; sceneType: SceneType }[];
 }> = ({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
   const globalStore = useContext(GlobalStoreContext);
   const { createRoomNoAuth } = useContext(RoomStoreContext);
 
-  const typeOptions = sceneOptions.map(({ text, value, sdkType }) => {
-    return { text, value: `${value}-${sdkType}` };
+  const typeOptions = sceneOptions.map(({ text, value, sceneType }) => {
+    return { text, value: `${value}-${sceneType}` };
   });
 
   const { quickJoinRoomNoAuth } = useJoinRoom();
@@ -99,10 +99,10 @@ export const CreateForm: FC<{
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, roomType, sdkType } = launchConfig;
+      const { roomName, userName, roomType, sceneType } = launchConfig;
 
       let comboType =
-        window.__launchRoomType || (roomType && sdkType ? `${roomType + '-' + sdkType}` : '');
+        window.__launchRoomType || (roomType && sceneType ? `${roomType + '-' + sceneType}` : '');
 
       const exists = typeOptions.some(({ value }) => value === comboType);
 
@@ -151,11 +151,11 @@ export const CreateForm: FC<{
 
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
-      const [roomTypeStr, sdkType] = roomType.split('-');
+      const [roomTypeStr, sceneType] = roomType.split('-') as [string, SceneType];
       const role = 1;
       const userUuid = md5(`${userName}_${role}-main`);
 
-      const isOnlineclass = sdkType === SdkType.AgoraOnlineclassSdk;
+      const isOnlineclass = sceneType === SceneType.AgoraOnlineclassSdk;
       const widgets = {};
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
@@ -175,6 +175,7 @@ export const CreateForm: FC<{
 
       globalStore.setLoading(true);
       createRoomNoAuth({
+        sceneType,
         widgets,
         roomName: roomName,
         roomType: parseInt(roomTypeStr),
@@ -182,9 +183,6 @@ export const CreateForm: FC<{
         endTime: Date.now() + 30 * 60 * 1000,
         userUuid: userUuid,
         roleConfigs,
-        roomProperties: {
-          sdkType,
-        },
       })
         .then((data) => {
           setNickName(userName);

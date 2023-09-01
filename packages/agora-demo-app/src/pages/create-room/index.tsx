@@ -30,7 +30,7 @@ import {
   serviceTypeOptions,
   weekday,
 } from './helper';
-import { SdkType } from '@app/type';
+import { SceneType } from '@app/type';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import { useRoomNameForm } from '@app/hooks/useRoomNameForm';
 import { onlineclassStudentLimit } from '@app/utils/constants';
@@ -45,7 +45,7 @@ export const CreateRoom = observer(() => {
   const [form] = useAForm<CreateFormValue>();
   const [showMore, setShowMore] = useState(false);
   const [roomType, setRoomType] = useState(roomTypeOptions[0].value);
-  const [sdkType, setSdkType] = useState(roomTypeOptions[0].sdkType);
+  const [sceneType, setSceneType] = useState(roomTypeOptions[0].sceneType);
 
   const [serviceType, setServiceType] = useState(serviceTypeOptions[0].value);
   const [watermark, setWatermark] = useState(false);
@@ -198,20 +198,20 @@ export const CreateRoom = observer(() => {
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
       const endDateTime = combDateTime(endDate, endTime);
 
-      const isProctoring = sdkType === SdkType.AgoraProctorSdk;
-      const isOnlineclass = sdkType === SdkType.AgoraOnlineclassSdk;
+      const isProctoring = sceneType === SceneType.AgoraProctorSdk;
+      const isOnlineclass = sceneType === SceneType.AgoraOnlineclassSdk;
       const roomProperties = isProctoring
         ? {
             watermark,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
             latencyLevel: serviceType,
-            sdkType,
+            sceneType,
           }
         : {
             watermark,
             boardBackgroundImage: classroomBackgroundImagePath,
             latencyLevel: serviceType,
-            sdkType,
+            sceneType,
           };
       const widgets = {};
       if (isOnlineclass) {
@@ -238,6 +238,7 @@ export const CreateRoom = observer(() => {
         : undefined;
       roomStore
         .createRoom({
+          sceneType,
           roomName: name,
           startTime: dateTime.valueOf(),
           endTime: endDateTime.valueOf(),
@@ -426,12 +427,12 @@ export const CreateRoom = observer(() => {
                 <RoomTypeCard
                   title={transI18n(v.label)}
                   description={transI18n(v.description)}
-                  checked={roomType === v.value && sdkType === v.sdkType}
+                  checked={roomType === v.value && sceneType === v.sceneType}
                   className={v.className}
                   key={v.value + v.label}
                   onClick={() => {
                     setRoomType(v.value);
-                    setSdkType(v.sdkType);
+                    setSceneType(v.sceneType);
                   }}
                 />
               );

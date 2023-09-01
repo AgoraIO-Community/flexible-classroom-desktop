@@ -2,21 +2,31 @@ import { SvgImg, SvgIconEnum } from '@app/components/svg-img';
 import { FC, PropsWithChildren, useState } from 'react';
 import _ToolTip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap_white.css';
-import { useI18n } from 'agora-common-libs';
+import { useI18n, getLanguage } from 'agora-common-libs';
 
 export const Consult = () => {
   const t = useI18n();
   const [pmCardVisible, setPmCardVisible] = useState(false);
 
   const handleOpenLink = () => {
-    window.open('https://doc.shengwang.cn/api-ref/flexible-classroom/web/overview', '_blank');
+    getLanguage() === 'zh'
+      ? window.open('https://doc.shengwang.cn/api-ref/flexible-classroom/web/overview', '_blank')
+      : window.open(
+          'https://docs.agora.io/en/flexible-classroom/overview/product-overview?platform=web',
+          '_blank',
+        );
   };
 
   const handleOpenDownloadLink = () => {
-    window.open(
-      'https://doc.shengwang.cn/doc/flexible-classroom/web/resources#%E4%B8%8B%E8%BD%BD-demo',
-      '_blank',
-    );
+    getLanguage() === 'zh'
+      ? window.open(
+          'https://doc.shengwang.cn/doc/flexible-classroom/web/resources#%E4%B8%8B%E8%BD%BD-demo',
+          '_blank',
+        )
+      : window.open(
+          'https://docs.agora.io/en/flexible-classroom/reference/downloads?platform=web',
+          '_blank',
+        );
   };
 
   return (
