@@ -86,6 +86,16 @@
         userRole,
         courseWareList: [],
         recordOptions,
+        widgets: {
+          popupQuiz: AgoraSelector,
+          countdownTimer: AgoraCountdown,
+          easemobIM: AgoraHXChatWidget,
+          mediaPlayer: FcrStreamMediaPlayerWidget,
+          poll: AgoraPolling,
+          watermark: FcrWatermarkWidget,
+          webView: FcrWebviewWidget,
+          netlessBoard: FcrBoardWidget,
+        },
         listener: (evt, args) => {
           console.log('connected to classroom', evt, args);
           if (evt === 1) {
