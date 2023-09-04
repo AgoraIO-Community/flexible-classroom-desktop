@@ -5,13 +5,13 @@
   "scripts": {
     "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./electron/\"",
     "electron:client": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ./electron/",
+    "electron:classroom": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev:classroom\" \"wait-on http://localhost:3000 && electron ./electron/\"",
     "electron:copy:electron:mac": "cpx './electron/**/*.js' ./build",
     "electron:copy:electron:win": "cpx \"./electron/**/*.js\" ./build",
     "dev": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=demo webpack serve --config ./webpack.dev.js",
     "dev:classroom": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=classroom webpack serve --config ./webpack.dev.sdk.js",
     "dev:onlineclass": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=onlineclass webpack serve --config ./webpack.dev.sdk.js",
     "dev:proctor": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=proctor webpack serve --config ./webpack.dev.sdk.js",
-    "build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.config.js",
     "pack:mac": "yarn electron:copy:electron:mac && electron-builder --mac -p never",
     "pack:win": "yarn electron:copy:electron:win && electron-builder --win -p never",
     "ci:build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.config.js"
@@ -126,5 +126,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "agora_electron": {
+    "electron_version": "12.0.0",
+    "prebuilt": true
+  },
+  "peerDependencies": {
+    "agora-electron-sdk": "*"
+  },
+  "peerDependenciesMeta": {
+    "agora-electron-sdk": {
+      "optional": true
+    }
   }
 }

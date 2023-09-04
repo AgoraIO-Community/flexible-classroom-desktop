@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
-import type { AgoraEduClassroomEvent } from 'agora-edu-core';
 import { useOnlineclassWidgets } from '@app/hooks/useWidgets';
 import { useOnlineclassSdk } from '@app/hooks/useSdk';
 import { coursewareList } from './courseware-list';
@@ -35,7 +34,7 @@ export const LaunchPage = observer(() => {
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrCountdownWidget',
-    'FcrPopupQuizWidget'
+    'FcrPopupQuizWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useOnlineclassSdk();
@@ -65,37 +64,43 @@ export const LaunchPage = observer(() => {
 
       sdk.setParameters(JSON.stringify({ logo, shareUrl, host: launchOption.sdkDomain }));
 
-      const unmount = sdk.launch(appRef.current, {
-        userUuid: launchOption.userUuid ?? '',
-        userName: launchOption.userName ?? '',
-        roomUuid: launchOption.roomUuid ?? '',
-        roleType: launchOption.roleType ?? 0,
-        token: launchOption.rtmToken ?? '',
-        appId: launchOption.appId ?? '',
-        region: region,
-        language: language,
-        roomName: launchOption.roomName ?? '',
-        roomType: launchOption.roomType ?? 0,
-        startTime: launchOption.startTime,
-        duration: launchOption.duration,
-        mediaOptions: {
-          cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+      const unmount = sdk.launch(
+        appRef.current,
+        {
+          userUuid: launchOption.userUuid ?? '',
+          userName: launchOption.userName ?? '',
+          roomUuid: launchOption.roomUuid ?? '',
+          roleType: launchOption.roleType ?? 0,
+          token: launchOption.rtmToken ?? '',
+          appId: launchOption.appId ?? '',
+          region: region,
+          language: language,
+          roomName: launchOption.roomName ?? '',
+          roomType: launchOption.roomType ?? 0,
+          startTime: launchOption.startTime,
+          duration: launchOption.duration,
+          mediaOptions: {
+            cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+          },
+          devicePretest: true,
+          // devicePretest: false,
+          virtualBackgroundImages,
+          virtualBackgroundVideos,
+          widgets,
+          coursewareList,
+          recordUrl:
+            'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
         },
-        devicePretest: true,
-        // devicePretest: false,
-        virtualBackgroundImages,
-        virtualBackgroundVideos,
-        widgets,
-        coursewareList,
-        recordUrl:
-          'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/onlineclass/1.0.0/onlineclass_record_page.html',
-        listener: (evt: AgoraEduClassroomEvent, type) => {
-          console.log('launch#listener ', evt);
-          if (evt === 2) {
-            history.push(`/?reason=${type}`);
-          }
+        () => {
+          // success
         },
-      });
+        (err: Error) => {
+          // failure
+        },
+        (type) => {
+          history.push(`/?reason=${type}`);
+        },
+      );
       return unmount;
     }
   }, [sdkReady, widgetsReady]);

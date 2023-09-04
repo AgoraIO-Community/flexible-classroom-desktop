@@ -49,7 +49,7 @@ function _handleOutput(stream, { stdout, stderr }) {
     stream.on('close', () => {
       clearInterval(twirlTimer);
       process.stdout.write('\r');
-      resolve();
+      resolve(stream.exitCode);
     });
 
     stream.on('error', (err) => {

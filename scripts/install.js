@@ -3,48 +3,55 @@ const { exists } = require('./fs');
 
 const run = async () => {
   const chalk = require('chalk');
-  const {
-    fetchAllPackages,
-    fetchOpenSourcePackages,
-    linkPackages,
-    copyEnv,
-    installModules,
-    buildPackages,
-  } = require('./link-and-build');
+  const { fetchPackages, copyEnv, installModules, buildPackages } = require('./link-and-build');
 
   const args = getCmdArgs();
   const installAll = args.includes('all');
   const skipEnv = args.includes('skip-env');
-  let r = 0;
+
   if (installAll) {
-    r = await fetchAllPackages();
+    await fetchPackages([
+      'agora-rte-sdk',
+      'agora-edu-core',
+      'agora-common-libs',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-onlineclass-sdk',
+      'agora-plugin-gallery',
+      'agora-scenario-ui-kit',
+    ]);
 
-    if (r) {
-      return;
-    }
+    await installModules();
 
-    r = await installModules();
-
-    if (r) {
-      return;
-    }
-
-    r = await buildPackages();
+    await buildPackages([
+      'agora-rte-sdk',
+      'agora-edu-core',
+      'agora-common-libs',
+      'agora-plugin-gallery',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-onlineclass-sdk',
+    ]);
   } else {
-    r = await fetchOpenSourcePackages();
+    await fetchPackages([
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-onlineclass-sdk',
+      'agora-plugin-gallery',
+      'agora-scenario-ui-kit',
+    ]);
 
-    if (r) {
-      return;
-    }
+    await installModules();
 
-    r = await installModules();
+    await buildPackages([
+      'agora-plugin-gallery',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-onlineclass-sdk',
+    ]);
   }
 
-  if (r) {
-    return;
-  }
-
-  !(await linkPackages()) && !skipEnv && (await copyEnv());
+  !skipEnv && (await copyEnv());
 
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };

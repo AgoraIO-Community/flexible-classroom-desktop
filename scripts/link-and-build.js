@@ -4,99 +4,55 @@ const { initSubModules } = require('./git');
 const path = require('path');
 const chalk = require('chalk');
 
-async function fetchOpenSourcePackages() {
+async function fetchPackages(packages) {
   try {
     console.log(chalk.yellowBright('Start fetching packages...'), chalk.yellow('['));
-    process.stdout.write(chalk.blue('\tFetching agora-classroom-sdk...'));
-    await initSubModules('packages/agora-classroom-sdk');
-    process.stdout.write(chalk.blue('\r\tFetched agora-classroom-sdk.'));
-    console.log('');
-    process.stdout.write(chalk.blue('\tFetching agora-proctor-sdk...'));
-    await initSubModules('packages/agora-proctor-sdk');
-    process.stdout.write(chalk.blue('\r\tFetched agora-proctor-sdk.'));
-    console.log('');
-    process.stdout.write(chalk.blue('\tFetching agora-onlineclass-sdk...'));
-    await initSubModules('packages/agora-onlineclass-sdk');
-    process.stdout.write(chalk.blue('\r\tFetched agora-onlineclass-sdk.'));
-    console.log('');
-    process.stdout.write(chalk.blue('\tFetching agora-plugin-gallery...'));
-    await initSubModules('packages/agora-plugin-gallery');
-    process.stdout.write(chalk.blue('\r\tFetched agora-plugin-gallery.'));
-    console.log('');
-    process.stdout.write(chalk.blue('\tFetching agora-scenario-ui-kit...'));
-    await initSubModules('packages/agora-scenario-ui-kit');
-    process.stdout.write(chalk.blue('\r\tFetched agora-scenario-ui-kit.'));
-    console.log('');
+    for (const pkg of packages) {
+      process.stdout.write(chalk.blue(`\tFetching ${pkg}...`));
+      await initSubModules(`packages/${pkg}`);
+      process.stdout.write(chalk.blue(`\r\tFetched ${pkg}.`));
+      console.log('');
+    }
     console.log(chalk.yellow(']'));
   } catch (e) {
     console.error(e);
     console.log(chalk.red('Failed to fetch packages, please try again.'));
-    return 1;
+    throw e;
   }
-  return 0;
 }
 
-async function fetchAllPackages() {
-  try {
-    console.log(
-      chalk.yellowBright(
-        'Start fetching all packages, make sure you have the access rights of theses repos...',
-      ),
-    );
-    await initSubModules();
-  } catch (e) {
-    console.error(e);
-    console.log(chalk.red('Failed to fetch packages, please try again.'));
-    return 1;
-  }
-
-  return 0;
-}
-async function buildPackages() {
+async function buildPackages(packages) {
   try {
     console.log(chalk.yellowBright('Building packages...'));
     const lernaPath = path.resolve(__dirname, '..', 'node_modules', '.bin', 'lerna');
 
-    await exec(`${lernaPath} exec --scope=agora-rte-sdk 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-edu-core 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-common-libs 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-plugin-gallery 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-classroom-sdk 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-proctor-sdk 'yarn ci:build'`);
-    await exec(`${lernaPath} exec --scope=agora-onlineclass-sdk 'yarn ci:build'`);
+    for (const pkg of packages) {
+      const code = await exec(`${lernaPath} exec --scope=${pkg} 'yarn ci:build'`);
+
+      if (code) {
+        throw new Error('Error building package: ', pkg);
+      }
+    }
   } catch (e) {
     console.error(e);
     console.log(chalk.red('Failed to build packages, please try again.'));
-    return 1;
+    throw e;
   }
-
-  return 0;
 }
 
 async function installModules() {
   try {
     console.log(chalk.yellowBright('Installing node modules...'));
-    await exec(`yarn install --check-files`);
+    const code = await exec(`yarn install --check-files`);
+
+    if (code) {
+      throw new Error('Error installing package');
+    }
   } catch (e) {
     console.error(e);
     console.log(chalk.red('Failed to install modules, please try again.'));
-    return 1;
+    throw e;
   }
-
-  return 0;
-}
-
-async function linkPackages() {
-  try {
-    console.log(chalk.yellowBright('Linking packages...'));
-    await exec(`yarn bootstrap`);
-  } catch (e) {
-    console.error(e);
-    console.log(chalk.red('Failed to link packages, please try again.'));
-    return 1;
-  }
-
-  return 0;
 }
 
 async function copyEnv() {
@@ -124,9 +80,7 @@ async function copyEnv() {
 }
 
 module.exports = {
-  fetchAllPackages,
-  fetchOpenSourcePackages,
-  linkPackages,
+  fetchPackages,
   installModules,
   buildPackages,
   copyEnv,

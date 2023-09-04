@@ -1,114 +1,116 @@
 <!DOCTYPE html>
 <!-- templates -->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Cloud Recording</title>
-  </head>
 
-  <body>
-    <style>
-      #root {
-        width: 100%;
-        height: 100%;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloud Recording</title>
+</head>
+
+<body>
+  <style>
+    #root {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <div id="root"></div>
+  <script src="./edu_sdk.bundle.js"></script>
+  <script src="./edu_widget.bundle.js"></script>
+
+  <script type="text/javascript">
+    function useParams(location) {
+      const searchString = location.href.split('?').pop();
+      const urlParams = new URLSearchParams(location.href.split('?').pop());
+      const audienceParams = {};
+      for (let key of urlParams.keys()) {
+        audienceParams[key] = urlParams.get(key);
       }
-    </style>
-    <div id="root"></div>
-    <script src="./edu_sdk.bundle.js"></script>
-    <script src="./classroom.widget.js"></script>
+      console.log('urlParams ', audienceParams);
+      return audienceParams;
+    }
 
-    <script type="text/javascript">
-      function useParams(location) {
-        const searchString = location.href.split('?').pop();
-        const urlParams = new URLSearchParams(location.href.split('?').pop());
-        const audienceParams = {};
-        for (let key of urlParams.keys()) {
-          audienceParams[key] = urlParams.get(key);
+    const {
+      userUuid,
+      userName,
+      roomUuid,
+      roleType,
+      roomType,
+      roomName,
+      pretest,
+      rtmUid,
+      rtmToken,
+      language,
+      startTime,
+      duration,
+      recordUrl,
+      appId,
+      userRole,
+      translateLanguage,
+      region,
+      minFPS = 1,
+      maxFPS = 5,
+      resolution = 0.8,
+    } = useParams(window.location);
+
+    const recordOptions = {
+      minFPS,
+      maxFPS,
+      resolution,
+      autoResolution: false,
+      autoFPS: false,
+      maxResolutionLevel: 1,
+      forceCanvas: true
+    };
+
+    AgoraEduSDK.setParameters(
+      JSON.stringify({
+        host: `https://api-test.agora.io/preview`,
+      }),
+    );
+    AgoraEduSDK.config({
+      appId,
+      cachePath: undefined,
+      region: region ? region : 'CN',
+    });
+    AgoraEduSDK.launch(document.querySelector('#root'), {
+      userUuid,
+      userName,
+      roomUuid,
+      roleType: Number(roleType),
+      roomType: Number(roomType),
+      roomName,
+      pretest: false,
+      rtmUid,
+      rtmToken,
+      language,
+      startTime,
+      duration,
+      recordUrl,
+      appId,
+      userRole,
+      courseWareList: [],
+      recordOptions,
+      widgets: {
+        popupQuiz: AgoraSelector,
+        countdownTimer: AgoraCountdown,
+        easemobIM: AgoraHXChatWidget,
+        mediaPlayer: FcrStreamMediaPlayerWidget,
+        poll: AgoraPolling,
+        watermark: FcrWatermarkWidget,
+        webView: FcrWebviewWidget,
+        netlessBoard: FcrBoardWidget,
+      },
+      listener: (evt, args) => {
+        console.log('connected to classroom', evt, args);
+        if (evt === 1) {
+          // do something when classroom is connected
+          AgoraEduSDK.setRecordReady();
         }
-        console.log('urlParams ', audienceParams);
-        return audienceParams;
-      }
+      },
+    });
+  </script>
+</body>
 
-      const {
-        userUuid,
-        userName,
-        roomUuid,
-        roleType,
-        roomType,
-        roomName,
-        pretest,
-        rtmUid,
-        rtmToken,
-        language,
-        startTime,
-        duration,
-        recordUrl,
-        appId,
-        userRole,
-        translateLanguage,
-        region,
-        minFPS = 1,
-        maxFPS = 5,
-        resolution = 0.8,
-      } = useParams(window.location);
-
-      const recordOptions = {
-        minFPS,
-        maxFPS,
-        resolution,
-        autoResolution: false,
-        autoFPS: false,
-        maxResolutionLevel: 1,
-        forceCanvas: true,
-      };
-
-      AgoraEduSDK.setParameters(
-        JSON.stringify({
-          host: `https://api-test.agora.io/preview`,
-        }),
-      );
-      AgoraEduSDK.config({
-        appId,
-        cachePath: undefined,
-        region: region ? region : 'CN',
-      });
-      AgoraEduSDK.launch(document.querySelector('#root'), {
-        userUuid,
-        userName,
-        roomUuid,
-        roleType: Number(roleType),
-        roomType: Number(roomType),
-        roomName,
-        pretest: false,
-        rtmUid,
-        rtmToken,
-        language,
-        startTime,
-        duration,
-        recordUrl,
-        appId,
-        userRole,
-        courseWareList: [],
-        recordOptions,
-        widgets: {
-          popupQuiz: AgoraSelector,
-          countdownTimer: AgoraCountdown,
-          easemobIM: AgoraHXChatWidget,
-          mediaPlayer: FcrStreamMediaPlayerWidget,
-          poll: AgoraPolling,
-          watermark: FcrWatermarkWidget,
-          webView: FcrWebviewWidget,
-          netlessBoard: FcrBoardWidget,
-        },
-        listener: (evt, args) => {
-          console.log('connected to classroom', evt, args);
-          if (evt === 1) {
-            // do something when classroom is connected
-            AgoraEduSDK.setRecordReady();
-          }
-        },
-      });
-    </script>
-  </body>
 </html>
