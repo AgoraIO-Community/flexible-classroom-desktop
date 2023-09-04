@@ -208,27 +208,33 @@ export const AgoraOnlineClassApp = () => {
         }),
       );
 
-      const unmount = sdk.launch(appRef.current, {
-        ...(launchOption as any),
-        widgets,
-        coursewareList: courseWareList,
-        virtualBackgroundImages,
-        virtualBackgroundVideos,
-        uiMode: homeStore.theme,
-        language: homeStore.language,
-        token: launchOption.rtmToken,
-        devicePretest: true,
-        mediaOptions: {
-          cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+      const unmount = sdk.launch(
+        appRef.current,
+        {
+          ...(launchOption as any),
+          widgets,
+          coursewareList: courseWareList,
+          virtualBackgroundImages,
+          virtualBackgroundVideos,
+          uiMode: homeStore.theme,
+          language: homeStore.language,
+          token: launchOption.rtmToken,
+          devicePretest: true,
+          mediaOptions: {
+            cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+          },
+          recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/onlineclass_record_page.html`,
         },
-        recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/onlineclass_record_page.html`,
-        listener: (evt: AgoraEduClassroomEvent, type: any) => {
-          console.log('launch#listener ', evt);
-          if (evt === 2) {
-            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
-          }
+        () => {
+          // success
         },
-      });
+        (err: Error) => {
+          // failure
+        },
+        (type) => {
+          history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+        },
+      );
       return unmount;
     }
   }, [widgetsReady, sdkReady]);
