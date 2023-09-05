@@ -26,7 +26,7 @@ interface Window {
 declare module 'agora-plugin-gallery/onlineclass' {
   declare class FcrWebviewWidget extends (await import('agora-common-libs'))
     .AgoraOnlineclassWidget {}
-  declare class FcrBoardWidgetV2 extends (await import('agora-common-libs'))
+  declare class FcrBoardWidget extends (await import('agora-common-libs'))
     .AgoraOnlineclassWidget {}
   declare class FcrPollingWidget extends (await import('agora-common-libs'))
     .AgoraOnlineclassWidget {}

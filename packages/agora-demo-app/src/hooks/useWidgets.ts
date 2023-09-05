@@ -15,9 +15,7 @@ export const useClassroomWidgets = (
     | 'FcrStreamMediaPlayerWidget'
     | 'AgoraPolling'
     | 'FcrWatermarkWidget'
-    | 'FcrBoardWidgetV2'
     | 'FcrPolling'
-    | 'AgoraHXChatWidgetV2'
   )[],
 ) => {
   const [ready, setReady] = useState(false);
@@ -114,8 +112,8 @@ export const useOnlineclassWidgets = (
       }
 
       if (ids.includes('FcrBoardWidget')) {
-        const { FcrBoardWidgetV2 } = widget;
-        widgets[getWidgetName(FcrBoardWidgetV2)] = FcrBoardWidgetV2;
+        const { FcrBoardWidget } = widget;
+        widgets[getWidgetName(FcrBoardWidget)] = FcrBoardWidget;
       }
 
       if (ids.includes('FcrPolling')) {
