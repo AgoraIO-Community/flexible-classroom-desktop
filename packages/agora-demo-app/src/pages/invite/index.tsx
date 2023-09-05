@@ -25,10 +25,10 @@ export const InviteRoom = observer(() => {
       return;
     }
 
-    if (globalStore.loginType === 0) {
-      history.push('/quick-start?roomId=' + data.roomId);
-    } else {
+    if (globalStore.region === 'CN') {
       history.push('/join-room?roomId=' + data.roomId);
+    } else {
+      history.push('/quick-start?roomId=' + data.roomId);
     }
     return () => {
       ModalMethod.destroyAll();

@@ -6,12 +6,12 @@ import './style.css';
 
 export type CommonProps = {
   placeholder?: string;
-  value: string;
+  value: string | number;
   onChange?: (value: string) => void;
   onBlur?: () => void;
   onKeyDown?: () => void;
   onKeyUp?: () => void;
-  options?: { text: string; value: string }[];
+  options?: { text: string; value: string | number }[];
   readOnly?: boolean;
   error?: string;
 };

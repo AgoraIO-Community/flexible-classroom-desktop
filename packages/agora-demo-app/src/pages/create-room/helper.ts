@@ -5,44 +5,39 @@ import dayjs, { Dayjs } from 'dayjs';
 import type { AgoraLatencyLevel } from 'agora-rte-sdk';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
-export const roomTypeOptions = [
+export const sceneTypeOptions = [
   {
     label: 'fcr_h5create_label_small_classroom',
     description: 'fcr_create_label_small_classroom_description',
-    value: 4,
-    sceneType: SceneType.AgoraEduSdk,
+    value: SceneType.SmallClass,
     className: 'card-purple',
   },
   {
     label: 'fcr_h5create_label_lecture_hall',
     description: 'fcr_create_label_lecture_hall_description',
-    value: 2,
-    sceneType: SceneType.AgoraEduSdk,
+    value: SceneType.LectureHall,
     className: 'card-red',
   },
   {
     label: 'fcr_h5create_label_1on1',
     description: 'fcr_create_label_1on1_description',
-    value: 0,
-    sceneType: SceneType.AgoraEduSdk,
+    value: SceneType.OneOnOne,
     className: 'card-green',
   },
 ];
 
 if (!isElectron()) {
-  roomTypeOptions.push({
+  sceneTypeOptions.push({
     label: 'fcr_home_label_proctoring',
     description: 'fcr_home_label_proctoring',
-    value: 6,
-    sceneType: SceneType.AgoraProctorSdk,
+    value: SceneType.Proctoring,
     className: 'card-green',
   });
 
-  roomTypeOptions.push({
+  sceneTypeOptions.push({
     label: 'fcr_h5create_label_small_onlineclass',
     description: 'fcr_create_label_small_onlineclass_description',
-    value: 4,
-    sceneType: SceneType.AgoraOnlineclassSdk,
+    value: SceneType.Onlineclass,
     className: 'card-purple',
   });
 }

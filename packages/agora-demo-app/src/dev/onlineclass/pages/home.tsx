@@ -8,8 +8,7 @@ export const HomePage = () => {
   const defaultScenes = [
     {
       text: t('home.roomType_interactiveSmallClass'),
-      value: '4',
-      sceneType: SceneType.AgoraOnlineclassSdk,
+      value: SceneType.Onlineclass,
     },
   ];
 

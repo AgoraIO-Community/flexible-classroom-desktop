@@ -60,7 +60,7 @@ export const LaunchPage = observer(() => {
         getAssetURL(assetURLs.virtualBackground8),
         getAssetURL(assetURLs.virtualBackground9),
       ];
-      const shareUrl = `${location.origin}${location.pathname}?roomName=${launchOption.roomName}&roomType=${launchOption.roomType}&region=${launchOption.region}&language=${launchOption.language}&roleType=2#/share`;
+      const shareUrl = `${location.origin}${location.pathname}?roomName=${launchOption.roomName}&roomType=${launchOption.sceneType}&region=${launchOption.region}&language=${launchOption.language}&roleType=2#/share`;
 
       sdk.setParameters(JSON.stringify({ logo, shareUrl, host: launchOption.sdkDomain }));
 

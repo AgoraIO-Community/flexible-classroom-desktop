@@ -13,7 +13,7 @@ import { onlineclassStudentLimit } from '@app/utils/constants';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import set from 'lodash/set';
 
-const useForm = <T extends Record<string, string>>({
+const useForm = <T extends Record<string, unknown>>({
   initialValues,
   validate,
 }: {
@@ -82,15 +82,15 @@ const useForm = <T extends Record<string, string>>({
 
 export const CreateForm: FC<{
   onSubmit: () => boolean;
-  sceneOptions: { text: string; value: string; sceneType: SceneType }[];
+  sceneOptions: { text: string; value: SceneType }[];
 }> = ({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
   const globalStore = useContext(GlobalStoreContext);
   const { createRoomNoAuth } = useContext(RoomStoreContext);
 
-  const typeOptions = sceneOptions.map(({ text, value, sceneType }) => {
-    return { text, value: `${value}-${sceneType}` };
+  const typeOptions = sceneOptions.map(({ text, value }) => {
+    return { text, value };
   });
 
   const { quickJoinRoomNoAuth } = useJoinRoom();
@@ -99,21 +99,13 @@ export const CreateForm: FC<{
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, roomType, sceneType } = launchConfig;
-
-      let comboType =
-        window.__launchRoomType || (roomType && sceneType ? `${roomType + '-' + sceneType}` : '');
-
-      const exists = typeOptions.some(({ value }) => value === comboType);
-
-      if (!exists) {
-        comboType = '';
-      }
+      const { roomName, userName, sceneType } = launchConfig;
 
       return {
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
         userName: window.__launchUserName || `${userName ?? nickName ?? ''}`,
-        roomType: comboType,
+        sceneType:
+          (window.__launchRoomType as unknown as SceneType) || sceneType || SceneType.SmallClass,
       };
     },
     validate: (values, fieldName, onError) => {
@@ -140,22 +132,21 @@ export const CreateForm: FC<{
             );
           }
           break;
-        case 'roomType':
-          !values.roomType && onError('roomType', transI18n('home_form_error_room_type_empty'));
+        case 'sceneType':
+          !values.sceneType && onError('sceneType', transI18n('home_form_error_room_type_empty'));
           break;
       }
     },
   });
 
-  const { roomName, userName, roomType } = values;
+  const { roomName, userName, sceneType } = values;
 
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
-      const [roomTypeStr, sceneType] = roomType.split('-') as [string, SceneType];
       const role = 1;
       const userUuid = md5(`${userName}_${role}-main`);
 
-      const isOnlineclass = sceneType === SceneType.AgoraOnlineclassSdk;
+      const isOnlineclass = sceneType === SceneType.Onlineclass;
       const widgets = {};
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
@@ -178,7 +169,9 @@ export const CreateForm: FC<{
         sceneType,
         widgets,
         roomName: roomName,
-        roomType: parseInt(roomTypeStr),
+        roomProperties: {
+          latencyLevel: 2,
+        },
         startTime: Date.now(),
         endTime: Date.now() + 30 * 60 * 1000,
         userUuid: userUuid,
@@ -227,10 +220,10 @@ export const CreateForm: FC<{
           type="select"
           placeholder={t('home_form_placeholder_room_type')}
           width={369}
-          value={roomType}
-          {...eventHandlers('roomType')}
+          value={sceneType}
+          {...eventHandlers('sceneType')}
           options={typeOptions}
-          error={errors.roomType}
+          error={errors.sceneType}
         />
       </Layout>
 

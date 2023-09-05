@@ -1,6 +1,6 @@
-import type { EduRoomTypeEnum } from 'agora-edu-core';
 import { ErrorCode, failResult, Result, Status, successResult } from '.';
 import { RoomInfo } from '../api';
+import { SceneType } from '@app/type';
 
 export function roomIDIsValid(id: string): Result<null> {
   if (id.length !== 9) {
@@ -42,8 +42,8 @@ export function checkRoomInfoBeforeJoin(
   return successResult(null);
 }
 
-export function h5ClassModeIsSupport(roomType: EduRoomTypeEnum): Result<null> {
-  if (roomType !== 2) {
+export function h5ClassModeIsSupport(sceneType: SceneType): Result<null> {
+  if (sceneType !== SceneType.LectureHall) {
     const code = ErrorCode.INVALID_CLASS_MODE_H5;
     return failResult(code);
   }

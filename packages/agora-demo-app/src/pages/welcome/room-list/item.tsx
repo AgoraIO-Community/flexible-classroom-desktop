@@ -8,7 +8,6 @@ import { formatRoomID } from '@app/hooks';
 import classNames from 'classnames';
 import { useI18n } from 'agora-common-libs';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
-import type { EduRoomTypeEnum } from 'agora-edu-core';
 import { SceneType } from '@app/type';
 
 type RoomListItemProps = {
@@ -33,11 +32,12 @@ const roomStateMap = {
   [RoomState.NO_STARTED]: 'fcr_home_status_upcoming',
 };
 
-export const roomTypeMap = {
-  [0 as EduRoomTypeEnum]: 'fcr_home_label_1on1',
-  [4 as EduRoomTypeEnum]: 'fcr_home_label_small_classroom',
-  [2 as EduRoomTypeEnum]: 'fcr_home_label_lecture_hall',
-  [6 as EduRoomTypeEnum]: 'fcr_home_label_proctoring',
+export const sceneTypeTextMap = {
+  [SceneType.OneOnOne]: 'fcr_home_label_1on1',
+  [SceneType.SmallClass]: 'fcr_home_label_small_classroom',
+  [SceneType.LectureHall]: 'fcr_home_label_lecture_hall',
+  [SceneType.Proctoring]: 'fcr_home_label_proctoring',
+  [SceneType.Onlineclass]: 'fcr_home_label_onlineclass',
 };
 
 export const RoomListItem: FC<RoomListItemProps> = ({
@@ -121,11 +121,7 @@ export const RoomListItem: FC<RoomListItemProps> = ({
               colors={{ color: roomState !== RoomState.GOING ? '#78787c' : '#abb2ff' }}
               size={19}
             />
-            {transI18n(
-              data.sceneType === SceneType.AgoraOnlineclassSdk
-                ? 'fcr_home_label_onlineclass'
-                : roomTypeMap[data.roomType],
-            )}
+            {transI18n(sceneTypeTextMap[data.sceneType || (data.roomType as SceneType)])}
           </span>
         </div>
       </div>

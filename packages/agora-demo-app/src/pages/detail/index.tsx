@@ -14,7 +14,7 @@ import {
 } from '@app/api';
 import { RouteComponentProps } from 'react-router';
 import dayjs from 'dayjs';
-import { roomTypeMap } from '../welcome/room-list/item';
+import { sceneTypeTextMap } from '../welcome/room-list/item';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { useI18n } from 'agora-common-libs';
 import { ATabs, ATabsProps } from '@app/components/tabs';
@@ -132,7 +132,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
               <span className="fcr-w-8">
                 <SvgImg type={SvgIconEnum.ROOM_LABEL} size={20} colors={{ color: '#000' }} />
               </span>
-              <span>{roomInfo && transI18n(roomTypeMap[roomInfo.roomType])}</span>
+              <span>{roomInfo && transI18n(sceneTypeTextMap[roomInfo.sceneType])}</span>
             </div>{' '}
             <div className="fcr-font-black fcr-flex fcr-items-center fcr-transform fcr-scale-90">
               <span className="fcr-w-8">

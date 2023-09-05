@@ -2,12 +2,13 @@ import { render } from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/home';
 import { LaunchPage } from './pages/launch';
-import { LaunchWindowPage } from './pages/launch-window';
 import { StoreProvider } from '../../stores';
 import { addResourceBundle } from 'agora-common-libs';
+
 import './index.css';
 import en from '../../translate/en';
 import zh from '../../translate/zh';
+import { LaunchWindowPage } from '@app/pages/window/launch-window';
 
 const App = () => {
   return (

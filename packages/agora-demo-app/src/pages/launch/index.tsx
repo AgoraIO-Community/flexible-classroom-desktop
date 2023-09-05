@@ -36,11 +36,11 @@ export const LaunchPage = observer(() => {
 
   const { sceneType } = launchOption;
 
-  if (sceneType === SceneType.AgoraProctorSdk) {
+  if (sceneType === SceneType.Proctoring) {
     return <AgoraProctorApp />;
   }
 
-  if (sceneType === SceneType.AgoraOnlineclassSdk) {
+  if (sceneType === SceneType.Onlineclass) {
     return <AgoraOnlineClassApp />;
   }
   return <AgoraClassroomApp />;

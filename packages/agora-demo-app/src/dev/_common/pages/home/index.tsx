@@ -14,15 +14,12 @@ import { Layout } from '@app/components/layout';
 import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
-import { SceneType } from '@app/type';
-import split from 'lodash/split';
+import { FcrRoomType, SceneType } from '@app/type';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
-export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: SceneType }[] }> = ({
-  scenes,
-}) => {
+export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({ scenes }) => {
   const globalStore = useContext(GlobalStoreContext);
 
   const history = useHistory();
@@ -35,12 +32,12 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: Sc
 
   const handleSubmit = async ({
     roleType,
-    roomType: rt,
+    sceneType,
     roomName,
     userName,
   }: {
     roleType: string;
-    roomType: string;
+    sceneType: SceneType;
     roomName: string;
     userName: string;
   }) => {
@@ -52,11 +49,9 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: Sc
 
     const userRole = parseInt(roleType);
 
-    const [roomType, sceneType] = split(rt, '-');
-
     const userUuid = `${md5(userName)}${userRole}`;
 
-    const roomUuid = `${md5(roomName)}${roomType}`;
+    const roomUuid = `${md5(roomName)}${sceneType}`;
 
     try {
       setLoading(true);
@@ -71,7 +66,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: Sc
 
       const shareUrl = isElectron()
         ? ''
-        : `${location.origin}${location.pathname}?roomName=${roomName}&roomType=${roomType}&region=${region}&language=${language}&roleType=2#/share`;
+        : `${location.origin}${location.pathname}?roomName=${roomName}&roomType=${sceneType}&region=${region}&language=${language}&roleType=2#/share`;
 
       console.log('## get rtm Token from demo server', token);
 
@@ -84,7 +79,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: Sc
         userUuid: `${userUuid}`,
         rtmToken: token,
         roomUuid: `${roomUuid}`,
-        roomType: parseInt(roomType),
+        roomType: FcrRoomType[sceneType],
         roomName: `${roomName}`,
         userName: userName,
         roleType: userRole,
@@ -93,7 +88,7 @@ export const HomePage: FC<{ scenes: { text: string; value: string; sceneType: Sc
         latencyLevel: 2,
         shareUrl,
         recordUrl: `https://solutions-apaas.agora.io/apaas/record/dev/2.8.21/record_page.html`,
-        sceneType: sceneType as unknown as SceneType,
+        sceneType: sceneType,
         returnToPath: '/flex',
       };
 

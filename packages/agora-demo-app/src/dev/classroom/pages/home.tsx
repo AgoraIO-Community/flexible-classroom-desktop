@@ -8,23 +8,15 @@ export const HomePage = () => {
   const defaultScenes = [
     {
       text: t('home.roomType_1v1'),
-      value: `0`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.OneOnOne,
     },
     {
       text: t('home.roomType_interactiveSmallClass'),
-      value: `4`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.SmallClass,
     },
     {
       text: t('home.roomType_interactiveBigClass'),
-      value: `2`,
-      sceneType: SceneType.AgoraEduSdk,
-    },
-    {
-      text: t('fcr_home_label_proctoring'),
-      value: `6`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.LectureHall,
     },
   ];
 

@@ -138,7 +138,7 @@ export const H5Invite = observer(() => {
       }
 
       {
-        const checkResult = h5ClassModeIsSupport(roomDetail.roomType);
+        const checkResult = h5ClassModeIsSupport(roomDetail.sceneType);
         if (checkResult.status === Status.Failed) {
           messageError(checkResult.code);
           return;
@@ -154,13 +154,12 @@ export const H5Invite = observer(() => {
           userName: data.nickName,
           roomId: roomDetail.roomId,
           roomName: roomDetail.roomName,
-          roomType: roomDetail.roomType,
           role: 2,
           region,
           language,
           platform: 'H5' as Platform,
           latencyLevel,
-          sceneType: SceneType.AgoraEduSdk,
+          sceneType: roomDetail.sceneType,
         },
         { roomProperties: rProps, returnToPath: `${indexUrl}#/` },
       )

@@ -1,4 +1,4 @@
-import { LaunchWindowPage as BasePage } from '@app/dev/classroom/pages/launch-window';
+import { LaunchWindowPage as BasePage } from './launch-window';
 
 export const LaunchWindowPage = () => {
   return <BasePage />;

@@ -21,8 +21,8 @@ export type GlobalLaunchOption = {
   sdkDomain: string;
   scenes?: any;
   themes?: any;
-  sceneType: SceneType;
   roomType: EduRoomTypeEnum;
+  sceneType: SceneType;
   roleType: EduRoleTypeEnum;
   returnToPath: string;
   rtmToken: string;

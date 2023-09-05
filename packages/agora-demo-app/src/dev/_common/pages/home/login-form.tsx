@@ -6,7 +6,7 @@ import { SceneType } from '@app/type';
 import { transI18n, useI18n } from 'agora-common-libs';
 import { FC, useContext, useState } from 'react';
 
-const useForm = <T extends Record<string, string>>({
+const useForm = <T extends Record<string, unknown>>({
   initialValues,
   validate,
 }: {
@@ -75,7 +75,7 @@ const useForm = <T extends Record<string, string>>({
 
 export const LoginForm: FC<{
   onSubmit: (values: any) => void;
-  sceneOptions: { text: string; value: string; sceneType: SceneType }[];
+  sceneOptions: { text: string; value: SceneType }[];
 }> = ({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
@@ -88,29 +88,20 @@ export const LoginForm: FC<{
     { text: t('home.role_audience'), value: '0' },
   ];
 
-  const typeOptions = sceneOptions.map(({ text, value, sceneType }) => {
-    return { text, value: `${value}-${sceneType}` };
+  const typeOptions = sceneOptions.map(({ text, value }) => {
+    return { text, value };
   });
 
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, roleType, roomType, sceneType } = launchConfig;
-
-      let comboType =
-        window.__launchRoomType || (roomType && sceneType ? `${roomType + '-' + sceneType}` : '');
-
-      const exists = typeOptions.some(({ value }) => value === comboType);
-
-      if (!exists) {
-        comboType = '';
-      }
+      const { roomName, userName, roleType, sceneType } = launchConfig;
 
       return {
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
         userName: window.__launchUserName || `${userName ?? ''}`,
         roleType: window.__launchRoleType || `${roleType ?? ''}`,
-        roomType: comboType,
+        sceneType: window.__launchRoomType || sceneType || SceneType.SmallClass,
       };
     },
     validate: (values, fieldName, onError) => {
@@ -140,14 +131,14 @@ export const LoginForm: FC<{
         case 'roleType':
           !values.roleType && onError('roleType', transI18n('home_form_error_role_type_empty'));
           break;
-        case 'roomType':
-          !values.roomType && onError('roomType', transI18n('home_form_error_room_type_empty'));
+        case 'sceneType':
+          !values.sceneType && onError('sceneType', transI18n('home_form_error_room_type_empty'));
           break;
       }
     },
   });
 
-  const { roomName, userName, roleType, roomType } = values;
+  const { roomName, userName, roleType, sceneType } = values;
 
   const handleSubmit = () => {
     if (validate()) {
@@ -199,10 +190,10 @@ export const LoginForm: FC<{
           type="select"
           placeholder={t('home_form_placeholder_room_type')}
           width={203}
-          value={roomType}
-          {...eventHandlers('roomType')}
+          value={sceneType}
+          {...eventHandlers('sceneType')}
           options={typeOptions}
-          error={errors.roomType}
+          error={errors.sceneType}
         />
         <Field
           label={t('home_form_field_duration')}

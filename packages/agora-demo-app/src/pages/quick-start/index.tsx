@@ -31,28 +31,23 @@ export const QuickStart = observer(() => {
   const defaultScenes = [
     {
       text: t('fcr_home_label_1on1'),
-      value: `${0}`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.OneOnOne,
     },
     {
       text: t('fcr_home_label_small_classroom'),
-      value: `${4}`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.SmallClass,
     },
     {
       text: t('fcr_home_label_lecture_hall'),
-      value: `${2}`,
-      sceneType: SceneType.AgoraEduSdk,
+      value: SceneType.LectureHall,
     },
     {
       text: t('fcr_home_label_proctoring'),
-      value: `${6}`,
-      sceneType: SceneType.AgoraProctorSdk,
+      value: SceneType.Proctoring,
     },
     {
       text: t('fcr_home_label_onlineclass'),
-      value: `${4}`,
-      sceneType: SceneType.AgoraOnlineclassSdk,
+      value: SceneType.Onlineclass,
     },
   ];
 

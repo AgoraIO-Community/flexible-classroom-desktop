@@ -11,7 +11,8 @@ export type RoomInfo = {
   roomName: string;
   creatorId: string;
   roomId: string;
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: number;
   roomState: RoomState;
   startTime: number;
   endTime: number;
@@ -38,7 +39,8 @@ export type RoomListResponse = {
 type RoomProperties = Record<string, any>;
 export type RoomCreateRequest = {
   roomName: string;
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: EduRoomTypeEnum;
   startTime: number;
   endTime: number;
   userName?: string;
@@ -136,7 +138,9 @@ export interface RecordDetail {
   sumTime: number;
 }
 export interface RoomMessage {
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: EduRoomTypeEnum;
+  sceneType: SceneType;
   roomUuid: string;
 }
 export interface AcademicMessage {

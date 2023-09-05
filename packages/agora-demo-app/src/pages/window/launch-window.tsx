@@ -8,10 +8,9 @@ import { useContext, useEffect, useRef } from 'react';
 export const LaunchWindowPage = observer(() => {
   const domRef = useRef<HTMLDivElement>(null);
   const { theme } = useContext(GlobalStoreContext);
+  const { ready, sdk } = useEduSdk();
 
   useEffect(() => {
-    const { ready, sdk } = useEduSdk();
-
     if (ready && sdk) {
       sdk.launchWindow(domRef.current!, {
         windowID: window.__launchWindowID as any,
@@ -21,7 +20,7 @@ export const LaunchWindowPage = observer(() => {
         uiMode: (window.__launchUIMode as FcrMultiThemeMode) || theme,
       });
     }
-  }, []);
+  }, [ready, sdk]);
 
   return <div ref={domRef} id="app" className="fcr-w-screen fcr-h-screen" />;
 });

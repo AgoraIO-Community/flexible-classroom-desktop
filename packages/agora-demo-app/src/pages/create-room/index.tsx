@@ -26,7 +26,7 @@ import {
   classroomBackgroundImagePath,
   combDateTime,
   computeEndTime,
-  roomTypeOptions,
+  sceneTypeOptions,
   serviceTypeOptions,
   weekday,
 } from './helper';
@@ -44,8 +44,7 @@ export const CreateRoom = observer(() => {
 
   const [form] = useAForm<CreateFormValue>();
   const [showMore, setShowMore] = useState(false);
-  const [roomType, setRoomType] = useState(roomTypeOptions[0].value);
-  const [sceneType, setSceneType] = useState(roomTypeOptions[0].sceneType);
+  const [sceneType, setSceneType] = useState(sceneTypeOptions[0].value);
 
   const [serviceType, setServiceType] = useState(serviceTypeOptions[0].value);
   const [watermark, setWatermark] = useState(false);
@@ -198,8 +197,8 @@ export const CreateRoom = observer(() => {
       const dateTime = useCurrentTime ? dayjs() : combDateTime(date, time);
       const endDateTime = combDateTime(endDate, endTime);
 
-      const isProctoring = sceneType === SceneType.AgoraProctorSdk;
-      const isOnlineclass = sceneType === SceneType.AgoraOnlineclassSdk;
+      const isProctoring = sceneType === SceneType.Proctoring;
+      const isOnlineclass = sceneType === SceneType.Onlineclass;
       const roomProperties = isProctoring
         ? {
             watermark,
@@ -242,7 +241,6 @@ export const CreateRoom = observer(() => {
           roomName: name,
           startTime: dateTime.valueOf(),
           endTime: endDateTime.valueOf(),
-          roomType,
           roomProperties,
           widgets,
           roleConfigs,
@@ -422,17 +420,16 @@ export const CreateRoom = observer(() => {
         <div className="form-item item-mb">
           <div className="label">{transI18n('fcr_create_label_class_mode')}</div>
           <div className="room-type">
-            {roomTypeOptions.map((v) => {
+            {sceneTypeOptions.map((v) => {
               return (
                 <RoomTypeCard
                   title={transI18n(v.label)}
                   description={transI18n(v.description)}
-                  checked={roomType === v.value && sceneType === v.sceneType}
+                  checked={sceneType === v.value}
                   className={v.className}
                   key={v.value + v.label}
                   onClick={() => {
-                    setRoomType(v.value);
-                    setSceneType(v.sceneType);
+                    setSceneType(v.value);
                   }}
                 />
               );
@@ -440,7 +437,7 @@ export const CreateRoom = observer(() => {
           </div>
         </div>
         {/* service type */}
-        {roomType === 2 ? (
+        {sceneType === SceneType.LectureHall ? (
           <div className="form-item item-mb ">
             <div className="label">{transI18n('fcr_create_label_latency_type')}</div>
             <div className="service-type">

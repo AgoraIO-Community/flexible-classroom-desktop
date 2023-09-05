@@ -1,5 +1,5 @@
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
-import type { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
+import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import type { AgoraLatencyLevel, AgoraRegion } from 'agora-rte-sdk';
 import { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router';
@@ -15,11 +15,10 @@ import {
 import { shareLink } from '../utils/share';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
-import { SceneType } from '@app/type';
+import { FcrRoomType, SceneType } from '@app/type';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
-  roomType: EduRoomTypeEnum;
   roomName: string;
   userName: string;
   roomId: string;
@@ -85,7 +84,6 @@ export const useJoinRoom = () => {
     ) => {
       const {
         role,
-        roomType,
         roomName,
         userName,
         roomId,
@@ -101,7 +99,7 @@ export const useJoinRoom = () => {
       } = params;
 
       if (platform === 'H5') {
-        const checkResult = h5ClassModeIsSupport(roomType);
+        const checkResult = h5ClassModeIsSupport(sceneType);
         if (checkResult.status === Status.Failed) {
           return Promise.reject(checkResult);
         }
@@ -119,7 +117,7 @@ export const useJoinRoom = () => {
 
       console.log('## get rtm Token from demo server', token);
 
-      const isProctoring = roomType === 6;
+      const isProctoring = sceneType === SceneType.Proctoring;
 
       const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
@@ -131,7 +129,6 @@ export const useJoinRoom = () => {
         userUuid: userId,
         rtmToken: token,
         roomUuid: roomId,
-        roomType: roomType,
         roomName: `${roomName}`,
         userName: userName,
         roleType: role,
@@ -139,10 +136,11 @@ export const useJoinRoom = () => {
         language: language,
         duration: +duration * 60,
         latencyLevel,
-        sceneType,
+        roomType: FcrRoomType[sceneType],
         userFlexProperties: options.roomProperties || {},
         shareUrl,
         platform,
+        sceneType,
         mediaOptions: {
           web: {
             codec: webRTCCodec,
@@ -184,12 +182,12 @@ export const useJoinRoom = () => {
         .joinRoom({ roomId, role, userUuid: userId, userName: nickName })
         .then((response) => {
           const { roomDetail, token, appId } = response.data.data;
-          const { latencyLevel, sceneType, ...others } = roomDetail.roomProperties;
 
           const checkResult = checkRoomInfoBeforeJoin(roomDetail);
           if (checkResult.status === Status.Failed) {
             return Promise.reject(checkResult);
           }
+          const { latencyLevel, ...others } = roomDetail.roomProperties;
 
           return joinRoomHandle(
             {
@@ -201,11 +199,10 @@ export const useJoinRoom = () => {
               userName: nickName,
               roomId: roomDetail.roomId,
               roomName: roomDetail.roomName,
-              roomType: roomDetail.roomType,
-              latencyLevel,
+              latencyLevel: latencyLevel || 2,
               language,
               region,
-              sceneType,
+              sceneType: roomDetail.sceneType || roomDetail.roomType,
             },
             { roomProperties: others, returnToPath: '/', ...options },
           );
@@ -222,12 +219,12 @@ export const useJoinRoom = () => {
         .joinRoomNoAuth({ roomId, role, userUuid: userId, userName: nickName })
         .then((response) => {
           const { roomDetail, token, appId } = response.data.data;
-          const { latencyLevel, sceneType, ...others } = roomDetail.roomProperties;
 
           const checkResult = checkRoomInfoBeforeJoin(roomDetail);
           if (checkResult.status === Status.Failed) {
             return Promise.reject(checkResult);
           }
+          const { latencyLevel, ...others } = roomDetail.roomProperties;
 
           return joinRoomHandle(
             {
@@ -239,11 +236,10 @@ export const useJoinRoom = () => {
               userName: nickName,
               roomId: roomDetail.roomId,
               roomName: roomDetail.roomName,
-              roomType: roomDetail.roomType,
-              latencyLevel,
+              sceneType: roomDetail.sceneType || roomDetail.roomType,
+              latencyLevel: latencyLevel || 2,
               language,
               region,
-              sceneType,
             },
             { roomProperties: others, returnToPath: '/', ...options },
           );
