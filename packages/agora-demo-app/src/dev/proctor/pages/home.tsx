@@ -8,8 +8,7 @@ export const HomePage = () => {
   const defaultScenes = [
     {
       text: t('fcr_home_label_proctoring'),
-      value: `6`,
-      sceneType: SceneType.AgoraProctorSdk,
+      value: SceneType.Proctoring,
     },
   ];
 

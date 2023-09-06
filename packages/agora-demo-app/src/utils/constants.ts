@@ -1,2 +1,2 @@
 // Maximum number of online classrooms
-export const onlineclassStudentLimit = 80;
+export const onlineclassStudentLimit = 49;
