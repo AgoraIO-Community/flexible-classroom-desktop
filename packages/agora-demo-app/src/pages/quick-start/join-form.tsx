@@ -102,7 +102,7 @@ export const JoinForm: FC<{
       return {
         roomUuid: `${params.roomId ?? roomUuid ?? ''}`,
         userName: window.__launchUserName || `${userName ?? nickName ?? ''}`,
-        roleType: window.__launchRoleType || `${roleType ?? ''}`,
+        roleType: window.__launchRoleType || `${roleType ?? 2}`,
       };
     },
     validate: (values, fieldName, onError) => {

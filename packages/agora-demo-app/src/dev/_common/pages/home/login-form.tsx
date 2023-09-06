@@ -97,11 +97,19 @@ export const LoginForm: FC<{
       const launchConfig = globalStore.launchConfig;
       const { roomName, userName, roleType, sceneType } = launchConfig;
 
+      let defaultSceneType = parseInt(window.__launchRoomType || `${sceneType}`);
+
+      const exists = typeOptions.some(({ value }) => value === sceneType);
+
+      if (!exists) {
+        defaultSceneType = typeOptions.length ? typeOptions[0].value : SceneType.SmallClass;
+      }
+
       return {
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
         userName: window.__launchUserName || `${userName ?? ''}`,
         roleType: window.__launchRoleType || `${roleType ?? ''}`,
-        sceneType: window.__launchRoomType || sceneType || SceneType.SmallClass,
+        sceneType: defaultSceneType,
       };
     },
     validate: (values, fieldName, onError) => {

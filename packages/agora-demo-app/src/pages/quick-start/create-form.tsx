@@ -99,13 +99,20 @@ export const CreateForm: FC<{
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, sceneType } = launchConfig;
+      const { roomName, userName, sceneType = SceneType.SmallClass } = launchConfig;
+
+      let defaultSceneType = window.__launchRoomType || `${sceneType}`;
+
+      const exists = typeOptions.some(({ value }) => value === sceneType);
+
+      if (!exists) {
+        defaultSceneType = `${SceneType.SmallClass}`;
+      }
 
       return {
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
         userName: window.__launchUserName || `${userName ?? nickName ?? ''}`,
-        sceneType:
-          (window.__launchRoomType as unknown as SceneType) || sceneType || SceneType.SmallClass,
+        sceneType: parseInt(defaultSceneType),
       };
     },
     validate: (values, fieldName, onError) => {
