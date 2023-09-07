@@ -9,6 +9,7 @@ import {
   LS_USER_INFO,
   setLSStore,
 } from '../utils/local-storage';
+import { sleep } from 'agora-rte-sdk/lib/core/utils/utils';
 
 export class UserStore {
   @observable
@@ -74,6 +75,7 @@ export class UserStore {
   async getUserInfo() {
     try {
       this.setLoading(true);
+      await sleep(100);
       const res = await UserApi.shared.getUserInfo();
       if (!res) {
         throw new Error();

@@ -33,11 +33,8 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
       if (location.pathname !== '/' && !shouldAuth) {
         return;
       }
-      setLoading(true);
       // check whether the user token is expired or not
-      getUserInfo().finally(() => {
-        setLoading(false);
-      });
+      getUserInfo();
     }, [isLogin, platformRedirectPaths, location.pathname]);
 
     const handleAccessToken = useCallback(() => {
@@ -47,8 +44,6 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
       });
       history.replace('/');
     }, []);
-
-    console.log('need auth', needAuth, !isLogin, !token.accessToken, shouldAuth);
 
     return needAuth ? <SSOAuth onComplete={handleAccessToken} /> : <>{children}</>;
   },
