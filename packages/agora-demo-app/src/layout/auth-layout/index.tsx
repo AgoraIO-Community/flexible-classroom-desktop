@@ -18,14 +18,19 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
     const history = useHistory();
 
     const shouldAuth = includes.includes(location.pathname);
+    const needAuth = !isLogin && !token.accessToken && shouldAuth;
 
     useEffect(() => {
       if (isLogin) {
         return;
       }
-
       // token not exists
       if (!token.accessToken) {
+        return;
+      }
+      // no need auth so no need to get user info
+      // Fix: userinfo is always required in index page, so exclude it.
+      if (location.pathname !== '/' && !shouldAuth) {
         return;
       }
       setLoading(true);
@@ -43,7 +48,7 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
       history.replace('/');
     }, []);
 
-    const needAuth = !isLogin && !token.accessToken && shouldAuth;
+    console.log('need auth', needAuth, !isLogin, !token.accessToken, shouldAuth);
 
     return needAuth ? <SSOAuth onComplete={handleAccessToken} /> : <>{children}</>;
   },

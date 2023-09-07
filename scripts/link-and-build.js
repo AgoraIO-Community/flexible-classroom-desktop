@@ -27,7 +27,7 @@ async function buildPackages(packages) {
     const lernaPath = path.resolve(__dirname, '..', 'node_modules', '.bin', 'lerna');
 
     for (const pkg of packages) {
-      const code = await exec(`${lernaPath} exec --scope=${pkg} 'yarn ci:build'`);
+      const code = await exec(`${lernaPath} exec --scope=${pkg} yarn ci:build`);
 
       if (code) {
         throw new Error('Error building package: ', pkg);

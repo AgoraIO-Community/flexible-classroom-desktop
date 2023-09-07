@@ -58,7 +58,7 @@ if (
         }
       })
       .finally(renderByRegion);
-  } else if (globalStore.region !== 'CN') {
+  } else if (globalStore.isNoLogin) {
     // if region is set but not set to CN, then go quick start page
     if (!token.accessToken) {
       window.location.replace(redirectUrl);

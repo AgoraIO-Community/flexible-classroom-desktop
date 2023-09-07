@@ -20,13 +20,16 @@ export const Logout = () => {
   };
 
   const logout = async () => {
-    setLoading(true);
-    return UserApi.shared
-      .logoutAccount()
-      .then(resetLoginState)
-      .finally(() => {
-        setLoading(false);
-      });
+    if (token.accessToken) {
+      setLoading(true);
+      return UserApi.shared
+        .logoutAccount()
+        .then(resetLoginState)
+        .catch(() => {})
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   };
 
   return isElectron() ? <LogoutElectron logout={logout} /> : <LogoutWeb logout={logout} />;

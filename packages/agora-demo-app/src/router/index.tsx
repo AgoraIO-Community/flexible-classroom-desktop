@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 import { Route, Switch, useHistory } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { AuthLayout } from '../layout/auth-layout';
@@ -6,9 +6,11 @@ import { BasicLayout } from '../layout/basic-layout';
 import { routesMap, commonRoutesMap } from './maps';
 import { PageRouter } from './type';
 import { isH5Browser } from '@app/utils/browser';
+import { GlobalStoreContext } from '@app/stores';
 
 export const RouteContainer = () => {
   const history = useHistory();
+  const globalStore = useContext(GlobalStoreContext);
   const browserPlatformRedirectPaths = useMemo(() => {
     const list = [
       PageRouter.IndexMobileWeb,
@@ -35,7 +37,10 @@ export const RouteContainer = () => {
   }
 
   const authIncludes = useMemo(() => {
-    const list = [PageRouter.JoinRoom, PageRouter.CreateRoom, PageRouter.Detail];
+    const list = [PageRouter.CreateRoom, PageRouter.Detail];
+    if (!globalStore.isNoLogin) {
+      list.push(PageRouter.JoinRoom);
+    }
     return list.map((v) => routesMap[v].path);
   }, []);
 
