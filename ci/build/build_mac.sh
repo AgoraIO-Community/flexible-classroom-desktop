@@ -61,6 +61,6 @@ build_demo $source_root $ci_source_root $build_env
 
 publish_web $source_root $build_branch $build_env
 
-publish_client $source_root $build_branch $build_env
-
 publish_recording $source_root $build_env
+
+publish_client $source_root $build_branch $build_env
