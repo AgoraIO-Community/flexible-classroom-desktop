@@ -108,6 +108,11 @@ export const useJoinRoom = () => {
       if (!userId) {
         return Promise.reject(failResult(ErrorCode.USER_ID_EMPTY));
       }
+      const isProctoring = sceneType === SceneType.Proctoring;
+      let userUuid = userId;
+      if (isProctoring && role === 2) {
+        userUuid = `${userUuid}-main`;
+      }
 
       if (!userName) {
         return Promise.reject(failResult(ErrorCode.USER_NAME_EMPTY));
@@ -117,8 +122,6 @@ export const useJoinRoom = () => {
 
       console.log('## get rtm Token from demo server', token);
 
-      const isProctoring = sceneType === SceneType.Proctoring;
-
       const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
       const webRTCCodec = isProctoring ? 'h264' : 'vp8';
@@ -126,7 +129,7 @@ export const useJoinRoom = () => {
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
         sdkDomain,
-        userUuid: userId,
+        userUuid,
         rtmToken: token,
         roomUuid: roomId,
         roomName: `${roomName}`,

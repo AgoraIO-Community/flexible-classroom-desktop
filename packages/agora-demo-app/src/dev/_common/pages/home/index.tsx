@@ -44,12 +44,17 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
     if (loading) {
       return;
     }
+    const isProctoring = sceneType === SceneType.Proctoring;
+
     const language = globalStore.language || 'zh';
     const region = globalStore.region || 'CN';
 
     const userRole = parseInt(roleType);
-
-    const userUuid = `${md5(userName)}${userRole}`;
+    const isStudent = userRole === 2;
+    const userUuid =
+      isProctoring && isStudent
+        ? `${md5(userName)}${userRole}-main`
+        : `${md5(userName)}${userRole}`;
 
     const roomUuid = `${md5(roomName)}${sceneType}`;
 
