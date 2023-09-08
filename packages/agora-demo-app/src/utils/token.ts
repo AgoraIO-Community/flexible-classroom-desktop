@@ -45,8 +45,8 @@ class Token {
       this.accessToken = result.accessToken;
       this.refreshToken = result.refreshToken;
       this.from = result.from;
-      window.location.replace(decodeURIComponent(this.from ?? ''));
-      // window.history.pushState({}, '', this.from);
+      // window.location.replace(decodeURIComponent(this.from ?? ''));
+      window.history.pushState({}, '', decodeURIComponent(this.from ?? ''));
     }
   }
 }
