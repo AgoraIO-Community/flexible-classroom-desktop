@@ -10,14 +10,6 @@ export function roomIDIsValid(id: string): Result<null> {
   return successResult(null);
 }
 
-export function roomIsEnded(endTime: number) {
-  if (endTime < new Date().getTime()) {
-    const code = ErrorCode.ROOM_IS_ENDED;
-    return failResult(code);
-  }
-  return successResult(null);
-}
-
 export function checkRoomInfoBeforeJoin(
   roomInfo: Pick<RoomInfo, 'roomId' | 'endTime'>,
 ): Result<null> {
@@ -33,12 +25,6 @@ export function checkRoomInfoBeforeJoin(
     }
   }
 
-  {
-    const result = roomIsEnded(roomInfo.endTime);
-    if (result.status === Status.Failed) {
-      return result;
-    }
-  }
   return successResult(null);
 }
 
