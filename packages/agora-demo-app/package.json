@@ -127,10 +127,6 @@
       "last 1 safari version"
     ]
   },
-  "agora_electron": {
-    "electron_version": "12.0.0",
-    "prebuilt": true
-  },
   "peerDependencies": {
     "agora-electron-sdk": "*"
   },
