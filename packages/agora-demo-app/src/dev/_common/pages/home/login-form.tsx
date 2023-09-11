@@ -137,10 +137,12 @@ export const LoginForm: FC<{
           }
           break;
         case 'roleType':
-          !values.roleType && onError('roleType', transI18n('home_form_error_role_type_empty'));
+          values.roleType === undefined &&
+            onError('roleType', transI18n('home_form_error_role_type_empty'));
           break;
         case 'sceneType':
-          !values.sceneType && onError('sceneType', transI18n('home_form_error_room_type_empty'));
+          values.sceneType === undefined &&
+            onError('sceneType', transI18n('home_form_error_room_type_empty'));
           break;
       }
     },

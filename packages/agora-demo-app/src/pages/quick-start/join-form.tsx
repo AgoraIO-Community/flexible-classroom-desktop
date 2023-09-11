@@ -127,7 +127,8 @@ export const JoinForm: FC<{
           }
           break;
         case 'roleType':
-          !values.roleType && onError('roleType', transI18n('home_form_error_role_type_empty'));
+          values.roleType === undefined &&
+            onError('roleType', transI18n('home_form_error_role_type_empty'));
           break;
       }
     },
@@ -138,7 +139,7 @@ export const JoinForm: FC<{
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
       const role = parseInt(roleType) as EduRoleTypeEnum;
-      const userUuid = md5(`${userName}_${role}-main`);
+      const userId = md5(`${userName}_${role}`);
       globalStore.setLoading(true);
       setNickName(userName);
       quickJoinRoomNoAuth(
@@ -147,7 +148,7 @@ export const JoinForm: FC<{
           roomId: roomUuid,
           nickName: userName,
           platform: 'PC' as Platform,
-          userId: userUuid,
+          userId,
         },
         {
           returnToPath: params.roomId ? `/quick-start?roomId=${params.roomId}` : '/quick-start',

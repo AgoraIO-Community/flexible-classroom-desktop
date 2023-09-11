@@ -140,7 +140,8 @@ export const CreateForm: FC<{
           }
           break;
         case 'sceneType':
-          !values.sceneType && onError('sceneType', transI18n('home_form_error_room_type_empty'));
+          values.sceneType === undefined &&
+            onError('sceneType', transI18n('home_form_error_room_type_empty'));
           break;
       }
     },
@@ -151,7 +152,7 @@ export const CreateForm: FC<{
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
       const role = 1;
-      const userUuid = md5(`${userName}_${role}-main`);
+      const userId = md5(`${userName}_${role}`);
 
       const isOnlineclass = sceneType === SceneType.Onlineclass;
       const widgets = {};
@@ -181,7 +182,7 @@ export const CreateForm: FC<{
         },
         startTime: Date.now(),
         endTime: Date.now() + 30 * 60 * 1000,
-        userUuid: userUuid,
+        userUuid: userId,
         roleConfigs,
       })
         .then((data) => {
@@ -192,7 +193,7 @@ export const CreateForm: FC<{
               roomId: data.roomId,
               nickName: userName,
               platform: 'PC' as Platform,
-              userId: userUuid,
+              userId,
             },
             {
               returnToPath: '/quick-start',
