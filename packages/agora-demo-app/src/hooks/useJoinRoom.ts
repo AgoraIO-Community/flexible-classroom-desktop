@@ -16,6 +16,7 @@ import { shareLink } from '../utils/share';
 import { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
 import { FcrRoomType, SceneType } from '@app/type';
+import { roomApi } from '@app/api';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -109,10 +110,6 @@ export const useJoinRoom = () => {
         return Promise.reject(failResult(ErrorCode.USER_ID_EMPTY));
       }
       const isProctoring = sceneType === SceneType.Proctoring;
-      let userUuid = userId;
-      if (isProctoring && role === 2) {
-        userUuid = `${userUuid}-main`;
-      }
 
       if (!userName) {
         return Promise.reject(failResult(ErrorCode.USER_NAME_EMPTY));
@@ -129,7 +126,7 @@ export const useJoinRoom = () => {
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
         sdkDomain,
-        userUuid,
+        userUuid: userId,
         rtmToken: token,
         roomUuid: roomId,
         roomName: `${roomName}`,
@@ -181,35 +178,40 @@ export const useJoinRoom = () => {
   const quickJoinRoom = useCallback(
     async (params: QuickJoinRoomParams, options?: Partial<JoinRoomOptions>) => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
-      return roomStore
-        .joinRoom({ roomId, role, userUuid: userId, userName: nickName })
-        .then((response) => {
-          const { roomDetail, token, appId } = response.data.data;
+      const {
+        data: { data: roomInfo },
+      } = await roomApi.getRoomInfoByID(roomId);
 
-          const checkResult = checkRoomInfoBeforeJoin(roomDetail);
-          if (checkResult.status === Status.Failed) {
-            return Promise.reject(checkResult);
-          }
-          const { latencyLevel, ...others } = roomDetail.roomProperties;
+      const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
+      const isStudent = role === 2;
+      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
+      return roomStore.joinRoom({ roomId, role, userUuid, userName: nickName }).then((response) => {
+        const { roomDetail, token, appId } = response.data.data;
 
-          return joinRoomHandle(
-            {
-              appId,
-              token,
-              role,
-              platform,
-              userId,
-              userName: nickName,
-              roomId: roomDetail.roomId,
-              roomName: roomDetail.roomName,
-              latencyLevel: latencyLevel || 2,
-              language,
-              region,
-              sceneType: roomDetail.sceneType || roomDetail.roomType,
-            },
-            { roomProperties: others, returnToPath: '/', ...options },
-          );
-        });
+        const checkResult = checkRoomInfoBeforeJoin(roomDetail);
+        if (checkResult.status === Status.Failed) {
+          return Promise.reject(checkResult);
+        }
+        const { latencyLevel, ...others } = roomDetail.roomProperties;
+
+        return joinRoomHandle(
+          {
+            appId,
+            token,
+            role,
+            platform,
+            userId: userUuid,
+            userName: nickName,
+            roomId: roomDetail.roomId,
+            roomName: roomDetail.roomName,
+            latencyLevel: latencyLevel || 2,
+            language,
+            region,
+            sceneType: roomDetail.sceneType || roomDetail.roomType,
+          },
+          { roomProperties: others, returnToPath: '/', ...options },
+        );
+      });
     },
     [language, region, joinRoomHandle],
   );
@@ -217,9 +219,15 @@ export const useJoinRoom = () => {
   const quickJoinRoomNoAuth = useCallback(
     async (params: QuickJoinRoomParams, options?: Partial<JoinRoomOptions>) => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
+      const {
+        data: { data: roomInfo },
+      } = await roomApi.getRoomInfoByIDNoAuth(roomId);
 
+      const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
+      const isStudent = role === 2;
+      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
       return roomStore
-        .joinRoomNoAuth({ roomId, role, userUuid: userId, userName: nickName })
+        .joinRoomNoAuth({ roomId, role, userUuid, userName: nickName })
         .then((response) => {
           const { roomDetail, token, appId } = response.data.data;
 
@@ -235,7 +243,7 @@ export const useJoinRoom = () => {
               token,
               role,
               platform,
-              userId,
+              userId: userUuid,
               userName: nickName,
               roomId: roomDetail.roomId,
               roomName: roomDetail.roomName,

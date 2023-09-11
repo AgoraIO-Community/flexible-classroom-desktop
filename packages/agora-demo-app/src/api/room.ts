@@ -103,7 +103,21 @@ export class RoomAPI {
     const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms/${roomID}`;
     return request.get<Response<RoomInfo>>(url);
   }
-
+  /**
+   * 通过房间ID查询房间信息(免鉴权)
+   * @param roomID
+   * @returns
+   *
+   **/
+  /** @en
+   * Get room's info by id without auth
+   * @param roomID
+   * @returns
+   */
+  public async getRoomInfoByIDNoAuth(roomID: string) {
+    const url = `${this.appDomain}/edu/companys/v1/rooms/${roomID}`;
+    return request.get<Response<RoomInfo>>(url);
+  }
   /**
    * 加入教室
    * @param params
