@@ -459,85 +459,87 @@ export const CreateRoom = observer(() => {
           </div>
         ) : null}
         {/* more settings */}
-        <div
-          className={classNames({
-            'form-item item-mb more-settings': 1,
-            expanded: showMore,
-          })}>
-          {/* <div className="label">
-            {transI18n('fcr_create_label_more_settings')}
-            <span
-              className={classNames({
-                'expand-btn': 1,
-                'fcr-hidden': showMore,
-              })}
-              onClick={() => {
-                setShowMore((pre) => !pre);
-              }}>
-              {transI18n('fcr_create_more_settings_expand')}
-            </span>
-          </div> */}
-          {/* <div
+        {[SceneType.SmallClass, SceneType.LectureHall, SceneType.OneOnOne].includes(sceneType) ? (
+          <div
             className={classNames({
-              'more-setting-list': 1,
-              'fcr-hidden': !showMore,
+              'form-item item-mb more-settings': 1,
+              expanded: showMore,
             })}>
-            <div className="setting-item">
-              <div className="title">
-                <div className="security-prefix-icon" />
-                {transI18n('fcr_create_label_security')}
-              </div>
-              <div className="content">
-                <RadioCard
-                  className={'watermark-card'}
-                  onClick={() => {
-                    setWatermark((pre) => !pre);
-                  }}
-                  checked={watermark}
-                  label={transI18n('fcr_create_label_watermark')}
-                  icon={<img src={watermarkIcon}></img>}
-                />
-              </div>
+            <div className="label">
+              {transI18n('fcr_create_label_more_settings')}
+              <span
+                className={classNames({
+                  'expand-btn': 1,
+                  'fcr-hidden': showMore,
+                })}
+                onClick={() => {
+                  setShowMore((pre) => !pre);
+                }}>
+                {transI18n('fcr_create_more_settings_expand')}
+              </span>
             </div>
-            {showLivePlaybackOption ? (
+            <div
+              className={classNames({
+                'more-setting-list': 1,
+                'fcr-hidden': !showMore,
+              })}>
               <div className="setting-item">
                 <div className="title">
-                  <div className="live-playback-prefix-icon" />
-                  {transI18n('fcr_create_label_playback')}
+                  <div className="security-prefix-icon" />
+                  {transI18n('fcr_create_label_security')}
                 </div>
                 <div className="content">
-                  <div className="live-playback">
-                    <div
-                      className="header"
-                      onClick={() => {
-                        setLivePlayback((pre) => !pre);
-                      }}>
-                      <span className="flex-1">
-                        {transI18n('fcr_create_label_playback_description')}
-                      </span>
-                      <RadioIcon checked={livePlayback} />
-                    </div>
-                    <div className={`link ${!livePlayback ? 'fcr-hidden' : ''}`}>
-                      <div className="link-label">
-                        {transI18n('fcr_create_label_playback_link')}
+                  <RadioCard
+                    className={'watermark-card'}
+                    onClick={() => {
+                      setWatermark((pre) => !pre);
+                    }}
+                    checked={watermark}
+                    label={transI18n('fcr_create_label_watermark')}
+                    icon={<img src={watermarkIcon}></img>}
+                  />
+                </div>
+              </div>
+              {showLivePlaybackOption ? (
+                <div className="setting-item">
+                  <div className="title">
+                    <div className="live-playback-prefix-icon" />
+                    {transI18n('fcr_create_label_playback')}
+                  </div>
+                  <div className="content">
+                    <div className="live-playback">
+                      <div
+                        className="header"
+                        onClick={() => {
+                          setLivePlayback((pre) => !pre);
+                        }}>
+                        <span className="flex-1">
+                          {transI18n('fcr_create_label_playback_description')}
+                        </span>
+                        <RadioIcon checked={livePlayback} />
                       </div>
-                      <AFormItem
-                        name="link"
-                        rules={[
-                          {
-                            required: livePlayback,
-                            message: transI18n('fcr_create_tips_room_playback_link'),
-                          },
-                        ]}>
-                        <AInput />
-                      </AFormItem>
+                      <div className={`link ${!livePlayback ? 'fcr-hidden' : ''}`}>
+                        <div className="link-label">
+                          {transI18n('fcr_create_label_playback_link')}
+                        </div>
+                        <AFormItem
+                          name="link"
+                          rules={[
+                            {
+                              required: livePlayback,
+                              message: transI18n('fcr_create_tips_room_playback_link'),
+                            },
+                          ]}>
+                          <AInput />
+                        </AFormItem>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ) : null}
-          </div> */}
-        </div>
+              ) : null}
+            </div>
+          </div>
+        ) : null}
       </AForm>
     </NavPageLayout>
   );

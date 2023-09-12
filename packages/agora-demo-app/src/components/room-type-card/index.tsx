@@ -21,7 +21,7 @@ export const RoomTypeCard: FC<RoomTypeCardProps> = ({
     <div className={`room-type-card ${className}  ${checked ? 'checked' : ''}`} onClick={onClick}>
       <RadioIcon checked={checked} className="radio" />
       <div className="name">{title}</div>
-      <div className="description">{description}</div>
+      {description && <div className="description">{description}</div>}
     </div>
   );
 };

@@ -5,22 +5,27 @@ import dayjs, { Dayjs } from 'dayjs';
 import type { AgoraLatencyLevel } from 'agora-rte-sdk';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
-export const sceneTypeOptions = [
+export const sceneTypeOptions: {
+  label: string;
+  description?: string;
+  value: SceneType;
+  className: string;
+}[] = [
   {
     label: 'fcr_h5create_label_small_classroom',
-    description: 'fcr_create_label_small_classroom_description',
+    // description: 'fcr_create_label_small_classroom_description',
     value: SceneType.SmallClass,
     className: 'card-purple',
   },
   {
     label: 'fcr_h5create_label_lecture_hall',
-    description: 'fcr_create_label_lecture_hall_description',
+    // description: 'fcr_create_label_lecture_hall_description',
     value: SceneType.LectureHall,
     className: 'card-red',
   },
   {
     label: 'fcr_h5create_label_1on1',
-    description: 'fcr_create_label_1on1_description',
+    // description: 'fcr_create_label_1on1_description',
     value: SceneType.OneOnOne,
     className: 'card-green',
   },
@@ -29,14 +34,14 @@ export const sceneTypeOptions = [
 if (!isElectron()) {
   sceneTypeOptions.push({
     label: 'fcr_home_label_proctoring',
-    description: 'fcr_home_label_proctoring',
+    // description: 'fcr_home_label_proctoring',
     value: SceneType.Proctoring,
     className: 'card-green',
   });
 
   sceneTypeOptions.push({
-    label: 'fcr_h5create_label_small_onlineclass',
-    description: 'fcr_create_label_small_onlineclass_description',
+    label: 'fcr_home_label_class_mode_cloud_class',
+    description: 'fcr_home_label_only_dark',
     value: SceneType.Onlineclass,
     className: 'card-purple',
   });
@@ -55,12 +60,6 @@ export const serviceTypeOptions = [
     value: 1 as AgoraLatencyLevel,
     icon: standardIcon,
   },
-  // {
-  //   label: 'fcr_create_label_service_type_CDN',
-  //   description: 'fcr_create_label_latency_CDN',
-  //   value: EduRoomServiceTypeEnum.Fusion,
-  //   icon: <img src={cdnIcon} />,
-  // },
 ];
 
 export const classroomBackgroundImagePath =

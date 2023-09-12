@@ -20,7 +20,7 @@ export const Consult = () => {
   const handleOpenDownloadLink = () => {
     getLanguage() === 'zh'
       ? window.open(
-          'https://doc.shengwang.cn/doc/flexible-classroom/web/resources#%E4%B8%8B%E8%BD%BD-demo',
+          'https://doc.shengwang.cn/doc/flexible-classroom/web/resources',
           '_blank',
         )
       : window.open(

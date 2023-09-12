@@ -179,6 +179,7 @@ export const CreateForm: FC<{
         roomName: roomName,
         roomProperties: {
           latencyLevel: 2,
+          watermark: false,
         },
         startTime: Date.now(),
         endTime: Date.now() + 30 * 60 * 1000,

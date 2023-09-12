@@ -46,6 +46,9 @@ export const About = observer(() => {
         {transI18n('fcr_settings_label_about_us_fcr_ver')}
         {`: ver ${DEMO_VERSION}`}
       </p>
+      <p>
+        {transI18n('fcr_settings_label_demo_remind')}
+      </p>
       {region === 'CN' ? cn : na}
       <div
         className="logout-btn fcr-px-6 fcr-rounded-md fcr-border fcr-inline-block fcr-cursor-pointer"

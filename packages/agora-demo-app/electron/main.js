@@ -5,14 +5,9 @@ const startUrl =
   process.env.ELECTRON_START_URL ||
   `file://${path.resolve(__dirname, '../../app.asar/build')}/index.html`;
 
-/**
- *  （桌面端）登陆页默认&最小尺寸范围：960*640
- *  （桌面端）课堂内默认&最小尺寸范围：1280*720
- */
-
 const realSize = {
-  width: 1280,
-  height: 720,
+  width: 1366,
+  height: 768,
 };
 
 // workaround for resizable issue in mac os
