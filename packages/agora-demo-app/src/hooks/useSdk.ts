@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { AgoraEduSDK } from 'agora-classroom-sdk';
 import type { AgoraProctorSDK } from 'agora-proctor-sdk';
-import type { FcrUIScene } from 'agora-onlineclass-sdk';
+import type { FcrUIScene } from 'fcr-ui-scene';
 
 export const useEduSdk = () => {
   const [loader, setLoader] = useState<{ ready: boolean; sdk: typeof AgoraEduSDK | null }>({
@@ -33,14 +33,14 @@ export const useProctorSdk = () => {
   return loader;
 };
 
-export const useOnlineclassSdk = () => {
+export const useFcrUIScene = () => {
   const [loader, setLoader] = useState<{ ready: boolean; sdk: typeof FcrUIScene | null }>({
     ready: false,
     sdk: null,
   });
 
   useEffect(() => {
-    import(/* webpackPrefetch: true */ 'agora-onlineclass-sdk').then(({ FcrUIScene }) => {
+    import(/* webpackPrefetch: true */ 'fcr-ui-scene').then(({ FcrUIScene }) => {
       setLoader({ ready: true, sdk: FcrUIScene });
     });
   }, []);

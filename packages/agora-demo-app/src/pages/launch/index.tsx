@@ -7,14 +7,10 @@ import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
 
-import {
-  useClassroomWidgets,
-  useOnlineclassWidgets,
-  useProctorWidgets,
-} from '@app/hooks/useWidgets';
+import { useClassroomWidgets, useSceneWidgets, useProctorWidgets } from '@app/hooks/useWidgets';
 import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
-import { useEduSdk, useOnlineclassSdk, useProctorSdk } from '@app/hooks/useSdk';
+import { useEduSdk, useFcrUIScene, useProctorSdk } from '@app/hooks/useSdk';
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -40,8 +36,8 @@ export const LaunchPage = observer(() => {
     return <AgoraProctorApp />;
   }
 
-  if (sceneType === SceneType.Onlineclass) {
-    return <AgoraOnlineClassApp />;
+  if (sceneType === SceneType.Scene) {
+    return <FcrUISceneApp />;
   }
   return <AgoraClassroomApp />;
 });
@@ -172,13 +168,13 @@ export const AgoraProctorApp = () => {
   return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
 };
 
-export const AgoraOnlineClassApp = () => {
+export const FcrUISceneApp = () => {
   const homeStore = useContext(GlobalStoreContext);
   const userStore = useContext(UserStoreContext);
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
-  const { ready: widgetsReady, widgets } = useOnlineclassWidgets([
+  const { ready: widgetsReady, widgets } = useSceneWidgets([
     'FcrBoardWidget',
     'FcrPolling',
     'AgoraChatroomWidget',
@@ -188,7 +184,7 @@ export const AgoraOnlineClassApp = () => {
     'FcrPopupQuizWidget',
   ]);
 
-  const { ready: sdkReady, sdk } = useOnlineclassSdk();
+  const { ready: sdkReady, sdk } = useFcrUIScene();
 
   useEffect(() => {
     if (widgetsReady && sdkReady && sdk && appRef.current) {
@@ -223,7 +219,7 @@ export const AgoraOnlineClassApp = () => {
           mediaOptions: {
             cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
           },
-          recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/onlineclass_record_page.html`,
+          recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/scene_record_page.html`,
         },
         () => {
           // success

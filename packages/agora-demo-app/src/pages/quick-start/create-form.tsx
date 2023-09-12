@@ -9,7 +9,7 @@ import md5 from 'js-md5';
 import { useJoinRoom } from '@app/hooks';
 import type { Platform } from 'agora-edu-core';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
-import { onlineclassStudentLimit } from '@app/utils/constants';
+import { studentLimit } from '@app/utils/constants';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import set from 'lodash/set';
 
@@ -154,7 +154,7 @@ export const CreateForm: FC<{
       const role = 1;
       const userId = md5(`${userName}_${role}`);
 
-      const isOnlineclass = sceneType === SceneType.Onlineclass;
+      const isOnlineclass = sceneType === SceneType.Scene;
       const widgets = {};
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
@@ -162,7 +162,7 @@ export const CreateForm: FC<{
       const roleConfigs = isOnlineclass
         ? {
             2: {
-              limit: onlineclassStudentLimit,
+              limit: studentLimit,
               defaultStream: {
                 audioState: 1 as AgoraRteMediaPublishState,
                 videoState: 1 as AgoraRteMediaPublishState,

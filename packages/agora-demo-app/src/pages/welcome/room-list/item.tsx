@@ -37,7 +37,7 @@ export const sceneTypeTextMap = {
   [SceneType.SmallClass]: 'fcr_home_label_small_classroom',
   [SceneType.LectureHall]: 'fcr_home_label_lecture_hall',
   [SceneType.Proctoring]: 'fcr_home_label_proctoring',
-  [SceneType.Onlineclass]: 'fcr_home_label_onlineclass',
+  [SceneType.Scene]: 'fcr_home_label_onlineclass',
 };
 
 export const RoomListItem: FC<RoomListItemProps> = ({

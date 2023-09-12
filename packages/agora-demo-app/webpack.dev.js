@@ -43,7 +43,7 @@ const config = {
   resolve: {
     alias: {
       '@app': path.resolve(ROOT_PATH, './src'),
-      '@ui-kit-utils': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/utils'),
+      '@ui-kit-utils': path.resolve(ROOT_PATH, '../fcr-ui-kit/src/utils'),
     },
   },
   module: {

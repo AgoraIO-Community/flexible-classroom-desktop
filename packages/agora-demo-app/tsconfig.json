@@ -40,7 +40,7 @@
       "~app-utilities/*": ["src/ui-kit/utilities/*"],
       "~app-components": ["src/ui-kit/components"],
       "~app-components/*": ["src/ui-kit/components/*"],
-      "@ui-kit-utils/*": ["../agora-scenario-ui-kit/src/utils/*"],
+      "@ui-kit-utils/*": ["../fcr-ui-kit/src/utils/*"],
     }
   },
   "include": [

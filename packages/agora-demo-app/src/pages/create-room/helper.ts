@@ -42,7 +42,7 @@ if (!isElectron()) {
   sceneTypeOptions.push({
     label: 'fcr_home_label_class_mode_cloud_class',
     description: 'fcr_home_label_only_dark',
-    value: SceneType.Onlineclass,
+    value: SceneType.Scene,
     className: 'card-purple',
   });
 }

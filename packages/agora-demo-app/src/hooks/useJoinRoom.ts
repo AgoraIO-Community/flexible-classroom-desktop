@@ -13,7 +13,7 @@ import {
   REACT_APP_AGORA_APP_SDK_DOMAIN,
 } from '../utils/env';
 import { shareLink } from '../utils/share';
-import { LanguageEnum } from 'agora-classroom-sdk';
+import type { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
 import { FcrRoomType, SceneType } from '@app/type';
 import { roomApi } from '@app/api';

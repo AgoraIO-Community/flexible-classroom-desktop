@@ -1,7 +1,7 @@
-import { AgoraOnlineclassWidget, AgoraCloudClassWidget } from 'agora-common-libs';
+import { FcrUISceneWidget, AgoraCloudClassWidget } from 'agora-common-libs';
 import { useEffect, useState } from 'react';
 const getWidgetName = (widgetClass: unknown) => {
-  const Clz = widgetClass as typeof AgoraOnlineclassWidget | typeof AgoraCloudClassWidget;
+  const Clz = widgetClass as typeof FcrUISceneWidget | typeof AgoraCloudClassWidget;
   return Object.create(Clz.prototype).widgetName;
 };
 
@@ -85,7 +85,7 @@ export const useProctorWidgets = (ids: 'FcrWebviewWidget'[]) => {
 
   return { ready, widgets };
 };
-export const useOnlineclassWidgets = (
+export const useSceneWidgets = (
   ids: (
     | 'FcrWebviewWidget'
     | 'FcrBoardWidget'
@@ -97,11 +97,11 @@ export const useOnlineclassWidgets = (
   )[],
 ) => {
   const [ready, setReady] = useState(false);
-  const [widgets, setWidgets] = useState<Record<string, typeof AgoraOnlineclassWidget>>({});
+  const [widgets, setWidgets] = useState<Record<string, typeof FcrUISceneWidget>>({});
   useEffect(() => {
     const load = async () => {
-      const widget = await import(/* webpackPrefetch: true */ 'agora-plugin-gallery/onlineclass');
-      const widgets: Record<string, typeof AgoraOnlineclassWidget> = {};
+      const widget = await import(/* webpackPrefetch: true */ 'agora-plugin-gallery/scene');
+      const widgets: Record<string, typeof FcrUISceneWidget> = {};
       if (ids.includes('FcrPopupQuizWidget')) {
         const { FcrPopupQuizWidget } = widget;
         widgets[getWidgetName(FcrPopupQuizWidget)] = FcrPopupQuizWidget;

@@ -12,7 +12,7 @@ lib_dependencies=(
     agora-plugin-gallery
     agora-classroom-sdk
     agora-proctor-sdk
-    agora-onlineclass-sdk
+    fcr-ui-scene
 )
 lib_versions=(
     2.9.0
@@ -35,7 +35,7 @@ lib_branches=(
 
 recording_templates=(
     record_page
-    onlineclass_record_page
+    scene_record_page
 )
 
 . ../apaas-cicd-web/utilities/tools.sh

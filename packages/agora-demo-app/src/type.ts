@@ -5,12 +5,12 @@ export enum SceneType {
   LectureHall = 2,
   SmallClass = 4,
   Proctoring = 6,
-  Onlineclass = 10,
+  Scene = 10,
 }
 export enum FcrUISceneSdk {
   AgoraEduSdk = 'agora-edu-sdk',
   AgoraProctorSdk = 'agora-proctor-sdk',
-  AgoraOnlineclassSdk = 'agora-onlineclass-sdk',
+  FcrUIScene = 'fcr-ui-scene',
 }
 export enum LoginType {
   NoNeedLogin = 0,
@@ -19,12 +19,12 @@ export enum LoginType {
 export const FcrUISceneSdkMap = {
   [SceneType.OneOnOne | SceneType.LectureHall | SceneType.SmallClass]: FcrUISceneSdk.AgoraEduSdk,
   [SceneType.Proctoring]: FcrUISceneSdk.AgoraProctorSdk,
-  [SceneType.Onlineclass]: FcrUISceneSdk.AgoraOnlineclassSdk,
+  [SceneType.Scene]: FcrUISceneSdk.FcrUIScene,
 };
 export const FcrRoomType: Record<SceneType, EduRoomTypeEnum> = {
   [SceneType.OneOnOne]: 0,
   [SceneType.LectureHall]: 2,
   [SceneType.SmallClass]: 4,
   [SceneType.Proctoring]: 6,
-  [SceneType.Onlineclass]: 4,
+  [SceneType.Scene]: 4,
 };

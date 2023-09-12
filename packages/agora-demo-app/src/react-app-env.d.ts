@@ -23,20 +23,20 @@ interface Window {
   __launchUIMode: string;
 }
 
-declare module 'agora-plugin-gallery/onlineclass' {
+declare module 'agora-plugin-gallery/scene' {
   declare class FcrWebviewWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
   declare class FcrBoardWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
   declare class FcrPollingWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
-  declare class FcrChatroom extends (await import('agora-common-libs')).AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
+  declare class FcrChatroom extends (await import('agora-common-libs')).FcrUISceneWidget {}
   declare class FcrStreamMediaPlayerWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
   declare class FcrPopupQuizWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
   declare class FcrCountdownWidget extends (await import('agora-common-libs'))
-    .AgoraOnlineclassWidget {}
+    .FcrUISceneWidget {}
 }
 
 declare module 'agora-plugin-gallery/classroom' {

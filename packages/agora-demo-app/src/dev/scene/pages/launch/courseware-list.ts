@@ -1,4 +1,4 @@
-import type { CoursewareList } from 'agora-onlineclass-sdk';
+import type { CoursewareList } from 'fcr-ui-scene';
 
 export const coursewareList: CoursewareList = [
   {

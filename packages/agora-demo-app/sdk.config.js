@@ -40,11 +40,11 @@ module.exports = [
     },
   },
   {
-    name: 'onlineclass',
+    name: 'scene',
     alias: {
-      '@onlineclass': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src'),
-      '@components': path.resolve(ROOT_PATH, '../agora-scenario-ui-kit/src/components'),
-      '@res': path.resolve(ROOT_PATH, '../agora-onlineclass-sdk/src/resources'),
+      '@fcr-ui-scene': path.resolve(ROOT_PATH, '../fcr-ui-scene/src'),
+      '@components': path.resolve(ROOT_PATH, '../fcr-ui-kit/src/components'),
+      '@res': path.resolve(ROOT_PATH, '../fcr-ui-scene/src/resources'),
     },
     sources: {
       'agora-rte-sdk/lib': 'src',
@@ -53,9 +53,9 @@ module.exports = [
       'agora-edu-core': 'src',
       'agora-common-libs/presets': 'presets',
       'agora-common-libs': 'src',
-      'agora-onlineclass-sdk': 'src',
-      'agora-plugin-gallery/onlineclass': 'src/onlineclass.tsx',
+      'fcr-ui-scene': 'src',
+      'agora-plugin-gallery/scene': 'src/scene.tsx',
     },
-    assetsDir: 'agora-onlineclass-sdk/src/resources',
+    assetsDir: 'fcr-ui-scene/src/resources',
   },
 ];

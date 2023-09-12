@@ -16,9 +16,9 @@ const run = async () => {
       'agora-common-libs',
       'agora-classroom-sdk',
       'agora-proctor-sdk',
-      'agora-onlineclass-sdk',
       'agora-plugin-gallery',
-      'agora-scenario-ui-kit',
+      'fcr-ui-scene',
+      'fcr-ui-kit',
     ]);
 
     await installModules();
@@ -30,15 +30,15 @@ const run = async () => {
       'agora-plugin-gallery',
       'agora-classroom-sdk',
       'agora-proctor-sdk',
-      'agora-onlineclass-sdk',
+      'fcr-ui-scene',
     ]);
   } else {
     await fetchPackages([
       'agora-classroom-sdk',
       'agora-proctor-sdk',
-      'agora-onlineclass-sdk',
       'agora-plugin-gallery',
-      'agora-scenario-ui-kit',
+      'fcr-ui-scene',
+      'fcr-ui-kit',
     ]);
 
     await installModules();
@@ -47,7 +47,7 @@ const run = async () => {
       'agora-plugin-gallery',
       'agora-classroom-sdk',
       'agora-proctor-sdk',
-      'agora-onlineclass-sdk',
+      'fcr-ui-scene',
     ]);
   }
 

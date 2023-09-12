@@ -33,7 +33,7 @@ import {
 import { SceneType } from '@app/type';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import { useRoomNameForm } from '@app/hooks/useRoomNameForm';
-import { onlineclassStudentLimit } from '@app/utils/constants';
+import { studentLimit } from '@app/utils/constants';
 export const CreateRoom = observer(() => {
   const roomStore = useContext(RoomStoreContext);
   const { setLoading } = useContext(GlobalStoreContext);
@@ -198,7 +198,7 @@ export const CreateRoom = observer(() => {
       const endDateTime = combDateTime(endDate, endTime);
 
       const isProctoring = sceneType === SceneType.Proctoring;
-      const isOnlineclass = sceneType === SceneType.Onlineclass;
+      const isOnlineclass = sceneType === SceneType.Scene;
       const roomProperties = isProctoring
         ? {
             watermark,
@@ -219,7 +219,7 @@ export const CreateRoom = observer(() => {
       const roleConfigs = isOnlineclass
         ? {
             2: {
-              limit: onlineclassStudentLimit,
+              limit: studentLimit,
               defaultStream: {
                 audioState: 1 as AgoraRteMediaPublishState,
                 videoState: 1 as AgoraRteMediaPublishState,
