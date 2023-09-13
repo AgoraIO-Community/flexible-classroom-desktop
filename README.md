@@ -2,29 +2,10 @@
 
 ## Flexible Classroom Electron App
 
-## Fetch submodules
+## Fetch submodule code and install dependencies
 ```bash
-git submodule update --init --recursive packages/agora-classroom-sdk
-git submodule update --init --recursive packages/agora-proctor-sdk
-git submodule update --init --recursive packages/agora-plugin-gallery
-git submodule update --init --recursive packages/agora-scenario-ui-kit
+yarn install:packages
 ```
-## Install
-
-```bash
-# install all dependencies via lerna and npm
-yarn bootstrap
-```
-
-## Config
-
-```bash
-# rename config template
-cp .env.example .env
-
-# fill the config with your agora.io development environment
-```
-
 ## How to generate RtmToken using your own AppId and Secret
 
 ```bash
@@ -43,9 +24,9 @@ yarn dev
 
 ```bash
 # Build Web Resources
-yarn build:demo
-# Build a Windows client(Run `yarn build:demo` to build Web resources before pack electron)
+yarn ci:build
+# Build a Windows client(Run `yarn ci:build` to build Web resources before pack electron)
 yarn pack:electron:win
-# Build a Mac client(Run `yarn build:demo` to build Web resources before pack electron)
+# Build a Mac client(Run `yarn ci:build` to build Web resources before pack electron)
 yarn pack:electron:mac
 ```
