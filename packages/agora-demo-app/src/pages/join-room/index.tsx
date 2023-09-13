@@ -73,7 +73,7 @@ export const JoinRoom = observer(() => {
         roomId,
         nickName: data.nickName,
         platform: 'PC' as Platform,
-        userId: userStore.userInfo.companyId,
+        userId: `${userStore.userInfo.companyId}_${role}`,
       })
         .then(() => {
           roomStore.refreshRoomList();

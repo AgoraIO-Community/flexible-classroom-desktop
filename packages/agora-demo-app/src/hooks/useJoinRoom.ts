@@ -17,6 +17,7 @@ import type { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
 import { FcrRoomType, SceneType } from '@app/type';
 import { roomApi } from '@app/api';
+import md5 from 'js-md5';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -184,7 +185,7 @@ export const useJoinRoom = () => {
 
       const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
       const isStudent = role === 2;
-      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
+      const userUuid = isProctoring && isStudent ? `${md5(nickName)}-main` : userId;
       return roomStore.joinRoom({ roomId, role, userUuid, userName: nickName }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
 
@@ -225,7 +226,8 @@ export const useJoinRoom = () => {
 
       const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
       const isStudent = role === 2;
-      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
+
+      const userUuid = isProctoring && isStudent ? `${md5(nickName)}-main` : userId;
       return roomStore
         .joinRoomNoAuth({ roomId, role, userUuid, userName: nickName })
         .then((response) => {

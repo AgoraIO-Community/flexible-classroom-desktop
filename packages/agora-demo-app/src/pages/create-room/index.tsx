@@ -204,13 +204,11 @@ export const CreateRoom = observer(() => {
             watermark,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
             latencyLevel: serviceType,
-            sceneType,
           }
         : {
             watermark,
             boardBackgroundImage: classroomBackgroundImagePath,
             latencyLevel: serviceType,
-            sceneType,
           };
       const widgets = {};
       if (isOnlineclass) {
@@ -235,6 +233,7 @@ export const CreateRoom = observer(() => {
             },
           }
         : undefined;
+      const role = 1;
       roomStore
         .createRoom({
           sceneType,
@@ -251,9 +250,9 @@ export const CreateRoom = observer(() => {
           if (useCurrentTime) {
             return quickJoinRoom({
               roomId: data.roomId,
-              role: 1,
+              role,
               nickName: nickName,
-              userId: userStore.userInfo!.companyId,
+              userId: `${userStore.userInfo!.companyId}_${role}`,
               platform: 'PC' as Platform,
             });
           } else {

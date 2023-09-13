@@ -139,7 +139,7 @@ export const JoinForm: FC<{
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
       const role = parseInt(roleType) as EduRoleTypeEnum;
-      const userId = md5(`${userName}_${role}`);
+      const userId = md5(`${userName}-${role}`);
       globalStore.setLoading(true);
       setNickName(userName);
       quickJoinRoomNoAuth(

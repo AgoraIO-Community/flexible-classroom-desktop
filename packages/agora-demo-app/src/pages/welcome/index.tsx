@@ -86,7 +86,7 @@ export const Welcome = observer(() => {
         roomId: data.roomId,
         role: data.role,
         nickName: data.userName,
-        userId: userStore.userInfo!.companyId,
+        userId: `${userStore.userInfo!.companyId}_${data.role}`,
         platform: 'PC' as Platform,
       })
         .then(() => {

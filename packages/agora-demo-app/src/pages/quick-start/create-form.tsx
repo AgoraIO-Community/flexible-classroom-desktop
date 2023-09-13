@@ -12,6 +12,7 @@ import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
 import { studentLimit } from '@app/utils/constants';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import set from 'lodash/set';
+import { classroomBackgroundImagePath } from '../create-room/helper';
 
 const useForm = <T extends Record<string, unknown>>({
   initialValues,
@@ -152,7 +153,7 @@ export const CreateForm: FC<{
   const handleSubmit = () => {
     if (validate() && onSubmit()) {
       const role = 1;
-      const userId = md5(`${userName}_${role}`);
+      const userId = md5(`${userName}-${role}`);
 
       const isOnlineclass = sceneType === SceneType.Scene;
       const widgets = {};
@@ -173,14 +174,21 @@ export const CreateForm: FC<{
         : undefined;
 
       globalStore.setLoading(true);
+      const isProctoring = sceneType === SceneType.Proctoring;
+      const roomProperties = isProctoring
+        ? {
+            examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
+            latencyLevel: 2,
+          }
+        : {
+            boardBackgroundImage: classroomBackgroundImagePath,
+            latencyLevel: 2,
+          };
       createRoomNoAuth({
         sceneType,
         widgets,
         roomName: roomName,
-        roomProperties: {
-          latencyLevel: 2,
-          watermark: false,
-        },
+        roomProperties,
         startTime: Date.now(),
         endTime: Date.now() + 30 * 60 * 1000,
         userUuid: userId,

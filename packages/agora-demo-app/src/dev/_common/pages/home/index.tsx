@@ -52,9 +52,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
     const userRole = parseInt(roleType);
     const isStudent = userRole === 2;
     const userUuid =
-      isProctoring && isStudent
-        ? `${md5(userName)}${userRole}-main`
-        : `${md5(userName)}${userRole}`;
+      isProctoring && isStudent ? `${md5(userName)}-main` : `${md5(userName)}${userRole}`;
 
     const roomUuid = `${md5(roomName)}${sceneType}`;
 
