@@ -5,8 +5,8 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
-import { useOnlineclassWidgets } from '@app/hooks/useWidgets';
-import { useOnlineclassSdk } from '@app/hooks/useSdk';
+import { useSceneWidgets } from '@app/hooks/useWidgets';
+import { useFcrUIScene } from '@app/hooks/useSdk';
 import { coursewareList } from './courseware-list';
 
 export const assetURLs = {
@@ -27,7 +27,7 @@ export const LaunchPage = observer(() => {
   const appRef = useRef<HTMLDivElement | null>(null);
   const history = useHistory();
 
-  const { ready: widgetsReady, widgets } = useOnlineclassWidgets([
+  const { ready: widgetsReady, widgets } = useSceneWidgets([
     'FcrBoardWidget',
     'FcrPolling',
     'AgoraChatroomWidget',
@@ -37,7 +37,7 @@ export const LaunchPage = observer(() => {
     'FcrPopupQuizWidget',
   ]);
 
-  const { ready: sdkReady, sdk } = useOnlineclassSdk();
+  const { ready: sdkReady, sdk } = useFcrUIScene();
 
   useEffect(() => {
     if (isEmpty(launchOption)) {

@@ -80,7 +80,7 @@
     "dev:electron": "lerna exec --scope=agora-demo-app yarn electron",
     "dev:classroom:electron": "lerna exec --scope=agora-demo-app yarn electron:classroom",
     "dev:ui-kit:classroom": "lerna exec --scope=agora-classroom-sdk yarn storybook",
-    "dev:ui-kit:scene": "lerna exec --scope=agora-scenario-ui-kit yarn storybook",
+    "dev:ui-kit:scene": "lerna exec --scope=fcr-ui-kit yarn storybook",
     "pack:electron:mac": "lerna exec --scope=agora-demo-app npm run pack:mac",
     "pack:electron:win": "lerna exec --scope=agora-demo-app npm run pack:win",
     "pack:classroom:sdk": "lerna exec --scope=agora-classroom-sdk npm run pack:npm",

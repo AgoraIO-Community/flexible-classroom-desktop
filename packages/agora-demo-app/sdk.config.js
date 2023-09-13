@@ -42,7 +42,7 @@ module.exports = [
   {
     name: 'scene',
     alias: {
-      '@fcr-ui-scene': path.resolve(ROOT_PATH, '../fcr-ui-scene/src'),
+      '@ui-scene': path.resolve(ROOT_PATH, '../fcr-ui-scene/src'),
       '@components': path.resolve(ROOT_PATH, '../fcr-ui-kit/src/components'),
       '@res': path.resolve(ROOT_PATH, '../fcr-ui-scene/src/resources'),
     },
