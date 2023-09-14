@@ -177,10 +177,12 @@ export const CreateForm: FC<{
       const isProctoring = sceneType === SceneType.Proctoring;
       const roomProperties = isProctoring
         ? {
+            watermark: false,
             examinationUrl: 'https://forms.clickup.com/8556478/f/853xy-21947/IM8JKH1HOOF3LDJDEB',
             latencyLevel: 2,
           }
         : {
+            watermark: false,
             boardBackgroundImage: classroomBackgroundImagePath,
             latencyLevel: 2,
           };
