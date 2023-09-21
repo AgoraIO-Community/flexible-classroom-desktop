@@ -58,7 +58,7 @@ export const useSettingsH5 = () => {
                 timeout={250}
                 unmountOnExit={true}>
                 <div>
-                  <div className="flex justify-center items-center w-screen h-screen setting-h5-menu-container">
+                  <div className="fcr-flex fcr-justify-center fcr-items-center fcr-w-screen fcr-h-screen setting-h5-menu-container">
                     {menuMap[v]}
                   </div>
                 </div>

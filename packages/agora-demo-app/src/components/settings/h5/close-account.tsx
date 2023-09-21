@@ -23,7 +23,7 @@ export const CloseAccount: FC<CloseAccountProps> = observer(({ removeMenuPopup }
       onBack={() => {
         removeMenuPopup(SettingsMenuEnum.CloseAccount);
       }}>
-      <div className="leading-6 px-6 py-6">
+      <div className="fcr-leading-6 fcr-px-6 fcr-py-6">
         <p>{transI18n('settings_logoff_detail.1')}</p>
         <p>{transI18n('settings_logoff_detail.2')}</p>
         <p>{transI18n('settings_logoff_detail.3')}</p>
@@ -39,7 +39,7 @@ export const CloseAccount: FC<CloseAccountProps> = observer(({ removeMenuPopup }
         </p>
       </div>
       <div
-        className={`close-account-submit-btn px-6 rounded-md fcr-border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center ${
+        className={`close-account-submit-btn fcr-px-6 fcr-rounded-md fcr-border fcr-border-slate-200 fcr-text-slate-900 fcr-absolute fcr-inset-x-0 fcr-flex fcr-justify-center fcr-items-center ${
           checked ? '' : 'disabled'
         }`}
         onClick={() => {

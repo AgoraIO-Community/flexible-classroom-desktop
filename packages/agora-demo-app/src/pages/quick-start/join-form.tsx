@@ -9,6 +9,7 @@ import { useJoinRoom } from '@app/hooks';
 import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { parseHashUrlQuery } from '@app/utils/url';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
+import { observer } from 'mobx-react';
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -79,7 +80,7 @@ const useForm = <T extends Record<string, string>>({
 
 export const JoinForm: FC<{
   onSubmit: () => boolean;
-}> = ({ onSubmit }) => {
+}> = observer(({ onSubmit }) => {
   const t = useI18n();
   const globalStore = useContext(GlobalStoreContext);
   const { quickJoinRoomNoAuth } = useJoinRoom();
@@ -210,4 +211,4 @@ export const JoinForm: FC<{
       </Layout>
     </form>
   );
-};
+});

@@ -13,7 +13,7 @@ import { studentLimit } from '@app/utils/constants';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import set from 'lodash/set';
 import { classroomBackgroundImagePath } from '../create-room/helper';
-
+import { observer } from 'mobx-react';
 const useForm = <T extends Record<string, unknown>>({
   initialValues,
   validate,
@@ -84,7 +84,7 @@ const useForm = <T extends Record<string, unknown>>({
 export const CreateForm: FC<{
   onSubmit: () => boolean;
   sceneOptions: { text: string; value: SceneType }[];
-}> = ({ onSubmit, sceneOptions }) => {
+}> = observer(({ onSubmit, sceneOptions }) => {
   const t = useI18n();
 
   const globalStore = useContext(GlobalStoreContext);
@@ -277,4 +277,4 @@ export const CreateForm: FC<{
       </Layout>
     </form>
   );
-};
+});
