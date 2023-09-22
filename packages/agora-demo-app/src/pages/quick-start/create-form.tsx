@@ -233,7 +233,7 @@ export const CreateForm: FC<{
           error={errors.roomName}
         />
       </Layout>
-      <Layout className="fcr-mt-6 fcr-relative fcr-z-20">
+      <Layout direction="col" className="fcr-mt-6 fcr-relative fcr-z-20">
         <Field
           label={t('home_form_field_type')}
           type="select"
@@ -244,6 +244,11 @@ export const CreateForm: FC<{
           options={typeOptions}
           error={errors.sceneType}
         />
+        {sceneType === SceneType.Scene && (
+          <div className="fcr-text-xs fcr-pt-1">
+            {transI18n(`${t('fcr_login_free_label_only_dark')}`)}
+          </div>
+        )}
       </Layout>
 
       <Layout className="fcr-mt-6 fcr-relative fcr-z-10 fcr-justify-between">

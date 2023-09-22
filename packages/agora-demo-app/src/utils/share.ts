@@ -1,4 +1,5 @@
 import type { EduRegion, EduRoleTypeEnum } from 'agora-edu-core';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
 export type ShareContent = {
   roomId: string;
@@ -12,7 +13,9 @@ export type ShareContent = {
  */
 export class ShareLink {
   constructor() {
-    this._url = `${location.origin}${location.pathname}`;
+    this._url = isElectron()
+      ? 'https://solutions-apaas.agora.io/apaas/demo/index.html'
+      : `${location.origin}${location.pathname}`;
   }
 
   private _url = '';

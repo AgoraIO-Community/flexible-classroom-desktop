@@ -68,6 +68,12 @@ export const getAppDomain = (region = 'CN' as EduRegion) => {
       case 'NA':
         domain = domainMap['prod_na'];
         break;
+      case 'EU':
+        domain = domainMap['prod_eu'];
+        break;
+      case 'AP':
+        domain = domainMap['prod_ap'];
+        break;
       default:
         domain = domainMap['prod_na'];
     }

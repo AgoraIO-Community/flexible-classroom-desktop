@@ -6466,10 +6466,10 @@ agora-access-token@2.0.4:
     crc-32 "1.2.0"
     cuint "0.2.2"
 
-agora-chat@^1.0.4:
-  version "1.1.0"
-  resolved "https://registry.npmmirror.com/agora-chat/-/agora-chat-1.1.0.tgz#2fca8c2f8897448b458e000e2248481c2db2edd3"
-  integrity sha512-iOj+8eZbrrKhamwM/BcCxxl18pFJT/WRD3Zr2YZRjIQm4LIePrq0++Vuk4bZHTjgJu9hMiD1QjjLLdnafwWzbQ==
+agora-chat@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmmirror.com/agora-chat/-/agora-chat-1.2.0.tgz#6f6b10a254a38c37901ae3716b58a3db65269637"
+  integrity sha512-OJ5P0yDjNOc5NuWqlrSEp7TsR91KW48EyYAeM1wL0W7q9a75Z2IulpAp2Hsc14CeGglYDpxrd1ETxcOapzznyQ==
 
 agora-electron-sdk@3.6.1-rc.9-build.817:
   version "3.6.1-rc.9-build.817"

@@ -46,9 +46,7 @@ export const QuickStart = observer(() => {
       value: SceneType.Proctoring,
     },
     {
-      text: `${t('fcr_home_label_class_mode_cloud_class')} (${t(
-        'fcr_login_free_label_only_dark',
-      )})`,
+      text: `${t('fcr_home_label_class_mode_cloud_class')}`,
       value: SceneType.Scene,
     },
   ];

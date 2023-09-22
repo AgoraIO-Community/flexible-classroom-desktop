@@ -14,6 +14,8 @@ const languageOptions = [
 const regionOptions = [
   { label: 'NA', value: 'NA' },
   { label: 'CN', value: 'CN' },
+  { label: 'EU', value: 'EU' },
+  { label: 'AP', value: 'AP' },
 ];
 
 export const GeneralSetting = observer(() => {
