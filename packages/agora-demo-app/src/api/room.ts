@@ -1,7 +1,7 @@
 import { request, Response } from '@app/utils/request';
 import axios from 'axios';
 import { getRegion } from '../stores/global';
-import { getApiDomain, getAppDomain } from '../utils';
+import { ErrorCode, getApiDomain, getAppDomain, messageError } from '../utils';
 import { getLSStore, LS_COMPANY_ID } from '../utils/local-storage';
 import {
   RoomListRequest,
@@ -116,7 +116,11 @@ export class RoomAPI {
    */
   public async getRoomInfoByIDNoAuth(roomID: string) {
     const url = `${this.appDomain}/edu/companys/v1/rooms/${roomID}`;
-    return request.get<Response<RoomInfo>>(url);
+    return request.get<Response<RoomInfo>>(url).catch((error) => {
+      console.warn('query room no auth api failed. error:%o', error);
+      messageError(ErrorCode.ROOM_NOT_FOUND);
+      throw error;
+    });
   }
   /**
    * 加入教室
