@@ -35,7 +35,7 @@ export const JoinRoom = observer(() => {
     },
     {
       label: transI18n('fcr_join_room_option_audience'),
-      value: 3 as EduRoleTypeEnum,
+      value: 0 as EduRoleTypeEnum,
       backgroundColor: '#83BC53',
     },
   ];
