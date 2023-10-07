@@ -58,7 +58,7 @@ const run = async () => {
 
 if (!exists('node_modules/simple-git') || !exists('node_modules/chalk')) {
   console.log('Installing tools...');
-  exec(`npm install --no-package-lock --no-save --force simple-git chalk`).then(run);
+  exec(`npm install -g --verbose --no-package-lock --no-save --prefix=$(pwd) simple-git@3.15.1 chalk@4.1.2 && mv lib/node_modules node_modules && rm -r lib`).then(run);
 } else {
   run();
 }
