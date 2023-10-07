@@ -5,28 +5,22 @@
     "packages/*"
   ],
   "resolutions": {
+    "@babel/plugin-proposal-nullish-coalescing-operator": "7.8.3",
+    "@babel/plugin-proposal-optional-chaining": "7.8.3",
     "@babel/plugin-proposal-object-rest-spread": "7.13.8",
     "@babel/plugin-syntax-decorators": "7.12.13",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-runtime": "7.13.15",
     "@babel/runtime-corejs3": "7.13.10",
-    "agora-edu-core": "2.8.50",
-    "agora-rte-sdk": "2.8.50"
+    "agora-common-libs": "2.9.1",
+    "agora-edu-core": "2.9.0",
+    "agora-rte-sdk": "2.9.0",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
+    "tslib": "2.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
-    "@babel/plugin-proposal-class-properties": "7.13.0",
-    "@babel/plugin-proposal-decorators": "7.15.8",
-    "@babel/plugin-proposal-object-rest-spread": "7.13.8",
-    "@babel/plugin-proposal-private-property-in-object": "7.16.7",
-    "@babel/plugin-syntax-decorators": "7.12.13",
-    "@babel/plugin-syntax-dynamic-import": "7.8.3",
-    "@babel/plugin-transform-runtime": "7.13.15",
-    "@babel/plugin-transform-typescript": "7.16.1",
-    "@babel/preset-env": "7.13.15",
-    "@babel/preset-react": "7.13.13",
-    "@babel/preset-typescript": "7.13.0",
-    "@babel/runtime-corejs3": "7.13.10",
     "@commitlint/cli": "13.1.0",
     "@commitlint/config-conventional": "13.1.0",
     "@open-wc/webpack-import-meta-loader": "0.4.7",
@@ -67,7 +61,6 @@
     "style-loader": "3.3.0",
     "svga-loader": "0.2.1",
     "terser-webpack-plugin": "5.3.3",
-    "thread-loader": "3.0.4",
     "typedoc": "0.22.10",
     "url-loader": "4.1.1",
     "webpack": "5.54.0",
@@ -79,28 +72,27 @@
     "worker-loader": "3.0.8"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "release:electron:mac": "run-s build:demo pack:electron:mac",
-    "release:electron:win": "run-s build:demo pack:electron:win",
+    "release:electron:mac": "run-s ci:build pack:electron:mac",
+    "release:electron:win": "run-s ci:build pack:electron:win",
     "dev": "lerna exec --scope=agora-demo-app yarn dev",
+    "dev:scene": "lerna exec --scope=agora-demo-app yarn dev:scene",
+    "dev:classroom": "lerna exec --scope=agora-demo-app yarn dev:classroom",
+    "dev:proctor": "lerna exec --scope=agora-demo-app yarn dev:proctor",
     "dev:electron": "lerna exec --scope=agora-demo-app yarn electron",
+    "dev:classroom:electron": "lerna exec --scope=agora-demo-app yarn electron:classroom",
     "dev:ui-kit:classroom": "lerna exec --scope=agora-classroom-sdk yarn storybook",
-    "pack:classroom:sdk": "lerna exec --scope=agora-classroom-sdk npm run pack:npm",
-    "pack:proctor:sdk": "lerna exec --scope=agora-proctor-sdk npm run pack:npm",
+    "dev:ui-kit:scene": "lerna exec --scope=fcr-ui-kit yarn storybook",
     "pack:electron:mac": "lerna exec --scope=agora-demo-app npm run pack:mac",
     "pack:electron:win": "lerna exec --scope=agora-demo-app npm run pack:win",
-    "build:demo": "lerna exec --scope=agora-demo-app npm run build",
-    "ci:install": "yarn install:packages:all",
-    "ci:build:web": "yarn build:demo",
-    "ci:build:electron:win": "yarn release:electron:win",
-    "ci:build:electron:mac": "yarn release:electron:mac",
-    "install:packages:all": "node ./scripts/install all",
+    "pack:classroom:sdk": "lerna exec --scope=agora-classroom-sdk npm run pack:npm",
+    "pack:proctor:sdk": "lerna exec --scope=agora-proctor-sdk npm run pack:npm",
+    "pack:scene:sdk": "lerna exec --scope=fcr-ui-scene npm run pack:npm",
+    "pack:classroom:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:classroom",
+    "pack:proctor:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:proctor",
+    "pack:scene:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:scene",
+    "ci:build": "lerna exec --scope=agora-demo-app npm run ci:build",
     "install:packages": "node ./scripts/install",
-    "prepare": "husky install",
-    "pre-publish:rte-sdk": "lerna exec --scope=agora-rte-sdk npm run pre-publish",
-    "pre-publish:edu-core": "lerna exec --scope=agora-edu-core npm run pre-publish",
-    "pre-publish:common-libs": "lerna exec --scope=agora-common-libs npm run pre-publish",
-    "pre-publish": "run-s pre-publish:common-libs pre-publish:rte-sdk pre-publish:edu-core pack:classroom:sdk pack:proctor:sdk"
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "agora.io",
@@ -111,13 +103,5 @@
   "agora_electron": {
     "electron_version": "12.0.0",
     "prebuilt": true
-  },
-  "peerDependencies": {
-    "agora-electron-sdk": "*"
-  },
-  "peerDependenciesMeta": {
-    "agora-electron-sdk": {
-      "optional": true
-    }
   }
 }

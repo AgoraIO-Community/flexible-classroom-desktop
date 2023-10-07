@@ -26,7 +26,7 @@
 }
 
 .role-choose .role-item {
-  @apply flex items-center justify-between;
+  @apply fcr-flex fcr-items-center fcr-justify-between;
   border-radius: 16px;
   /* fcr-white */
   color: #ffffff;
@@ -35,6 +35,7 @@
   padding: 0 13px 0 24px;
   height: 70px;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .role-choose .role-item.checked {
@@ -43,5 +44,5 @@
 
 .header-blank::before,
 .footer-blank::after {
-  @apply col-start-1 col-end-3;
+  @apply fcr-col-start-1 fcr-col-end-3;
 }

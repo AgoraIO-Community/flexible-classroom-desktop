@@ -6,9 +6,9 @@ import { useJoinRoom } from '@app/hooks';
 import { RoomListItem } from '@app/pages/welcome/room-list';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '@app/stores';
 import { ErrorCode, messageError } from '@app/utils';
-import { Platform } from 'agora-edu-core';
+import type { Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useHistory } from 'react-router-dom';
 import './index.css';
@@ -22,6 +22,8 @@ import { AModal } from '@app/components/modal';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { useI18n } from 'agora-common-libs';
 import { AButton } from '@app/components/button';
+import { UserAgreement } from '@app/components/user-agreement';
+import { Consult } from '../quick-start/consult';
 
 export const Welcome = observer(() => {
   const history = useHistory();
@@ -29,17 +31,30 @@ export const Welcome = observer(() => {
   const { fetching, fetchMoreRoomList, refreshRoomList, rooms, total } =
     useContext(RoomStoreContext);
   const userStore = useContext(UserStoreContext);
-  const { isLogin, nickName } = userStore;
+  const { isLogin, isLoading, nickName } = userStore;
   const [shareModal, setShareModal] = useState(false);
   const { setLoading } = useContext(GlobalStoreContext);
   const { quickJoinRoom } = useJoinRoom();
+  const agreementRef = useRef<{ check: () => void }>(null);
 
   const toJoinRoomPage = () => {
-    history.push('/join-room');
+    if (!isLogin) {
+      if (agreementRef.current?.check()) {
+        history.push('/join-room');
+      }
+    } else {
+      history.push('/join-room');
+    }
   };
 
   const toCreateRoomPage = () => {
-    history.push('/create-room');
+    if (!isLogin) {
+      if (agreementRef.current?.check()) {
+        history.push('/create-room');
+      }
+    } else {
+      history.push('/create-room');
+    }
   };
 
   const [shareRoomInfo, setShareRoomInfo] = useState<ShareInfo>({
@@ -53,7 +68,7 @@ export const Welcome = observer(() => {
   const onShare = useCallback(
     (data: RoomInfo) => {
       setShareRoomInfo({
-        owner: nickName,
+        owner: data.userName,
         startTime: data.startTime,
         endTime: data.endTime,
         roomId: data.roomId,
@@ -70,9 +85,9 @@ export const Welcome = observer(() => {
       quickJoinRoom({
         roomId: data.roomId,
         role: data.role,
-        nickName: nickName,
-        userId: userStore.userInfo!.companyId,
-        platform: Platform.PC,
+        nickName: data.userName,
+        userId: `${userStore.userInfo!.companyId}_${data.role}`,
+        platform: 'PC' as Platform,
       })
         .then(() => {
           refreshRoomList();
@@ -136,7 +151,8 @@ export const Welcome = observer(() => {
             <span className="text">{transI18n('fcr_home_button_create')}</span>
           </div>
         </div>
-        <div className={`room-list flex-1`}>
+        {!isLoading && !isLogin && <UserAgreement ref={agreementRef} />}
+        <div className={`room-list fcr-flex-1`}>
           <div className="title">
             <span>{transI18n('fcr_home_label_roomlist')}</span>
           </div>
@@ -189,6 +205,8 @@ export const Welcome = observer(() => {
         footer={false}>
         <Share data={shareRoomInfo} />
       </AModal>
+      {/* product manager introduction */}
+      <Consult />
     </div>
   );
 });

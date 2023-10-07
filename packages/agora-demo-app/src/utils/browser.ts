@@ -1,5 +1,5 @@
-import { LanguageEnum } from 'agora-classroom-sdk';
-import { Platform } from 'agora-edu-core';
+import type { LanguageEnum } from 'agora-classroom-sdk';
+import type { Platform } from 'agora-edu-core';
 
 export function checkBrowserDevice(): Platform {
   const sUserAgent = navigator.userAgent.toLowerCase();
@@ -12,13 +12,13 @@ export function checkBrowserDevice(): Platform {
   const bIsCE = sUserAgent.match(/windows ce/i);
   const bIsWM = sUserAgent.match(/windows mobile/i);
   if (bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
-    return Platform.H5;
+    return 'H5' as Platform.H5;
   }
-  return Platform.PC;
+  return 'PC' as Platform.PC;
 }
 
 export function isH5Browser() {
-  return Platform.H5 === checkBrowserDevice();
+  return 'H5' === checkBrowserDevice();
 }
 
 export const getBrowserLanguage = (): LanguageEnum => {

@@ -1,6 +1,5 @@
-import { EduRegion } from 'agora-edu-core';
-import { EduRoleTypeEnum } from 'agora-edu-core';
-import { REACT_APP_SHARE_LINK_PREFIX } from './env';
+import type { EduRegion, EduRoleTypeEnum } from 'agora-edu-core';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
 export type ShareContent = {
   roomId: string;
@@ -9,19 +8,14 @@ export type ShareContent = {
   role: EduRoleTypeEnum;
 };
 
-declare const CLASSROOM_SDK_VERSION: string;
-
 /**
  * Share links function
  */
 export class ShareLink {
   constructor() {
-    const match = CLASSROOM_SDK_VERSION.substring(
-      CLASSROOM_SDK_VERSION.lastIndexOf('.') + 1,
-    ).substring(0, 1);
-    const [major, minor] = CLASSROOM_SDK_VERSION.split('.');
-    const version = `${major}.${minor}.${match}x`;
-    this._url = `${REACT_APP_SHARE_LINK_PREFIX}/release_${version}/index.html`;
+    this._url = isElectron()
+      ? 'https://solutions-apaas.agora.io/apaas/demo/index.html'
+      : `${location.origin}${location.pathname}`;
   }
 
   private _url = '';
@@ -72,3 +66,5 @@ export class ShareLink {
 }
 
 export const shareLink = new ShareLink();
+//@ts-ignore
+window.__parseSearch = shareLink.parseSearch.bind(shareLink);

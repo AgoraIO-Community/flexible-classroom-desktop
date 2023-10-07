@@ -1,74 +1,81 @@
-import { useMemo } from 'react';
-import { Route, Switch } from 'react-router';
+import React, { FC, PropsWithChildren, useContext, useMemo } from 'react';
+import { Route, Switch, useHistory, useLocation } from 'react-router';
 import { HashRouter } from 'react-router-dom';
 import { AuthLayout } from '../layout/auth-layout';
 import { BasicLayout } from '../layout/basic-layout';
-import { routesMap } from './maps';
+import { routesMap, commonRoutesMap } from './maps';
 import { PageRouter } from './type';
-
-const routes: PageRouter[] = [
-  PageRouter.Logout,
-  PageRouter.PretestPage,
-  PageRouter.Setting,
-  PageRouter.OneToOne,
-  PageRouter.MidClass,
-  PageRouter.BigClass,
-  PageRouter.Launch,
-  PageRouter.RecordationSearchPage,
-  PageRouter.Window,
-  PageRouter.ShareLinkPage,
-  PageRouter.FlexH5Home,
-  PageRouter.FlexHome,
-  PageRouter.VocationalHome,
-  PageRouter.VocationalHomeH5Home,
-  PageRouter.H5Index,
-  PageRouter.H5JoinRoom,
-  PageRouter.H5Invite,
-  PageRouter.Index,
-  PageRouter.Detail,
-];
+import { isH5Browser } from '@app/utils/browser';
+import { GlobalStoreContext } from '@app/stores';
 
 export const RouteContainer = () => {
+  const globalStore = useContext(GlobalStoreContext);
   const browserPlatformRedirectPaths = useMemo(() => {
     const list = [
       PageRouter.Index,
-      PageRouter.Welcome,
-      PageRouter.JoinRoom,
-      PageRouter.CreateRoom,
-      PageRouter.Detail,
-      PageRouter.Invite,
-      PageRouter.H5Index,
-      PageRouter.H5JoinRoom,
-      PageRouter.H5Invite,
+      PageRouter.IndexMobileWeb,
+      PageRouter.InviteMobileWeb,
+      PageRouter.JoinRoomMobileWeb,
     ];
     return list.map((v) => routesMap[v].path);
   }, []);
 
   const authIncludes = useMemo(() => {
-    const list = [PageRouter.JoinRoom, PageRouter.CreateRoom, PageRouter.Invite, PageRouter.Detail];
+    const list = [PageRouter.CreateRoom, PageRouter.Detail];
+    if (!globalStore.isNoLogin) {
+      list.push(PageRouter.JoinRoom);
+    }
     return list.map((v) => routesMap[v].path);
   }, []);
 
   return (
     <HashRouter>
-      <BasicLayout>
-        <AuthLayout includes={authIncludes} platformRedirectPaths={browserPlatformRedirectPaths}>
-          <Switch>
-            {routes.map((item, index) => {
-              const route = routesMap[item];
-              if (!route) return null;
-              return (
-                <Route
-                  key={item + index}
-                  exact={!!route.exact}
-                  path={route.path}
-                  component={route.component}
-                />
-              );
-            })}
-          </Switch>
-        </AuthLayout>
-      </BasicLayout>
+      <PlatformRedirect browserPlatformRedirectPaths={browserPlatformRedirectPaths}>
+        <BasicLayout>
+          <AuthLayout includes={authIncludes} platformRedirectPaths={browserPlatformRedirectPaths}>
+            <Switch>
+              {Object.keys(commonRoutesMap).map((item, index) => {
+                const route = routesMap[item];
+                return (
+                  <Route
+                    key={item + index}
+                    exact={!!route.exact}
+                    path={route.path}
+                    component={route.component}
+                  />
+                );
+              })}
+            </Switch>
+          </AuthLayout>
+        </BasicLayout>
+      </PlatformRedirect>
     </HashRouter>
   );
+};
+
+const PlatformRedirect: FC<PropsWithChildren<{ browserPlatformRedirectPaths: string[] }>> = ({
+  children,
+  browserPlatformRedirectPaths,
+}) => {
+  const history = useHistory();
+  const location = useLocation();
+  if (browserPlatformRedirectPaths.includes(location.pathname)) {
+    const isH5 = isH5Browser();
+    // redirect to mobile web page
+    if (isH5 && !location.pathname.match('/mobile')) {
+      const url = window.location.hash.replace('#/', '/mobile/');
+
+      history.push(url);
+      return null;
+    }
+    // redirect to desktop web page
+    if (!isH5 && location.pathname.match('/mobile')) {
+      const url = window.location.hash.replace('#/mobile', '');
+
+      history.push(url);
+      return null;
+    }
+  }
+
+  return <React.Fragment>{children}</React.Fragment>;
 };

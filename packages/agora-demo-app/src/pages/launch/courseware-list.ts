@@ -1,4 +1,4 @@
-import { CourseWareList } from 'agora-classroom-sdk';
+import type { CourseWareList } from 'agora-classroom-sdk';
 
 export default [
   {
@@ -167,24 +167,7 @@ export default [
       prefix: 'https://convertcdn.netless.link/dynamicConvert',
     },
   },
-  {
-    resourceName: 'H5 Demo 1',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'ah5',
-    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-k1a-20',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
-  {
-    resourceName: 'H5 Demo 2',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'ah5',
-    url: 'https://courseware2.miaocode.com/v4-2/index.html?courseName=course-disappear-dinosaur',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
+
   {
     resourceName: 'youtube - RTE2022',
     resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
@@ -198,16 +181,7 @@ export default [
     resourceName: 'AgoraFlexibleClassroom',
     resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
     ext: 'alf',
-    url: 'https://docs.google.com/presentation/d/1EbE3km3bIHOyzg49mcC92JRd5OQjw59c/edit?usp=sharing&ouid=109918631701376245075&rtpof=true&sd=true',
-    size: 0,
-    updateTime: Date.now(),
-    initOpen: false,
-  },
-  {
-    resourceName: 'scratch',
-    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
-    ext: 'alf',
-    url: 'https://istonecode.isoftstone.com/agora/',
+    url: 'https://docs.google.com/presentation/d/e/2PACX-1vQnzK1Fai2oRRjrOQBjC6zheJEaEtjr0QtXYSsmaf8a5R_RZxCM13xT_T1Wjw_s1A/embed?start=false&loop=false&delayms=3000',
     size: 0,
     updateTime: Date.now(),
     initOpen: false,

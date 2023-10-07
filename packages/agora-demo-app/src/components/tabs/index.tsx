@@ -1,4 +1,4 @@
-import Tabs, { TabPaneProps, TabsProps } from 'antd/lib/tabs';
+import Tabs, { TabsProps } from 'antd/lib/tabs';
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { SvgIconEnum, SvgImg } from '../svg-img';
@@ -25,10 +25,4 @@ export const ATabs: FC<ATabsProps> = ({ type, className, onEdit, centered, ...pr
   return (
     <Tabs {...props} className={classNames({ 'fcr-theme': 1 }, className)} moreIcon={moreIcon} />
   );
-};
-
-export type ATabPaneProps = Pick<TabPaneProps, 'className' | 'tab' | 'tabKey'>;
-
-export const ATabPane: FC<ATabPaneProps> = ({ className, ...props }) => {
-  return <Tabs.TabPane {...props} className={classNames({ 'fcr-theme': 1 }, className)} />;
 };

@@ -1,4 +1,5 @@
-import { EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
+import { SceneType } from '@app/type';
+import type { EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 
 export enum RoomState {
   NO_STARTED,
@@ -10,7 +11,8 @@ export type RoomInfo = {
   roomName: string;
   creatorId: string;
   roomId: string;
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: number;
   roomState: RoomState;
   startTime: number;
   endTime: number;
@@ -18,6 +20,9 @@ export type RoomInfo = {
   roleConfig?: Record<number, number>;
   roomProperties: RoomProperties;
   role: EduRoleTypeEnum; // 上次加入房间的角色
+  userName: string;
+  duration: number;
+  sceneType: SceneType;
 };
 
 export type RoomListRequest = {
@@ -34,11 +39,35 @@ export type RoomListResponse = {
 type RoomProperties = Record<string, any>;
 export type RoomCreateRequest = {
   roomName: string;
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: EduRoomTypeEnum;
   startTime: number;
   endTime: number;
+  userName?: string;
   roomProperties?: RoomProperties;
+  sceneType: SceneType;
+  widgets?: Record<string, any>;
+  processes?: {
+    handsUp?: {
+      defaultAcceptRole?: EduRoleTypeEnum | string;
+    };
+  };
+
+  roleConfigs?: {
+    [key: number]: {
+      limit: number;
+      defaultStream: {
+        audioState: 0 | 1;
+        videoState: 0 | 1;
+      };
+    };
+  };
 };
+
+export type RoomCreateNoAuthRequest = RoomCreateRequest & {
+  userUuid: string;
+};
+
 export type RoomCreateResponse = {
   roomId: string;
 };
@@ -47,6 +76,7 @@ export type RoomJoinRequest = {
   roomId: string;
   role: EduRoleTypeEnum;
   userUuid?: string;
+  userName?: string;
 };
 
 export type RoomJoinNoAuthRequest = RoomJoinRequest & {
@@ -108,7 +138,9 @@ export interface RecordDetail {
   sumTime: number;
 }
 export interface RoomMessage {
-  roomType: EduRoomTypeEnum;
+  //@deprecated
+  roomType?: EduRoomTypeEnum;
+  sceneType: SceneType;
   roomUuid: string;
 }
 export interface AcademicMessage {

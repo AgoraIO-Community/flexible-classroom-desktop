@@ -1,5 +1,4 @@
-import { EduRegion } from 'agora-edu-core';
-import { AgoraRegion } from 'agora-rte-sdk';
+import type { EduRegion } from 'agora-edu-core';
 import { REACT_APP_AGORA_APP_TOKEN_DOMAIN, REACT_APP_SCENE_BUILDER_DOMAIN } from './env';
 
 function initApiDomain() {
@@ -18,21 +17,21 @@ function initApiDomain() {
 
 const apiDomain = initApiDomain();
 
-export const getApiDomain = (region: EduRegion = EduRegion.CN) => {
+export const getApiDomain = (region = 'CN' as EduRegion) => {
   let domain = apiDomain.domain;
   const { domainMap } = apiDomain;
   if (!domain && domainMap) {
     switch (region) {
-      case AgoraRegion.CN:
+      case 'CN':
         domain = domainMap['prod_cn'];
         break;
-      case AgoraRegion.NA:
+      case 'NA':
         domain = domainMap['prod_na'];
         break;
-      case AgoraRegion.EU:
+      case 'EU':
         domain = domainMap['prod_eu'];
         break;
-      case AgoraRegion.AP:
+      case 'AP':
         domain = domainMap['prod_ap'];
         break;
       default:
@@ -58,16 +57,22 @@ function initAppDomain() {
 
 const appDomain = initAppDomain();
 
-export const getAppDomain = (region: EduRegion = EduRegion.CN) => {
+export const getAppDomain = (region = 'CN' as EduRegion) => {
   let domain = appDomain.domain;
   const { domainMap } = appDomain;
   if (!domain && domainMap) {
     switch (region) {
-      case AgoraRegion.CN:
+      case 'CN':
         domain = domainMap['prod_cn'];
         break;
-      case AgoraRegion.NA:
+      case 'NA':
         domain = domainMap['prod_na'];
+        break;
+      case 'EU':
+        domain = domainMap['prod_eu'];
+        break;
+      case 'AP':
+        domain = domainMap['prod_ap'];
         break;
       default:
         domain = domainMap['prod_na'];

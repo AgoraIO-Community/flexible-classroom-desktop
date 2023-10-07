@@ -1,34 +1,46 @@
 .fcr-layout {
-  @apply flex;
+  display: flex;
 }
 
 .fcr-layout-row {
-  @apply flex-row;
+  flex-direction: row;
 }
 
 .fcr-layout-col {
-  @apply flex-col;
+  flex-direction: column;
 }
 .fcr-layout-col-reverse {
-  @apply flex-col-reverse;
+  flex-direction: column-reverse;
 }
 
 .fcr-layout-content {
-  @apply flex flex-row flex-1 h-full;
   position: relative;
   width: 0;
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 0%;
+  height: 100%;
 }
 
 .fcr-layout-header {
-  @apply flex flex-row justify-center items-center w-full;
   flex: 0 0 27px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .fcr-layout-aside {
-  @apply flex flex-col border-l  border-divider h-full;
   /* width: 19rem; */
   border-left: none;
-  @apply overflow-hidden;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  border-color: var(--fcr_system_divider_color);
+  border-left-width: 1px;
+
   gap: 4px;
   margin-left: 2px;
   position: relative;

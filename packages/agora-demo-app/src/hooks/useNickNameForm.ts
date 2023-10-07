@@ -10,7 +10,7 @@ export const useNickNameForm = () => {
         message: transI18n('fcr_join_room_tips_name'),
       },
       {
-        pattern: /^.{0,50}$/,
+        pattern: /^.{2,20}$/,
         message: transI18n('fcr_create_room_tips_name_rule'),
       },
     ],

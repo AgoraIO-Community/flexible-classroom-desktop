@@ -10,7 +10,6 @@ import locale_zh_CN from 'antd/lib/date-picker/locale/zh_CN';
 import locale_en_US from 'antd/lib/date-picker/locale/en_US';
 import './extend';
 import './index.css';
-
 // TODO: antd 4.0  后的bug，需要升级 react
 const Com: any = generatePicker<Dayjs>(dayjsGenerateConfig as any);
 

@@ -1,0 +1,91 @@
+.fcr-agreement .fcr-pure-material-checkbox > span::before {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  background: #fff;
+}
+.fcr-agreement .fcr-pure-material-checkbox > span::after {
+  top: 3px;
+  left: 3px;
+}
+.fcr-agreement .fcr-pure-material-checkbox > input {
+  left: -2px;
+  top: -2px;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+}
+
+.fcr-agreement .fcr-pure-material-checkbox {
+  height: 24px;
+  transform-origin: 0 8px;
+}
+
+.fcr-agreement {
+  cursor: pointer;
+  user-select: none;
+  margin-top: 28px;
+  font-size: 13px;
+  color: rgba(117, 117, 117, 1);
+}
+
+.fcr-agreement a:hover,
+.fcr-agreement a:active,
+.fcr-agreement a:link,
+.fcr-agreement a:visited {
+  color: rgba(66, 98, 255, 1);
+}
+
+.fcr-agreement-tooltip-overlay.rc-tooltip {
+  opacity: 1;
+  padding: 0;
+  background: transparent;
+}
+
+.fcr-agreement-tooltip-overlay .rc-tooltip-inner {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: 208px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background: #000;
+  color: #fff;
+  width: unset;
+}
+
+.fcr-agreement-tooltip-overlay .rc-tooltip-arrow {
+  border-top-color: #000 !important;
+}
+
+.fcr-agreement-shake-horizontal {
+  animation: fcr-agreement-shake-horizontal 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) both;
+}
+
+@keyframes fcr-agreement-shake-horizontal {
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}

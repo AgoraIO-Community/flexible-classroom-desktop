@@ -1,4 +1,5 @@
-import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
+/* eslint-disable react/prop-types */
+import React, { CSSProperties, FC, PropsWithChildren, useCallback, useEffect, useRef } from 'react';
 import classnames from 'classnames';
 import Notification from 'rc-notification';
 import './index.css';
@@ -30,10 +31,10 @@ export interface ToastProps {
   closeToast?: CallableFunction;
   canStop?: boolean;
   className?: string;
-  style: React.CSSProperties
+  style?: React.CSSProperties;
 }
 
-type ToastType = FC<ToastProps> & {
+type ToastType = FC<PropsWithChildren<ToastProps>> & {
   show: (params: ToastProps) => void;
 };
 
@@ -97,7 +98,7 @@ Toast.show = function ({
   Notification.newInstance({}, (notification) => {
     notification.notice({
       content: (
-        <Toast type={type as 'success' | 'error' | 'warning'} closeToast={() => { }}>
+        <Toast type={type as 'success' | 'error' | 'warning'} closeToast={() => {}}>
           {text}
         </Toast>
       ),

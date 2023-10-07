@@ -1,5 +1,5 @@
 .radio-card {
-  @apply relative flex flex-col justify-center items-center cursor-pointer;
+  @apply fcr-relative fcr-flex fcr-flex-col fcr-justify-center fcr-items-center fcr-cursor-pointer;
   /* fcr-white */
   background: #ffffff;
   /* fcr-light-web-line 0 */
@@ -20,7 +20,7 @@
 }
 
 .radio-card .radio {
-  @apply absolute;
+  @apply fcr-absolute;
   top: 10px;
   right: 10px;
 }

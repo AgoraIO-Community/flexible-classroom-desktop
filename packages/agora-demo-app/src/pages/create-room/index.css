@@ -4,6 +4,18 @@
 
 .create-form .form-item:first-child {
   margin-top: 15px;
+  width: 340px;
+  display: inline-block;
+}
+
+.create-form .form-item:nth-child(2) {
+  width: calc(100% - 340px - 16px);
+  margin-left: 16px;
+  display: inline-block;
+  max-width: 340px;
+}
+.create-form .form-item:nth-child(2) .ant-input-show-count-suffix {
+  /* display: none; */
 }
 
 .create-form .item-mb {
@@ -56,7 +68,8 @@
 }
 
 .start-time {
-  @apply relative;
+  @apply fcr-relative;
+  width: 100%;
 }
 .start-time .ant-form-item {
   display: inline-block;
@@ -91,7 +104,7 @@
 }
 
 .create-form .current-time {
-  @apply absolute flex justify-center items-center pointer-events-none;
+  @apply fcr-absolute fcr-flex fcr-justify-center fcr-items-center fcr-pointer-events-none;
   background: #fff;
   top: 2px;
   left: 2px;
@@ -100,12 +113,12 @@
   height: 44px;
 }
 
-.create-form .current-time.hidden {
+.create-form .current-time--hidden {
   display: none;
 }
 
 .room-type {
-  @apply grid;
+  @apply fcr-grid;
   grid-template-columns: repeat(auto-fill, 189px);
   gap: 16px;
   line-height: 1.5;
@@ -114,7 +127,7 @@
 }
 
 .service-type {
-  @apply grid;
+  @apply fcr-grid;
   grid-template-columns: repeat(auto-fill, 186px);
   gap: 16px;
   /* fcr-white */
@@ -154,7 +167,7 @@
 }
 
 .more-settings .expand-btn {
-  @apply cursor-pointer;
+  @apply fcr-cursor-pointer;
   font-family: 'PingFang HK';
   font-style: normal;
   font-weight: 400;
@@ -173,7 +186,7 @@
 }
 
 .setting-item .title {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
@@ -190,7 +203,7 @@
 }
 .security-prefix-icon,
 .live-playback-prefix-icon {
-  @apply bg-no-repeat bg-center;
+  @apply fcr-bg-no-repeat fcr-bg-center;
   display: inline-block;
   background-size: 18px;
   /* fcr-black */
@@ -219,7 +232,7 @@
 }
 
 .live-playback .header {
-  @apply flex items-center;
+  @apply fcr-flex fcr-items-center;
   font-family: 'Montserrat Roboto';
   font-weight: 400;
   font-size: 16px;
@@ -229,7 +242,7 @@
 }
 
 .live-playback .header::before {
-  @apply bg-cover bg-no-repeat bg-center;
+  @apply fcr-bg-cover fcr-bg-no-repeat fcr-bg-center;
   content: '';
   width: 48px;
   height: 48px;

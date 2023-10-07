@@ -1,7 +1,7 @@
 import { request, Response } from '@app/utils/request';
 import axios from 'axios';
 import { getRegion } from '../stores/global';
-import { getApiDomain, getAppDomain } from '../utils';
+import { ErrorCode, getApiDomain, getAppDomain, messageError } from '../utils';
 import { getLSStore, LS_COMPANY_ID } from '../utils/local-storage';
 import {
   RoomListRequest,
@@ -16,11 +16,10 @@ import {
   RoomCredentialNoAuthResponse,
   RoomCredentialRequest,
   RoomCredentialResponse,
+  RoomCreateNoAuthRequest,
 } from './type';
 
 export * from './type';
-
-const noAuthCompanyID = 0;
 
 export class RoomAPI {
   private get appDomain() {
@@ -74,6 +73,22 @@ export class RoomAPI {
   }
 
   /**
+   * 创建教室(免鉴权)
+   * @param params
+   * @returns
+   *
+   **/
+  /** @en
+   * Create room without auth
+   * @param params
+   * @returns
+   */
+  public async createNoAuth(params: RoomCreateNoAuthRequest) {
+    const url = `${this.appDomain}/edu/companys/v1/rooms`;
+    return request.post<Response<RoomCreateResponse>>(url, params);
+  }
+
+  /**
    * 通过房间ID查询房间信息
    * @param roomID
    * @returns
@@ -88,7 +103,25 @@ export class RoomAPI {
     const url = `${this.appDomain}/edu/companys/${this.companyId}/v1/rooms/${roomID}`;
     return request.get<Response<RoomInfo>>(url);
   }
-
+  /**
+   * 通过房间ID查询房间信息(免鉴权)
+   * @param roomID
+   * @returns
+   *
+   **/
+  /** @en
+   * Get room's info by id without auth
+   * @param roomID
+   * @returns
+   */
+  public async getRoomInfoByIDNoAuth(roomID: string) {
+    const url = `${this.appDomain}/edu/companys/v1/rooms/${roomID}`;
+    return request.get<Response<RoomInfo>>(url).catch((error) => {
+      console.warn('query room no auth api failed. error:%o', error);
+      messageError(ErrorCode.ROOM_NOT_FOUND);
+      throw error;
+    });
+  }
   /**
    * 加入教室
    * @param params

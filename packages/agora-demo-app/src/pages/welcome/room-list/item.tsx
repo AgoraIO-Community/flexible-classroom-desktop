@@ -1,13 +1,14 @@
 import { RoomInfo, RoomState } from '@app/api/room';
-import { EduRoomTypeEnum } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { FC, useCallback, useMemo } from 'react';
 import './item.css';
 import roomStateLive from '@app/assets/fcr-room-state-live.svg';
+import roomDurationTime from '@app/assets/fcr_time2.svg';
 import { formatRoomID } from '@app/hooks';
 import classNames from 'classnames';
 import { useI18n } from 'agora-common-libs';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
+import { SceneType } from '@app/type';
 
 type RoomListItemProps = {
   className?: string;
@@ -31,11 +32,12 @@ const roomStateMap = {
   [RoomState.NO_STARTED]: 'fcr_home_status_upcoming',
 };
 
-export const roomTypeMap = {
-  [EduRoomTypeEnum.Room1v1Class]: 'fcr_home_label_1on1',
-  [EduRoomTypeEnum.RoomSmallClass]: 'fcr_home_label_small_classroom',
-  [EduRoomTypeEnum.RoomBigClass]: 'fcr_home_label_lecture_hall',
-  [EduRoomTypeEnum.RoomProctor]: 'fcr_home_label_proctoring',
+export const sceneTypeTextMap = {
+  [SceneType.OneOnOne]: 'fcr_home_label_1on1',
+  [SceneType.SmallClass]: 'fcr_home_label_small_classroom',
+  [SceneType.LectureHall]: 'fcr_home_label_lecture_hall',
+  [SceneType.Proctoring]: 'fcr_home_label_proctoring',
+  [SceneType.Scene]: 'fcr_home_label_onlineclass',
 };
 
 export const RoomListItem: FC<RoomListItemProps> = ({
@@ -47,7 +49,11 @@ export const RoomListItem: FC<RoomListItemProps> = ({
 }) => {
   const transI18n = useI18n();
   const dateStr = useMemo(() => {
-    return `${dayjs(data.startTime).format(Format)}-${dayjs(data.endTime).format('HH:mm')}`;
+    return `${dayjs(data.startTime).format(Format)}`;
+  }, [data]);
+
+  const durationInMins = useMemo(() => {
+    return Math.ceil(dayjs.duration({ seconds: data.duration }).asMinutes());
   }, [data]);
 
   const roomState = useMemo(() => {
@@ -98,6 +104,16 @@ export const RoomListItem: FC<RoomListItemProps> = ({
             />
             {transI18n(roomStateMap[roomState])}
           </span>
+          <span className="state">
+            <img
+              src={roomDurationTime}
+              alt="room-time-duration"
+              className={classNames({
+                'time-icon': 1,
+              })}
+            />
+            {transI18n('duration_in_mins', { reason: durationInMins })}
+          </span>
           <span className="type">
             <SvgImg
               className="label"
@@ -105,7 +121,7 @@ export const RoomListItem: FC<RoomListItemProps> = ({
               colors={{ color: roomState !== RoomState.GOING ? '#78787c' : '#abb2ff' }}
               size={19}
             />
-            {transI18n(roomTypeMap[data.roomType])}
+            {transI18n(sceneTypeTextMap[data.sceneType || (data.roomType as SceneType)])}
           </span>
         </div>
       </div>

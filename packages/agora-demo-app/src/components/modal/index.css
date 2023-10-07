@@ -3,8 +3,10 @@
   border-radius: 8px;
   border: 1px solid;
   padding-bottom: 20px;
-  @apply box-border bg-component border-divider;
+  box-sizing: border-box;
   min-width: 280px;
+  background-color: var(--fcr_system_component_color);
+  border-color: var(--fcr_system_divider_color);
 }
 
 .top-level-modal {
@@ -25,7 +27,10 @@
   font-size: 13px;
   display: flex;
   justify-content: center;
-  @apply items-center inline-flex justify-center text-level1;
+  color: var(--fcr_system_text_level1_color);
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
 }
 
 .customize-radio {
@@ -33,16 +38,16 @@
 }
 
 .customize-radio input[type='radio'] {
-  @apply text-level1 !important;
+  color: var(--fcr_system_text_level1_color) !important;
   height: 14px;
 }
 
 .customize-radio input[type='radio'] ~ span {
-  @apply text-level1 !important;
+  color: var(--fcr_system_text_level1_color) !important;
 }
 
 .customize-radio input[type='radio']:checked ~ span {
-  @apply text-level1 !important;
+  color: var(--fcr_system_text_level1_color) !important;
 }
 
 .rc-notification-mask {
@@ -53,16 +58,23 @@
 }
 
 .modal-title {
-  @apply box-border flex justify-between items-center relative bg-icon-selected-color border-divider border-b border-solid;
   height: 28px;
   line-height: 28px;
   padding: 0 10px 0 15px;
   border-radius: 8px 8px 0 0;
   z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  border-style: solid;
+  border-bottom-width: 1px;
+  position: relative;
+  border-color: var(--fcr_system_divider_color);
+  background-color: var(--fcr_system_icon_selected_color);
 }
 
 .modal-title-text {
-  @apply text-level1;
+  color: var(--fcr_system_text_level1_color);
   font-size: 12px;
 }
 
@@ -75,17 +87,24 @@
 }
 
 .modal-content {
-  @apply box-border flex flex-col justify-center items-center text-level1;
   padding: 30px 20px;
+  box-sizing: border-box;
+  display: flex;
+  color: var(--fcr_system_text_level1_color);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .modal-content p {
   margin-bottom: 0;
-  @apply text-level1;
+  color: var(--fcr_system_text_level1_color);
 }
 
 .modal-footer {
-  @apply flex justify-center items-center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .btn-div {

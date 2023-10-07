@@ -2,8 +2,8 @@ import { NavPageLayout } from '@app/layout/nav-page-layout';
 import { useState, FC, CSSProperties, useEffect, useMemo } from 'react';
 import './index.css';
 import EmptyImg from '@app/assets/welcome-empty-list.png';
-
 import {
+  AcademicMessage,
   AcademicMessageKeyEnum,
   AttendanceTracking,
   EngagementTracking,
@@ -14,7 +14,7 @@ import {
 } from '@app/api';
 import { RouteComponentProps } from 'react-router';
 import dayjs from 'dayjs';
-import { roomTypeMap } from '../welcome/room-list/item';
+import { sceneTypeTextMap } from '../welcome/room-list/item';
 import { SvgIconEnum, SvgImg } from '@app/components/svg-img';
 import { useI18n } from 'agora-common-libs';
 import { ATabs, ATabsProps } from '@app/components/tabs';
@@ -66,10 +66,10 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
     <DefaultTabBar {...tabBarProps}>
       {(node) => {
         return (
-          <div className="mr-6 flex items-center">
+          <div className="fcr-mr-6 fcr-flex fcr-items-center">
             {node}
-            <div className="border border-solid rounded-xl px-2 relative scale-75	transform font-black">
-              {roomHistory?.academicMessageDTO[node.key as string]?.length || 0}
+            <div className="fcr-border fcr-border-solid fcr-rounded-xl fcr-px-2 fcr-relative fcr-scale-75	fcr-transform fcr-font-black">
+              {roomHistory?.academicMessageDTO[node.key as keyof AcademicMessage]?.length || 0}
             </div>
           </div>
         );
@@ -79,63 +79,63 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
 
   return (
     <NavPageLayout
-      contentClassName={'detail-content flex flex-col'}
+      contentClassName={'detail-content fcr-flex fcr-flex-col'}
       title={transI18n('fcr_past_label_past_classroom')}>
-      <div className="pt-36 w-full px-20">
-        <div className="flex justify-between">
-          <div className="flex flex-col justify-between">
-            <h2 className="text-3xl font-black">{roomInfo?.roomName}</h2>
-            <div className="flex pt-4">
+      <div className="fcr-pt-36 fcr-w-full fcr-px-20">
+        <div className="fcr-flex fcr-justify-between">
+          <div className="fcr-flex fcr-flex-col fcr-justify-between">
+            <h2 className="fcr-text-3xl fcr-font-black">{roomInfo?.roomName}</h2>
+            <div className="fcr-flex fcr-pt-4">
               {recordList.length > 0 ? (
                 recordList[recordList.length - 1].recordState !== RecordState.End ? (
                   <div
-                    className="rounded-xl flex leading-loose pl-2 pr-2 items-center"
+                    className="fcr-rounded-xl fcr-flex fcr-leading-loose fcr-pl-2 fcr-pr-2 fcr-items-center"
                     style={{ background: '#0056FD1A', color: '#0056FD' }}>
                     <div
-                      className="flex w-4 h-4 rounded-full	 justify-center items-center"
+                      className="fcr-flex fcr-w-4 fcr-h-4 fcr-rounded-full fcr-justify-center fcr-items-center"
                       style={{ background: '#0054fd5c' }}>
                       <div
-                        className="flex w-2 h-2 rounded-full"
+                        className="fcr-flex fcr-w-2 fcr-h-2 fcr-rounded-full"
                         style={{ background: '#0054fde2' }}></div>
                     </div>
-                    <span className="pl-2">{transI18n('fcr_past_label_record_processing')}</span>
+                    <span className="fcr-pl-2">
+                      {transI18n('fcr_past_label_record_processing')}
+                    </span>
                   </div>
                 ) : (
-                  <span className={'font-extrabold'}>
+                  <span className={'fcr-font-extrabold'}>
                     {transI18n('fcr_past_label_record')} ({recordList.length})
                   </span>
                 )
               ) : (
                 <div
-                  className="rounded-xl flex leading-loose pl-2 pr-2 items-center"
+                  className="fcr-rounded-xl fcr-flex fcr-leading-loose fcr-pl-2 fcr-pr-2 fcr-items-center"
                   style={{ background: '#0056FD1A', color: '#0056FD' }}>
                   <div
-                    className="flex w-4 h-4 rounded-full	 justify-center items-center"
+                    className="fcr-flex fcr-w-4 fcr-h-4 fcr-rounded-full	 fcr-justify-center fcr-items-center"
                     style={{ background: '#0054fd5c' }}>
                     <div
-                      className="flex w-2 h-2 rounded-full	 "
+                      className="fcr-flex fcr-w-2 fcr-h-2 fcr-rounded-full	 "
                       style={{ background: '#0054fde2' }}></div>
                   </div>
-                  <span className="pl-2">{transI18n('fcr_past_label_not_recorded')}</span>
+                  <span className="fcr-pl-2">{transI18n('fcr_past_label_not_recorded')}</span>
                 </div>
               )}
             </div>
           </div>
-          <div className="flex flex-col justify-around">
-            <div className="font-black flex items-center transform scale-90">
-              <span className="w-8">ID</span>
+          <div className="fcr-flex fcr-flex-col fcr-justify-around">
+            <div className="fcr-font-black fcr-flex fcr-items-center fcr-transform fcr-scale-90">
+              <span className="fcr-w-8">ID</span>
               <span>{roomInfo?.roomId}</span>
             </div>{' '}
-            <div className="font-black flex items-center transform scale-90">
-              <span className="w-8">
-                <SvgImg type={SvgIconEnum.ROOM_LABEL} size={20} colors={{ color: '#000' }}>
-                  {' '}
-                </SvgImg>
+            <div className="fcr-font-black fcr-flex fcr-items-center fcr-transform fcr-scale-90">
+              <span className="fcr-w-8">
+                <SvgImg type={SvgIconEnum.ROOM_LABEL} size={20} colors={{ color: '#000' }} />
               </span>
-              <span>{roomInfo && transI18n(roomTypeMap[roomInfo.roomType])}</span>
+              <span>{roomInfo && transI18n(sceneTypeTextMap[roomInfo.sceneType])}</span>
             </div>{' '}
-            <div className="font-black flex items-center transform scale-90">
-              <span className="w-8">
+            <div className="fcr-font-black fcr-flex fcr-items-center fcr-transform fcr-scale-90">
+              <span className="fcr-w-8">
                 <SvgImg type={SvgIconEnum.CLOCK} size={20} colors={{ color: '#000' }}></SvgImg>
               </span>
               <span>{`${dayjs(roomInfo?.startTime).format('YYYY-MM-DD, hh:mm')}-${dayjs(
@@ -144,7 +144,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
             </div>
           </div>
         </div>
-        <div className="pt-4">
+        <div className="fcr-pt-4">
           {recordList.length > 0 && (
             <ACarousel
               beforeChange={(_cur, next) => {
@@ -173,10 +173,12 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
                         window.open(r.recordUrls[0]);
                       }}
                       className={
-                        'w-32 w-20 border border-solid border-gray rounded-xl flex flex-col justify-center pl-4 py-2 pr-2 transform hover:border-black hover:-translate-y-0.5 hover:shadow'
+                        'fcr-w-20 fcr-border fcr-border-solid fcr-border-gray fcr-rounded-xl fcr-flex fcr-flex-col fcr-justify-center fcr-pl-4 fcr-py-2 fcr-pr-2 fcr-transform hover:fcr-border-black hover:-translate-y-0.5 hover:fcr-shadow'
                       }>
-                      <div className="font-black">{index < 9 ? '0' + (index + 1) : index + 1}</div>
-                      <div className="flex items-center justify-between">
+                      <div className="fcr-font-black">
+                        {index < 9 ? '0' + (index + 1) : index + 1}
+                      </div>
+                      <div className="fcr-flex fcr-items-center fcr-justify-between">
                         <div>{`${Math.floor(duration.asMinutes())}:${duration.format('ss')}`}</div>
                         <div>
                           <SvgImg
@@ -192,9 +194,9 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
           )}
         </div>
       </div>{' '}
-      <div className={'flex-1 flex flex-col pt-10'}>
+      <div className={'fcr-flex-1 fcr-flex fcr-flex-col fcr-pt-10'}>
         <ATabs
-          className={'detail-tabs flex-1'}
+          className={'detail-tabs fcr-flex-1'}
           renderTabBar={renderTabBar}
           items={[
             {

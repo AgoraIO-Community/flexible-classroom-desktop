@@ -1,8 +1,8 @@
 import { SSOAuth } from '@app/components/sso-auth';
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
-import { isH5Browser, token } from '@app/utils';
+import { token } from '@app/utils';
 import { observer } from 'mobx-react';
-import { FC, PropsWithChildren, useCallback, useContext, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useCallback, useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
 
 type AuthLayoutProps = {
@@ -16,45 +16,25 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
     const { setLoading } = useContext(GlobalStoreContext);
     const location = useLocation();
     const history = useHistory();
-    const [preCheck, setPreCheck] = useState(false);
-    useEffect(() => {
-      // h5和pc切换在鉴权请求前的原因是 切换前后的两个地址可能鉴权需求不同，比如 /invite 页面需要鉴权， /h5/invite 页面不需要鉴权。
-
-      if (platformRedirectPaths.includes(location.pathname)) {
-        const isH5 = isH5Browser();
-        // redirect to h5
-
-        if (isH5 && !location.pathname.match('/h5')) {
-          const url = window.location.hash.replace('#/', '/h5/');
-          history.push(url);
-          return;
-        }
-        // redirect to pc
-        if (!isH5 && location.pathname.match('/h5')) {
-          const url = window.location.hash.replace('#/h5', '');
-          history.push(url);
-          return;
-        }
-      }
-      setPreCheck(true);
-    });
 
     const shouldAuth = includes.includes(location.pathname);
+    const needAuth = !isLogin && !token.accessToken && shouldAuth;
 
     useEffect(() => {
       if (isLogin) {
         return;
       }
-
       // token not exists
       if (!token.accessToken) {
         return;
       }
-      setLoading(true);
+      // no need auth so no need to get user info
+      // Fix: userinfo is always required in index page, so exclude it.
+      if (location.pathname !== '/' && !shouldAuth) {
+        return;
+      }
       // check whether the user token is expired or not
-      getUserInfo().finally(() => {
-        setLoading(false);
-      });
+      getUserInfo();
     }, [isLogin, platformRedirectPaths, location.pathname]);
 
     const handleAccessToken = useCallback(() => {
@@ -65,14 +45,6 @@ export const AuthLayout: FC<PropsWithChildren<AuthLayoutProps>> = observer(
       history.replace('/');
     }, []);
 
-    const needAuth = !isLogin && !token.accessToken && shouldAuth;
-
-    return preCheck ? (
-      needAuth ? (
-        <SSOAuth onComplete={handleAccessToken} />
-      ) : (
-        <>{children}</>
-      )
-    ) : null;
+    return needAuth ? <SSOAuth onComplete={handleAccessToken} /> : <>{children}</>;
   },
 );

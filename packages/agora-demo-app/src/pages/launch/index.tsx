@@ -1,15 +1,242 @@
-import { GlobalStoreContext } from '@app/stores';
-import { AgoraEduSDK } from 'agora-classroom-sdk';
-import { AgoraProctorSDK } from 'agora-proctor-sdk';
-import { AgoraEduClassroomEvent, EduRoomTypeEnum } from 'agora-edu-core';
-import { isEmpty } from 'lodash';
+import { GlobalStoreContext, UserStoreContext } from '@app/stores';
+import type { AgoraEduClassroomEvent, EduRoleTypeEnum } from 'agora-edu-core';
+import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { getAssetURL } from '@app/utils';
+import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
 
-declare const DEMO_VERSION: string;
+import { useClassroomWidgets, useSceneWidgets, useProctorWidgets } from '@app/hooks/useWidgets';
+import { SceneType } from '@app/type';
+import logo from '@app/assets/favicon.png';
+import { useEduSdk, useFcrUIScene, useProctorSdk } from '@app/hooks/useSdk';
+
+export const LaunchPage = observer(() => {
+  const homeStore = useContext(GlobalStoreContext);
+  const history = useHistory();
+  const launchOption = homeStore.launchOption;
+
+  if (isEmpty(launchOption)) {
+    console.log('Invalid launch option, nav to /');
+    history.push('/');
+    return null;
+  }
+
+  //@ts-ignore
+  if (window.__netlessJavaScriptLoader) {
+    console.log('Whiteboard widget need a full page reload to work');
+    window.location.reload();
+    return null;
+  }
+
+  const { sceneType } = launchOption;
+
+  if (sceneType === SceneType.Proctoring) {
+    return <AgoraProctorApp />;
+  }
+
+  if (sceneType === SceneType.Scene) {
+    return <FcrUISceneApp />;
+  }
+  return <AgoraClassroomApp />;
+});
+
+export const AgoraClassroomApp = () => {
+  const homeStore = useContext(GlobalStoreContext);
+  const userStore = useContext(UserStoreContext);
+  const history = useHistory();
+  const launchOption = homeStore.launchOption;
+  const appRef = useRef<HTMLDivElement | null>(null);
+
+  const { ready: widgetsReady, widgets } = useClassroomWidgets([
+    'AgoraCountdown',
+    'AgoraHXChatWidget',
+    'AgoraPolling',
+    'AgoraSelector',
+    'FcrBoardWidget',
+    'FcrStreamMediaPlayerWidget',
+    'FcrWatermarkWidget',
+    'FcrWebviewWidget',
+  ]);
+
+  const { ready: sdkReady, sdk } = useEduSdk();
+
+  useEffect(() => {
+    if (widgetsReady && sdkReady && sdk && appRef.current) {
+      sdk.setParameters(
+        JSON.stringify({
+          host: homeStore.launchOption.sdkDomain,
+          uiConfigs: homeStore.launchOption.scenes,
+          themes: homeStore.launchOption.themes,
+        }),
+      );
+
+      sdk.config({
+        appId: launchOption.appId ?? '',
+        region: homeStore.region ?? 'CN',
+      });
+
+      const needPreset = (roleType: EduRoleTypeEnum) => {
+        if (roleType === 0) {
+          return false;
+        }
+
+        return true;
+      };
+
+      const needPretest = needPreset(launchOption.roleType ?? 0);
+
+      const shareUrl = shareLink.generateUrl({
+        roomId: launchOption.roomUuid ?? '',
+        owner: userStore.nickName,
+        region: homeStore.region,
+        role: 2,
+      });
+
+      const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
+      // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
+
+      const unmount = sdk.launch(appRef.current, {
+        ...(launchOption as any),
+        widgets,
+        // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
+        shareUrl,
+        recordUrl,
+        courseWareList,
+        uiMode: homeStore.theme,
+        language: homeStore.language,
+        pretest: needPretest,
+        virtualBackgroundImages,
+        virtualBackgroundVideos,
+        listener: (evt: AgoraEduClassroomEvent, type) => {
+          console.log('launch#listener ', evt);
+          if (evt === 2) {
+            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+          }
+        },
+      });
+
+      return unmount;
+    }
+  }, [widgetsReady, sdkReady]);
+
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
+};
+
+export const AgoraProctorApp = () => {
+  const homeStore = useContext(GlobalStoreContext);
+  const history = useHistory();
+  const launchOption = homeStore.launchOption;
+  const appRef = useRef<HTMLDivElement | null>(null);
+
+  const { ready: widgetsReady, widgets } = useProctorWidgets(['FcrWebviewWidget']);
+  const { ready: sdkReady, sdk } = useProctorSdk();
+
+  useEffect(() => {
+    if (widgetsReady && sdkReady && sdk && appRef.current) {
+      sdk.setParameters(
+        JSON.stringify({
+          host: homeStore.launchOption.sdkDomain,
+          uiConfigs: homeStore.launchOption.scenes,
+          themes: homeStore.launchOption.themes,
+        }),
+      );
+
+      sdk.config({
+        appId: launchOption.appId ?? '',
+        region: homeStore.region ?? 'CN',
+      });
+
+      const unmount = sdk.launch(appRef.current, {
+        ...(launchOption as any),
+        pretest: true,
+        language: homeStore.language,
+        widgets,
+        listener: (evt: AgoraEduClassroomEvent, type: any) => {
+          console.log('launch#listener ', evt);
+          if (evt === 2) {
+            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+          }
+        },
+      });
+
+      return unmount;
+    }
+  }, [widgetsReady, sdkReady]);
+
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
+};
+
+export const FcrUISceneApp = () => {
+  const homeStore = useContext(GlobalStoreContext);
+  const userStore = useContext(UserStoreContext);
+  const launchOption = homeStore.launchOption;
+  const appRef = useRef<HTMLDivElement | null>(null);
+  const history = useHistory();
+  const { ready: widgetsReady, widgets } = useSceneWidgets([
+    'FcrBoardWidget',
+    'FcrPolling',
+    'AgoraChatroomWidget',
+    'FcrWebviewWidget',
+    'FcrStreamMediaPlayerWidget',
+    'FcrCountdownWidget',
+    'FcrPopupQuizWidget',
+  ]);
+
+  const { ready: sdkReady, sdk } = useFcrUIScene();
+
+  useEffect(() => {
+    if (widgetsReady && sdkReady && sdk && appRef.current) {
+      const shareUrl = shareLink.generateUrl({
+        roomId: launchOption.roomUuid ?? '',
+        owner: userStore.nickName,
+        region: homeStore.region,
+        role: 2,
+      });
+      sdk.setParameters(
+        JSON.stringify({
+          shareUrl,
+          logo,
+          host: homeStore.launchOption.sdkDomain,
+          uiConfigs: homeStore.launchOption.scenes,
+          themes: homeStore.launchOption.themes,
+        }),
+      );
+
+      const unmount = sdk.launch(
+        appRef.current,
+        {
+          ...(launchOption as any),
+          widgets,
+          coursewareList: courseWareList,
+          virtualBackgroundImages,
+          virtualBackgroundVideos,
+          uiMode: homeStore.theme,
+          language: homeStore.language,
+          token: launchOption.rtmToken,
+          devicePretest: true,
+          mediaOptions: {
+            cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
+          },
+          recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/scene_record_page.html`,
+        },
+        () => {
+          // success
+        },
+        (err: Error) => {
+          // failure
+        },
+        (type) => {
+          history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+        },
+      );
+      return unmount;
+    }
+  }, [widgetsReady, sdkReady]);
+
+  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
+};
 
 export const assetURLs = {
   // virtual background assets
@@ -24,99 +251,16 @@ export const assetURLs = {
   virtualBackground9: 'effect/default9.mp4',
 };
 
-export const LaunchPage = observer(() => {
-  const homeStore = useContext(GlobalStoreContext);
-  const appRef = useRef<HTMLDivElement | null>(null);
-  const history = useHistory();
-  const launchOption = homeStore.launchOption;
-  const { setLoading, loading } = useContext(GlobalStoreContext);
-  useEffect(() => {
-    loading && setLoading(false);
-  }, [loading]);
-  useEffect(() => {
-    if (isEmpty(launchOption)) {
-      history.push('/');
-      return;
-    }
-
-    if (appRef.current) {
-      const roomType = homeStore.launchOption.roomType;
-      let unmount = () => {};
-      if (roomType === EduRoomTypeEnum.RoomProctor) {
-        AgoraProctorSDK.setParameters(
-          JSON.stringify({
-            host: homeStore.launchOption.sdkDomain,
-            uiConfigs: homeStore.launchOption.scenes,
-            themes: homeStore.launchOption.themes,
-          }),
-        );
-
-        AgoraProctorSDK.config({
-          appId: launchOption.appId,
-          region: launchOption.region ?? 'CN',
-        });
-
-        unmount = AgoraProctorSDK.launch(appRef.current, {
-          ...launchOption,
-          widgets: {},
-          listener: (evt: AgoraEduClassroomEvent, type) => {
-            console.log('launch#listener ', evt);
-            if (evt === AgoraEduClassroomEvent.Destroyed) {
-              history.push(`/?reason=${type}`);
-            }
-          },
-        });
-      } else {
-        AgoraEduSDK.setParameters(
-          JSON.stringify({
-            host: homeStore.launchOption.sdkDomain,
-            uiConfigs: homeStore.launchOption.scenes,
-            themes: homeStore.launchOption.themes,
-          }),
-        );
-
-        AgoraEduSDK.config({
-          appId: launchOption.appId,
-          region: launchOption.region ?? 'CN',
-        });
-
-        const recordUrl = `https://solutions-apaas.agora.io/apaas/record/dev/${DEMO_VERSION}/record_page.html`;
-        // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
-
-        const virtualBackgroundImages = [
-          getAssetURL(assetURLs.virtualBackground1),
-          getAssetURL(assetURLs.virtualBackground2),
-          getAssetURL(assetURLs.virtualBackground3),
-          getAssetURL(assetURLs.virtualBackground4),
-          getAssetURL(assetURLs.virtualBackground5),
-          getAssetURL(assetURLs.virtualBackground6),
-          getAssetURL(assetURLs.virtualBackground7),
-        ];
-        const virtualBackgroundVideos = [
-          getAssetURL(assetURLs.virtualBackground8),
-          getAssetURL(assetURLs.virtualBackground9),
-        ];
-
-        unmount = AgoraEduSDK.launch(appRef.current, {
-          ...launchOption,
-          // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
-          recordUrl,
-          courseWareList,
-          uiMode: homeStore.theme,
-          virtualBackgroundImages,
-          virtualBackgroundVideos,
-          listener: (evt: AgoraEduClassroomEvent, type) => {
-            console.log('launch#listener ', evt);
-            if (evt === AgoraEduClassroomEvent.Destroyed) {
-              history.push(`/?reason=${type}`);
-            }
-          },
-        });
-      }
-
-      return unmount;
-    }
-  }, []);
-
-  return <div ref={appRef} id="app" className="bg-background w-full h-full"></div>;
-});
+const virtualBackgroundImages = [
+  getAssetURL(assetURLs.virtualBackground1),
+  getAssetURL(assetURLs.virtualBackground2),
+  getAssetURL(assetURLs.virtualBackground3),
+  getAssetURL(assetURLs.virtualBackground4),
+  getAssetURL(assetURLs.virtualBackground5),
+  getAssetURL(assetURLs.virtualBackground6),
+  getAssetURL(assetURLs.virtualBackground7),
+];
+const virtualBackgroundVideos = [
+  getAssetURL(assetURLs.virtualBackground8),
+  getAssetURL(assetURLs.virtualBackground9),
+];

@@ -1,5 +1,5 @@
 .room-type-card {
-  @apply cursor-pointer;
+  @apply fcr-cursor-pointer;
   border-radius: 16px;
   padding: 20px;
   position: relative;
@@ -21,16 +21,16 @@
 .room-type-card .name {
   font-weight: 800;
   font-size: 16px;
-  margin-bottom: 10px;
 }
 
 .room-type-card .description {
   font-weight: 400;
   font-size: 12px;
+  margin-top: 10px;
 }
 
 .room-type-card .radio {
-  @apply absolute;
+  @apply fcr-absolute;
   top: 12.5px;
   right: 12.5px;
 }

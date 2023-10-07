@@ -1,6 +1,6 @@
-import { getLanguage } from '@app/stores/global';
-import { EduRteEngineConfig, EduRteRuntimePlatform } from 'agora-edu-core';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 import { isProduction } from './env';
+
 /**
  * 解析hash地址中的query参数。避免query参数中用#作为值。
  * @param locationHash string
@@ -21,7 +21,7 @@ export function parseHashUrlQuery(locationHash: string): Record<string, any> {
 
 export function parseQuery(query: string) {
   const strArr = query.split('&');
-  const result = new Object();
+  const result: any = {};
   for (let i = 0; i < strArr.length; i++) {
     const q = strArr[i];
     // 这里需要注意对base64值的处理，base64中是包含 = 符号的。(分享的传值是通过url传值,值是通过base64加密的)
@@ -47,22 +47,29 @@ export const Default_Hosting_URL =
 
 export const SSO_LOGOUT_URL = 'https://sso2.agora.io/api/v0/logout';
 
-export const privacyPolicyURL = () => {
-  if (getLanguage() === 'en') {
-    return 'https://www.agora.io/en/privacy-policy/';
-  }
-  return 'https://www.agora.io/cn/privacy-policy/';
-};
+// export const privacyPolicyURL = () => {
+//   if (getLanguage() === 'en') {
+//     return 'https://www.agora.io/en/privacy-policy/';
+//   }
+//   return 'https://www.agora.io/cn/privacy-policy/';
+// };
 
-export const useAgreementURL = () => {
-  if (getLanguage() === 'en') {
-    return 'https://www.agora.io/cn/terms-of-service/';
-  }
-  return 'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/demo/education/privacy.html';
-};
+// export const useAgreementURL = () => {
+//   if (getLanguage() === 'en') {
+//     return 'https://www.agora.io/cn/terms-of-service/';
+//   }
+//   return 'https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/demo/education/privacy.html';
+// };
+
+export const cnAgreementURL = 'https://solutions-apaas.agora.io/static/assets/user_agreement.html';
+
+export const cnPrivacyPolicyURL =
+  'https://solutions-apaas.agora.io/static/assets/privacy_policy.html';
+
+export const naPrivacyPolicyURL = 'https://www.agora.io/en/terms-of-service';
 
 export const getAssetURL = (relativeURL: string) => {
-  if (EduRteEngineConfig.platform === EduRteRuntimePlatform.Electron) {
+  if (isElectron()) {
     if (!window.require) return;
     const path = window.require('path');
     return isProduction

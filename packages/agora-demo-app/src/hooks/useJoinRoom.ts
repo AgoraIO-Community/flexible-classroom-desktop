@@ -1,26 +1,26 @@
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
-import { EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
-import { AgoraLatencyLevel, AgoraRegion } from 'agora-rte-sdk';
+import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
+import type { AgoraLatencyLevel, AgoraRegion } from 'agora-rte-sdk';
 import { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '../stores';
 import { GlobalLaunchOption } from '../stores/global';
 import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
-import { builderConfig } from '../utils/build-config';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
   REACT_APP_AGORA_APP_ID,
   REACT_APP_AGORA_APP_SDK_DOMAIN,
 } from '../utils/env';
 import { shareLink } from '../utils/share';
-import { LanguageEnum } from 'agora-classroom-sdk';
+import type { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
+import { FcrRoomType, SceneType } from '@app/type';
 import { roomApi } from '@app/api';
+import md5 from 'js-md5';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
-  roomType: EduRoomTypeEnum;
   roomName: string;
   userName: string;
   roomId: string;
@@ -32,6 +32,7 @@ type JoinRoomParams = {
   region: AgoraRegion;
   platform?: Platform;
   latencyLevel: AgoraLatencyLevel;
+  sceneType: SceneType;
 };
 type QuickJoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -41,16 +42,9 @@ type QuickJoinRoomParams = {
   userId: string;
 };
 
-type JoinRoomOptions = Pick<GlobalLaunchOption, 'shareUrl' | 'uiMode'> & {
-  roomProperties?: Record<string, any>;
-};
-
-export const needPreset = (roleType: EduRoleTypeEnum) => {
-  if (roleType === EduRoleTypeEnum.invisible) {
-    return false;
-  }
-
-  return true;
+type JoinRoomOptions = {
+  returnToPath: string;
+  roomProperties?: any;
 };
 
 type ShareURLParams = {
@@ -66,7 +60,7 @@ const shareLinkInClass = ({ roomId, owner }: ShareURLParams) => {
   let url = shareLink.generateUrl({
     owner,
     roomId: roomId,
-    role: EduRoleTypeEnum.student,
+    role: 2,
   });
   if (companyId && projectId) {
     url = url + `&companyId=${companyId}&projectId=${projectId}&region=${region}`;
@@ -75,6 +69,7 @@ const shareLinkInClass = ({ roomId, owner }: ShareURLParams) => {
 };
 
 const defaultPlatform = checkBrowserDevice();
+
 export const useJoinRoom = () => {
   const history = useHistory();
   const userStore = useContext(UserStoreContext);
@@ -82,10 +77,15 @@ export const useJoinRoom = () => {
   const { language, region, setLaunchConfig } = useContext(GlobalStoreContext);
 
   const joinRoomHandle = useCallback(
-    async (params: JoinRoomParams, options: JoinRoomOptions = {}) => {
+    async (
+      params: JoinRoomParams,
+      options: JoinRoomOptions = {
+        roomProperties: {},
+        returnToPath: '/',
+      },
+    ) => {
       const {
         role,
-        roomType,
         roomName,
         userName,
         roomId,
@@ -97,10 +97,11 @@ export const useJoinRoom = () => {
         region,
         duration = 30,
         platform = defaultPlatform,
+        sceneType,
       } = params;
 
-      if (platform === Platform.H5) {
-        const checkResult = h5ClassModeIsSupport(roomType);
+      if (platform === 'H5') {
+        const checkResult = h5ClassModeIsSupport(sceneType);
         if (checkResult.status === Status.Failed) {
           return Promise.reject(checkResult);
         }
@@ -109,6 +110,7 @@ export const useJoinRoom = () => {
       if (!userId) {
         return Promise.reject(failResult(ErrorCode.USER_ID_EMPTY));
       }
+      const isProctoring = sceneType === SceneType.Proctoring;
 
       if (!userName) {
         return Promise.reject(failResult(ErrorCode.USER_NAME_EMPTY));
@@ -118,22 +120,16 @@ export const useJoinRoom = () => {
 
       console.log('## get rtm Token from demo server', token);
 
-      const needPretest = needPreset(role);
-
-      const isProctoring = roomType === EduRoomTypeEnum.RoomProctor;
-
       const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
       const webRTCCodec = isProctoring ? 'h264' : 'vp8';
+
       const config: GlobalLaunchOption = {
         appId: REACT_APP_AGORA_APP_ID || appId,
         sdkDomain,
-        pretest: needPretest,
-        courseWareList: [],
         userUuid: userId,
         rtmToken: token,
         roomUuid: roomId,
-        roomType: roomType,
         roomName: `${roomName}`,
         userName: userName,
         roleType: role,
@@ -141,11 +137,11 @@ export const useJoinRoom = () => {
         language: language,
         duration: +duration * 60,
         latencyLevel,
+        roomType: FcrRoomType[sceneType],
         userFlexProperties: options.roomProperties || {},
-        scenes: builderConfig.resource.scenes,
-        themes: builderConfig.resource.themes,
         shareUrl,
         platform,
+        sceneType,
         mediaOptions: {
           web: {
             codec: webRTCCodec,
@@ -159,6 +155,7 @@ export const useJoinRoom = () => {
               }
             : undefined,
         },
+        returnToPath: options.returnToPath,
       };
 
       // this is for DEBUG PURPOSE only. please do not store certificate in client, it's not safe.
@@ -180,27 +177,23 @@ export const useJoinRoom = () => {
   );
 
   const quickJoinRoom = useCallback(
-    async (params: QuickJoinRoomParams) => {
-      if (!builderConfig.ready) {
-        return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-      }
-
+    async (params: QuickJoinRoomParams, options?: Partial<JoinRoomOptions>) => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
       const {
         data: { data: roomInfo },
       } = await roomApi.getRoomInfoByID(roomId);
 
-      const isProctoring = roomInfo.roomType === EduRoomTypeEnum.RoomProctor;
-      const isStudent = role === EduRoleTypeEnum.student;
-      const userUuid = isProctoring && isStudent ? `${userId}-main` : userId;
-      return roomStore.joinRoom({ roomId, role, userUuid }).then((response) => {
+      const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
+      const isStudent = role === 2;
+      const userUuid = isProctoring && isStudent ? `${md5(nickName)}-main` : userId;
+      return roomStore.joinRoom({ roomId, role, userUuid, userName: nickName }).then((response) => {
         const { roomDetail, token, appId } = response.data.data;
-        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
 
         const checkResult = checkRoomInfoBeforeJoin(roomDetail);
         if (checkResult.status === Status.Failed) {
           return Promise.reject(checkResult);
         }
+        const { latencyLevel, ...others } = roomDetail.roomProperties;
 
         return joinRoomHandle(
           {
@@ -212,12 +205,12 @@ export const useJoinRoom = () => {
             userName: nickName,
             roomId: roomDetail.roomId,
             roomName: roomDetail.roomName,
-            roomType: roomDetail.roomType,
-            latencyLevel,
+            latencyLevel: latencyLevel || 2,
             language,
             region,
+            sceneType: roomDetail.sceneType || roomDetail.roomType,
           },
-          { roomProperties: rProps },
+          { roomProperties: others, returnToPath: '/', ...options },
         );
       });
     },
@@ -225,39 +218,45 @@ export const useJoinRoom = () => {
   );
 
   const quickJoinRoomNoAuth = useCallback(
-    async (params: QuickJoinRoomParams) => {
+    async (params: QuickJoinRoomParams, options?: Partial<JoinRoomOptions>) => {
       const { roomId, role, nickName, userId, platform = defaultPlatform } = params;
-      return roomStore.joinRoomNoAuth({ roomId, role, userUuid: userId }).then((response) => {
-        const { roomDetail, token, appId } = response.data.data;
-        const { latencyLevel, ...rProps } = roomDetail.roomProperties;
+      const {
+        data: { data: roomInfo },
+      } = await roomApi.getRoomInfoByIDNoAuth(roomId);
 
-        if (!builderConfig.ready) {
-          return Promise.reject(failResult(ErrorCode.UI_CONFIG_NOT_READY));
-        }
+      const isProctoring = roomInfo.sceneType === SceneType.Proctoring;
+      const isStudent = role === 2;
 
-        const checkResult = checkRoomInfoBeforeJoin(roomDetail);
-        if (checkResult.status === Status.Failed) {
-          return Promise.reject(checkResult);
-        }
+      const userUuid = isProctoring && isStudent ? `${md5(nickName)}-main` : userId;
+      return roomStore
+        .joinRoomNoAuth({ roomId, role, userUuid, userName: nickName })
+        .then((response) => {
+          const { roomDetail, token, appId } = response.data.data;
 
-        return joinRoomHandle(
-          {
-            appId,
-            token,
-            role,
-            platform,
-            userId,
-            userName: nickName,
-            roomId: roomDetail.roomId,
-            roomName: roomDetail.roomName,
-            roomType: roomDetail.roomType,
-            latencyLevel,
-            language,
-            region,
-          },
-          { roomProperties: rProps },
-        );
-      });
+          const checkResult = checkRoomInfoBeforeJoin(roomDetail);
+          if (checkResult.status === Status.Failed) {
+            return Promise.reject(checkResult);
+          }
+          const { latencyLevel, ...others } = roomDetail.roomProperties;
+
+          return joinRoomHandle(
+            {
+              appId,
+              token,
+              role,
+              platform,
+              userId: userUuid,
+              userName: nickName,
+              roomId: roomDetail.roomId,
+              roomName: roomDetail.roomName,
+              sceneType: roomDetail.sceneType || roomDetail.roomType,
+              latencyLevel: latencyLevel || 2,
+              language,
+              region,
+            },
+            { roomProperties: others, returnToPath: '/', ...options },
+          );
+        });
     },
     [language, region, joinRoomHandle],
   );

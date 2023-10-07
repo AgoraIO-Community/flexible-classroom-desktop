@@ -3,7 +3,7 @@
   height: 40px;
 }
 .toast-list .toast-item span {
-  @apply table;
+  @apply fcr-table;
   margin: 0 auto;
   /* fcr_brand_blue */
   background: #357bf6;

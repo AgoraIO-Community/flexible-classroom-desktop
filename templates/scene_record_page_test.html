@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- templates -->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cloud Recording</title>
+</head>
+
+<body>
+  <style>
+    #root {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+  <div id="root"></div>
+  <script src="./scene.bundle.js"></script>
+  <script src="./scene_widget.bundle.js"></script>
+  <script type="text/javascript">
+    function useParams(location) {
+      const searchString = location.href.split('?').pop();
+      const urlParams = new URLSearchParams(location.href.split('?').pop());
+      const audienceParams = {};
+      for (let key of urlParams.keys()) {
+        audienceParams[key] = urlParams.get(key);
+      }
+      console.log('urlParams ', audienceParams);
+      return audienceParams;
+    }
+
+    const {
+      userUuid,
+      userName,
+      roomUuid,
+      roleType,
+      roomType,
+      roomName,
+      pretest,
+      rtmUid,
+      rtmToken,
+      language,
+      startTime,
+      duration,
+      recordUrl,
+      appId,
+      userRole,
+      translateLanguage,
+      region,
+      minFPS = 1,
+      maxFPS = 5,
+      resolution = 0.8,
+      defaultEnableDevice = 0,
+    } = useParams(window.location);
+
+    const recordOptions = {
+      minFPS,
+      maxFPS,
+      resolution,
+      autoResolution: false,
+      autoFPS: false,
+      maxResolutionLevel: 1,
+      forceCanvas: true,
+    };
+
+    FcrUIScene.setParameters(
+      JSON.stringify({
+        host: `https://api-solutions-dev.bj2.agoralab.co`,
+        defaultEnableDevice: Number(defaultEnableDevice) === 1,
+      }),
+    );
+
+    FcrUIScene.launch(document.querySelector('#root'), {
+      region: region ? region : 'CN',
+      userUuid,
+      userName,
+      roomUuid,
+      roleType: Number(roleType),
+      roomType: Number(roomType),
+      roomName,
+      pretest: false,
+      rtmUid,
+      token: rtmToken,
+      language,
+      startTime,
+      duration,
+      recordUrl,
+      appId,
+      userRole,
+      courseWareList: [],
+      recordOptions,
+      widgets: {
+        easemobIM: FcrChatroom,
+        netlessBoard: FcrBoardWidget,
+        poll: FcrPollingWidget,
+        mediaPlayer: FcrStreamMediaPlayerWidget,
+        webView: FcrWebviewWidget,
+        countdownTimer: FcrCountdownWidget,
+        popupQuiz: FcrPopupQuizWidget,
+      }
+    });
+  </script>
+</body>
+
+</html>

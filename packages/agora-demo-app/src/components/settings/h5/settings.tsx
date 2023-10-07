@@ -39,7 +39,7 @@ export const SettingsMenu: FC<SettingsMenuProps> = ({ addMenuPopup, removeMenuPo
       }}>
       <Menu data={menus} />
       {/* <div
-        className="logout-btn px-6 rounded-md border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center"
+        className="logout-btn px-6 rounded-md fcr-border border-slate-200 text-slate-900 absolute inset-x-0 flex justify-center items-center"
         onClick={() => {
           setConfirmDialog(true);
         }}>

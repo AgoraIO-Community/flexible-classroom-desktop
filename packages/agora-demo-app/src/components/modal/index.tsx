@@ -31,7 +31,7 @@ export interface ModalProps {
   topLevel?: boolean;
   animate?: boolean;
   className?: string;
-  style?: React.CSSProperties
+  style?: React.CSSProperties;
 }
 
 type ModalType = FC<ModalProps>;

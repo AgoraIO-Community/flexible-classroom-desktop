@@ -1,7 +1,8 @@
 import { GlobalStoreContext } from '@app/stores';
 import { observer } from 'mobx-react';
 import { useContext } from 'react';
-import { FcrMultiThemeMode, useI18n } from 'agora-common-libs';
+import { FcrMultiThemeMode } from 'agora-common-libs';
+import { useI18n } from 'agora-common-libs';
 import './index.css';
 import { RadioGroup } from '@app/components/radio';
 
@@ -13,6 +14,8 @@ const languageOptions = [
 const regionOptions = [
   { label: 'NA', value: 'NA' },
   { label: 'CN', value: 'CN' },
+  { label: 'EU', value: 'EU' },
+  { label: 'AP', value: 'AP' },
 ];
 
 export const GeneralSetting = observer(() => {
@@ -26,7 +29,7 @@ export const GeneralSetting = observer(() => {
   ];
 
   return (
-    <div className="general-setting leading-8">
+    <div className="general-setting fcr-leading-8">
       <div className="item">
         <div className="title">{transI18n('fcr_settings_label_language')}</div>
         <div className="form">

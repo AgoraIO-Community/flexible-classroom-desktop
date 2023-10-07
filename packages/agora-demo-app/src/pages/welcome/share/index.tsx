@@ -5,7 +5,6 @@ import { useLangSwitchValue } from '@app/hooks/useLangSwitchValue';
 import { GlobalStoreContext } from '@app/stores';
 import { shareLink } from '@app/utils/share';
 import { useI18n } from 'agora-common-libs';
-import { EduRoleTypeEnum } from 'agora-edu-core';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import { FC, useContext, useMemo } from 'react';
@@ -33,7 +32,7 @@ export const Share: FC<ShareProps> = observer(({ data }) => {
       roomId,
       owner,
       region: globalStore.region,
-      role: EduRoleTypeEnum.student,
+      role: 2,
     });
     return url;
   }, [owner, roomId, globalStore.region]);

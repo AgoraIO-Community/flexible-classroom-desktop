@@ -6,6 +6,7 @@ import localeData from 'dayjs/plugin/localeData';
 import weekday from 'dayjs/plugin/weekday';
 import weekOfYear from 'dayjs/plugin/weekOfYear';
 import weekYear from 'dayjs/plugin/weekYear';
+import duration from 'dayjs/plugin/duration';
 
 // fix: https://github.com/react-component/picker/issues/123
 dayjs.extend(customParseFormat);
@@ -15,3 +16,4 @@ dayjs.extend(localeData);
 dayjs.extend(weekOfYear);
 dayjs.extend(weekYear);
 dayjs.extend(isBetween);
+dayjs.extend(duration);

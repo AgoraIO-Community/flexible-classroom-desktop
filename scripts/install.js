@@ -1,55 +1,64 @@
-const { exec } = require('./exec');
+const { exec, getCmdArgs } = require('./exec');
 const { exists } = require('./fs');
 
 const run = async () => {
   const chalk = require('chalk');
-  const {
-    fetchAllPackages,
-    fetchOpenSourcePackages,
-    linkPackages,
-    copyEnv,
-    installModules,
-    buildPackages,
-  } = require('./link-and-build');
+  const { fetchPackages, copyEnv, installModules, buildPackages } = require('./link-and-build');
 
-  const [cmd, path, ...others] = process.argv;
-  let r = 0;
-  if (others[0] === 'all') {
-    r = await fetchAllPackages();
+  const args = getCmdArgs();
+  const installAll = args.includes('all');
+  const skipEnv = args.includes('skip-env');
 
-    if (r) {
-      return;
-    }
+  if (installAll) {
+    await fetchPackages([
+      'agora-rte-sdk',
+      'agora-edu-core',
+      'agora-common-libs',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-plugin-gallery',
+      'fcr-ui-scene',
+      'fcr-ui-kit',
+    ]);
 
-    r = await installModules();
+    await installModules();
 
-    if (r) {
-      return;
-    }
-
-    r = await buildPackages();
+    await buildPackages([
+      'agora-rte-sdk',
+      'agora-edu-core',
+      'agora-common-libs',
+      'agora-plugin-gallery',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'fcr-ui-scene',
+    ]);
   } else {
-    r = await fetchOpenSourcePackages();
+    await fetchPackages([
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'agora-plugin-gallery',
+      'fcr-ui-scene',
+      'fcr-ui-kit',
+    ]);
 
-    if (r) {
-      return;
-    }
+    await installModules();
 
-    r = await installModules();
+    await buildPackages([
+      'agora-plugin-gallery',
+      'agora-classroom-sdk',
+      'agora-proctor-sdk',
+      'fcr-ui-scene',
+    ]);
   }
 
-  if (r) {
-    return;
-  }
-
-  !(await linkPackages()) && (await copyEnv());
+  !skipEnv && (await copyEnv());
 
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };
 
 if (!exists('node_modules/simple-git') || !exists('node_modules/chalk')) {
   console.log('Installing tools...');
-  exec(`npm install --no-package-lock --no-save simple-git chalk`).then(run);
+  exec(`npm install -g --verbose --no-package-lock --no-save --prefix=$(pwd) simple-git@3.15.1 chalk@4.1.2 && mv lib/node_modules node_modules && rm -r lib`).then(run);
 } else {
   run();
 }

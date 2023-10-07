@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import { ChangeEvent, FC, useEffect, useRef } from 'react';
-import { BaseProps } from '../util/type';
+import React, { ChangeEvent, FC, useEffect, useRef } from 'react';
 import './index.css';
 
-type CheckboxProps = BaseProps & {
+type CheckboxProps = {
   text?: string;
   value?: any;
   checked?: boolean;
@@ -11,6 +10,7 @@ type CheckboxProps = BaseProps & {
   indeterminate?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   gap?: number;
+  style?: React.CSSProperties;
 };
 
 export const CheckBox: FC<CheckboxProps> = ({
@@ -46,7 +46,7 @@ export const CheckBox: FC<CheckboxProps> = ({
         {...restProps}
       />
       <span>
-        <span className="flex-grow truncate">{text}</span>
+        <span className="fcr-flex-grow fcr-truncate">{text}</span>
       </span>
     </label>
   );

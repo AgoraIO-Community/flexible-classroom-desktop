@@ -20,7 +20,6 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noEmitHelpers": true,
     "noEmitOnError": false,
     "emitDeclarationOnly": true,
@@ -32,7 +31,6 @@
     "baseUrl": ".",
     "paths": {
       "@app/*": ["./src/*"],
-      "@proctor/*": ["../agora-proctor-sdk/src/*"],
       "~app-ui-kit": ["src/ui-kit"],
       "~app-ui-kit/*": ["src/ui-kit/*"],
       "~app-scaffold": ["src/ui-kit/scaffold"],
@@ -42,13 +40,12 @@
       "~app-utilities/*": ["src/ui-kit/utilities/*"],
       "~app-components": ["src/ui-kit/components"],
       "~app-components/*": ["src/ui-kit/components/*"],
-      "agora-classroom-sdk": ["../agora-classroom-sdk/src/infra/api"],
-      "agora-proctor-sdk": ["../agora-proctor-sdk/src/infra/api"],
-
+      "@ui-kit-utils/*": ["../fcr-ui-kit/src/utils/*"],
     }
   },
   "include": [
-    "src"
+    "src",
+    "../../node_modules/electron"
   ],
   "exclude": [
     "node_modules",

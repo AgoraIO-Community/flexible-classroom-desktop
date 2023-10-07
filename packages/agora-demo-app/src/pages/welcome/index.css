@@ -1,17 +1,17 @@
 .welcome-container {
-  @apply w-full h-full flex flex-col;
+  @apply fcr-w-full fcr-h-full fcr-flex fcr-flex-col;
   padding: 25px 0 0;
 }
 
 .welcome-container > .header {
-  @apply flex items-center justify-end absolute w-full;
+  @apply fcr-flex fcr-items-center fcr-justify-end fcr-absolute fcr-w-full;
   padding: 0 50px 25px 32px;
   z-index: 2;
   height: 65px;
 }
 
 .welcome-container .content {
-  @apply flex flex-col items-center relative;
+  @apply fcr-flex fcr-flex-col fcr-items-center fcr-relative;
   height: calc(100vh - 57px - 25px);
   overflow-y: auto;
 }
@@ -33,7 +33,7 @@
 }
 
 .welcome-container .content.room-list-empty {
-  @apply justify-center;
+  @apply fcr-justify-center;
   padding-bottom: 60px;
 }
 
@@ -68,14 +68,14 @@
 }
 
 .room-entry .btn {
-  @apply flex items-center cursor-pointer;
+  @apply fcr-flex fcr-items-center fcr-cursor-pointer;
   background: linear-gradient(270deg, #eaecfb 0%, #efeefc 97.6%);
   border-radius: 16px;
   padding: 10px;
 }
 
 .room-entry .btn .icon {
-  @apply flex items-center justify-center;
+  @apply fcr-flex fcr-items-center fcr-justify-center;
   width: 54px;
   height: 54px;
   background-image: url(../../assets/home-btn-bg1.png);
@@ -84,7 +84,7 @@
 }
 
 .room-entry .btn .text {
-  @apply flex-1 text-center;
+  @apply fcr-flex-1 fcr-text-center;
   font-family: 'Montserrat Roboto';
   font-style: normal;
   font-weight: 800;
@@ -105,7 +105,7 @@
 }
 
 .room-list .title {
-  @apply flex justify-between items-center;
+  @apply fcr-flex fcr-justify-between fcr-items-center;
   font-style: normal;
   font-weight: 800;
   font-size: 18px;
@@ -139,7 +139,7 @@
 }
 
 .room-list-mask {
-  @apply bottom-0 left-0 w-full absolute pointer-events-none;
+  @apply fcr-bottom-0 fcr-left-0 fcr-w-full fcr-absolute fcr-pointer-events-none;
   height: 128px;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 58.33%);
 }
@@ -175,4 +175,8 @@
 .welcome-container .sign-in-button.ant-btn-primary:focus {
   background: #0056fd;
   color: #ffffff;
+}
+
+.welcome-container .ant-list-split .ant-list-item {
+  border-bottom: 0;
 }

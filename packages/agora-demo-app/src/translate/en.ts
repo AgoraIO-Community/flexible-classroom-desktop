@@ -4,12 +4,14 @@ export default {
   fcr_loading: 'Loading...',
   home_product_name: 'Flexible Classroom',
   home_greeting: 'Welcome Back',
+  home_form_field_room_id: 'Room ID',
   home_form_field_room: 'Room',
   home_form_field_name: 'Name',
   home_form_field_role: 'Role',
   home_form_field_type: 'Type',
   home_form_field_duration: 'Duration',
   home_form_submit: 'ENTER',
+  home_form_placeholder_room_id: 'Please input room ID',
   home_form_placeholder_room_name: 'Please input room name',
   home_form_placeholder_user_name: 'Please input your name',
   home_form_placeholder_user_role: 'Please select',
@@ -18,6 +20,7 @@ export default {
   home_form_error_user_name_empty: 'User name is required',
   home_form_error_role_type_empty: 'Role type is required',
   home_form_error_room_type_empty: 'Room type is required',
+  home_form_error_room_id_limit: ' {min} digits required',
   home_form_error_room_name_limit: 'Between {min} and {max} characters',
   home_form_error_user_name_limit: 'Between {min} and {max} characters',
   fcr_home_label_room_list_no_more: 'It is all, nothing more 🤐',
@@ -51,7 +54,9 @@ export default {
 
   // 2.8.0分割线
   fcr_create_label_room_name_empty: 'The Room Name cannot  be empty',
-  fcr_create_tips_starttime: 'The class start time must be earlier than the current time',
+  fcr_create_tips_starttime: 'The class start time must be later than the current time',
+  fcr_create_tips_endtime_too_early: 'The class end time must be later than the start time',
+  fcr_create_tips_duration_too_short: 'Duration must be greater than or equal to 15 minutes',
   fcr_share_label_copy_invitation: 'You can copy Invitation and send to attendees',
   fcr_industry_option_education: 'Education',
   fcr_industry_option_entertainment: 'Entertainment',
@@ -63,6 +68,7 @@ export default {
   fcr_home_label_lecture_hall: 'Lecture Hall ',
   fcr_home_label_proctoring: 'Online Proctoring',
   fcr_home_label_1on1: '1-on-1 ',
+  fcr_home_label_onlineclass: 'Online Classroom ',
   fcr_home_button_create: 'Create',
   fcr_home_button_join: 'Join',
   fcr_home_button_enter: 'Enter',
@@ -74,13 +80,15 @@ export default {
   fcr_create_label_create_classroom: 'Create Classroom',
   fcr_create_label_room_name: 'Room Name ',
   fcr_create_label_room_name_default: "{name}'s Room",
-  fcr_create_label_starttime: 'Starttime',
+  fcr_create_label_starttime: 'StartTime',
   fcr_create_label_end_time: 'EndTime',
   fcr_create_label_class_mode: 'Class Mode',
   fcr_create_label_more_settings: 'More Settings',
   fcr_create_label_security: 'Security',
   fcr_create_label_1on1_description:
     'Suitable for 1-on-1 teaching scenario, Teacher and Student can talk directly face to face .',
+  fcr_create_label_small_onlineclass_description:
+    'New interactive teaching scenarios with a small number of people',
   fcr_create_label_small_classroom_description:
     'Suitable for interactive teaching scenarios with a small number of people, Teacher and students could talk at any time ',
   fcr_create_label_lecture_hall_description:
@@ -99,6 +107,7 @@ export default {
   fcr_h5create_label_small_classroom: 'Small Classroom',
   fcr_h5create_label_lecture_hall: 'Lecture Hall',
   fcr_h5create_label_1on1: '1 on 1',
+  fcr_h5create_label_small_onlineclass: 'Online Classroom',
   fcr_h5create_label_interactive: 'interactive',
   fcr_h5create_label_broadcast: 'broadcast',
   fcr_create_tips_create_success: 'You have created a room successfully',
@@ -125,7 +134,7 @@ export default {
   fcr_share_modal_button_share: 'share',
   fcr_join_room_label_join: 'Join Room',
   fcr_join_room_label_RoomID: 'Room ID',
-  fcr_join_room_label_name: 'Name',
+  fcr_join_room_label_name: 'Your Name',
   fcr_join_room_option_teacher: 'Teacher',
   fcr_join_room_option_student: 'Student',
   fcr_join_room_button_confirm: 'Join',
@@ -282,4 +291,5 @@ export default {
     'content-b': `This product is provided "as is" without any express warranty, including but not limited to guarantees of suitability, suitability for specific purposes, and non-infringement. Whether it is due to any contract, infringement or other forms of conduct related to this product or the trial of this product or other methods, Agora will not be responsible for any claims, damages or other liabilities.`,
     'content-c': `You are free to choose whether to try the services provided by this product. If you download, install, or try the services provided in this product, it means that you trust the owner of the product, and Agora shall not be responsible for any form of loss or injury caused by yourself or others when you try the services provided in this product for any reason.`,
   },
+  duration_in_mins: '{reason}mins'
 };

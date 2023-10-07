@@ -1,4 +1,4 @@
-import { LanguageEnum } from 'agora-classroom-sdk';
+import type { LanguageEnum } from 'agora-classroom-sdk';
 import { useContext, useMemo } from 'react';
 import { GlobalStoreContext } from '../stores';
 
