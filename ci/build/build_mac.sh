@@ -28,8 +28,8 @@ lib_branches=(
     release/2.9.1
     release/2.9.1
     release/2.9.0
-    test/2.9.0
-    test/1.0.5
+    test/2.9.1
+    test/2.9.1
     release/1.0.1
 )
 
