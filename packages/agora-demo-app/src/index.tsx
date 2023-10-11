@@ -42,32 +42,27 @@ if (
   const redirectUrl = isInviteUrl
     ? `${indexUrl}${window.location.hash}`
     : `${indexUrl}#/quick-start`;
-  // user has set region before
-  if (!globalStore.isRegionSet) {
-    homeApi
-      .preflight()
-      .then(async ({ data }) => {
-        globalStore.setRegion((data.loginType === 0 ? 'NA' : 'CN') as EduRegion);
-        // if no login required
-        if (data.loginType === 0) {
-          // if current user has logged in before
-          if (!token.accessToken) {
-            // if user has not logged in
-            window.location.replace(redirectUrl);
-          }
+
+  homeApi
+    .preflight()
+    .then(({ data }) => {
+      // if no login required
+      if (data.loginType === 0) {
+        if (!globalStore.isRegionSet) {
+          globalStore.setRegion('CN' as EduRegion);
         }
-      })
-      .finally(renderByRegion);
-  } else if (globalStore.isNoLogin) {
-    // if region is set but not set to CN, then go quick start page
-    if (!token.accessToken) {
-      window.location.replace(redirectUrl);
-    }
-    renderByRegion();
-  } else {
-    // user has set region to CN
-    renderByRegion();
-  }
+        // if current user has logged in before
+        if (!token.accessToken) {
+          // if user has not logged in
+          window.location.replace(redirectUrl);
+        }
+      } else {
+        if (!globalStore.isRegionSet) {
+          globalStore.setRegion('NA' as EduRegion);
+        }
+      }
+    })
+    .finally(renderByRegion);
 } else {
   renderByRegion();
 }
