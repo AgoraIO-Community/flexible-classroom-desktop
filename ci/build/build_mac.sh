@@ -15,22 +15,22 @@ lib_dependencies=(
     fcr-ui-scene
 )
 lib_versions=(
-    2.9.0
-    2.9.0
-    2.9.0
+    2.9.1
+    2.9.1
+    2.9.1
     1.0.0
     2.9.0
     1.0.5
-    1.0.0
+    1.0.1
 )
 lib_branches=(
+    release/2.9.1
+    release/2.9.1
+    release/2.9.1
     release/2.9.0
-    release/2.9.0
-    release/2.9.0
-    release/2.9.0
-    release/2.9.0
-    release/1.0.5
-    release/1.0.0
+    test/2.9.0
+    test/1.0.5
+    release/1.0.1
 )
 
 recording_templates=(
