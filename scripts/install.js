@@ -1,5 +1,6 @@
+const path = require('path');
 const { exec, getCmdArgs } = require('./exec');
-const { exists } = require('./fs');
+const { exists, remove, move } = require('./fs');
 
 const run = async () => {
   const chalk = require('chalk');
@@ -56,9 +57,24 @@ const run = async () => {
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };
 
-if (!exists('node_modules/simple-git') || !exists('node_modules/chalk')) {
-  console.log('Installing tools...');
-  exec(`npm install -g --verbose --no-package-lock --no-save --prefix=$(pwd) simple-git@3.15.1 chalk@4.1.2 && mv lib/node_modules node_modules && rm -r lib`).then(run);
-} else {
-  run();
-}
+
+(async function() {
+  if (!exists('node_modules/simple-git') || !exists('node_modules/chalk')) {
+    console.log('Installing tools...');
+    const projectRootPath = path.resolve(__dirname, '..');
+    await exec(
+      `npm install -g --no-package-lock --no-save --prefix=${projectRootPath} simple-git@3.15.1 chalk@4.1.2`,
+    );
+    
+    const libPath = path.resolve(projectRootPath, 'lib');
+    const nestNodeModulePath = path.resolve(projectRootPath, 'lib/node_modules');
+    const nodeModulePath = path.resolve(projectRootPath, 'node_modules');
+    if (exists(nestNodeModulePath)) {
+      move(nestNodeModulePath, nodeModulePath);
+      remove(libPath);
+    }
+    run();
+  } else {
+    run();
+  }
+})();
