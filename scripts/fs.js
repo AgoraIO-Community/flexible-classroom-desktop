@@ -4,7 +4,7 @@ const {
   writeFileSync,
   copyFileSync,
   renameSync,
-  unlinkSync,
+  rmSync,
   existsSync,
 } = require('fs');
 const readline = require('readline');
@@ -76,7 +76,7 @@ function move(oldPath, newPath) {
  * @param {*} path
  */
 function remove(path) {
-  unlinkSync(path);
+  rmSync(path, { recursive: true, force: true });
 }
 
 /**
