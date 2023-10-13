@@ -98,3 +98,20 @@
 .ant-spin-nested-loading > div > .ant-spin.home-loading-container {
   max-height: 100%;
 }
+
+.home-left .fcr-quick-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.home-left .fcr-quick-header .fcr-logo {
+  font-weight: 800;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.home-left .fcr-quick-header .fcr-logo img {
+  margin-right: 12px;
+}
