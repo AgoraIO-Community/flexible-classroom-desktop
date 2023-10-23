@@ -5,7 +5,13 @@ import { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '../stores';
 import { GlobalLaunchOption } from '../stores/global';
-import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
+import {
+  checkRoomInfoBeforeJoin,
+  electronSceneModeIsSupport,
+  ErrorCode,
+  h5ClassModeIsSupport,
+  Status,
+} from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
@@ -18,6 +24,7 @@ import { failResult } from './../utils/result';
 import { FcrRoomType, SceneType } from '@app/type';
 import { roomApi } from '@app/api';
 import md5 from 'js-md5';
+import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 
 type JoinRoomParams = {
   role: EduRoleTypeEnum;
@@ -100,11 +107,16 @@ export const useJoinRoom = () => {
         sceneType,
       } = params;
 
-      if (platform === 'H5') {
-        const checkResult = h5ClassModeIsSupport(sceneType);
-        if (checkResult.status === Status.Failed) {
-          return Promise.reject(checkResult);
-        }
+      let checkResult = h5ClassModeIsSupport(sceneType, platform);
+      
+      if (checkResult.status === Status.Failed) {
+        return Promise.reject(checkResult);
+      }
+
+      checkResult = electronSceneModeIsSupport(sceneType);
+
+      if (checkResult.status === Status.Failed) {
+        return Promise.reject(checkResult);
       }
 
       if (!userId) {

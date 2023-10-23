@@ -10,6 +10,7 @@ import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { parseHashUrlQuery } from '@app/utils/url';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
 import { observer } from 'mobx-react';
+import { ErrorCode, messageError } from '@app/utils';
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -154,7 +155,15 @@ export const JoinForm: FC<{
         {
           returnToPath: params.roomId ? `/quick-start?roomId=${params.roomId}` : '/quick-start',
         },
-      ).finally(() => {
+      ).catch((error) => {
+        console.warn('join page quickJoinRoom failed. error:%o', error);
+        if (error.code) {
+          messageError(error.code);
+        } else {
+          messageError(ErrorCode.FETCH_ROOM_INFO_FAILED);
+        }
+      })
+      .finally(() => {
         globalStore.setLoading(false);
       });
     }

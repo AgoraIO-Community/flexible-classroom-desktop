@@ -48,6 +48,10 @@
   transform: translate(-50%, -50%);
 }
 
+.fcr-quick-form .ant-tabs-tabpane {
+  outline: none;
+}
+
 .fcr-quick-form p:first-child {
   color: rgba(3, 3, 3, 1);
   font-size: 28px;

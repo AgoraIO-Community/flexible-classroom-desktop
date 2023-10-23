@@ -183,6 +183,7 @@ export default {
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_INFO]]: 'Invalid room info',
   [ErrorCodeMessage[ErrorCode.ROOM_IS_ENDED]]: 'The current room live has ended',
   [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'Only lecture hall is supported on HTML5',
+  [ErrorCodeMessage[ErrorCode.INVALID_SCENE_MODE_ELECTRON]]: 'Cloud Classroom is not supported on Electron',
 
   /** Home Settings*/
   fcr_settings_setting: 'Settings',
