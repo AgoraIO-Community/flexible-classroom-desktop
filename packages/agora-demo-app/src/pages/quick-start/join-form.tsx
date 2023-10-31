@@ -101,12 +101,12 @@ export const JoinForm: FC<{
       const originLaunchConfig = globalStore.originLaunchConfig;
       const launchConfig = globalStore.launchConfig;
 
-      const { roomUuid, roleType } = launchConfig;
+      const { roomUuid } = launchConfig;
       const { userName } = originLaunchConfig;
       return {
         roomUuid: `${params.roomId ?? roomUuid ?? ''}`,
         userName: window.__launchUserName ?? `${userName ?? nickName ?? ''}`,
-        roleType: window.__launchRoleType ?? params.role ?? `${roleType ?? 2}`,
+        roleType: window.__launchRoleType ?? params.role ?? `${2}`,
       };
     },
     validate: (values, fieldName, onError) => {
