@@ -1,4 +1,11 @@
-import { LS_LANGUAGE, LS_LAUNCH, LS_REGION, LS_THEME, getBrowserLanguage } from '@app/utils';
+import {
+  LS_LANGUAGE,
+  LS_LAUNCH,
+  LS_ORIGIN_LAUNCH,
+  LS_REGION,
+  LS_THEME,
+  getBrowserLanguage,
+} from '@app/utils';
 import { FcrMultiThemeMode, changeLanguage } from 'agora-common-libs';
 import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 import type { LanguageEnum } from 'agora-classroom-sdk';
@@ -44,6 +51,9 @@ export const getTheme = (): FcrMultiThemeMode => {
 
 export class GlobalStore {
   @observable
+  originLaunchOption: Record<'userName' | 'roomName', string> = { userName: '', roomName: '' };
+
+  @observable
   launchOption: Partial<GlobalLaunchOption> = {};
 
   @observable
@@ -61,6 +71,10 @@ export class GlobalStore {
   constructor() {
     runInAction(() => {
       this.launchOption = getLSStore<GlobalLaunchOption>(LS_LAUNCH) || {};
+
+      this.originLaunchOption = getLSStore<Record<'userName' | 'roomName', string>>(
+        LS_ORIGIN_LAUNCH,
+      ) || { userName: '', roomName: '' };
 
       this.language = (getLSStore<string>(LS_LANGUAGE) || getBrowserLanguage()) as LanguageEnum;
 
@@ -110,25 +124,37 @@ export class GlobalStore {
     this.launchOption = payload;
     setLSStore(LS_LAUNCH, toJS(this.launchOption));
   }
-
+  @action.bound
+  setOriginLaunchConfig(payload: Record<'userName' | 'roomName', string>) {
+    console.log('Origin launch option changed:', this.originLaunchOption);
+    this.originLaunchOption = payload;
+    setLSStore(LS_ORIGIN_LAUNCH, toJS(this.originLaunchOption));
+  }
   @computed
   get launchConfig() {
     const config = toJS(this.launchOption);
     return config;
   }
-
+  @computed
+  get originLaunchConfig() {
+    const config = toJS(this.originLaunchOption);
+    return config;
+  }
   @action.bound
   clear() {
     clearLSStore(LS_LAUNCH);
     clearLSStore(LS_REGION);
     clearLSStore(LS_LANGUAGE);
     clearLSStore(LS_THEME);
+    clearLSStore(LS_LAUNCH);
+    clearLSStore(LS_ORIGIN_LAUNCH);
 
     this.language = (getLSStore<string>(LS_LANGUAGE) || getBrowserLanguage()) as LanguageEnum;
     this.region = getRegion();
     this.theme = getTheme();
     //@ts-ignore
     this.launchOption = {};
+    this.originLaunchOption = { userName: '', roomName: '' };
   }
 
   @observable

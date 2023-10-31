@@ -39,7 +39,12 @@ export const JoinRoom = observer(() => {
       backgroundColor: '#83BC53',
     },
   ];
-  const [role, setRole] = useState(roles[1].value);
+  const params = useMemo(() => {
+    return parseHashUrlQuery(window.location.hash);
+  }, []);
+  const [role, setRole] = useState(
+    params.role !== undefined ? Number(params.role) : roles[1].value,
+  );
   const { rule: roomIdRule, formatFormField, getUnformattedValue } = useRoomIdForm();
   const { rule: nickNameRule } = useNickNameForm();
   const [form] = useAForm<JoinFormValue>();
@@ -48,10 +53,6 @@ export const JoinRoom = observer(() => {
   const userStore = useContext(UserStoreContext);
   const roomStore = useContext(RoomStoreContext);
   const historyBackHandle = useHistoryBack();
-
-  const params = useMemo(() => {
-    return parseHashUrlQuery(window.location.hash);
-  }, []);
 
   useEffect(() => {
     form.setFieldValue('roomId', formatRoomID(params.roomId ?? ''));

@@ -3,6 +3,7 @@ import { useJoinRoom } from '@app/hooks/useJoinRoom';
 import { GlobalStoreContext } from '@app/stores';
 import { ErrorCode, i18nError } from '@app/utils';
 import { ShareContent, shareLink } from '@app/utils/share';
+import type { AgoraRegion } from 'agora-rte-sdk';
 import { observer } from 'mobx-react';
 import { useContext, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
@@ -24,11 +25,11 @@ export const InviteRoom = observer(() => {
       });
       return;
     }
-
+    if (data.region) globalStore.setRegion(data.region as AgoraRegion);
     if (globalStore.region === 'CN') {
-      history.push('/join-room?roomId=' + data.roomId);
+      history.push(`/join-room?roomId=${data.roomId}&role=${data.role}`);
     } else {
-      history.push('/quick-start?roomId=' + data.roomId);
+      history.push(`/quick-start?roomId=${data.roomId}&role=${data.role}`);
     }
     return () => {
       ModalMethod.destroyAll();

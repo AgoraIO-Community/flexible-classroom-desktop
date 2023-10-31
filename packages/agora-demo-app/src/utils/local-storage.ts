@@ -34,3 +34,4 @@ export const LS_REGION = `region`;
 export const LS_THEME = `theme`;
 export const LS_LANGUAGE = `language`;
 export const LS_LAUNCH = `launch_options`;
+export const LS_ORIGIN_LAUNCH = `origin_launch_options`;

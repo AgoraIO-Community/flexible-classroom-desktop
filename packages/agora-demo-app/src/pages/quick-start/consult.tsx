@@ -10,7 +10,7 @@ export const Consult = () => {
 
   const handleOpenLink = () => {
     getLanguage() === 'zh'
-      ? window.open('https://doc.shengwang.cn/api-ref/flexible-classroom/web/overview', '_blank')
+      ? window.open('https://doc.shengwang.cn/api-ref/flexible-classroom/javascript/overview', '_blank')
       : window.open(
           'https://docs.agora.io/en/flexible-classroom/overview/product-overview?platform=web',
           '_blank',
@@ -20,7 +20,7 @@ export const Consult = () => {
   const handleOpenDownloadLink = () => {
     getLanguage() === 'zh'
       ? window.open(
-          'https://doc.shengwang.cn/doc/flexible-classroom/web/resources',
+          'https://doc.shengwang.cn/doc/flexible-classroom/javascript/resources',
           '_blank',
         )
       : window.open(

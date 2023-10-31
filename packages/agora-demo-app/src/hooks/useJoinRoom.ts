@@ -5,7 +5,13 @@ import { useCallback, useContext } from 'react';
 import { useHistory } from 'react-router';
 import { GlobalStoreContext, RoomStoreContext, UserStoreContext } from '../stores';
 import { GlobalLaunchOption } from '../stores/global';
-import { checkRoomInfoBeforeJoin, ErrorCode, h5ClassModeIsSupport, Status } from '../utils';
+import {
+  checkRoomInfoBeforeJoin,
+  electronSceneModeIsSupport,
+  ErrorCode,
+  h5ClassModeIsSupport,
+  Status,
+} from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
 import {
   REACT_APP_AGORA_APP_CERTIFICATE,
@@ -100,11 +106,15 @@ export const useJoinRoom = () => {
         sceneType,
       } = params;
 
-      if (platform === 'H5') {
-        const checkResult = h5ClassModeIsSupport(sceneType);
-        if (checkResult.status === Status.Failed) {
-          return Promise.reject(checkResult);
-        }
+      let checkResult = h5ClassModeIsSupport(sceneType, platform);
+      if (checkResult.status === Status.Failed) {
+        return Promise.reject(checkResult);
+      }
+
+      checkResult = electronSceneModeIsSupport(sceneType);
+
+      if (checkResult.status === Status.Failed) {
+        return Promise.reject(checkResult);
       }
 
       if (!userId) {
@@ -193,6 +203,7 @@ export const useJoinRoom = () => {
         if (checkResult.status === Status.Failed) {
           return Promise.reject(checkResult);
         }
+        const { userName } = roomDetail;
         const { latencyLevel, ...others } = roomDetail.roomProperties;
 
         return joinRoomHandle(
@@ -202,7 +213,7 @@ export const useJoinRoom = () => {
             role,
             platform,
             userId: userUuid,
-            userName: nickName,
+            userName,
             roomId: roomDetail.roomId,
             roomName: roomDetail.roomName,
             latencyLevel: latencyLevel || 2,
@@ -246,7 +257,7 @@ export const useJoinRoom = () => {
               role,
               platform,
               userId: userUuid,
-              userName: nickName,
+              userName: roomDetail.userName,
               roomId: roomDetail.roomId,
               roomName: roomDetail.roomName,
               sceneType: roomDetail.sceneType || roomDetail.roomType,

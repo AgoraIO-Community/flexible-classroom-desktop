@@ -1,6 +1,6 @@
 {
   "name": "agora-demo-app",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "description": "Agora aPaaS Demo",
   "scripts": {
     "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./electron/\"",
@@ -14,7 +14,7 @@
     "dev:proctor": "cross-env NODE_ENV=development NODE_OPTIONS=--max_old_space_size=6144 FCR_ENTRY=proctor webpack serve --config ./webpack.dev.sdk.js",
     "pack:mac": "yarn electron:copy:electron:mac && electron-builder --mac -p never",
     "pack:win": "yarn electron:copy:electron:win && electron-builder --win -p never",
-    "ci:build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.config.js"
+    "ci:build": "cross-env NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 FCR_ENTRY=demo webpack --config ./webpack.prod.js"
   },
   "repository": {
     "type": "git",

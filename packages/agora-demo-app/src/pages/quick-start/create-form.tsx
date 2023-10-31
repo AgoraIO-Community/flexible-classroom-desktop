@@ -14,6 +14,7 @@ import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import set from 'lodash/set';
 import { classroomBackgroundImagePath } from '../create-room/helper';
 import { observer } from 'mobx-react';
+import { ErrorCode, messageError } from '@app/utils';
 const useForm = <T extends Record<string, unknown>>({
   initialValues,
   validate,
@@ -100,7 +101,10 @@ export const CreateForm: FC<{
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, sceneType = SceneType.SmallClass } = launchConfig;
+      const originLaunchConfig = globalStore.originLaunchConfig;
+
+      const { sceneType = SceneType.SmallClass } = launchConfig;
+      const { roomName, userName } = originLaunchConfig;
 
       let defaultSceneType = window.__launchRoomType || `${sceneType}`;
 
@@ -198,6 +202,10 @@ export const CreateForm: FC<{
       })
         .then((data) => {
           setNickName(userName);
+          globalStore.setOriginLaunchConfig({
+            roomName,
+            userName,
+          });
           return quickJoinRoomNoAuth(
             {
               role: role,
@@ -210,6 +218,14 @@ export const CreateForm: FC<{
               returnToPath: '/quick-start',
             },
           );
+        })
+        .catch((error) => {
+          console.warn('join page quickJoinRoom failed. error:%o', error);
+          if (error.code) {
+            messageError(error.code);
+          } else {
+            messageError(ErrorCode.FETCH_ROOM_INFO_FAILED);
+          }
         })
         .finally(() => {
           globalStore.setLoading(false);

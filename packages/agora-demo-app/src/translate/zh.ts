@@ -178,6 +178,7 @@ export default {
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_INFO]]: '无效的房间信息',
   [ErrorCodeMessage[ErrorCode.ROOM_IS_ENDED]]: '当前房间直播已经结束',
   [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'H5仅支持大班课',
+  [ErrorCodeMessage[ErrorCode.INVALID_SCENE_MODE_ELECTRON]]: '云课堂不支持在 Electron 环境下使用',
 
   fcr_settings_setting: '设置',
   fcr_settings_option_general: '常规设置',

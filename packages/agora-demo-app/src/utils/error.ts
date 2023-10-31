@@ -15,6 +15,7 @@ export enum ErrorCode {
   USER_NAME_EMPTY = 2000009,
   CREATE_ROOM_FAILED = 2000010,
   NETWORK_DISABLE = 2000011,
+  INVALID_SCENE_MODE_ELECTRON = 2000012
 }
 
 export const ErrorCodeMessage = {
@@ -31,6 +32,7 @@ export const ErrorCodeMessage = {
   [ErrorCode.USER_NAME_EMPTY]: 'fcr_join_room_tips_user_name_empty',
   [ErrorCode.CREATE_ROOM_FAILED]: 'fcr_create_tips_create_failed',
   [ErrorCode.NETWORK_DISABLE]: 'fcr_network_disable',
+  [ErrorCode.INVALID_SCENE_MODE_ELECTRON]: 'fcr_join_room_tips_class_mode_not_supported'
 };
 
 export const i18nError = (code: ErrorCode) => {

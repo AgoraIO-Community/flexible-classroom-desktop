@@ -10,6 +10,7 @@ import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import { parseHashUrlQuery } from '@app/utils/url';
 import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
 import { observer } from 'mobx-react';
+import { ErrorCode, messageError } from '@app/utils';
 
 const useForm = <T extends Record<string, string>>({
   initialValues,
@@ -97,13 +98,15 @@ export const JoinForm: FC<{
 
   const { values, errors, eventHandlers, validate } = useForm({
     initialValues: () => {
+      const originLaunchConfig = globalStore.originLaunchConfig;
       const launchConfig = globalStore.launchConfig;
-      const { roomUuid, userName, roleType } = launchConfig;
 
+      const { roomUuid, roleType } = launchConfig;
+      const { userName } = originLaunchConfig;
       return {
         roomUuid: `${params.roomId ?? roomUuid ?? ''}`,
-        userName: window.__launchUserName || `${userName ?? nickName ?? ''}`,
-        roleType: window.__launchRoleType || `${roleType ?? 2}`,
+        userName: window.__launchUserName ?? `${userName ?? nickName ?? ''}`,
+        roleType: window.__launchRoleType ?? params.role ?? `${roleType ?? 2}`,
       };
     },
     validate: (values, fieldName, onError) => {
@@ -143,6 +146,10 @@ export const JoinForm: FC<{
       const userId = md5(`${userName}-${role}`);
       globalStore.setLoading(true);
       setNickName(userName);
+      globalStore.setOriginLaunchConfig({
+        ...globalStore.originLaunchConfig,
+        userName,
+      });
       quickJoinRoomNoAuth(
         {
           role: role,
@@ -152,11 +159,20 @@ export const JoinForm: FC<{
           userId,
         },
         {
-          returnToPath: params.roomId ? `/quick-start?roomId=${params.roomId}` : '/quick-start',
+          returnToPath: location.hash.replace('#', ''),
         },
-      ).finally(() => {
-        globalStore.setLoading(false);
-      });
+      )
+        .catch((error) => {
+          console.warn('join page quickJoinRoom failed. error:%o', error);
+          if (error.code) {
+            messageError(error.code);
+          } else {
+            messageError(ErrorCode.FETCH_ROOM_INFO_FAILED);
+          }
+        })
+        .finally(() => {
+          globalStore.setLoading(false);
+        });
     }
   };
   return (
