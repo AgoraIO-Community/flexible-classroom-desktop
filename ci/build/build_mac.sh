@@ -15,7 +15,7 @@ lib_dependencies=(
     fcr-ui-scene
 )
 lib_versions=(
-    2.9.1
+    2.9.2
     2.9.1
     2.9.3
     1.0.0
@@ -24,7 +24,7 @@ lib_versions=(
     1.0.2
 )
 lib_branches=(
-    release/2.9.1
+    release/2.9.2
     release/2.9.1
     release/2.9.3
     release/2.9.1

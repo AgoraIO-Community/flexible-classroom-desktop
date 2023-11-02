@@ -9,7 +9,7 @@ import en from './translate/en';
 import { zhCn } from './translate/zhCn';
 import zh from './translate/zh';
 import { homeApi } from './api/home';
-import { globalStore } from './stores/global';
+import { LoginTypeEnum, globalStore } from './stores/global';
 import type { EduRegion } from 'agora-edu-core';
 
 export const App: React.FC = () => {
@@ -38,27 +38,27 @@ if (
   window.location.hash === '#/' ||
   window.location.hash.startsWith('#/invite')
 ) {
-  const isInviteUrl = window.location.hash.startsWith('#/invite');
-  const redirectUrl = isInviteUrl
-    ? `${indexUrl}${window.location.hash}`
-    : `${indexUrl}#/quick-start`;
-
   homeApi
     .preflight()
     .then(({ data }) => {
       // if no login required
-      if (data.loginType === 0) {
+      globalStore.setLoginType(data.loginType);
+      if (data.loginType === LoginTypeEnum.NeedLogin) {
         if (!globalStore.isRegionSet) {
           globalStore.setRegion('CN' as EduRegion);
-        }
-        // if current user has logged in before
-        if (!token.accessToken) {
-          // if user has not logged in
-          window.location.replace(redirectUrl);
         }
       } else {
         if (!globalStore.isRegionSet) {
           globalStore.setRegion('NA' as EduRegion);
+        }
+        // if current user has logged in before
+        if (!token.accessToken) {
+          const isInviteUrl = window.location.hash.startsWith('#/invite');
+          const redirectUrl = isInviteUrl
+            ? `${indexUrl}${window.location.hash}`
+            : `${indexUrl}#/quick-start`;
+          // if user has not logged in
+          window.location.replace(redirectUrl);
         }
       }
     })
