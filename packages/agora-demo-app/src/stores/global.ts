@@ -175,10 +175,6 @@ export class GlobalStore {
   get isRegionSet() {
     return !!getLSStore(LS_REGION);
   }
-
-  get isNoLogin() {
-    return this.region !== 'CN';
-  }
 }
 
 export const globalStore = new GlobalStore();
