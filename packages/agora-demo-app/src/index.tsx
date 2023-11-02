@@ -36,6 +36,7 @@ token.update(window.location.search);
 if (
   window.location.hash === '' ||
   window.location.hash === '#/' ||
+  window.location.hash.startsWith('#/join-room') ||
   window.location.hash.startsWith('#/invite')
 ) {
   homeApi
