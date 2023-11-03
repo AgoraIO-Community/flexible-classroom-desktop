@@ -91,6 +91,7 @@
     "pack:proctor:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:proctor",
     "pack:scene:plugin": "lerna exec --scope=agora-plugin-gallery npm run bundle:npm:scene",
     "ci:build": "lerna exec --scope=agora-demo-app npm run ci:build",
+    "build:demo": "lerna exec --scope=agora-demo-app npm run ci:build",
     "install:packages": "node ./scripts/install",
     "prepare": "husky install"
   },
