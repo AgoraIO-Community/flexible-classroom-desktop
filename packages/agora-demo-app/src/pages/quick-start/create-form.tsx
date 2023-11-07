@@ -164,6 +164,13 @@ export const CreateForm: FC<{
       if (isOnlineclass) {
         set(widgets, 'netlessBoard.state', 0);
       }
+      const processes = isOnlineclass
+        ? {
+            handsUp: {
+              defaultAcceptRole: '',
+            },
+          }
+        : undefined;
       const roleConfigs = isOnlineclass
         ? {
             2: {
@@ -199,6 +206,7 @@ export const CreateForm: FC<{
         endTime: Date.now() + 30 * 60 * 1000,
         userUuid: userId,
         roleConfigs,
+        processes,
       })
         .then((data) => {
           setNickName(userName);
