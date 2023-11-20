@@ -6,13 +6,16 @@ import {
   LS_THEME,
   getBrowserLanguage,
 } from '@app/utils';
-import { FcrMultiThemeMode, changeLanguage } from 'agora-common-libs';
+import { FcrMultiThemeMode, bound, changeLanguage } from 'agora-common-libs';
 import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
 import type { LanguageEnum } from 'agora-classroom-sdk';
 import { action, observable, toJS, computed, runInAction } from 'mobx';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
 import { SceneType } from '@app/type';
-
+export enum LoginTypeEnum {
+  WithoutLogin = 0,
+  NeedLogin = 1,
+}
 export interface ToastType {
   id: string;
   desc: string;
@@ -50,6 +53,7 @@ export const getTheme = (): FcrMultiThemeMode => {
 };
 
 export class GlobalStore {
+  loginType = LoginTypeEnum.WithoutLogin;
   @observable
   originLaunchOption: Record<'userName' | 'roomName', string> = { userName: '', roomName: '' };
 
@@ -85,7 +89,10 @@ export class GlobalStore {
       changeLanguage(this.language);
     });
   }
-
+  @bound
+  setLoginType(type: LoginTypeEnum) {
+    this.loginType = type;
+  }
   @action.bound
   addToast(toast: ToastType) {
     this.toastList.push(toast);
@@ -167,10 +174,6 @@ export class GlobalStore {
 
   get isRegionSet() {
     return !!getLSStore(LS_REGION);
-  }
-
-  get isNoLogin() {
-    return this.region !== 'CN';
   }
 }
 

@@ -227,7 +227,7 @@ export const Detail: FC<RouteComponentProps<{ roomId?: string }>> = ({ match }) 
                       title: transI18n('fcr_past_table_column_time_in_class'),
                       dataIndex: 'sumTime',
                       render: (val: number) => {
-                        return dayjs.duration(val, 'ms').asMinutes() + 'mins';
+                        return Math.ceil(dayjs.duration(val, 'ms').asMinutes()) + 'mins';
                       },
                     },
                   ]}

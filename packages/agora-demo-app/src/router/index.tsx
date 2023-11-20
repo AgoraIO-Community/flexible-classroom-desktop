@@ -7,6 +7,7 @@ import { routesMap, commonRoutesMap } from './maps';
 import { PageRouter } from './type';
 import { isH5Browser } from '@app/utils/browser';
 import { GlobalStoreContext } from '@app/stores';
+import { LoginTypeEnum } from '@app/stores/global';
 
 export const RouteContainer = () => {
   const globalStore = useContext(GlobalStoreContext);
@@ -22,7 +23,7 @@ export const RouteContainer = () => {
 
   const authIncludes = useMemo(() => {
     const list = [PageRouter.CreateRoom, PageRouter.Detail];
-    if (!globalStore.isNoLogin) {
+    if (globalStore.loginType === LoginTypeEnum.NeedLogin) {
       list.push(PageRouter.JoinRoom);
     }
     return list.map((v) => routesMap[v].path);

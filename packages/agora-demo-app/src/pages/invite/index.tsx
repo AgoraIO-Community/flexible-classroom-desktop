@@ -1,6 +1,7 @@
 import { ModalMethod } from '@app/components/modal';
 import { useJoinRoom } from '@app/hooks/useJoinRoom';
 import { GlobalStoreContext } from '@app/stores';
+import { LoginTypeEnum } from '@app/stores/global';
 import { ErrorCode, i18nError } from '@app/utils';
 import { ShareContent, shareLink } from '@app/utils/share';
 import type { AgoraRegion } from 'agora-rte-sdk';
@@ -26,7 +27,7 @@ export const InviteRoom = observer(() => {
       return;
     }
     if (data.region) globalStore.setRegion(data.region as AgoraRegion);
-    if (globalStore.region === 'CN') {
+    if (globalStore.loginType === LoginTypeEnum.NeedLogin) {
       history.push(`/join-room?roomId=${data.roomId}&role=${data.role}`);
     } else {
       history.push(`/quick-start?roomId=${data.roomId}&role=${data.role}`);
