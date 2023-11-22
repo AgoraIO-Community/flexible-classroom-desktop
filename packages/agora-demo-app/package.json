@@ -113,7 +113,7 @@
     "agora-proctor-sdk": "~1.0.0",
     "fcr-ui-kit": "~1.0.0",
     "agora-common-libs": "~2.9.0",
-    "agora-plugin-gallery": "1.0.0"
+    "agora-plugin-gallery": "*"
   },
   "browserslist": {
     "production": [
