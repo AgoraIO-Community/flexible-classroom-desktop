@@ -93,7 +93,7 @@ export const JoinForm: FC<{
     { text: t('home.role_teacher'), value: '1' },
     { text: t('home.role_student'), value: '2' },
     { text: t('home.role_assistant'), value: '3' },
-    { text: t('home.role_audience'), value: '0' },
+    { text: t('home.role_audience'), value: '4' },
   ];
 
   const { values, errors, eventHandlers, validate } = useForm({
