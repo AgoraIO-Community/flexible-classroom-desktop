@@ -7,7 +7,7 @@ export const HomePage = () => {
 
   const defaultScenes = [
     {
-      text: t('home.roomType_interactiveSmallClass'),
+      text: t('home.roomType_cloudClass'),
       value: SceneType.Scene,
     },
   ];

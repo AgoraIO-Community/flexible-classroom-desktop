@@ -33,11 +33,6 @@ export const JoinRoom = observer(() => {
       value: 2 as EduRoleTypeEnum,
       backgroundColor: '#F5655C',
     },
-    {
-      label: transI18n('fcr_join_room_option_audience'),
-      value: 0 as EduRoleTypeEnum,
-      backgroundColor: '#83BC53',
-    },
   ];
   const params = useMemo(() => {
     return parseHashUrlQuery(window.location.hash);

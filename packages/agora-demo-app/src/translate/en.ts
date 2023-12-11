@@ -246,6 +246,7 @@ export default {
     roomType_interactiveSmallClass: 'Interactive Small Classroom',
     roomType_interactiveBigClass: 'Lecture Hall',
     roomType_vocationalClass: 'Vocational Lecture Hall',
+    roomType_cloudClass: 'Cloud Classroom',
     role: 'Role',
     role_placeholder: 'Please select your role',
     encryptionMode: 'Mode',

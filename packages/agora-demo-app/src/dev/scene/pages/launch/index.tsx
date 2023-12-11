@@ -62,7 +62,7 @@ export const LaunchPage = observer(() => {
       ];
       const shareUrl = `${location.origin}${location.pathname}?roomName=${launchOption.roomName}&roomType=${launchOption.sceneType}&region=${launchOption.region}&language=${launchOption.language}&roleType=2#/share`;
 
-      sdk.setParameters(JSON.stringify({ logo, shareUrl, host: launchOption.sdkDomain }));
+      sdk.setParameters(JSON.stringify({ logo, shareUrl, host: launchOption.sdkDomain, fastMode: true }));
 
       const unmount = sdk.launch(
         appRef.current,
