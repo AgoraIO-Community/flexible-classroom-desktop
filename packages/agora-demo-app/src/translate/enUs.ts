@@ -136,4 +136,6 @@ export const enUs = {
 
   //****************** 设置Settings ******************
   fcr_settings_label_demo_remind: 'This page is a demonstration demo of an online teaching platform. It is solely intended for showing the functionalities and is not an official online product.',
+
+  fcr_room_tips_leave_room: 'Are you sure you want to leave classroom?'
 }

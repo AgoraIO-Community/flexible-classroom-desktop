@@ -6,11 +6,11 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
-
 import { useClassroomWidgets, useSceneWidgets, useProctorWidgets } from '@app/hooks/useWidgets';
 import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
 import { useEduSdk, useFcrUIScene, useProctorSdk } from '@app/hooks/useSdk';
+import { useQuitConfirm } from '@app/hooks/useQuitConfirm';
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -29,6 +29,8 @@ export const LaunchPage = observer(() => {
     window.location.reload();
     return null;
   }
+
+  useQuitConfirm();
 
   const { sceneType } = launchOption;
 

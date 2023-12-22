@@ -135,4 +135,6 @@ export const zhCn = {
 
   //****************** 设置Settings ******************
   fcr_settings_label_demo_remind: '本页面为在线教学平台演示Demo ，仅做功能演示，并非正式线上产品',
+
+  fcr_room_tips_leave_room: '确定要退出房间吗？'
 }

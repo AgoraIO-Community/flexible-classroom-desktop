@@ -26,5 +26,5 @@ export const FcrRoomType: Record<SceneType, EduRoomTypeEnum> = {
   [SceneType.LectureHall]: 2,
   [SceneType.SmallClass]: 4,
   [SceneType.Proctoring]: 6,
-  [SceneType.Scene]: 4,
+  [SceneType.Scene]: 10,
 };

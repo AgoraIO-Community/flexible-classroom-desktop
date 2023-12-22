@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
-import { LaunchPage } from '../../pages/launch';
+import { LaunchPage } from './pages/launch';
 import { StoreProvider } from '../../stores';
 import { addResourceBundle } from 'agora-common-libs';
 import './index.css';
