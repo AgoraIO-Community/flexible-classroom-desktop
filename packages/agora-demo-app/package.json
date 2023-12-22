@@ -1,6 +1,6 @@
 {
   "name": "agora-demo-app",
-  "version": "2.9.11",
+  "version": "2.9.20",
   "description": "Agora aPaaS Demo",
   "scripts": {
     "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./electron/\"",
