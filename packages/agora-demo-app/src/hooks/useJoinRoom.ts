@@ -1,4 +1,3 @@
-import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import type { EduRoleTypeEnum, Platform } from 'agora-edu-core';
 import type { AgoraLatencyLevel, AgoraRegion } from 'agora-rte-sdk';
 import { useCallback, useContext } from 'react';
@@ -13,11 +12,7 @@ import {
   Status,
 } from '../utils';
 import { checkBrowserDevice } from '../utils/browser';
-import {
-  REACT_APP_AGORA_APP_CERTIFICATE,
-  REACT_APP_AGORA_APP_ID,
-  REACT_APP_AGORA_APP_SDK_DOMAIN,
-} from '../utils/env';
+import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '../utils/env';
 import { shareLink } from '../utils/share';
 import type { LanguageEnum } from 'agora-classroom-sdk';
 import { failResult } from './../utils/result';
@@ -135,7 +130,7 @@ export const useJoinRoom = () => {
       const webRTCCodec = isProctoring ? 'h264' : 'vp8';
 
       const config: GlobalLaunchOption = {
-        appId: REACT_APP_AGORA_APP_ID || appId,
+        appId,
         sdkDomain,
         userUuid: userId,
         rtmToken: token,
@@ -167,19 +162,6 @@ export const useJoinRoom = () => {
         },
         returnToPath: options.returnToPath,
       };
-
-      // this is for DEBUG PURPOSE only. please do not store certificate in client, it's not safe.
-      // 此处仅为开发调试使用, token应该通过服务端生成, 请确保不要把证书保存在客户端
-      if (REACT_APP_AGORA_APP_CERTIFICATE) {
-        config.rtmToken = RtmTokenBuilder.buildToken(
-          config.appId,
-          REACT_APP_AGORA_APP_CERTIFICATE,
-          config.userUuid,
-          RtmRole.Rtm_User,
-          0,
-        );
-        console.log(`## build rtm Token ${config.rtmToken} by using RtmTokenBuilder`);
-      }
       setLaunchConfig(config);
       history.push('/launch');
     },

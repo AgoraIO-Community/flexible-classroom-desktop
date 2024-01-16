@@ -53,6 +53,7 @@ export const getTheme = (): FcrMultiThemeMode => {
 };
 
 export class GlobalStore {
+  blockQuitUnregister: () => void = () => {};
   loginType = LoginTypeEnum.WithoutLogin;
   @observable
   originLaunchOption: Record<'userName' | 'roomName', string> = { userName: '', roomName: '' };

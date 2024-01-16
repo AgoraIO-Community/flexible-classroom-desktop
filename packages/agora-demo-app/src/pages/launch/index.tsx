@@ -114,6 +114,7 @@ export const AgoraClassroomApp = () => {
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
+            homeStore.blockQuitUnregister();
             history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
           }
         },
@@ -158,6 +159,7 @@ export const AgoraProctorApp = () => {
         listener: (evt: AgoraEduClassroomEvent, type: any) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
+            homeStore.blockQuitUnregister();
             history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
           }
         },
@@ -230,6 +232,8 @@ export const FcrUISceneApp = () => {
           // failure
         },
         (type) => {
+          homeStore.blockQuitUnregister();
+          console.log('push location');
           history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
         },
       );
