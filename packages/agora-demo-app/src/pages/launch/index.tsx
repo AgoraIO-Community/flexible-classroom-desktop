@@ -220,9 +220,6 @@ export const FcrUISceneApp = () => {
           language: homeStore.language,
           token: launchOption.rtmToken,
           devicePretest: true,
-          mediaOptions: {
-            cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
-          },
           recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/scene_record_page.html`,
         },
         () => {

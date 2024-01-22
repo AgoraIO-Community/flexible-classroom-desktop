@@ -52,8 +52,8 @@ export default {
   // 2.8.0分割线
   fcr_create_label_room_name_empty: '房间名不能为空',
   fcr_share_label_copy_invitation: '你可以复制课堂邀请并发送给参加者',
-  fcr_create_tips_starttime: '课堂开始时间必须晚于当前时间 ',
-  fcr_create_tips_endtime_too_early: '课堂结束时间必须晚于开始事件 ',
+  fcr_create_tips_starttime: '课堂开始时间必须晚于当前时间',
+  fcr_create_tips_endtime_too_early: '课堂结束时间必须晚于开始时间',
   fcr_create_tips_duration_too_short: '课堂时间必须大于或等于15分钟',
   fcr_industry_option_education: '教育',
   fcr_industry_option_entertainment: '娱乐',
