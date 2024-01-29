@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { getAssetURL, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
+import { getAssetURL, isH5Browser, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
 import { useClassroomWidgets } from '@app/hooks/useWidgets';
 import { useEduSdk } from '@app/hooks/useSdk';
 
@@ -89,6 +89,7 @@ export const LaunchPage = observer(() => {
         virtualBackgroundImages,
         virtualBackgroundVideos,
         widgets,
+        platform: isH5Browser() ? 'H5' : 'PC',
         listener: (evt: AgoraEduClassroomEvent, type: string) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
