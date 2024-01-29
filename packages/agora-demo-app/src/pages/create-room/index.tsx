@@ -153,8 +153,9 @@ export const CreateRoom = observer(() => {
     const startDateTime = getFormDateTime();
     const endDateTime = getFormEndDateTime();
     const diffInMin = endDateTime.diff(startDateTime, 'minutes');
+    const diffInMinToNow = endDateTime.diff(dayjs(), 'minutes');
 
-    if (diffInMin >= 15) {
+    if (diffInMin >= 15 && diffInMinToNow > 15) {
       setEndDateTimeValidate({ validateStatus: 'success', help: '', tip: '' });
       return true;
     }
@@ -183,6 +184,12 @@ export const CreateRoom = observer(() => {
   };
 
   const onSubmit = () => {
+    if (useCurrentTime) {
+      const date = dayjs();
+      date.set('seconds', 0);
+      form.setFieldValue('date', date);
+      form.setFieldValue('time', date);
+    }
     if (
       !checkFormDateTimeIsAfterNow(useCurrentTime) ||
       !checkFormEndTimeGreaterThanStartTime() ||

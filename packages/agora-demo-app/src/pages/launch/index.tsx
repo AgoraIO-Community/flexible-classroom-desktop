@@ -114,6 +114,7 @@ export const AgoraClassroomApp = () => {
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
+            homeStore.blockQuitUnregister();
             history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
           }
         },
@@ -158,6 +159,7 @@ export const AgoraProctorApp = () => {
         listener: (evt: AgoraEduClassroomEvent, type: any) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
+            homeStore.blockQuitUnregister();
             history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
           }
         },
@@ -218,9 +220,6 @@ export const FcrUISceneApp = () => {
           language: homeStore.language,
           token: launchOption.rtmToken,
           devicePretest: true,
-          mediaOptions: {
-            cameraEncoderConfiguration: { width: 735, height: 417, frameRate: 15, bitrate: 800 },
-          },
           recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/scene_record_page.html`,
         },
         () => {
@@ -230,6 +229,8 @@ export const FcrUISceneApp = () => {
           // failure
         },
         (type) => {
+          homeStore.blockQuitUnregister();
+          console.log('push location');
           history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
         },
       );

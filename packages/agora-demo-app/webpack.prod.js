@@ -13,13 +13,14 @@ const entry = path.resolve(ROOT_PATH, './src/index.tsx');
 const version = require('./package.json').version;
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const config = {
   entry: entry,
   output: {
     path: path.resolve(ROOT_PATH, './build'),
     publicPath: './',
-    filename: 'static/bundle-[contenthash].js',
+    filename: 'static/bundle-[name]-[contenthash].js',
     clean: true,
   },
   resolve: {
@@ -31,7 +32,33 @@ const config = {
   module: {
     unknownContextCritical: false,
   },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        exclude: /widget/,
+      }),
+    ],
 
+    splitChunks: {
+      cacheGroups: {
+        scene_widget: {
+          test: /scene_widget/,
+          name: 'scene_widget',
+          chunks: 'all',
+        },
+        proctor_widget: {
+          test: /proctor_widget/,
+          name: 'proctor_widget',
+          chunks: 'all',
+        },
+        edu_widget: {
+          test: /edu_widget/,
+          name: 'edu_widget',
+          chunks: 'all',
+        },
+      },
+    },
+  },
   plugins: [
     new dotenv({
       path: locateEnvFile(),

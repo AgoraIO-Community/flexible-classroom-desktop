@@ -6,7 +6,7 @@
 	url = ssh://git@git.agoralab.co/aduc/agora-edu-core-desktop.git
 [submodule "packages/agora-classroom-sdk"]
 	path = packages/agora-classroom-sdk
-	url = ../cloudclass-desktop.git
+	url = ../CloudClass-Desktop.git
 [submodule "packages/agora-plugin-gallery"]
 	path = packages/agora-plugin-gallery
 	url = ../apaas-widgets-web.git
