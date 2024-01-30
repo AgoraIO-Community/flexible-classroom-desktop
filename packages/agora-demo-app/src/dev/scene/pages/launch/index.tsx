@@ -5,8 +5,8 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import logo from '@app/assets/favicon.png';
-import { useSceneWidgets } from '@app/hooks/useWidgets';
-import { useFcrUIScene } from '@app/hooks/useSdk';
+import { useSceneWidgets } from '@app/hooks/useSceneWidgets';
+import { useFcrUIScene } from '@app/hooks/useSceneSdk';
 import { coursewareList } from './courseware-list';
 
 export const assetURLs = {

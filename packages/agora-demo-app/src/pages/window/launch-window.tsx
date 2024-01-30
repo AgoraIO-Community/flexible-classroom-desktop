@@ -1,4 +1,4 @@
-import { useEduSdk } from '@app/hooks/useSdk';
+import { useEduSdk } from '@app/hooks/useClassroomSdk';
 import { GlobalStoreContext } from '@app/stores';
 import { FcrMultiThemeMode } from 'agora-common-libs';
 import type { EduRoomTypeEnum } from 'agora-edu-core';

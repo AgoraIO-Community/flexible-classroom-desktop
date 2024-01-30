@@ -6,10 +6,14 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
-import { useClassroomWidgets, useSceneWidgets, useProctorWidgets } from '@app/hooks/useWidgets';
+import { useClassroomWidgets } from '@app/hooks/useClassroomWidgets';
+import { useProctorWidgets } from '@app/hooks/useProctorWidgets';
+import { useSceneWidgets } from '@app/hooks/useSceneWidgets';
 import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
-import { useEduSdk, useFcrUIScene, useProctorSdk } from '@app/hooks/useSdk';
+import { useEduSdk } from '@app/hooks/useClassroomSdk';
+import { useProctorSdk } from '@app/hooks/useProctorSdk';
+import { useFcrUIScene } from '@app/hooks/useSceneSdk';
 import { useQuitConfirm } from '@app/hooks/useQuitConfirm';
 
 export const LaunchPage = observer(() => {
