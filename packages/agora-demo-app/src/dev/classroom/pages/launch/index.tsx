@@ -4,7 +4,6 @@ import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import courseWareList from './courseware-list';
 import { getAssetURL, isH5Browser, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
 import { useClassroomWidgets } from '@app/hooks/useWidgets';
 import { useEduSdk } from '@app/hooks/useSdk';
@@ -32,11 +31,8 @@ export const LaunchPage = observer(() => {
     'AgoraCountdown',
     'AgoraHXChatWidget',
     'AgoraPolling',
-    'AgoraSelector',
     'FcrBoardWidget',
-    'FcrStreamMediaPlayerWidget',
     'FcrWatermarkWidget',
-    'FcrWebviewWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();
@@ -83,7 +79,6 @@ export const LaunchPage = observer(() => {
         ...(launchOption as any),
         // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
         recordUrl,
-        courseWareList,
         uiMode: homeStore.theme,
         language: homeStore.language,
         virtualBackgroundImages,

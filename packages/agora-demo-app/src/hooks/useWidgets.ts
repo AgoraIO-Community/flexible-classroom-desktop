@@ -7,15 +7,11 @@ const getWidgetName = (widgetClass: unknown) => {
 
 export const useClassroomWidgets = (
   ids: (
-    | 'FcrWebviewWidget'
     | 'FcrBoardWidget'
-    | 'AgoraSelector'
     | 'AgoraCountdown'
     | 'AgoraHXChatWidget'
-    | 'FcrStreamMediaPlayerWidget'
     | 'AgoraPolling'
     | 'FcrWatermarkWidget'
-    | 'FcrPolling'
   )[],
 ) => {
   const [ready, setReady] = useState(false);
@@ -24,18 +20,12 @@ export const useClassroomWidgets = (
     const load = async () => {
       const widget = await import(/* webpackPrefetch: true */ 'agora-plugin-gallery/classroom');
       const widgets: Record<string, typeof AgoraCloudClassWidget> = {};
-      if (ids.includes('FcrWebviewWidget')) {
-        const { FcrWebviewWidget } = widget;
-        widgets[getWidgetName(FcrWebviewWidget)] = FcrWebviewWidget;
-      }
+
       if (ids.includes('FcrBoardWidget')) {
         const { FcrBoardWidget } = widget;
         widgets[getWidgetName(FcrBoardWidget)] = FcrBoardWidget;
       }
-      if (ids.includes('AgoraSelector')) {
-        const { AgoraSelector } = widget;
-        widgets[getWidgetName(AgoraSelector)] = AgoraSelector;
-      }
+
       if (ids.includes('AgoraCountdown')) {
         const { AgoraCountdown } = widget;
         widgets[getWidgetName(AgoraCountdown)] = AgoraCountdown;
@@ -44,10 +34,7 @@ export const useClassroomWidgets = (
         const { AgoraHXChatWidget } = widget;
         widgets[getWidgetName(AgoraHXChatWidget)] = AgoraHXChatWidget;
       }
-      if (ids.includes('FcrStreamMediaPlayerWidget')) {
-        const { FcrStreamMediaPlayerWidget } = widget;
-        widgets[getWidgetName(FcrStreamMediaPlayerWidget)] = FcrStreamMediaPlayerWidget;
-      }
+
       if (ids.includes('AgoraPolling')) {
         const { AgoraPolling } = widget;
         widgets[getWidgetName(AgoraPolling)] = AgoraPolling;
