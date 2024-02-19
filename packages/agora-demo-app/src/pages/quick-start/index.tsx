@@ -30,22 +30,6 @@ export const QuickStart = observer(() => {
 
   const defaultScenes = [
     {
-      text: t('fcr_home_label_class_mode_1on1'),
-      value: SceneType.OneOnOne,
-    },
-    {
-      text: t('fcr_home_label_class_mode_small_classroom'),
-      value: SceneType.SmallClass,
-    },
-    {
-      text: t('fcr_home_label_class_mode_lecture_hall'),
-      value: SceneType.LectureHall,
-    },
-    {
-      text: t('fcr_home_label_class_mode_proctoring'),
-      value: SceneType.Proctoring,
-    },
-    {
       text: `${t('fcr_home_label_class_mode_cloud_class')}`,
       value: SceneType.Scene,
     },

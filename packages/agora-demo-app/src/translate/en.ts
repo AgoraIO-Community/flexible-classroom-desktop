@@ -182,8 +182,9 @@ export default {
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_ID]]: 'Room ID is invalid',
   [ErrorCodeMessage[ErrorCode.INVALID_ROOM_INFO]]: 'Invalid room info',
   [ErrorCodeMessage[ErrorCode.ROOM_IS_ENDED]]: 'The current room live has ended',
-  [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'Only lecture hall is supported on HTML5',
-  [ErrorCodeMessage[ErrorCode.INVALID_SCENE_MODE_ELECTRON]]: 'Cloud Classroom is not supported on Electron',
+  [ErrorCodeMessage[ErrorCode.INVALID_CLASS_MODE_H5]]: 'Only cloud class is supported on HTML5',
+  [ErrorCodeMessage[ErrorCode.INVALID_SCENE_MODE_ELECTRON]]:
+    'Cloud Classroom is not supported on Electron',
 
   /** Home Settings*/
   fcr_settings_setting: 'Settings',
@@ -293,5 +294,5 @@ export default {
     'content-b': `This product is provided "as is" without any express warranty, including but not limited to guarantees of suitability, suitability for specific purposes, and non-infringement. Whether it is due to any contract, infringement or other forms of conduct related to this product or the trial of this product or other methods, Agora will not be responsible for any claims, damages or other liabilities.`,
     'content-c': `You are free to choose whether to try the services provided by this product. If you download, install, or try the services provided in this product, it means that you trust the owner of the product, and Agora shall not be responsible for any form of loss or injury caused by yourself or others when you try the services provided in this product for any reason.`,
   },
-  duration_in_mins: '{reason}mins'
+  duration_in_mins: '{reason}mins',
 };

@@ -30,7 +30,7 @@ export function checkRoomInfoBeforeJoin(
 }
 
 export function h5ClassModeIsSupport(sceneType: SceneType, platform: string): Result<null> {
-  if (platform === 'H5' && sceneType !== SceneType.LectureHall) {
+  if (platform === 'H5' && sceneType !== SceneType.Scene) {
     const code = ErrorCode.INVALID_CLASS_MODE_H5;
     return failResult(code);
   }

@@ -10,35 +10,9 @@ export const sceneTypeOptions: {
   description?: string;
   value: SceneType;
   className: string;
-}[] = [
-  {
-    label: 'fcr_h5create_label_small_classroom',
-    // description: 'fcr_create_label_small_classroom_description',
-    value: SceneType.SmallClass,
-    className: 'card-purple',
-  },
-  {
-    label: 'fcr_h5create_label_lecture_hall',
-    // description: 'fcr_create_label_lecture_hall_description',
-    value: SceneType.LectureHall,
-    className: 'card-red',
-  },
-  {
-    label: 'fcr_h5create_label_1on1',
-    // description: 'fcr_create_label_1on1_description',
-    value: SceneType.OneOnOne,
-    className: 'card-green',
-  },
-];
+}[] = [];
 
 if (!isElectron()) {
-  sceneTypeOptions.push({
-    label: 'fcr_home_label_proctoring',
-    // description: 'fcr_home_label_proctoring',
-    value: SceneType.Proctoring,
-    className: 'card-green',
-  });
-
   sceneTypeOptions.push({
     label: 'fcr_home_label_class_mode_cloud_class',
     description: 'fcr_home_label_only_dark',

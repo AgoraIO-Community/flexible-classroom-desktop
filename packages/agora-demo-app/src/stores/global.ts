@@ -7,7 +7,7 @@ import {
   getBrowserLanguage,
 } from '@app/utils';
 import { FcrMultiThemeMode, bound, changeLanguage } from 'agora-common-libs';
-import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum } from 'agora-edu-core';
+import type { EduRegion, EduRoleTypeEnum, EduRoomTypeEnum, Platform } from 'agora-edu-core';
 import type { LanguageEnum } from 'agora-classroom-sdk';
 import { action, observable, toJS, computed, runInAction } from 'mobx';
 import { clearLSStore, getLSStore, setLSStore } from '../utils';
@@ -36,6 +36,7 @@ export type GlobalLaunchOption = {
   roleType: EduRoleTypeEnum;
   returnToPath: string;
   rtmToken: string;
+  platform?: Platform;
   [key: string]: any;
 };
 

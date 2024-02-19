@@ -32,16 +32,16 @@ export const LaunchPage = observer(() => {
 
   useQuitConfirm();
 
-  const { sceneType } = launchOption;
-
-  if (sceneType === SceneType.Proctoring) {
-    return <AgoraProctorApp />;
-  }
+  const { sceneType, platform } = launchOption;
 
   if (sceneType === SceneType.Scene) {
-    return <FcrUISceneApp />;
+    if (platform === 'H5') {
+      return <AgoraClassroomApp />;
+    } else {
+      return <FcrUISceneApp />;
+    }
   }
-  return <AgoraClassroomApp />;
+  return <FcrUISceneApp />;
 });
 
 export const AgoraClassroomApp = () => {
@@ -55,11 +55,8 @@ export const AgoraClassroomApp = () => {
     'AgoraCountdown',
     'AgoraHXChatWidget',
     'AgoraPolling',
-    'AgoraSelector',
     'FcrBoardWidget',
-    'FcrStreamMediaPlayerWidget',
     'FcrWatermarkWidget',
-    'FcrWebviewWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();
@@ -112,51 +109,6 @@ export const AgoraClassroomApp = () => {
         virtualBackgroundImages,
         virtualBackgroundVideos,
         listener: (evt: AgoraEduClassroomEvent, type) => {
-          console.log('launch#listener ', evt);
-          if (evt === 2) {
-            homeStore.blockQuitUnregister();
-            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
-          }
-        },
-      });
-
-      return unmount;
-    }
-  }, [widgetsReady, sdkReady]);
-
-  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
-};
-
-export const AgoraProctorApp = () => {
-  const homeStore = useContext(GlobalStoreContext);
-  const history = useHistory();
-  const launchOption = homeStore.launchOption;
-  const appRef = useRef<HTMLDivElement | null>(null);
-
-  const { ready: widgetsReady, widgets } = useProctorWidgets(['FcrWebviewWidget']);
-  const { ready: sdkReady, sdk } = useProctorSdk();
-
-  useEffect(() => {
-    if (widgetsReady && sdkReady && sdk && appRef.current) {
-      sdk.setParameters(
-        JSON.stringify({
-          host: homeStore.launchOption.sdkDomain,
-          uiConfigs: homeStore.launchOption.scenes,
-          themes: homeStore.launchOption.themes,
-        }),
-      );
-
-      sdk.config({
-        appId: launchOption.appId ?? '',
-        region: homeStore.region ?? 'CN',
-      });
-
-      const unmount = sdk.launch(appRef.current, {
-        ...(launchOption as any),
-        pretest: true,
-        language: homeStore.language,
-        widgets,
-        listener: (evt: AgoraEduClassroomEvent, type: any) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
             homeStore.blockQuitUnregister();
