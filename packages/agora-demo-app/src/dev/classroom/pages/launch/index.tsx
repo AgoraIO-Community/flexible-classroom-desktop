@@ -58,33 +58,12 @@ export const LaunchPage = observer(() => {
         region: homeStore.region ?? 'CN',
       });
 
-      const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
-      // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
-
-      const virtualBackgroundImages = [
-        getAssetURL(assetURLs.virtualBackground1),
-        getAssetURL(assetURLs.virtualBackground2),
-        getAssetURL(assetURLs.virtualBackground3),
-        getAssetURL(assetURLs.virtualBackground4),
-        getAssetURL(assetURLs.virtualBackground5),
-        getAssetURL(assetURLs.virtualBackground6),
-        getAssetURL(assetURLs.virtualBackground7),
-      ];
-      const virtualBackgroundVideos = [
-        getAssetURL(assetURLs.virtualBackground8),
-        getAssetURL(assetURLs.virtualBackground9),
-      ];
-
       const unmount = sdk.launch(appRef.current, {
         ...(launchOption as any),
         // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
-        recordUrl,
         uiMode: homeStore.theme,
         language: homeStore.language,
-        virtualBackgroundImages,
-        virtualBackgroundVideos,
         widgets,
-        platform: isH5Browser() ? 'H5' : 'PC',
         listener: (evt: AgoraEduClassroomEvent, type: string) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {

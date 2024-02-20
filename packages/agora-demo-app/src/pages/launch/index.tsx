@@ -6,10 +6,10 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
 import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
-import { useClassroomWidgets, useSceneWidgets, useProctorWidgets } from '@app/hooks/useWidgets';
+import { useClassroomWidgets, useSceneWidgets } from '@app/hooks/useWidgets';
 import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
-import { useEduSdk, useFcrUIScene, useProctorSdk } from '@app/hooks/useSdk';
+import { useEduSdk, useFcrUIScene } from '@app/hooks/useSdk';
 import { useQuitConfirm } from '@app/hooks/useQuitConfirm';
 
 export const LaunchPage = observer(() => {
@@ -76,16 +76,6 @@ export const AgoraClassroomApp = () => {
         region: homeStore.region ?? 'CN',
       });
 
-      const needPreset = (roleType: EduRoleTypeEnum) => {
-        if (roleType === 0) {
-          return false;
-        }
-
-        return true;
-      };
-
-      const needPretest = needPreset(launchOption.roleType ?? 0);
-
       const shareUrl = shareLink.generateUrl({
         roomId: launchOption.roomUuid ?? '',
         owner: userStore.nickName,
@@ -93,21 +83,13 @@ export const AgoraClassroomApp = () => {
         role: 2,
       });
 
-      const recordUrl = `${REACT_APP_RECORDING_LINK_PREFIX}/record_page.html`;
-      // const recordUrl = `https://agora-adc-artifacts.s3.cn-north-1.amazonaws.com.cn/apaas/record/dev/${CLASSROOM_SDK_VERSION}/record_page.html`;
-
       const unmount = sdk.launch(appRef.current, {
         ...(launchOption as any),
         widgets,
         // TODO:  Here you need to pass in the address of the recording page posted by the developer himself
         shareUrl,
-        recordUrl,
-        courseWareList,
         uiMode: homeStore.theme,
         language: homeStore.language,
-        pretest: needPretest,
-        virtualBackgroundImages,
-        virtualBackgroundVideos,
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {

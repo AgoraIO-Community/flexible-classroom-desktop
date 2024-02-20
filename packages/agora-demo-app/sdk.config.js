@@ -19,7 +19,7 @@ module.exports = [
       'agora-edu-core': 'src',
       'agora-common-libs/presets': 'presets',
       'agora-common-libs': 'src',
-      'agora-classroom-sdk': 'src/infra/api',
+      'agora-classroom-sdk': 'src',
       'agora-plugin-gallery/classroom': 'src/classroom.tsx',
     },
   },
