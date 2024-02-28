@@ -11,3 +11,6 @@
 .flex-import {
   display: fcr-flex !important;
 }
+#root {
+  height: 100%;
+}

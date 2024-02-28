@@ -103,7 +103,7 @@ export const AgoraClassroomApp = () => {
     }
   }, [widgetsReady, sdkReady]);
 
-  return <div ref={appRef} id="app" className="fcr-w-screen fcr-h-screen"></div>;
+  return <div ref={appRef} id="app" className="fcr-w-full fcr-h-full"></div>;
 };
 
 export const FcrUISceneApp = () => {
