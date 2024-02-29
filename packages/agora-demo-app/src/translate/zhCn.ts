@@ -1,5 +1,4 @@
 export const zhCn = {
-
   //****************** 登录页 login ******************
   fcr_login_label_welcome: '欢迎使用灵动课堂',
   fcr_login_button_welcome: '登录',
@@ -16,7 +15,8 @@ export const zhCn = {
   fcr_login_popup_window_label_title: '用户协议和隐私政策',
 
   //自行处理吧
-  fcr_login_popup_window_label_content: '感谢您信任并使用灵动课堂。我们将依据《用户协议》和《隐私政策》来帮助您了解我们在收集、使用、存储您个人信息的情况以及您享有的相关权利。在您使用灵动课堂时，我们将收集您的设备信息、操作日志等信息，同时为了保证上课的体验，您需要授予灵动课堂获取您设备的摄像头权限、麦克风权限等信息。您可以通过阅读完整的《用户协议》和《隐私政策》来了解详细信息。',
+  fcr_login_popup_window_label_content:
+    '感谢您信任并使用灵动课堂。我们将依据《用户协议》和《隐私政策》来帮助您了解我们在收集、使用、存储您个人信息的情况以及您享有的相关权利。在您使用灵动课堂时，我们将收集您的设备信息、操作日志等信息，同时为了保证上课的体验，您需要授予灵动课堂获取您设备的摄像头权限、麦克风权限等信息。您可以通过阅读完整的《用户协议》和《隐私政策》来了解详细信息。',
   fcr_login_label_terms_of_service: '用户协议',
   fcr_login_label_privacy_policy: '隐私政策',
   fcr_login_popup_window_button_agree: '同意并继续',
@@ -84,7 +84,8 @@ export const zhCn = {
   fcr_login_free_tips_read_agree: '请阅读并同意{reason1}和{reason2}',
   fcr_login_free_tips_read_agree_mobile: '请勾选并同意',
   fcr_login_free_tips_login_guide_title: '体验完整Demo功能',
-  fcr_login_free_tips_login_guide: '快速体验无法保存你的课程信息和录像。如果你想体验完整的Demo功能，请先注册Agora账号。',
+  fcr_login_free_tips_login_guide:
+    '快速体验无法保存你的课程信息和录像。如果你想体验完整的Demo功能，请先注册Agora账号。',
   fcr_login_free_tips_login_guide_sign_in: '登录',
   fcr_login_free_option_create: '创建课堂',
   fcr_login_free_option_join: '加入课堂',
@@ -117,7 +118,8 @@ export const zhCn = {
   fcr_help_tips_feedback_title: '产品咨询',
   fcr_help_tips_feedback_content: '产品咨询、问题反馈及建议，请点击与我们联系',
   fcr_help_tips_download_title: 'Demo下载',
-  fcr_help_tips_download_content: '灵动课堂支持Web、Electron在Windows平台上、Electron在macOS平台上、Android、iOS以及移动端H5',
+  fcr_help_tips_download_content:
+    '灵动课堂支持Web、Electron在Windows平台上、Electron在macOS平台上、Android、iOS以及移动端H5',
   fcr_help_tips_documentation_title: '文档中心',
   fcr_help_tips_documentation_content: '深入了解灵动课堂，获取使用指南及最佳实践',
 
@@ -126,7 +128,8 @@ export const zhCn = {
   fcr_feedback_label_pm_name: '刘惠冬',
   fcr_feedback_label_fcr: '灵动课堂',
   fcr_feedback_label_pm: '产品经理',
-  fcr_feedback_label_content1: '如果你想深入了解我们的产品，或在使用过程中有什么问题和建议？欢迎直接添加我的联系方式进行反馈—>',
+  fcr_feedback_label_content1:
+    '如果你想深入了解我们的产品，或在使用过程中有什么问题和建议？欢迎直接添加我的联系方式进行反馈—>',
   fcr_feedback_label_content2: '如无法添加，你也可以通过已下方式联系我们:',
   fcr_feedback_label_email: '企业邮箱',
   fcr_feedback_label_wecom: '企业微信',
@@ -136,5 +139,6 @@ export const zhCn = {
   //****************** 设置Settings ******************
   fcr_settings_label_demo_remind: '本页面为在线教学平台演示Demo ，仅做功能演示，并非正式线上产品',
 
-  fcr_room_tips_leave_room: '确定要退出房间吗？'
-}
+  fcr_room_tips_leave_room: '确定要退出房间吗？',
+  fcr_error_kick_by_teacher: '你已被踢出教室',
+};

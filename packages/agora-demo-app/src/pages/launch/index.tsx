@@ -94,7 +94,10 @@ export const AgoraClassroomApp = () => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
             homeStore.blockQuitUnregister();
-            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+            history.push({
+              pathname: launchOption.returnToPath ?? '/',
+              search: new URLSearchParams({ reason: type }).toString(),
+            });
           }
         },
       });
@@ -164,8 +167,10 @@ export const FcrUISceneApp = () => {
         },
         (type) => {
           homeStore.blockQuitUnregister();
-          console.log('push location');
-          history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+          history.push({
+            pathname: launchOption.returnToPath ?? '/',
+            search: new URLSearchParams({ reason: type }).toString(),
+          });
         },
       );
       return unmount;

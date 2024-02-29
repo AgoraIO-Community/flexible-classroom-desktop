@@ -1,5 +1,4 @@
 export const enUs = {
-
   //****************** 登录页 login ******************
   fcr_login_label_welcome: 'Welcome to Flexible Classroom',
   fcr_login_button_welcome: 'Sign in',
@@ -16,7 +15,8 @@ export const enUs = {
   fcr_login_popup_window_label_title: 'Terms of service',
 
   //自行处理吧
-  fcr_login_popup_window_label_content: 'Thank you for trusting and using flexible classroom.We will use the "Terms of service" to help you understand how we collect, use, and store your personal information, as well as the related rights you have.When you use flexible classroom, we will collect information such as your device information and operating logs. Additionally, to ensure a better class experience, you will need to grant flexible classroom access to your device\'s camera and microphone.You can learn more by reading the complete "Terms of service".',
+  fcr_login_popup_window_label_content:
+    'Thank you for trusting and using flexible classroom.We will use the "Terms of service" to help you understand how we collect, use, and store your personal information, as well as the related rights you have.When you use flexible classroom, we will collect information such as your device information and operating logs. Additionally, to ensure a better class experience, you will need to grant flexible classroom access to your device\'s camera and microphone.You can learn more by reading the complete "Terms of service".',
   fcr_login_label_terms_of_service: 'Terms of service',
   fcr_login_label_privacy_policy: 'Privacy Policy',
   fcr_login_popup_window_button_agree: 'Agree and continue',
@@ -57,7 +57,8 @@ export const enUs = {
   fcr_home_tips_invite_copy_room_id: 'Room ID copied to clipboard.',
   fcr_home_label_room_list_empty: 'No Course',
   fcr_home_tips_room_created: 'You have successfully created a classroom',
-  fcr_home_tips_app_support_role: 'The cloud classroom only supports role of student to join the classroom.',
+  fcr_home_tips_app_support_role:
+    'The cloud classroom only supports role of student to join the classroom.',
   fcr_home_label_only_dark: 'The cloud classroom only supports dark theme.',
   fcr_home_button_selected_class_time: 'Sure',
 
@@ -84,7 +85,8 @@ export const enUs = {
   fcr_login_free_tips_read_agree: 'Please read and agree  {reason3}',
   fcr_login_free_tips_read_agree_mobile: 'Please check and agree',
   fcr_login_free_tips_login_guide_title: 'Experience the full demo functionality',
-  fcr_login_free_tips_login_guide: 'Quick start can‘t save your course information and recordings. If you want to experience the full demo functionality, please register for a Agora account first.',
+  fcr_login_free_tips_login_guide:
+    'Quick start can‘t save your course information and recordings. If you want to experience the full demo functionality, please register for a Agora account first.',
   fcr_login_free_tips_login_guide_sign_in: 'Sign in',
   fcr_login_free_option_create: 'Create Room ',
   fcr_login_free_option_join: 'Join Room',
@@ -99,7 +101,7 @@ export const enUs = {
   fcr_login_free_class_mode_label_choose: 'Choose a classroom mode',
   fcr_login_free_label_room_id: 'Room ID',
   fcr_login_free_label_role: 'Role',
-  
+
   fcr_login_free_role_option_student: 'Student',
   fcr_login_free_role_option_teacher: 'Teacher',
   fcr_login_free_role_option_audience: 'Audience',
@@ -107,7 +109,8 @@ export const enUs = {
   fcr_login_free_button_join: 'Quick Join Now',
   fcr_login_free_button_login_sign: 'Sign in',
   fcr_login_free_button_setting: 'Setting',
-  fcr_login_free_tips_app_support_role: 'The cloud classroom only supports role of student to join the classroom.',
+  fcr_login_free_tips_app_support_role:
+    'The cloud classroom only supports role of student to join the classroom.',
   fcr_login_free_label_only_dark: 'The cloud classroom only supports dark theme.',
   fcr_login_free_button_selected_class_time: 'Sure',
 
@@ -116,26 +119,33 @@ export const enUs = {
   fcr_help_button_download: 'Download demo',
   fcr_help_button_documentation: 'Documentation',
   fcr_help_tips_feedback_title: 'Feedback',
-  fcr_help_tips_feedback_content: 'For product consultation, issue feedback, and suggestions, please click to contact us.',
+  fcr_help_tips_feedback_content:
+    'For product consultation, issue feedback, and suggestions, please click to contact us.',
   fcr_help_tips_download_title: 'Download demo',
-  fcr_help_tips_download_content: 'Flexible Classroom supports Web, Electron on Windows, Electron on macOS, Android, iOS, and mobile.',
+  fcr_help_tips_download_content:
+    'Flexible Classroom supports Web, Electron on Windows, Electron on macOS, Android, iOS, and mobile.',
   fcr_help_tips_documentation_title: 'Documentation',
-  fcr_help_tips_documentation_content: 'Explore Flexible Classroom in-depth to obtain user guides and practical experience.',
+  fcr_help_tips_documentation_content:
+    'Explore Flexible Classroom in-depth to obtain user guides and practical experience.',
 
   //****************** 产品咨询Feedback ******************
   fcr_feedback_label_feedback_title: 'Product consultation, how can you contact us?',
   fcr_feedback_label_pm_name: 'Justin Liu',
   fcr_feedback_label_fcr: 'Flexible Classroom',
   fcr_feedback_label_pm: 'Product Manager',
-  fcr_feedback_label_content1: 'If you want to learn more about our products or have any questions and suggestions during the usage process, feel free to add my contact information for feedback ->',
-  fcr_feedback_label_content2: 'If you are unable to add, you can contact us through the following methods:',
+  fcr_feedback_label_content1:
+    'If you want to learn more about our products or have any questions and suggestions during the usage process, feel free to add my contact information for feedback ->',
+  fcr_feedback_label_content2:
+    'If you are unable to add, you can contact us through the following methods:',
   fcr_feedback_label_email: 'Email',
   fcr_feedback_label_wecom: 'WeCom',
   fcr_feedback_label_messenger: 'Messenger',
   fcr_feedback_label_slack: 'Slack',
 
   //****************** 设置Settings ******************
-  fcr_settings_label_demo_remind: 'This page is a demonstration demo of an online teaching platform. It is solely intended for showing the functionalities and is not an official online product.',
+  fcr_settings_label_demo_remind:
+    'This page is a demonstration demo of an online teaching platform. It is solely intended for showing the functionalities and is not an official online product.',
 
-  fcr_room_tips_leave_room: 'Are you sure you want to leave classroom?'
-}
+  fcr_room_tips_leave_room: 'Are you sure you want to leave classroom?',
+  fcr_error_kick_by_teacher: 'You have been removed from the classroom',
+};

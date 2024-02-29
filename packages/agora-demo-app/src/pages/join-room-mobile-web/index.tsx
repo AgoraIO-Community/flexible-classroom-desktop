@@ -8,7 +8,7 @@ import { useNoAuthUser } from '@app/hooks/useNoAuthUser';
 import { GlobalStoreContext } from '@app/stores';
 import type { Platform } from 'agora-edu-core';
 import { observer } from 'mobx-react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import './index.css';
 import { messageError } from '@app/utils';
 import { useI18n, getI18n } from 'agora-common-libs';
@@ -16,6 +16,8 @@ import { useAForm, AFormProps, AForm, AFormItem } from '@app/components/form';
 import { SvgImg, SvgIconEnum } from '@app/components/svg-img';
 import { AInput } from '@app/components/input';
 import { AButton } from '@app/components/button';
+import { useHistory } from 'react-router';
+import { aMessage } from '@app/components/message';
 
 type JoinFormValue = {
   roomId: string;
@@ -32,10 +34,18 @@ export const H5JoinRoom = observer(() => {
   const { rule: nickNameRule } = useNickNameForm();
   const { rule: roomIdRule, formatFormField, getUnformattedValue } = useRoomIdForm();
   const { userId, nickName, setNickName } = useNoAuthUser();
+  const history = useHistory();
   const initialValues = {
     nickName,
     roomId: '',
   };
+  useEffect(() => {
+    const params = new URLSearchParams(history.location.search);
+    if (params.get('reason') === '1') {
+      aMessage.error(transI18n('fcr_error_kick_by_teacher'));
+    }
+    history.replace({ search: '' });
+  }, [history]);
   const onSubmit = () => {
     setLoading(true);
     form
