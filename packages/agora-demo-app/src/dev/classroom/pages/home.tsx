@@ -12,5 +12,5 @@ export const HomePage = () => {
     },
   ];
 
-  return <BasePage scenes={defaultScenes} />;
+  return <BasePage type="MOBILE" scenes={defaultScenes} />;
 };

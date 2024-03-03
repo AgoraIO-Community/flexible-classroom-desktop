@@ -15,11 +15,14 @@ import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 import { FcrRoomType, SceneType } from '@app/type';
-
+import classnames from 'classnames';
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
 
-export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({ scenes }) => {
+export const HomePage: FC<{
+  scenes: { text: string; value: SceneType }[];
+  type?: 'PC' | 'MOBILE';
+}> = ({ scenes, type = 'PC' }) => {
   const globalStore = useContext(GlobalStoreContext);
 
   const history = useHistory();
@@ -145,7 +148,9 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
           </Layout>
         </nav>
         <div
-          className="form-section fcr-fixed animated-form"
+          className={classnames('form-section fcr-fixed animated-form', {
+            'form-section-mobile': type === 'MOBILE',
+          })}
           style={{
             top: 'calc((100% - 540px) * 0.5)',
             left: 'calc((100% - 477px) * 0.81)',
