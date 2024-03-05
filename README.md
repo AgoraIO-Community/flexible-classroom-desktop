@@ -16,14 +16,9 @@
    ```bash
    yarn install:packages
    ```
-4. Create the `.env` file in the root directory and fill in your App ID and App Certificate.
-   ```typescript
-   REACT_APP_AGORA_APP_ID={your appid}
-   REACT_APP_AGORA_APP_CERTIFICATE={your app certificate}
-   ```
 
 #### Run the project in development mode
-5. To run the project in development mode
+4. To run the project in development mode
    i. To run the SDK for `PC Web`,use the following command:
    ```bash
    yarn dev:scene
@@ -42,7 +37,7 @@
    ```
    Then you can visit `http://localhost:3000` to debug your code.(This mode depends on the SDK product and cannot hot update the SDK code. It is only used for debugging App code.)
 #### Package the SDK
-6. After finishing the development, package the SDK JS file with the following command:
+5. After finishing the development, package the SDK JS file with the following command:
 
     i. To package the PC Web SDK code:
     ```bash
