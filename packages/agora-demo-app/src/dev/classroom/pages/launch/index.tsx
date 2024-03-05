@@ -5,8 +5,8 @@ import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { getAssetURL, isH5Browser, REACT_APP_RECORDING_LINK_PREFIX } from '@app/utils';
-import { useClassroomWidgets } from '@app/hooks/useWidgets';
-import { useEduSdk } from '@app/hooks/useSdk';
+import { useClassroomWidgets } from '@app/hooks/useClassroomWidgets';
+import { useEduSdk } from '@app/hooks/useClassroomSdk';
 
 export const assetURLs = {
   // virtual background assets

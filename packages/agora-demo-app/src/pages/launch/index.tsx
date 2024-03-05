@@ -9,8 +9,9 @@ import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/ut
 import { useClassroomWidgets, useSceneWidgets } from '@app/hooks/useWidgets';
 import { SceneType } from '@app/type';
 import logo from '@app/assets/favicon.png';
-import { useEduSdk, useFcrUIScene } from '@app/hooks/useSdk';
 import { useQuitConfirm } from '@app/hooks/useQuitConfirm';
+import { useFcrUIScene } from '@app/hooks/useSceneSdk';
+import { useEduSdk } from '@app/hooks/useClassroomSdk';
 
 export const LaunchPage = observer(() => {
   const homeStore = useContext(GlobalStoreContext);
@@ -96,7 +97,7 @@ export const AgoraClassroomApp = () => {
             homeStore.blockQuitUnregister();
             history.push({
               pathname: launchOption.returnToPath ?? '/',
-              search: new URLSearchParams({ reason: type }).toString(),
+              search: new URLSearchParams({ reason: type as string }).toString(),
             });
           }
         },
@@ -169,7 +170,7 @@ export const FcrUISceneApp = () => {
           homeStore.blockQuitUnregister();
           history.push({
             pathname: launchOption.returnToPath ?? '/',
-            search: new URLSearchParams({ reason: type }).toString(),
+            search: new URLSearchParams({ reason: type as unknown as string }).toString(),
           });
         },
       );

@@ -4,8 +4,8 @@ import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useProctorSdk } from '@app/hooks/useSdk';
-import { useProctorWidgets } from '@app/hooks/useWidgets';
+import { useProctorSdk } from '@app/hooks/useProctorSdk';
+import { useProctorWidgets } from '@app/hooks/useProctorWidgets';
 
 export const assetURLs = {
   // virtual background assets
