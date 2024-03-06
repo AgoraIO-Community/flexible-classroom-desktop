@@ -6,19 +6,22 @@
    git clone https://github.com/AgoraIO-Community/flexible-classroom-desktop.git
    ```
 2. Checkout the latest release branch.
+
    i. Change directory to `flexible-classroom-desktop`
+   
    ii. Switch the branch, run the following commands:
    ```bash
    cd flexible-classroom-desktop
    git checkout release/2.9.40-special.1
    ```
-3. To install dependencies, run the following command:
+4. To install dependencies, run the following command:
    ```bash
    yarn install:packages
    ```
 
 #### Run the project in development mode
 4. To run the project in development mode
+   
    i. To run the SDK for `PC Web`,use the following command:
    ```bash
    yarn dev:scene
@@ -61,6 +64,7 @@
 ## Source code structure
 - `agora-demo-app`: A sample project that includes functions such as creating a room, joining a room, and integrating SDK.
 - `agora-classroom-sdk`: The Cloud Class Scene SDK for mobile web, which contains the following modules:
+     
       - `/src/index`: SDK interface.
       - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
       - `/src/scenarios`: This folder contains the code for arranging the layout of business components in classroom scenarios.
@@ -68,6 +72,7 @@
       - `/src/ui-kit`: Common UI components.
 - `agora-plugin-gallery`: An independent plug-in library for Agora Classroom SDK.
 - `fcr-ui-scene`: The Cloud Class Scene SDK for PC Web, which contains the following modules:
+     
       - `/src/index`: SDK interface.
       - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
       - `/src/scenarios`: UI scene. Scenarios are composed of multiple business components.
