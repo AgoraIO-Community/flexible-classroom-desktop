@@ -64,19 +64,17 @@
 ## Source code structure
 - `agora-demo-app`: A sample project that includes functions such as creating a room, joining a room, and integrating SDK.
 - `agora-classroom-sdk`: The Cloud Class Scene SDK for mobile web, which contains the following modules:
-     
-      - `/src/index`: SDK interface.
-      - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
-      - `/src/scenarios`: This folder contains the code for arranging the layout of business components in classroom scenarios.
-      - `/src/uistores`: The UI stores implement the business logic for the UI components.
-      - `/src/ui-kit`: Common UI components.
+   - `/src/index`: SDK interface.
+   - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
+   - `/src/scenarios`: This folder contains the code for arranging the layout of business components in classroom scenarios.
+   - `/src/uistores`: The UI stores implement the business logic for the UI components.
+   - `/src/ui-kit`: Common UI components.
 - `agora-plugin-gallery`: An independent plug-in library for Agora Classroom SDK.
 - `fcr-ui-scene`: The Cloud Class Scene SDK for PC Web, which contains the following modules:
-     
-      - `/src/index`: SDK interface.
-      - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
-      - `/src/scenarios`: UI scene. Scenarios are composed of multiple business components.
-      - `/src/uistores`: The UI stores implement the business logic for the UI components.
-      - `/src/components`: Common UI components.
+   - `/src/index`: SDK interface.
+   - `/src/container`: This folder contains all the business components. A business component is implemented by combining the UI components with the UI stores.
+   - `/src/scenarios`: UI scene. Scenarios are composed of multiple business components.
+   - `/src/uistores`: The UI stores implement the business logic for the UI components.
+   - `/src/components`: Common UI components.
 ## More Information
 Please visit https://docs.agora.io/en/flexible-classroom/develop/integrate-flexible-classroom/integrate-flexible-classroom-fcr?platform=web for more information.
