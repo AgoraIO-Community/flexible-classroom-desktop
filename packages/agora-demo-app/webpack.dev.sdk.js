@@ -58,6 +58,9 @@ const config = {
     static: devServes,
   },
   plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js',
+    }),
     new dotenv({
       path: locateEnvFile(),
     }),
