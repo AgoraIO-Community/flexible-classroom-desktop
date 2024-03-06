@@ -37,6 +37,7 @@ const config = {
   devtool: 'source-map',
   entry: devEntry,
   resolve: {
+    fallback: { vm: false },
     alias: {
       '@app': path.resolve(ROOT_PATH, './src'),
       '@ui-kit-utils': path.resolve(ROOT_PATH, '../fcr-ui-kit/src/utils'),
