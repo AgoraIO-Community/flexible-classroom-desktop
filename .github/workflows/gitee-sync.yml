@@ -2,7 +2,9 @@ name: gitee-sync
 on:
   pull_request:
   workflow_dispatch:
-
+  push:
+    branches:
+      - release/**
 jobs:
   build:
     name: gitee-sync
