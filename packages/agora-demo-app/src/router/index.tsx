@@ -17,6 +17,7 @@ export const RouteContainer = () => {
       PageRouter.IndexMobileWeb,
       PageRouter.InviteMobileWeb,
       PageRouter.JoinRoomMobileWeb,
+      PageRouter.Invite,
     ];
     return list.map((v) => routesMap[v].path);
   }, []);
