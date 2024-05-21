@@ -33,6 +33,8 @@ export const LaunchPage = observer(() => {
     'AgoraPolling',
     'FcrBoardWidget',
     'FcrWatermarkWidget',
+    'FcrWebviewWidget',
+    'FcrStreamMediaPlayerWidget'
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();

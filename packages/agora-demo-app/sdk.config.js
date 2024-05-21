@@ -11,6 +11,7 @@ module.exports = [
     name: 'classroom',
     alias: {
       '@classroom': path.resolve(ROOT_PATH, '../agora-classroom-sdk/src'),
+      '@components': path.resolve(ROOT_PATH, '../fcr-ui-kit/src/components'),
     },
     sources: {
       'agora-rte-sdk/lib': 'src',
