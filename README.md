@@ -58,7 +58,7 @@
     # package plugins
     yarn pack:classroom:plugin
     ```
-    Find the output in the `packages/agora-classroom-sdk/lib/edu_sdk.bundle.js` and `packages/agora-plugin-gallery/lib/classroom_widget.bundle.js` respectively.
+    Find the output in the `packages/agora-classroom-sdk/lib/edu_sdk.bundle.js` and `packages/agora-plugin-gallery/lib/edu_widget.bundle.js` respectively.
 
 
 ## Source code structure
