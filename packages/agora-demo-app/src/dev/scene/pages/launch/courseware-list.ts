@@ -26,6 +26,14 @@ export const coursewareList: CoursewareList = [
     size: 0,
     updateTime: Date.now(),
     initOpen: false,
+  }, {
+    resourceName: 'youtube - RTE2022112',
+    resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
+    ext: 'alf',
+    url: 'https://www.youtube.com/watch?v=JeaX4SaJcJE',
+    size: 0,
+    updateTime: Date.now(),
+    initOpen: false,
   },
   {
     resourceName: 'AgoraFlexibleClassroom',
