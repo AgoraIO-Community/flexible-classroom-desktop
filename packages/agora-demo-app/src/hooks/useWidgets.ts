@@ -12,6 +12,8 @@ export const useClassroomWidgets = (
     | 'AgoraHXChatWidget'
     | 'AgoraPolling'
     | 'FcrWatermarkWidget'
+    | 'FcrWebviewWidget'
+    | 'FcrStreamMediaPlayerWidget'
   )[],
 ) => {
   const [ready, setReady] = useState(false);
@@ -43,13 +45,21 @@ export const useClassroomWidgets = (
         const { FcrWatermarkWidget } = widget;
         widgets[getWidgetName(FcrWatermarkWidget)] = FcrWatermarkWidget;
       }
+      if (ids.includes('FcrWebviewWidget')) {
+        const { FcrWebviewWidget } = widget;
+        widgets[getWidgetName(FcrWebviewWidget)] = FcrWebviewWidget;
+      }
+      if (ids.includes('FcrStreamMediaPlayerWidget')) {
+        const { FcrStreamMediaPlayerWidget } = widget;
+        widgets[getWidgetName(FcrStreamMediaPlayerWidget)] = FcrStreamMediaPlayerWidget;
+      }
 
       setWidgets(widgets);
       setReady(true);
     };
     load();
   }, []);
-
+  console.log('useClassroomWidgets', widgets)
   return { ready, widgets };
 };
 export const useProctorWidgets = (ids: 'FcrWebviewWidget'[]) => {

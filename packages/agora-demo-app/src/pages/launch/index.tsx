@@ -58,6 +58,8 @@ export const AgoraClassroomApp = () => {
     'AgoraPolling',
     'FcrBoardWidget',
     'FcrWatermarkWidget',
+    'FcrWebviewWidget',
+    'FcrStreamMediaPlayerWidget'
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();
