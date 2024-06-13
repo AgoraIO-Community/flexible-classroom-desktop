@@ -75,11 +75,6 @@
             width: 100%;
             height: 100%;
             }
-            *,
-            *::before,
-            *::after {
-            box-sizing: border-box;
-            }
          </style>
          <div id="root"></div>
          <script type="text/javascript">
@@ -109,7 +104,7 @@
                roomUuid: 'room003',
                roomType: 10, // Room type: 10 is cloud class.
                roomName: 'RoomName001',
-               pretest: true, // Whether to enable pre-class equipment detection
+               devicePretest: true, // Whether to enable pre-class equipment detection
                token: 'your token', // In a test environment, you can use temporary RTM Token; in a production or security environment, it is strongly recommended that you use a server-generated RTM Token.
                language: 'en',
                duration: 60 * 60 * 2, // Course time in seconds.
@@ -164,24 +159,7 @@
       </head>
 
       <body>
-         <style>
-            html,
-            body {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            }
-            #root {
-            width: 100%;
-            height: 100%;
-            }
-            *,
-            *::before,
-            *::after {
-            box-sizing: border-box;
-            }
-         </style>
+         
          <div id="root"></div>
          <script type="text/javascript">
             AgoraEduSDK.config({
@@ -217,6 +195,8 @@
                easemobIM: AgoraHXChatWidget, // IM widget
                netlessBoard: FcrBoardWidget, // Interactive whiteboard widget
                poll: AgoraPolling, // Voter widget
+               webView: FcrWebviewWidget, // webView widget for online courseware
+               mediaPlayer: FcrStreamMediaPlayerWidget,// media player for youtube
             },
             shareUrl: 'your share url',
             });
