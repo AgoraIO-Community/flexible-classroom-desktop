@@ -16,7 +16,7 @@ const run = async () => {
       'agora-edu-core',
       'agora-common-libs',
       'agora-classroom-sdk',
-      'agora-proctor-sdk',
+      // 'agora-proctor-sdk',
       'agora-plugin-gallery',
       'fcr-ui-scene',
       'fcr-ui-kit',
@@ -30,13 +30,13 @@ const run = async () => {
       'agora-common-libs',
       'agora-plugin-gallery',
       'agora-classroom-sdk',
-      'agora-proctor-sdk',
+      // 'agora-proctor-sdk',
       'fcr-ui-scene',
     ]);
   } else {
     await fetchPackages([
       'agora-classroom-sdk',
-      'agora-proctor-sdk',
+      // 'agora-proctor-sdk',
       'agora-plugin-gallery',
       'fcr-ui-scene',
       'fcr-ui-kit',
@@ -47,7 +47,7 @@ const run = async () => {
     await buildPackages([
       'agora-plugin-gallery',
       'agora-classroom-sdk',
-      'agora-proctor-sdk',
+      // 'agora-proctor-sdk',
       'fcr-ui-scene',
     ]);
   }
@@ -57,15 +57,14 @@ const run = async () => {
   console.log(chalk.green('You are all set! Now you can run `yarn dev` to start the demo server.'));
 };
 
-
-(async function() {
+(async function () {
   if (!exists('node_modules/simple-git') || !exists('node_modules/chalk')) {
     console.log('Installing tools...');
     const projectRootPath = path.resolve(__dirname, '..');
     await exec(
       `npm install -g --no-package-lock --no-save --prefix=${projectRootPath} simple-git@3.15.1 chalk@4.1.2`,
     );
-    
+
     const libPath = path.resolve(projectRootPath, 'lib');
     const nestNodeModulePath = path.resolve(projectRootPath, 'lib/node_modules');
     const nodeModulePath = path.resolve(projectRootPath, 'node_modules');
