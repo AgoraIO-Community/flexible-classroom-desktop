@@ -45,6 +45,7 @@ type QuickJoinRoomParams = {
 
 type JoinRoomOptions = {
   returnToPath: string;
+  returnToUrl?: string;
   roomProperties?: any;
 };
 
@@ -161,6 +162,7 @@ export const useJoinRoom = () => {
             : undefined,
         },
         returnToPath: options.returnToPath,
+        returnToUrl: options.returnToUrl,
       };
       setLaunchConfig(config);
       history.push('/launch');
