@@ -40,7 +40,7 @@ export const Embed = () => {
 
   if (launchType === 'create') {
     const roleConfigs =
-      sceneType === SceneType.Scene
+      parseInt(sceneType) === SceneType.Scene
         ? {
             2: {
               limit: studentLimit,
@@ -54,7 +54,7 @@ export const Embed = () => {
         : undefined;
 
     const processes =
-      sceneType === SceneType.Scene
+      parseInt(sceneType) === SceneType.Scene
         ? {
             handsUp: {
               defaultAcceptRole: '',
@@ -69,7 +69,7 @@ export const Embed = () => {
     globalStore.setLoading(true);
 
     createRoomNoAuth({
-      sceneType,
+      sceneType: parseInt(sceneType),
       roomName: roomName,
       startTime: Date.now(),
       endTime: Date.now() + duration * 60 * 1000,
@@ -81,7 +81,7 @@ export const Embed = () => {
       .then((data) => {
         return quickJoinRoomNoAuth(
           {
-            role: userRole,
+            role: parseInt(userRole),
             roomId: data.roomId,
             nickName: userName,
             platform: 'PC' as Platform,
@@ -106,7 +106,7 @@ export const Embed = () => {
   } else {
     quickJoinRoomNoAuth(
       {
-        role: userRole,
+        role: parseInt(userRole),
         roomId: roomId,
         nickName: userName,
         platform: 'PC' as Platform,
