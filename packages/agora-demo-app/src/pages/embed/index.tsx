@@ -8,6 +8,7 @@ import { FcrMultiThemeMode } from 'agora-common-libs';
 import type { Platform } from 'agora-edu-core';
 import type { AgoraRteMediaPublishState } from 'agora-rte-sdk';
 import { useContext } from 'react';
+import md5 from 'js-md5';
 
 export const Embed = () => {
   const globalStore = useContext(GlobalStoreContext);
@@ -15,7 +16,7 @@ export const Embed = () => {
 
   const params = parseHashUrlQuery(window.location.hash);
 
-  const { userId, nickName } = useNoAuthUser();
+  const { nickName } = useNoAuthUser();
 
   const {
     launchType: launchType,
@@ -25,6 +26,9 @@ export const Embed = () => {
   } = params;
   const { roomName = 'Test Room', sceneType = 0, duration = 30 } = params;
   const { roomId = '', userName = nickName, userRole = 1 } = params;
+
+  const role = parseInt(userRole);
+  const userId = md5(`${userName}-${role}`);
 
   const { quickJoinRoomNoAuth } = useJoinRoom();
 
@@ -81,7 +85,7 @@ export const Embed = () => {
       .then((data) => {
         return quickJoinRoomNoAuth(
           {
-            role: parseInt(userRole),
+            role,
             roomId: data.roomId,
             nickName: userName,
             platform: 'PC' as Platform,
@@ -106,7 +110,7 @@ export const Embed = () => {
   } else {
     quickJoinRoomNoAuth(
       {
-        role: parseInt(userRole),
+        role,
         roomId: roomId,
         nickName: userName,
         platform: 'PC' as Platform,
