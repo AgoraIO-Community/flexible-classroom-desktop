@@ -24,8 +24,11 @@ export const Embed = () => {
     theme = FcrMultiThemeMode.dark,
     backUrl,
   } = params;
-  const { roomName = 'Test Room', sceneType = 0, duration = 30 } = params;
-  const { roomId = '', userName = nickName, userRole = 1 } = params;
+  const { sceneType = 0, duration = 30 } = params;
+  const { roomId = '', userRole = 1 } = params;
+
+  const roomName = decodeURIComponent(params.roomName);
+  const userName = decodeURIComponent(params.userName || nickName);
 
   const role = parseInt(userRole);
   const userId = md5(`${userName}-${role}`);
