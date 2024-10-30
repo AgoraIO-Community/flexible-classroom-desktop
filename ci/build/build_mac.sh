@@ -32,7 +32,7 @@ lib_versions=(
     2.9.46
     2.9.41
     2.9.41
-    2.9.40
+    2.9.41
     1.0.40
     1.0.40
 )
@@ -41,7 +41,7 @@ lib_branches=(
     release/2.9.46
     release/2.9.41
     release/2.9.41
-    release/2.9.40
+    release/2.9.41
     release/1.0.40
     release/1.0.40
 )
