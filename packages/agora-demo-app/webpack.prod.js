@@ -9,14 +9,15 @@ const baseConfig = require('agora-common-libs/presets/webpack.config.base.js');
 const ROOT_PATH = path.resolve(__dirname, './');
 const dotenv = require('dotenv-webpack');
 const { locateEnvFile } = require('./webpack/utils/index');
-const entry = path.resolve(ROOT_PATH, './src/index.tsx');
+// const entry = path.resolve(ROOT_PATH, './src/index.tsx');
 const version = require('./package.json').version;
 const outHtml = 'index.html';
 const htmlTemplate = path.resolve(ROOT_PATH, './public/index.html');
 const TerserPlugin = require('terser-webpack-plugin');
+const { devEntry } = require('./webpack/utils/development-config');
 
 const config = {
-  entry: entry,
+  entry: devEntry,
   output: {
     path: path.resolve(ROOT_PATH, './build'),
     publicPath: './',
@@ -31,6 +32,12 @@ const config = {
   },
   module: {
     unknownContextCritical: false,
+    rules: [
+      {
+        resourceQuery: /raw/,
+        type: 'asset/source',
+      }
+    ]
   },
   optimization: {
     minimizer: [

@@ -12,6 +12,7 @@ export const useSceneWidgets = (
     | 'FcrStreamMediaPlayerWidget'
     | 'FcrPolling'
     | 'AgoraChatroomWidget'
+    | 'AgoraChatroomGroupWidget'
     | 'FcrCountdownWidget'
     | 'FcrPopupQuizWidget'
   )[],
@@ -44,6 +45,11 @@ export const useSceneWidgets = (
       if (ids.includes('AgoraChatroomWidget')) {
         const { FcrChatroom } = widget;
         widgets[getWidgetName(FcrChatroom)] = FcrChatroom;
+      }
+
+      if (ids.includes('AgoraChatroomGroupWidget')) {
+        const { FcrChatroomGroup } = widget;
+        widgets[getWidgetName(FcrChatroomGroup)] = FcrChatroomGroup;
       }
 
       if (ids.includes('FcrWebviewWidget')) {

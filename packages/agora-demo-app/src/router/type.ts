@@ -14,4 +14,5 @@ export enum PageRouter {
   RecordationSearchPage = 'recordation_search',
   QuickJoin = 'quick_join',
   Window = 'window',
+  ImGroup = 'im_group'
 }

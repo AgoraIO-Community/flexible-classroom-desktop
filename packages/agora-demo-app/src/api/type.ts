@@ -64,6 +64,33 @@ export type RoomCreateRequest = {
   };
 };
 
+export type RoomCreateIMRequest = {
+  appId: string, 
+  roomUuid: string
+  roomName: string;
+  //@deprecated
+  roomType?: EduRoomTypeEnum;
+  tenantUuid?: string;
+  roomProperties?: RoomProperties; 
+  roleConfigs?: {
+    [key: number]: {
+      limit: number;
+      defaultStream: {
+        audioState: 0 | 1;
+        videoState: 0 | 1;
+      };
+    };
+  };
+}
+
+
+export type ChatGroupCreateRequest = {
+  appId: string
+  roomUuid: string
+  chatUuid: string
+  userUuids: string[]
+}
+
 export type RoomCreateNoAuthRequest = RoomCreateRequest & {
   userUuid: string;
 };

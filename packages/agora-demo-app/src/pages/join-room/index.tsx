@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import './index.css';
+import { roomApi } from '@app/api';
 type JoinFormValue = {
   roomId: string;
   nickName: string;
@@ -54,8 +55,8 @@ export const JoinRoom = observer(() => {
     form.setFieldValue('nickName', userStore.nickName);
   }, []);
 
-  const onSubmit = () => {
-    form.validateFields().then((data) => {
+  const onSubmit =  () => {
+    form.validateFields().then(async(data) => {
       const roomId = getUnformattedValue(data.roomId);
 
       if (!userStore.userInfo) {
@@ -63,7 +64,6 @@ export const JoinRoom = observer(() => {
       }
 
       setLoading(true);
-
       quickJoinRoom({
         role,
         roomId,

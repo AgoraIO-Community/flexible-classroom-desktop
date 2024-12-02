@@ -92,9 +92,9 @@ export const LoginForm: FC<{
   });
 
   const { values, errors, eventHandlers, validate } = useForm({
-    initialValues: () => {
+    initialValues: ():Record<string, any> => {
       const launchConfig = globalStore.launchConfig;
-      const { roomName, userName, roleType, sceneType } = launchConfig;
+      const { chatGroup, roomUuid, roomName, userUuid, userName, roleType, sceneType } = launchConfig;
 
       let defaultSceneType = parseInt(window.__launchRoomType || `${sceneType}`);
 
@@ -105,33 +105,36 @@ export const LoginForm: FC<{
       }
 
       return {
+        roomUuid: window.__launchRoomUuid || `${roomUuid ?? ''}`,
         roomName: window.__launchRoomName || `${roomName ?? ''}`,
+        userUuid: window.__launchUserUuid || `${userUuid ?? ''}`,
         userName: window.__launchUserName || `${userName ?? ''}`,
         roleType: window.__launchRoleType || `${roleType ?? ''}`,
+        chatGroup: `${chatGroup ?? ''}`,
         sceneType: defaultSceneType,
       };
     },
     validate: (values, fieldName, onError) => {
       switch (fieldName) {
-        case 'roomName':
-          if (!values.roomName) {
-            return onError('roomName', transI18n('home_form_placeholder_room_name'));
+        case 'roomUuid':
+          if (!values.roomUuid) {
+            return onError('roomUuid', transI18n('home_form_placeholder_room_id'));
           }
-          if (values.roomName.length < 6 || values.roomName.length > 50) {
+          if (values.roomUuid.length <6) {
             return onError(
-              'roomName',
-              transI18n('home_form_error_room_name_limit', { min: 6, max: 50 }),
+              'roomUuid',
+              transI18n('home_form_error_room_id_limit', { min: 6}),
             );
           }
           break;
-        case 'userName':
-          if (!values.userName) {
-            return onError('userName', transI18n('home_form_error_user_name_empty'));
+        case 'userUuid':
+          if (!values.userUuid) {
+            return onError('userUuid', transI18n('home_form_placeholder_user_id'));
           }
-          if (values.userName.length < 3 || values.userName.length > 25) {
+          if (values.userUuid.length < 6) {
             return onError(
-              'userName',
-              transI18n('home_form_error_user_name_limit', { min: 3, max: 25 }),
+              'userUuid',
+              transI18n('home_form_error_user_id_limit', { min: 6 }),
             );
           }
           break;
@@ -143,11 +146,26 @@ export const LoginForm: FC<{
           values.sceneType === undefined &&
             onError('sceneType', transI18n('home_form_error_room_type_empty'));
           break;
+        case 'chatGroup':
+            
+          if(values.chatGroup){
+            const list = values.chatGroup.split(",") 
+            for(let item of list) {
+              const ret = item.split("-")
+              if(ret.length != 2) {
+                return onError(
+                  'chatGroup',
+                  transI18n('home_form_error_chat_group_illegal', { text: item }),
+                );
+              }
+            }
+          }
+            break;
       }
     },
   });
 
-  const { roomName, userName, roleType, sceneType } = values;
+  const { chatGroup, roomUuid, roomName, userUuid, userName, roleType, sceneType } = values;
 
   const handleSubmit = () => {
     if (validate()) {
@@ -161,36 +179,44 @@ export const LoginForm: FC<{
         return false;
       }}>
       <p className="form-header fcr-text-center">{t('home_greeting')}</p>
-      <Layout className="fcr-mt-8">
+      <Layout className="fcr-mt-6 fcr-relative fcr-z-20 fcr-justify-between">
         <Field
-          label={t('home_form_field_room')}
+          label={t('home_form_field_room_id')}
           type="text"
-          placeholder={t('home_form_placeholder_room_name')}
-          width={369}
-          value={roomName}
-          {...eventHandlers('roomName')}
-          error={errors.roomName}
+          placeholder={t('home_form_placeholder_room_id')}
+          width={203}
+          value={roomUuid}
+          {...eventHandlers('roomUuid')}
+          error={errors.roomUuid}
         />
+        <Field
+            label={t('home_form_field_room')}
+            type="text"
+            placeholder={t('home_form_placeholder_room_name')}
+            width={149}
+            value={roomName}
+            {...eventHandlers('roomName')}
+            error={errors.roomName}
+          />
       </Layout>
       <Layout className="fcr-mt-6 fcr-relative fcr-z-20 fcr-justify-between">
+        <Field
+          label={t('home_form_field_user_id')}
+          type="text"
+          placeholder={t('home_form_placeholder_user_id')}
+          width={203}
+          value={userUuid}
+          {...eventHandlers('userUuid')}
+          error={errors.userUuid}
+        />
         <Field
           label={t('home_form_field_name')}
           type="text"
           placeholder={t('home_form_placeholder_user_name')}
-          width={203}
+          width={149}
           value={userName}
           {...eventHandlers('userName')}
           error={errors.userName}
-        />
-        <Field
-          label={t('home_form_field_role')}
-          type="select"
-          placeholder={t('home_form_placeholder_user_role')}
-          width={149}
-          value={roleType}
-          options={roleOptions}
-          {...eventHandlers('roleType')}
-          error={errors.roleType}
         />
       </Layout>
       <Layout className="fcr-mt-6 fcr-relative fcr-z-10 fcr-justify-between">
@@ -205,12 +231,25 @@ export const LoginForm: FC<{
           error={errors.sceneType}
         />
         <Field
-          label={t('home_form_field_duration')}
-          type="text"
-          placeholder="30mins"
-          readOnly
+          label={t('home_form_field_role')}
+          type="select"
+          placeholder={t('home_form_placeholder_user_role')}
           width={149}
-          value={''}
+          value={roleType}
+          options={roleOptions}
+          {...eventHandlers('roleType')}
+          error={errors.roleType}
+        />
+      </Layout>
+      <Layout className="fcr-mt-8">
+        <Field
+          label={t('home_form_field_chat')}
+          type="text"
+          placeholder={t('home_form_placeholder_chat_group')}
+          width={369}
+          value={chatGroup}
+          {...eventHandlers('chatGroup')}
+          error={errors.chatGroup}
         />
       </Layout>
       <Layout className="fcr-mt-8 fcr-mb-6">

@@ -45,6 +45,12 @@ const config = {
   },
   module: {
     unknownContextCritical: false,
+    rules: [
+      {
+        resourceQuery: /raw/,
+        type: 'asset/source',
+      }
+    ]
   },
 
   output: {

@@ -12,6 +12,7 @@ export const useClassroomWidgets = (
     | 'AgoraSelector'
     | 'AgoraCountdown'
     | 'AgoraHXChatWidget'
+    | 'AgoraHXChatGroupWidget'
     | 'FcrStreamMediaPlayerWidget'
     | 'AgoraPolling'
     | 'FcrWatermarkWidget'
@@ -43,6 +44,10 @@ export const useClassroomWidgets = (
       if (ids.includes('AgoraHXChatWidget')) {
         const { AgoraHXChatWidget } = widget;
         widgets[getWidgetName(AgoraHXChatWidget)] = AgoraHXChatWidget;
+      }
+      if (ids.includes('AgoraHXChatGroupWidget')) {
+        const { AgoraHXChatGroupWidget } = widget;
+        widgets[getWidgetName(AgoraHXChatGroupWidget)] = AgoraHXChatGroupWidget;
       }
       if (ids.includes('FcrStreamMediaPlayerWidget')) {
         const { FcrStreamMediaPlayerWidget } = widget;

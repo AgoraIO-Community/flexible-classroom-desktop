@@ -12,7 +12,9 @@ declare const DEMO_VERSION: string;
 interface Window {
   __launchRegion: string;
   __launchLanguage: string;
+  __launchRoomUuid: string;
   __launchRoomName: string;
+  __launchUserUuid: string;
   __launchUserName: string;
   __launchRoleType: string;
   __launchRoomType: string;
@@ -31,6 +33,7 @@ declare module 'agora-plugin-gallery/scene' {
   declare class FcrPollingWidget extends (await import('agora-common-libs'))
     .FcrUISceneWidget {}
   declare class FcrChatroom extends (await import('agora-common-libs')).FcrUISceneWidget {}
+  declare class FcrChatroomGroup extends (await import('agora-common-libs')).FcrUISceneWidget {}
   declare class FcrStreamMediaPlayerWidget extends (await import('agora-common-libs'))
     .FcrUISceneWidget {}
   declare class FcrPopupQuizWidget extends (await import('agora-common-libs'))
@@ -46,6 +49,8 @@ declare module 'agora-plugin-gallery/classroom' {
   declare class AgoraSelector extends (await import('agora-common-libs')).AgoraCloudClassWidget {}
   declare class AgoraCountdown extends (await import('agora-common-libs')).AgoraCloudClassWidget {}
   declare class AgoraHXChatWidget extends (await import('agora-common-libs'))
+    .AgoraCloudClassWidget {}
+  declare class AgoraHXChatGroupWidget extends (await import('agora-common-libs'))
     .AgoraCloudClassWidget {}
   declare class FcrStreamMediaPlayerWidget extends (await import('agora-common-libs'))
     .AgoraCloudClassWidget {}

@@ -8,6 +8,8 @@ import logo from '@app/assets/favicon.png';
 import { useSceneWidgets } from '@app/hooks/useSceneWidgets';
 import { useFcrUIScene } from '@app/hooks/useSceneSdk';
 import { coursewareList } from './courseware-list';
+import {EduRoomTypeEnum} from 'agora-edu-core'
+import { isH5Browser } from '@app/utils';
 
 export const assetURLs = {
   // virtual background assets
@@ -30,11 +32,11 @@ export const LaunchPage = observer(() => {
   const { ready: widgetsReady, widgets } = useSceneWidgets([
     'FcrBoardWidget',
     'FcrPolling',
-    'AgoraChatroomWidget',
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrCountdownWidget',
     'FcrPopupQuizWidget',
+    launchOption.roomType == EduRoomTypeEnum.RoomBigClass?'AgoraChatroomWidget':'AgoraChatroomGroupWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useFcrUIScene();
