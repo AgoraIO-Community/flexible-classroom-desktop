@@ -17,6 +17,8 @@ import {
   RoomCredentialRequest,
   RoomCredentialResponse,
   RoomCreateNoAuthRequest,
+  RoomCreateIMRequest,
+  ChatGroupCreateRequest,
 } from './type';
 
 export * from './type';
@@ -205,6 +207,21 @@ export class RoomAPI {
       `${this.apiDomain}/edu/v3/rooms/${roomUuid}/roles/${role}/users/${userUuid}/token`,
     );
     return data.data;
+  }
+
+  public async createImRoom(params: RoomCreateIMRequest) {
+    const { appId, roomUuid } = params 
+    const url = `${this.apiDomain}/edu/apps/${appId}/v2/rooms/${roomUuid}`;
+    return request.post(url, params);
+  }
+
+  public async createImGroup(params: ChatGroupCreateRequest) {
+    const { appId, roomUuid, chatUuid } = params 
+    
+    const url = `${this.apiDomain}/edu/apps/${appId}/v2/rooms/${roomUuid}/widgets/easemobIM/groups/${chatUuid}/users`
+    return request.post(url, {
+      userUuids: params.userUuids
+    })
   }
 }
 

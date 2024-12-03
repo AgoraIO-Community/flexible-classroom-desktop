@@ -6,6 +6,7 @@ import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useProctorSdk } from '@app/hooks/useProctorSdk';
 import { useProctorWidgets } from '@app/hooks/useProctorWidgets';
+import { isH5Browser } from '@app/utils';
 
 export const assetURLs = {
   // virtual background assets

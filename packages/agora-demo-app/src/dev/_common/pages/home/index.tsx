@@ -3,7 +3,7 @@ import { GlobalStoreContext } from '@app/stores';
 import { RtmRole, RtmTokenBuilder } from 'agora-access-token';
 import md5 from 'js-md5';
 import { FC, Fragment, useContext, useState } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { REACT_APP_AGORA_APP_SDK_DOMAIN } from '@app/utils/env';
 import { v4 as uuidv4 } from 'uuid';
 import { LoginForm } from './login-form';
@@ -15,6 +15,7 @@ import { SettingsButton } from './setting-button';
 import { GlobalLaunchOption } from '@app/stores/global';
 import { isElectron } from 'agora-rte-sdk/lib/core/utils/utils';
 import { FcrRoomType, SceneType } from '@app/type';
+import { isH5Browser } from '@app/utils';
 
 const REACT_APP_AGORA_APP_ID = process.env.REACT_APP_AGORA_APP_ID;
 const REACT_APP_AGORA_APP_CERTIFICATE = process.env.REACT_APP_AGORA_APP_CERTIFICATE;
@@ -29,17 +30,23 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
   const [loading, setLoading] = useState<boolean>(false);
 
   const t = useI18n();
-
   const handleSubmit = async ({
     roleType,
     sceneType,
+    roomUuid,
     roomName,
+    userUuid,
     userName,
+    chatGroup,
   }: {
+    roomUuid: string;
+    userUuid: string;
+    chatName: string;
     roleType: string;
     sceneType: SceneType;
     roomName: string;
     userName: string;
+    chatGroup: string
   }) => {
     if (loading) {
       return;
@@ -50,12 +57,9 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
     const region = globalStore.region || 'CN';
 
     const userRole = parseInt(roleType);
-    const isStudent = userRole === 2;
-    const userUuid =
-      isProctoring && isStudent ? `${md5(userName)}-main` : `${md5(userName)}${userRole}`;
 
-    const roomUuid = `${md5(roomName)}${sceneType}`;
-
+    roomName = roomName || roomUuid
+    userName = userName || userUuid
     try {
       setLoading(true);
 
@@ -66,13 +70,12 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
         roomUuid,
         role: userRole,
       });
-
+     
       const shareUrl = isElectron()
         ? ''
         : `${location.origin}${location.pathname}?roomName=${roomName}&roomType=${sceneType}&region=${region}&language=${language}&roleType=2#/share`;
 
       console.log('## get rtm Token from demo server', token);
-
       const config: GlobalLaunchOption = {
         appId,
         sdkDomain,
@@ -92,7 +95,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
         shareUrl,
         recordUrl: `https://solutions-apaas.agora.io/apaas/record/dev/2.8.21/record_page.html`,
         sceneType: sceneType,
-        returnToPath: '/flex',
+        returnToPath: location.hash.replace("#", ""),
       };
 
       config.appId = REACT_APP_AGORA_APP_ID || config.appId;
@@ -109,9 +112,66 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
 
         console.log(`## build rtm Token ${config.rtmToken} by using RtmTokenBuilder`);
       }
-      globalStore.setLaunchConfig(config);
-      history.push('/launch');
+
+      if(chatGroup) {
+        try{
+          await roomApi.createImRoom({
+            appId,
+            roomUuid,
+            roomName: config.roomName,
+            roomType: config.roomType,
+            roomProperties: {
+              widgets: {
+                easemobIM: {
+                  extra: {
+                    type: 2
+                  }
+                }
+              }
+            }
+          })
+        }catch(e) {
+          console.log("## fail ", e)
+        }
+  
+        const list = chatGroup.split(",")
+  
+        const group:Map<string, string[]> = list.reduce((ret:Map<string, string[]>, item:string) => {
+          const [chat, user] = item.split("-")
+          const arr = ret.get(chat) || []
+          if(arr.indexOf(user) == -1){
+            arr.push(user)
+          }
+          ret.set(chat, arr)
+          return ret
+        }, new Map<string, string[]>())
+  
+        // 等待房间创建完成，立即调用接口会报错
+
+        setTimeout(async () => {
+          for(let [chatUuid,userUuids] of group){
+            console.log(`## chat group: ${chatUuid}, users: ${userUuid}`)
+  
+            await roomApi.createImGroup({
+              appId,
+              roomUuid,
+              chatUuid,
+              userUuids
+            })
+          }
+          console.log(`## launch config: `, config)
+          globalStore.setLaunchConfig(config);
+          history.push('/launch');
+        }, 3000)
+      }else{
+        console.log(`## launch config: `, config)
+        globalStore.setLaunchConfig(config);
+        history.push('/launch');
+      }
+      
+
     } catch (e) {
+      console.log(">>>>>>>e", e)
       globalStore.addToast({
         id: uuidv4(),
         desc:

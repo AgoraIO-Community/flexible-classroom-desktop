@@ -48,14 +48,12 @@ export const Welcome = observer(() => {
   };
 
   const toCreateRoomPage = () => {
-    if (!isLogin) {
-      if (agreementRef.current?.check()) {
-        history.push('/create-room');
-      }
-    } else {
-      history.push('/create-room');
-    }
+    history.push('/create-room');
   };
+
+  const toImGroupPage = () => {
+    history.push('/im-group');
+  }
 
   const [shareRoomInfo, setShareRoomInfo] = useState<ShareInfo>({
     owner: '',
@@ -149,6 +147,12 @@ export const Welcome = observer(() => {
               <img src={CreateClassIcon} alt="create class" />
             </span>
             <span className="text">{transI18n('fcr_home_button_create')}</span>
+          </div>
+          <div className="btn" onClick={toImGroupPage}>
+            <span className="icon">
+              <img src={CreateClassIcon} alt="create class" />
+            </span>
+            <span className="text">大班IM分组</span>
           </div>
         </div>
         {!isLoading && !isLogin && <UserAgreement ref={agreementRef} />}

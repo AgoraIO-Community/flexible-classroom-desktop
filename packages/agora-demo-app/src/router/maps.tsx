@@ -13,6 +13,8 @@ import { Detail } from '../pages/detail';
 // import { FlexPage } from '../pages/flex';
 import { QuickStart } from '../pages/quick-start';
 import { LaunchWindowPage } from '../pages/window';
+import { HomePage } from '@app/dev/_common/pages/home';
+import { SceneType } from '@app/type';
 
 export type AppRouteComponent = {
   path: string;
@@ -42,6 +44,7 @@ export const nestedRoutesMap = {
     component: (props: RouteComponentProps) => <Detail {...props} />,
     exact: true,
   },
+  
 };
 export const commonRoutesMap = {
   // Quickly join room, for non-china-mainland users, they can choose to join rooms while not logged in
@@ -83,6 +86,18 @@ export const commonRoutesMap = {
   [PageRouter.Window]: {
     path: '/window',
     component: () => <LaunchWindowPage />,
+    exact: true,
+  },
+  [PageRouter.ImGroup]: {
+    path: '/im-group',
+    component: () => {
+      return <HomePage scenes={[
+        {
+          text: "大班课",
+          value: SceneType.LectureHall,
+        },
+      ]}/>
+    },
     exact: true,
   },
   // Animation container

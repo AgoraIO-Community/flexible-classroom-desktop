@@ -1,11 +1,11 @@
 import { GlobalStoreContext, UserStoreContext } from '@app/stores';
-import type { AgoraEduClassroomEvent, EduRoleTypeEnum } from 'agora-edu-core';
+import { EduRoomTypeEnum, type AgoraEduClassroomEvent, type EduRoleTypeEnum } from 'agora-edu-core';
 import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import courseWareList from './courseware-list';
-import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, shareLink } from '@app/utils';
+import { REACT_APP_RECORDING_LINK_PREFIX, getAssetURL, isH5Browser, shareLink } from '@app/utils';
 import { useClassroomWidgets } from '@app/hooks/useClassroomWidgets';
 import { useProctorWidgets } from '@app/hooks/useProctorWidgets';
 import { useSceneWidgets } from '@app/hooks/useSceneWidgets';
@@ -33,8 +33,7 @@ export const LaunchPage = observer(() => {
     window.location.reload();
     return null;
   }
-
-  useQuitConfirm();
+  // useQuitConfirm();
 
   const { sceneType } = launchOption;
 
@@ -54,16 +53,15 @@ export const AgoraClassroomApp = () => {
   const history = useHistory();
   const launchOption = homeStore.launchOption;
   const appRef = useRef<HTMLDivElement | null>(null);
-
   const { ready: widgetsReady, widgets } = useClassroomWidgets([
     'AgoraCountdown',
-    'AgoraHXChatWidget',
     'AgoraPolling',
     'AgoraSelector',
     'FcrBoardWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrWatermarkWidget',
     'FcrWebviewWidget',
+    launchOption.roomType == EduRoomTypeEnum.RoomBigClass?'AgoraHXChatGroupWidget':'AgoraHXChatWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();
@@ -115,6 +113,7 @@ export const AgoraClassroomApp = () => {
         pretest: needPretest,
         virtualBackgroundImages,
         virtualBackgroundVideos,
+        platform: isH5Browser() ? 'H5' : 'PC',
         listener: (evt: AgoraEduClassroomEvent, type) => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
@@ -185,11 +184,11 @@ export const FcrUISceneApp = () => {
   const { ready: widgetsReady, widgets } = useSceneWidgets([
     'FcrBoardWidget',
     'FcrPolling',
-    'AgoraChatroomWidget',
     'FcrWebviewWidget',
     'FcrStreamMediaPlayerWidget',
     'FcrCountdownWidget',
     'FcrPopupQuizWidget',
+    launchOption.roomType == EduRoomTypeEnum.RoomBigClass?'AgoraChatroomWidget':'AgoraChatroomGroupWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useFcrUIScene();
@@ -211,7 +210,6 @@ export const FcrUISceneApp = () => {
           themes: homeStore.launchOption.themes,
         }),
       );
-
       const unmount = sdk.launch(
         appRef.current,
         {

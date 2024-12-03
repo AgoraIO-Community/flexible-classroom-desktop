@@ -4,7 +4,6 @@ import { useI18n } from 'agora-common-libs';
 
 export const FlexPage = () => {
   const t = useI18n();
-
   const defaultScenes = [
     {
       text: t('fcr_home_label_1on1'),

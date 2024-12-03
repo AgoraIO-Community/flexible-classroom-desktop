@@ -9,7 +9,7 @@
 	url = ../CloudClass-Desktop.git
 [submodule "packages/agora-plugin-gallery"]
 	path = packages/agora-plugin-gallery
-	url = ../apaas-widgets-web.git
+	url = git@github.com:haoyiqiang/apaas-widgets-web.git
 [submodule "packages/agora-proctor-sdk"]
 	path = packages/agora-proctor-sdk
 	url = ../proctor-desktop.git

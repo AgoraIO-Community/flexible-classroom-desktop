@@ -1,5 +1,5 @@
 import { GlobalStoreContext } from '@app/stores';
-import type { AgoraEduClassroomEvent } from 'agora-edu-core';
+import { EduRoomTypeEnum, type AgoraEduClassroomEvent } from 'agora-edu-core';
 import isEmpty from 'lodash/isEmpty';
 import { observer } from 'mobx-react';
 import { useContext, useEffect, useRef } from 'react';
@@ -37,6 +37,7 @@ export const LaunchPage = observer(() => {
     'FcrStreamMediaPlayerWidget',
     'FcrWatermarkWidget',
     'FcrWebviewWidget',
+    launchOption.roomType == EduRoomTypeEnum.RoomBigClass?'AgoraHXChatGroupWidget':'AgoraHXChatWidget',
   ]);
 
   const { ready: sdkReady, sdk } = useEduSdk();
