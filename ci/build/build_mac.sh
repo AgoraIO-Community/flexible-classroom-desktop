@@ -31,19 +31,19 @@ lib_versions=(
     2.9.48
     2.9.46
     2.9.41
-    2.9.41
-    2.9.41
+    2.9.42
+    2.9.40
     1.0.40
-    1.0.40
+    1.0.41
 )
 lib_branches=(
     release/2.9.48
     release/2.9.46
     release/2.9.41
-    release/2.9.41
-    release/2.9.41
+    release/2.9.42
+    release/2.9.40
     release/1.0.40
-    release/1.0.40
+    release/1.0.41
 )
 
 # pick up agora-rte-sdk agora-edu-core agora-common-libs agora-plugin-gallery agora-classroom-sdk agora-proctor-sdk fcr-ui-scene
