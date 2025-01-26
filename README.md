@@ -51,7 +51,7 @@
     ```
     Find the output in the `packages/fcr-ui-scene/lib/scene.bundle.js` and `packages/agora-plugin-gallery/lib/scene_widget.bundle.js` respectively.
    
-   ##### Sample Code {#pc-sample-code}
+   ##### PC Web Sample Code
    ```html
    <!DOCTYPE html>
    <html lang="en">
@@ -147,7 +147,7 @@
     ```
     Find the output in the `packages/agora-classroom-sdk/lib/edu_sdk.bundle.js` and `packages/agora-plugin-gallery/lib/edu_widget.bundle.js` respectively.
 
-   ##### Sample Code {#mobile-sample-code}
+   ##### Mobile Web Sample Code
    ```html
    <!DOCTYPE html>
       <html lang="en">
@@ -238,12 +238,12 @@
 Please visit https://docs.agora.io/en/flexible-classroom/develop/integrate-flexible-classroom/integrate-flexible-classroom-fcr?platform=web for more information.
 
 ## CDN Integration
-#### You can get PC WEB SDK from the following address, then you can refer to the [sample code](#sample-code-pc-sample-code) for integration
+#### You can get PC WEB SDK from the following address, then you can refer to the [sample code](#pc-web-sample-code) for integration
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/scene.bundle.js
 
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/scene_widget.bundle.js
 
-#### You can get Mobile Web SDK from the following address,then you can refer to the [sample code](#sample-code-mobile-sample-code) for integration
+#### You can get Mobile Web SDK from the following address,then you can refer to the [sample code](#mobile-web-sample-code) for integration
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/edu_sdk.bundle.js
 
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/edu_widget.bundle.js
