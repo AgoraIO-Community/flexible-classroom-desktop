@@ -238,11 +238,13 @@
 Please visit https://docs.agora.io/en/flexible-classroom/develop/integrate-flexible-classroom/integrate-flexible-classroom-fcr?platform=web for more information.
 
 ## CDN Integration
-#### You can get PC WEB SDK from the following address, then you can refer to the [sample code](#pc-sample-code) for integration
+#### You can get PC WEB SDK from the following address, then you can refer to the [sample code](#sample-code-pc-sample-code) for integration
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/scene.bundle.js
+
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/scene_widget.bundle.js
 
-#### You can get Mobile Web SDK from the following address,then you can refer to the [sample code](#mobile-sample-code) for integration
+#### You can get Mobile Web SDK from the following address,then you can refer to the [sample code](#sample-code-mobile-sample-code) for integration
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/edu_sdk.bundle.js
+
 https://solutions-apaas.agora.io/static/education/2.9.40-special_1/edu_widget.bundle.js
 
