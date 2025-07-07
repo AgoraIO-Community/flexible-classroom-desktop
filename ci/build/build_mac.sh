@@ -11,12 +11,40 @@ recording_templates=(
     scene_record_page
 )
 
-. ../apaas-cicd-web/versions.sh
-. ../apaas-cicd-web/utilities/tools.sh
-. ../apaas-cicd-web/utilities/aws.sh
+# . ../apaas-cicd-web/versions.sh
+. ../apaas-cicd-web/utilities/$ci_script_version/tools.sh
+. ../apaas-cicd-web/utilities/$ci_script_version/aws.sh
 . ../apaas-cicd-web/build/$ci_script_version/dependency.sh
 . ../apaas-cicd-web/build/$ci_script_version/build.sh
 . ../apaas-cicd-web/publish/$ci_script_version/publish.sh
+
+lib_dependencies=(
+    agora-rte-sdk
+    agora-edu-core
+    agora-common-libs
+    agora-plugin-gallery
+    agora-classroom-sdk
+    agora-proctor-sdk
+    fcr-ui-scene
+)
+lib_versions=(
+    2.9.48
+    2.9.46
+    2.9.41
+    2.9.42
+    2.9.40
+    1.0.40
+    1.0.41
+)
+lib_branches=(
+    release/2.9.48
+    release/2.9.46
+    release/2.9.41
+    release/2.9.42
+    release/2.9.40
+    release/1.0.40
+    release/1.0.41
+)
 
 # pick up agora-rte-sdk agora-edu-core agora-common-libs agora-plugin-gallery agora-classroom-sdk agora-proctor-sdk fcr-ui-scene
 lib_dependencies=(${lib_dependencies[@]:0:7})

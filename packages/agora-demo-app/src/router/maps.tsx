@@ -13,6 +13,7 @@ import { Detail } from '../pages/detail';
 // import { FlexPage } from '../pages/flex';
 import { QuickStart } from '../pages/quick-start';
 import { LaunchWindowPage } from '../pages/window';
+import { Embed } from '@app/pages/embed';
 
 export type AppRouteComponent = {
   path: string;
@@ -83,6 +84,11 @@ export const commonRoutesMap = {
   [PageRouter.Window]: {
     path: '/window',
     component: () => <LaunchWindowPage />,
+    exact: true,
+  },
+  [PageRouter.Embed]: {
+    path: '/embed',
+    component: () => <Embed />,
     exact: true,
   },
   // Animation container

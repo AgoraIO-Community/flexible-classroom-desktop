@@ -119,7 +119,11 @@ export const AgoraClassroomApp = () => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
             homeStore.blockQuitUnregister();
-            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+            if (launchOption.returnToUrl) {
+              window.location.href = launchOption.returnToUrl;
+            } else {
+              history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+            }
           }
         },
       });
@@ -164,7 +168,11 @@ export const AgoraProctorApp = () => {
           console.log('launch#listener ', evt);
           if (evt === 2) {
             homeStore.blockQuitUnregister();
-            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+            if (launchOption.returnToUrl) {
+              window.location.href = launchOption.returnToUrl;
+            } else {
+              history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+            }
           }
         },
       });
@@ -234,8 +242,11 @@ export const FcrUISceneApp = () => {
         },
         (type) => {
           homeStore.blockQuitUnregister();
-          console.log('push location');
-          history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+          if (launchOption.returnToUrl) {
+            window.location.href = launchOption.returnToUrl;
+          } else {
+            history.push(`${launchOption.returnToPath ?? '/'}?reason=${type}`);
+          }
         },
       );
       return unmount;

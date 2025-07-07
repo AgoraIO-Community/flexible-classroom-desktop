@@ -35,6 +35,7 @@ export type GlobalLaunchOption = {
   sceneType: SceneType;
   roleType: EduRoleTypeEnum;
   returnToPath: string;
+  returnToUrl?: string;
   rtmToken: string;
   [key: string]: any;
 };
