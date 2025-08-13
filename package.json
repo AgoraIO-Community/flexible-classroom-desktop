@@ -23,7 +23,8 @@
     "minimatch": "9.0.5",
     "glob": "7.2.3",
     "agora-edu-core": "2.9.47",
-    "agora-rte-sdk": "2.9.48"
+    "agora-rte-sdk": "2.9.48",
+    "inquirer": "^6.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
