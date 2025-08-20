@@ -24,7 +24,8 @@
     "glob": "7.2.3",
     "agora-edu-core": "2.9.47",
     "agora-rte-sdk": "2.9.48",
-    "inquirer": "^6.2.0"
+    "inquirer": "^6.2.0",
+    "ahooks": "3.8.5"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
