@@ -124,7 +124,7 @@ export const useJoinRoom = () => {
 
       const shareUrl = shareLinkInClass({ region, roomId, owner: userStore.nickName });
 
-      console.log('## get rtm Token from demo server', token);
+      console.log('## get token from demo server', token);
 
       const sdkDomain = `${REACT_APP_AGORA_APP_SDK_DOMAIN}`;
 
@@ -134,7 +134,7 @@ export const useJoinRoom = () => {
         appId,
         sdkDomain,
         userUuid: userId,
-        rtmToken: token,
+        token,
         roomUuid: roomId,
         roomName: `${roomName}`,
         userName: userName,

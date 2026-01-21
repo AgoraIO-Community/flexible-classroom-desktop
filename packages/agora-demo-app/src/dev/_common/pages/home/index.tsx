@@ -71,7 +71,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
         ? ''
         : `${location.origin}${location.pathname}?roomName=${roomName}&roomType=${sceneType}&region=${region}&language=${language}&roleType=2#/share`;
 
-      console.log('## get rtm Token from demo server', token);
+      console.log('## get token from demo server', token);
 
       const config: GlobalLaunchOption = {
         appId,
@@ -80,7 +80,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
         courseWareList: [],
         language: language,
         userUuid: `${userUuid}`,
-        rtmToken: token,
+        token,
         roomUuid: `${roomUuid}`,
         roomType: FcrRoomType[sceneType],
         roomName: `${roomName}`,
@@ -99,7 +99,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
       // this is for DEBUG PURPOSE only. please do not store certificate in client, it's not safe.
       // 此处仅为开发调试使用, token应该通过服务端生成, 请确保不要把证书保存在客户端
       if (REACT_APP_AGORA_APP_CERTIFICATE) {
-        config.rtmToken = RtmTokenBuilder.buildToken(
+        config.token = RtmTokenBuilder.buildToken(
           config.appId,
           REACT_APP_AGORA_APP_CERTIFICATE,
           config.userUuid,
@@ -107,7 +107,7 @@ export const HomePage: FC<{ scenes: { text: string; value: SceneType }[] }> = ({
           0,
         );
 
-        console.log(`## build rtm Token ${config.rtmToken} by using RtmTokenBuilder`);
+        console.log(`## build token ${config.token} by using RtmTokenBuilder`);
       }
       globalStore.setLaunchConfig(config);
       history.push('/launch');

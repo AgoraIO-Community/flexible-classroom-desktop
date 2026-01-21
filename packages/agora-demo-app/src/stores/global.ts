@@ -36,7 +36,7 @@ export type GlobalLaunchOption = {
   roleType: EduRoleTypeEnum;
   returnToPath: string;
   returnToUrl?: string;
-  rtmToken: string;
+  token: string;
   [key: string]: any;
 };
 

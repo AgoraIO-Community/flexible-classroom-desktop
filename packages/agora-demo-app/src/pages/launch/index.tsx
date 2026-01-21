@@ -230,7 +230,7 @@ export const FcrUISceneApp = () => {
           virtualBackgroundVideos,
           uiMode: homeStore.theme,
           language: homeStore.language,
-          token: launchOption.rtmToken,
+          token: launchOption.token,
           devicePretest: true,
           recordUrl: `${REACT_APP_RECORDING_LINK_PREFIX}/scene_record_page.html`,
         },

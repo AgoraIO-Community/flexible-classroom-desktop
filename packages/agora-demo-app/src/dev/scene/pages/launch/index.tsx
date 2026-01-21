@@ -73,7 +73,7 @@ export const LaunchPage = observer(() => {
           userName: launchOption.userName ?? '',
           roomUuid: launchOption.roomUuid ?? '',
           roleType: launchOption.roleType ?? 0,
-          token: launchOption.rtmToken ?? '',
+          token: launchOption.token ?? '',
           appId: launchOption.appId ?? '',
           region: region,
           language: language,
