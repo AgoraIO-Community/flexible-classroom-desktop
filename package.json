@@ -22,8 +22,8 @@
     "@types/babel__traverse": "7.18.0",
     "minimatch": "9.0.5",
     "glob": "7.2.3",
-    "agora-edu-core": "2.9.47",
-    "agora-rte-sdk": "2.9.48",
+    "agora-edu-core": "2.9.50",
+    "agora-rte-sdk": "2.9.50",
     "inquirer": "^6.2.0",
     "ahooks": "3.8.5"
   },
@@ -114,3 +114,4 @@
     "prebuilt": true
   }
 }
+
