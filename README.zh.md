@@ -28,13 +28,13 @@ REACT_APP_AGORA_APP_ID=
 REACT_APP_AGORA_APP_CERTIFICATE=
 ```
 
-启动 Fcr Classroom 调试页面：
+启动灵动课堂调试页面：
 
 ```bash
 yarn dev:classroom
 ```
 
-启动 CloudClass 调试页面：
+启动云课堂调试页面：
 
 ```bash
 yarn dev:scene
