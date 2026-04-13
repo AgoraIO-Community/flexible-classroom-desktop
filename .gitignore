@@ -16,4 +16,5 @@ packages/agora-log-sdk
 package-lock.json
 yarn.lock
 *.log
-.vscode/
+.vscode
+.kiro

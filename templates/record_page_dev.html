@@ -63,6 +63,11 @@
         forceCanvas: true,
       };
 
+      AgoraEduSDK.setParameters(
+        JSON.stringify({
+          host: `https://api-solutions-press.bj2.agoralab.co`,
+        }),
+      );
       AgoraEduSDK.config({
         appId,
         cachePath: undefined,
@@ -107,4 +112,3 @@
     </script>
   </body>
 </html>
-
