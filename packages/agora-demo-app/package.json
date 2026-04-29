@@ -1,6 +1,6 @@
 {
   "name": "agora-demo-app",
-  "version": "2.9.50",
+  "version": "2.9.51",
   "description": "Agora aPaaS Demo",
   "scripts": {
     "electron": "cross-env ELECTRON_START_URL=http://localhost:3000 concurrently \"npm run dev\" \"wait-on http://localhost:3000 && electron ./electron/\"",
@@ -111,8 +111,8 @@
     "react-infinite-scroll-component": "6.1.0",
     "agora-access-token": "2.0.4",
     "agora-classroom-sdk": "~2.9.0",
-    "agora-proctor-sdk": "~1.0.0",
-    "fcr-ui-kit": "~1.0.0",
+    "agora-proctor-sdk": "~2.9.0",
+    "fcr-ui-kit": "~2.9.0",
     "agora-common-libs": "~2.9.0",
     "agora-plugin-gallery": "*",
     "react-router": "5.3.4",

@@ -28,22 +28,22 @@ lib_dependencies=(
     fcr-ui-scene
 )
 lib_versions=(
-    2.9.50
-    2.9.50
-    2.9.41
-    2.9.42
-    2.9.50
-    1.0.50
-    1.0.41
+    2.9.51
+    2.9.51
+    2.9.51
+    2.9.51
+    2.9.51
+    2.9.51
+    2.9.51
 )
 lib_branches=(
-    release/2.9.50
-    release/2.9.50
-    release/2.9.41
-    release/2.9.42
-    release/2.9.50
-    release/1.0.50
-    release/1.0.41
+    release/2.9.51
+    release/2.9.51
+    release/2.9.51
+    release/2.9.51
+    release/2.9.51
+    release/2.9.51
+    release/2.9.51
 )
 
 # pick up agora-rte-sdk agora-edu-core agora-common-libs agora-plugin-gallery agora-classroom-sdk agora-proctor-sdk fcr-ui-scene
