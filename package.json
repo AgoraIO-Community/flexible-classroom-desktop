@@ -26,7 +26,9 @@
     "agora-rte-sdk": "2.9.52",
     "inquirer": "^6.2.0",
     "ahooks": "3.8.5",
-    "js-cookie": "3.0.5"
+    "js-cookie": "3.0.5",
+    "node-releases": "2.0.27",
+    "flow-parser": "0.318.0"
   },
   "devDependencies": {
     "@babel/core": "7.13.15",
